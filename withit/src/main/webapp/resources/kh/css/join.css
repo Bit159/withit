@@ -1,0 +1,144 @@
+@charset "UTF-8";
+* {margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    height: 100vh;
+    background: url(../image/secondBanner.jpg) no-repeat center;
+    background-size: cover;
+
+}
+/*
+Viewport의 단위 => 반응형에서 많이 쓰인다.
+Viewport Height(vh) : viewport 높이에 근거한다. 1vh는 viewport 높이의 1%
+Viewport Width(vw)  : Viewport 폭에 근거해 1vw는 Viewport 폭의 1%
+Viewport Minimum (vmin) 
+ : viewport의 (높이와 너비 중) 작은 쪽의 치수에 기초로한다.
+ viewport의 높이가 폭보다 작은 경우, 1vmin는 viewport의 높이의 1%에 해당한다. 
+ 마찬가지로 viewport의 폭이 높이보다 작은 경우, 1vmin는 viewport의 넓이의 1%와 같다
+
+ Viewport Maximum (vmax) 
+ : viewport의 (높이와 너비 중) 큰 쪽의 치수에 기초로한다. 
+ viewport의 높이가 폭보다 큰 경우, 1vmax는 viewport의 높이의 1%에 해당한다. 
+ 마찬가지로 viewport의 폭이 높이보다 큰 경우, 1vmax는 viewport의 넓이의 1%와 같다
+*/
+
+
+body::before{
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background-color: rgba(0, 0, 0, .3);
+}
+
+/* =========== nav 영역 ==========*/
+
+.nav {
+    width: 100%;
+    height: 60px;
+    align-content: center;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.3s;
+  }
+  
+nav {
+    width: 1024px;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+}
+  
+#menuButtons {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    font-size: 1.2rem;
+}
+  
+#menuButtonsM {
+    display: none;
+}
+
+span{
+    color: #fff;
+}
+@media (max-width:586px){
+    #menuButtons {
+        display:none;
+    }
+}
+
+/* =============== section 영역 =============== */
+.join-form{
+    position: relative;
+    z-index: 2;
+    padding-top: 60px;
+}
+
+.join-form h1 {
+    font-size: 32px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.join-area{
+    width: 400px;
+    position: relative;
+    margin-top: 20px;
+}
+
+
+.join-area first-child {
+    margin-top: 0;
+}
+
+.join-area input {
+    width: 100%;
+    padding : 20px 10px 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #999;
+    font-size: 18px;
+    color: #fff;
+    outline: none;
+}
+
+.join-area label {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    font-size: 18px;
+    color: #999;
+    transition: all .5s ease;
+}
+
+#gender {
+    width : 30%;
+    color: aliceblue;
+}
+
+.join-area input:focus + label,
+.join-area input:valid + label{
+    top: -2px;
+    font-size: 13px;
+    color: #166cea;
+}
+
+.btn-area { margin-top: 30px;}
+.btn-area button {
+    width : 49%; height: 50px;
+    background: #166cea;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    
+}
+

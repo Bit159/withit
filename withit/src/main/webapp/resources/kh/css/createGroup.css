@@ -1,0 +1,88 @@
+@charset "UTF-8";
+html, body, div,h1,a,p {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+#container {
+	width:1280px;
+    margin: 0 auto;
+}
+body{
+	font-size: 13pt;
+}
+.registForm {
+	border:dotted 1px rgb(50, 190, 120);
+	margin: 0 30% 0 30% ;
+	border-radius: 10px;
+}
+.registForm-title,.registForm-topic,.registForm-location,
+.registForm-people{
+	display:flex;
+	padding:20px;
+	margin:0 10px 0 10px;
+	border-bottom: solid 1px rgb(50, 190, 120);
+}
+.registForm-header h2 {
+	margin: 0 30% 0 30%;
+	padding: 20px;
+}
+#title {
+	width:300px;
+	border:solid 1px darkgrey;
+	padding:5px;
+	border-radius: 4px;
+}
+select[id="selectTopic"] {
+	width:180px;
+}
+/* ===================지역 선택===================== */
+select[id="location"] {
+	width:180px;
+	font-size: 11pt;
+}
+span[class="selection"] span {
+	font-size: 12pt; 	
+}
+span[class="select2-results"] li {
+	font-size: 11pt
+}
+/*======================== 모집 인원====================== */
+.registForm-people select {
+	border:solid 1px darkgrey;
+	width:100px;
+} 
+.registForm-content {
+	padding:20px;
+}
+.registForm-content h1 {
+	margin:0 0 10px 0;
+}
+textarea{
+	width:96%;
+	height:250px;
+	padding:10px;
+	font-size: 11pt;
+	font-weight: 555;
+	border-radius: 4px;
+	border: solid 1px darkgray;
+}
+.buttons {
+	padding:0 10px 30px 10px;
+	text-align: center;
+}
+.buttons a {
+	text-decoration: none;
+	padding:10px 40px 10px 40px;
+	background: rgb(50, 190, 120);
+	border-radius: 15px;
+	color:white;
+}
+h1 {
+	margin-right: 20px;
+}
+h1 span{
+	color:rgb(50, 190, 120);
+}

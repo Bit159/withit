@@ -1,0 +1,215 @@
+html, body, div,h1,a,p {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+#body-wrapper {
+	height:100%;
+}
+#container {
+    width:1280px;
+    height:100%;
+    margin:0 auto;
+    border:solid 2px lightgray;
+    border-radius: 10px;
+}
+#selectBox {
+	background:rgb(243, 243, 243);
+	border-radius: 10px;
+	font-size: 11pt;
+}
+div[id="selectBox"] h1 {
+	width:95px;
+	font-size:15pt;
+	border-bottom: solid 2px rgb(50, 190, 120);
+	padding:10px 10px 5px 10px;
+	margin:0 0 10px 5px;
+}
+.selectLocation ul {
+	display: flex;
+	background: white;
+}
+.selectLocation ul li {
+	list-style: none;
+	border:1px solid lightgray;
+	width:5.88%;
+	padding:8px;
+	float: left;
+	cursor:pointer;
+	display: inline-block;
+	text-align:center;
+}
+.selectLocation ul li:hover {
+	background: rgb(50, 190, 120, 0.2);
+}
+#select-si li a {
+	width:80%;
+	display:inline-block;
+	font-size:12pt;
+	font-weight:550;
+	color:black;
+}
+#select-gu {
+	display:block;
+	overflow: auto;
+}
+#select-gu li{
+	padding:5px;
+	width:10.1738%;
+	float:left;
+}
+#select-gu li a {
+	color:black;
+}
+#selected-location {
+	padding:5px 10px 10px 10px;
+}
+#selected-location span {
+	margin-left:10px;
+	padding:5px 5px 5px 5px;
+	color:white;
+	border-radius:5px;
+	font-size: 11pt;
+	font-weight:540;
+	background: rgb(50, 190, 120, 0.6);
+}
+#selected-location span button {
+	margin-left:3px;
+	border-radius:15px;
+	border:none;
+	height: 18px;
+}
+#selectAll {
+	display:none;
+}
+/* 주제 선택창 */
+#selectTopic {
+	padding:0 0 0 5px;
+}
+select[id=sel]{
+	width:120px;
+}
+/* 검색 버튼 */
+div[id="searchCard"] {
+	padding:10px;
+	text-align: center;
+}
+div[id="searchCard"] input {
+	padding:10px;
+	border: 2px solid rgb(50, 190, 120);
+	border-radius: 10px;
+	background: white;
+	color:black;
+	cursor:pointer;
+	outline-style: none;
+	font-size:15px;
+	font-weight:550;
+	width:100px;
+	margin-left:20px;
+} 
+a {
+ text-decoration: none;
+}
+.cardboard {
+	width: 100%;
+	display: relative;
+	text-align: center;
+}
+.card {
+    height: 183px;
+    width: 350px;
+    margin:20px;
+    border-radius: 15px;
+    background: white;
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 4px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+    text-decoration: none;
+    text-align:left;
+    display:inline-block;
+}
+div[class=card-header-content] {
+    padding:5px;
+    display: flex;
+    text-align: right;
+}
+span[id="topicIcon"] {
+	line-height: 34.4px;
+	font-size: 17pt;
+}
+div[id="card-header-text"] {
+	padding-top:1px;
+	line-height: 34.4px;
+	font-size: 12pt;
+	float: right;
+	width:100%;
+}
+div[class=card-header-content] div {
+    padding-left:5px;
+}
+div[class="card-body-content"] a {
+    font-size: 16pt;
+    font: bold;
+}
+div[class="card-body-info"] {
+	margin-top: 5px;
+}
+div[class="card-body-info"] p {
+	font-size: 13pt;
+	font-weight: bold;
+}
+div[class="card-header"] {
+    border-bottom: solid 2px rgb(50, 190, 120);
+    margin:0 5px 0 5px;
+}
+div[class="card-body-info-nickname"] {
+	display:flex;
+	margin-bottom: 3px;
+}
+div[class="card-body-info-nickname"] span {
+	font-size: 13pt;
+}
+div[class="card-body-info-location"] {
+	display:flex;
+} 
+div[class="card-body-content"] {
+    padding: 5px 10px 0 10px;
+    margin-bottom: 10px;
+}
+a[id="card-body-title"] {
+	font-weight: 550;
+}
+.card-body-content h1 {
+    margin-bottom: 10px;
+}
+div[class="card-footer"] {
+	padding:6px 10px 0 10px;
+	border-top: 1px solid lightgray;
+	margin:0 5px 0 5px;
+}
+div[class="card-footer"] span{
+	color:lightgray;
+	margin-right: 160px;
+	font-size: 12pt;
+}
+div[id="paginationBox"] {
+	text-align: center;
+	vertical-align: center;
+	width:100%;
+	margin-bottom: 10px;
+}
+div[id="paginationBox"] ul {
+	display:inline-flex;
+}
+div[id="paginationBox"] ul li{
+	list-style: none;
+	padding:10px 0 10px 0;
+}
+div[id="paginationBox"] ul li a {
+	padding:5px 10px 5px 10px;
+	color:black;
+	border: solid 1px gray;
+	line-height: 22px;
+}
