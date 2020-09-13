@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cardBoardSQL">	
+	<insert id="regist" parameterType="java.util.Map">
+		insert into db.cardboard(seq,title,nickname,topic,location,people,content,open,registDate) 
+		values((select *from (select max(seq)+1 from cardboard) next),#{title},#{nickname},#{topic},#{location},#{people},#{content},default,now())
+	</insert>
+	<select id="getCardBoardList" parameterType="paging" resultType="card">
+		select * from db.cardboard order by open,seq desc limit #{startList},#{listSize}
+	</select>
+	<select id="getBoardListCnt" resultType="int">
+		SELECT count(*) as listCnt FROM db.cardboard
+	</select>
+	<select id="getNolocBoardListCnt" parameterType="java.util.Map" resultType="int">
+		SELECT count(*) as listCnt FROM db.cardboard where topic=#{topic}
+	</select>
+	<!-- ========지역 리스트 뿌리기======  -->
+	<select id="getLocationList" parameterType="String" resultType="String">
+		select substring_index(location,' ',-1) from db.addr where location like concat(#{location},'%')
+	</select>
+	<!-- =========조건설정 후 검색 ============ -->
+	<select id="searchCard" parameterType="java.util.List" resultType="card">
+		select * from db.cardboard where
+		<foreach collection="list" item="item" index="index">
+		<if test="list.get(2)!=null and index==3">
+		 location  IN (
+		</if>
+		</foreach>
+		<foreach collection="list" item="item" index="index" separator=",">
+			<if test="list.get(2)!=null and index!=0 and index!=1 and index!=2">
+			#{item}
+			</if>
+		</foreach>
+		<foreach collection="list" item="item" index="index">
+		<if test="list.get(2)!=null and index==3">
+		 ) and 
+		</if>
+		</foreach>
+		topic like concat
+		<foreach collection="list" item="item" index="index">
+			<if test="index==1">
+			('%',#{item}) 
+			</if>
+		</foreach>
+		order by open,seq desc limit
+		<foreach collection="list" item="item" index="index">
+			<if test="index==0">
+			#{item} 
+			</if>
+		</foreach>
+		,
+		<foreach collection="list" item="item" index="index">
+			<if test="index==2">
+			#{item} 
+			</if>
+		</foreach>
+	</select>
+	<!-- =========조건설정 후 검색 리스트 개수 ============ -->
+	<select id="getSearchBoardListCnt" parameterType="java.util.List" resultType="int">
+		select count(*) from db.cardboard where 
+		<foreach collection="list" item="item" index="index">
+		<if test="list.get(2)!=null and index==3">
+		 location  IN (
+		</if>
+		</foreach>
+		<foreach collection="list" item="item" index="index" separator=",">
+			<if test="list.get(2)!=null and index!=0 and index!=1 and index!=2">
+			#{item}
+			</if>
+		</foreach>
+		<foreach collection="list" item="item" index="index">
+		<if test="list.get(2)!=null and index==3">
+		 ) and 
+		</if>
+		</foreach>
+		topic like concat
+		<foreach collection="list" item="item" index="index">
+			<if test="index==1">
+			('%',#{item}) 
+			</if>
+		</foreach>
+	</select>
+	<!-- ======= 지역설정 없이 검색 ======  -->
+	<select id="searchCardNoloc" parameterType="java.util.Map" resultType="card">
+		select * from db.cardboard where topic like concat('%',#{topic}) order by seq desc limit #{startList},#{listSize}
+	</select>
+	<!-- =========뷰 페이지 =========  -->
+	<select id="getCardContent" parameterType="int" resultType="card">
+		select * from db.cardboard where seq=#{seq}
+	</select>
+	
+	<!-- ==========댓글 리스트 가져오기=========== -->
+	<select id="getReplyList" parameterType="int" resultType="reply" >
+		select rseq, seq, reply, nickname, regDate, editDate from db.cardBoardReply where seq=#{seq}
+	</select>
+	<!-- ===============댓글 등록=============== -->
+	<insert id="writeReply" parameterType="reply">
+		insert into cardBoardReply(rseq,seq,reply,nickname,regdate,editdate) 
+		values((select *from (select max(rseq)+1 from cardBoardReply) next),#{seq},#{reply},#{nickname},now(),now())
+	</insert>
+	
+	<!-- ==============댓글 삭제 =============== -->
+	<delete id="deleteReply" parameterType="int">
+		delete from cardBoardReply where rseq=#{rseq}
+	</delete>
+	
+	<!-- =============댓글 수정=================  -->
+	<update id="modifyReply" parameterType="reply">
+		update cardBoardReply set reply=#{reply}, editdate=now() where rseq=#{rseq}
+	</update>
+	
+	<!-- ============댓글 수 증가================= -->
+	<update id="replyCntup" parameterType="card">
+		update cardboard set replys=replys+1 where seq=#{seq}
+	</update>
+	
+	<!-- ============댓글 수 감소================= -->
+	<update id="replyCntdown" parameterType="card">
+		update cardboard set replys=replys-1 where seq=#{seq}
+	</update>
+	<!-- ==============모집 글 마감=============== -->
+	<update id="closeCard" parameterType="int">
+		update cardboard set open=1 where seq=#{seq}
+	</update>
+</mapper>

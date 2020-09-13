@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -10,13 +9,13 @@
     <meta id="_csrf" name="_csrf" content="${_csrf.token}">
 	<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
     <title>Document</title>
-    <link rel="stylesheet" href="../resources/css/card.css">
+    <link rel="stylesheet" href="/resources/kh/css/card.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.0/css/all.min.css"/>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
 	<div id="body-wrapper">
-	<jsp:include page="../template/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
     <div id="container">
         <div id="selectBox">
         	<h1>지역 선택</h1>
@@ -75,7 +74,7 @@
         	</div>
         	<div id="searchCard">
         		<input type="button" value="검색" id="searchCardBtn">
-        		<input type="button" value="그룹 만들기" id="regist" onclick="location.href='/synergy-kh/member/createGroup'">
+        		<input type="button" value="그룹 만들기" id="regist" onclick="location.href='/cardBoard/createGroup'">
         	</div>
         </div>
        	<form id="listForm">
@@ -129,7 +128,7 @@
 	                <!-- 카드 바디 -->
 	                <div class="card-body">
 	                    <div class="card-body-content">
-	                        <a href="/synergy-kh/member/cardBoardView?seq=${dto.seq}" id="card-body-title">${dto.title }</a>
+	                        <a href="/cardBoardView?seq=${dto.seq}" id="card-body-title">${dto.title }</a>
 	                        <div class="card-body-info">
 	                        	<div class="card-body-info-nickname">
 		                        	<span>작성자</span>&nbsp;&nbsp;
@@ -181,7 +180,7 @@
 		</div>
 		<!-- pagination{e} -->
     </div>
-    <jsp:include page="../template/footer.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -199,7 +198,7 @@
 	$(document).ready(function(){
 		$.ajax({
 			type:'get',
-			url:'/synergy-kh/member/getLocation',
+			url:'/cardBoard/getLocation',
 			dataType:'json',
 			success:function(data){
 				/* 상위지역 선택 */
@@ -262,12 +261,12 @@
 	$('#searchCardBtn').click(function(){
 		$.ajax({
 			type:'get',
-			url:'/synergy-kh/member/cardBoardList?pg=1&range=1',
+			url:'/cardBoard?pg=1&range=1',
 			data:{'location':locations,'topic':$('#sel').val()},
 // 			dataType:'json',
 // 			traditional:true,
 			success:function(data){
-				location.href='/synergy-kh/member/cardBoardList?pg=1&range=1&location='+locations+'&topic='+$('#sel').val()
+				location.href='/cardBoard?pg=1&range=1&location='+locations+'&topic='+$('#sel').val()
 			},
 			error:function(){
 				console.log('에러러러럴')

@@ -16,8 +16,9 @@
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	
 	<security:http>
-		<security:intercept-url pattern="/all/*" access="permitAll"/>
-		<security:intercept-url pattern="/member/*" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/> <!-- ROLE_* -->
+		<security:intercept-url pattern="/cardBoard" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/> <!-- ROLE_* -->
+		<security:intercept-url pattern="/myGroup" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/> <!-- ROLE_* -->
+		<security:intercept-url pattern="/match" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/> <!-- ROLE_* -->
 		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
 		<security:form-login login-page="/loginForm" authentication-success-handler-ref="loginSuccess"  />
 		

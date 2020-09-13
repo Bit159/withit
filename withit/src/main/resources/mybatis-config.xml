@@ -15,6 +15,12 @@
 		<typeAlias type="sj.board.paging.Pagination" alias="pagination"/>
 		<typeAlias type="sj.board.bean.CBoardReplyDTO" alias="cBoardReplyDTO"/>
 		<typeAlias type="sj.board.bean.BBoardReplyDTO" alias="bBoardReplyDTO"/>
+		
+		
+		<typeAlias type="java.util.Map" alias="map"/>
+		<typeAlias type="kh.cardBoard.bean.CardBoardDTO" alias="card"/>
+		<typeAlias type="kh.cardBoard.bean.CardBoardPaging" alias="paging"/>
+		<typeAlias type="kh.cardBoard.bean.CardBoardReplyDTO" alias="reply"/>
  	</typeAliases>
 
  </configuration>
