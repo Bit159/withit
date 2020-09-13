@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>With_IT</title>
+<title>With IT</title>
 <link rel="stylesheet" href="/resources/kh/css/welcome.css">
 <script src="http://code.jquery.com/jquery-latest.min.js" defer></script>
 <script src="/resources/kh/js/welcome.js" defer></script>

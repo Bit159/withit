@@ -1,0 +1,131 @@
+@charset "UTF-8";
+html, body, div,h1,a,p {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+#container {
+	width:1280px;
+    margin: 0 auto;
+}
+body{
+	font-size: 13pt;
+}
+.registForm {
+	border:dotted 1px rgb(50, 190, 120);
+	margin: 0 30% 0 30% ;
+	border-radius: 10px;
+}
+.registForm-title,.registForm-category,.registForm-location,
+.registForm-people{
+	display:flex;
+	padding:20px;
+	border-bottom: dotted 1px rgb(50, 190, 120);
+}
+.registForm-header h2 {
+	margin: 0 30% 0 30%;
+	padding: 20px;
+}
+#title {
+	width:300px;
+	border:solid 1px darkgrey;
+	padding:5px;
+	border-radius: 4px;
+}
+/* ===================지역 선택===================== */
+.hidden {
+	display:none;
+}
+#box_modal {
+	display: none;
+	position: absolute;
+	float: right;
+	width:300px;
+	height: 200px;
+	background: white;
+	border: solid 1px black;
+	overflow: hidden;
+}
+#box_modal2 {
+	display: none;
+	position: absolute;
+	float: right;
+	width:300px;
+	height: 200px;
+	background: white;
+	border: solid 1px black;
+	overflow: hidden;
+}
+.modal-cancle {
+	float: right;
+	margin-bottom: 10px;
+}
+label[for="modal"] {
+	cursor: pointer;
+	padding: 3px;
+	font-size: 11pt;
+	border: solid 1px gray;
+	background: lightgrey;
+	border-radius: 4px;
+}
+input#modal:checked ~ #box_modal {
+	display: block;
+}
+.locationForm a {
+	padding: 3px;
+	border: solid 1px gray;
+	text-decoration: none;
+}
+#AddLocation {
+	font-size: 11pt;
+	margin-left: 10px;
+	line-height: 24px;
+	border: solid 1px gray;
+	border-radius: 4px;
+	padding:0px 5px 0px 5px;
+}
+#AddLocation a{
+	border-radius: 0;
+}
+.modal-cancle label {
+ border-radius: 0;
+ top:0;
+}
+/*======================== 모집 인원====================== */
+.registForm-people select {
+	border:solid 1px darkgrey;
+} 
+.registForm-content {
+	padding:20px;
+}
+.registForm-content h1 {
+	margin:0 0 10px 0;
+}
+textarea{
+	width:96%;
+	height:250px;
+	padding:10px;
+	font-size: 11pt;
+	font-weight: 555;
+	border-radius: 4px;
+	border: solid 1px darkgray;
+}
+.buttons {
+	padding:0 10px 30px 10px;
+	text-align: center;
+}
+.buttons a {
+	text-decoration: none;
+	padding:10px 40px 10px 40px;
+	background: rgb(50, 190, 120);
+	border-radius: 15px;
+	color:white;
+}
+h1 {
+	margin-right: 20px;
+}
+h1 span{
+	color:rgb(50, 190, 120);
+}

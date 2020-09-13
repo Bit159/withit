@@ -4,113 +4,31 @@
 	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:google="http://www.springframework.org/schema/social/google"
 	xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.2.xsd
 		http://www.springframework.org/schema/security/oauth2 https://www.springframework.org/schema/security/spring-security-oauth2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/social/google http://www.springframework.org/schema/social/spring-social-google.xsd">
-
-	<bean id="loginSuccess" class="byungjooYang.member.controller.LoginSuccessHandler"></bean>
+		
+	
+	<bean id="loginSuccess" class="bj.member.controller.LoginSuccessHandler"></bean>
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	
 	<security:http>
 		<security:intercept-url pattern="/all/*" access="permitAll"/>
 		<security:intercept-url pattern="/member/*" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/> <!-- ROLE_* -->
 		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
-		
-		<!-- 
-		intercept-url 의 access 값  (SqEL 문법)
-		1. permitAll : 모든 접근 허용
-		2. denyAll   : 모든 접근 불허
-		3. hasRole('role') : 지정한 role 권한이 있어야 접근이 가능. 지정된 role을 가지고 있으면 true를 반환한다.
-		4. hasAnyRole('role1, role2') : role1, role2 권한 모두 접근 가능. 둘 중 하나라도 가지고 있으면 true를 반환한다.
-		5. isAnonymous() : 인증을 사용하지 않은 사용자일 경우 (로그인을 하지 않은 사용자일 경우) true를 반환
-		6. isRememberMe() : remember-me 기능으로 로그인 한 사용자일 경우 true를 반환
-		7. isAuthenticated() : 인증을 사용한 사용자일 경우 true 반환
-		8. isFullyAuthentiated() : anonymous사용자가 아니고 remember-me 기능으로 로그인 하지 않은 사용자일 경우 true를 반환
-		
-		9. principal : 현재 사용자를 나타내는 principal 객체에 직접 접근할 수 있음
-		10. authentication : SecurityContext로 부터 얻은 Authentication 객체에 직접 접근할 수 있습니다.
-		
-		11. hasPermission(Object target, Object permission) : 사용자가 주어진 권한으로 제공된 대상에 액세스 할 수 있으면 true 를 반환합니다. 예, hasPermission(domainObject, 'read')
-		12. hasPermission(Object targetId, String targetType, Object permission)
-		-->
-	
-		<security:form-login login-page="/all/loginForm" authentication-success-handler-ref="loginSuccess"  />
-		
-		<!-- 
-		1. login-page : login form 페이지 URL
-		2. username-parameter : form id의 name 속성값
-		3. password-parameter : form pw의 name 속성값
-		4. login-processing-url : form action 값 (security를 이용해 인증처리)
-		5. default-target-url : 로그인 성공 시 이동 URL
-		6. authentication-failure-url : 로그인 실패 시 이동 URL
-		7. always-use-default-target : true 로 하면 무조건 default-target-url 로 이동한다. false 로 하면 authentication-success-handler 대로 redirect 된다.
-		8. authentication-success-handler-ref : 로그인 성공 시 프로세스 정의, bean id 입력. 만약 최종 로그인일시를 DB에 기록해야한다면 handler로 처리하는게 좋다. res.sendRedirect 등으로 처리
-		9. authentication-failure-handler-ref : 로그인 실패 시 프로세스 정의, bean id 입력
-		-->
+		<security:form-login login-page="/loginForm" authentication-success-handler-ref="loginSuccess"  />
 		
 		<security:logout logout-success-url="/all/loginForm" invalidate-session="true" delete-cookies="remember-me,JSESSIONID" />
-		
-		<!-- 
-		logout 요소
-		1. logout-url : 로그아웃 요청할 경로. 기본값은 /logout. 사용자가 원하는 경로 지정해서 로그아웃 페이지로 이동해 처리 할 수 있음. 기본적으로 post로 요청할 수 있고 csrf가 적용되어 있음.
-		2. logout-success-url : 로그아웃이 성공하면 이동할 경로를 지정. controller에서 redirect 지정해 줄 수도 있다.
-		3. success-hanlder-ref : 로그아웃 후 처리될 내용을 담은 클래스를 지정. 핸들러가 지정되면 logout-success-url 값은 무시된다.
-		4. invalidate-session : 로그 아웃시 세션정보 제거 여부. 기본값은 true
-		5. delete-cookies : 로그아웃시 제거할 쿠키 이름을 지정.
-		-->
 		
 		<security:session-management invalid-session-url="/all/loginForm" session-fixation-protection="changeSessionId">
 			<security:concurrency-control max-sessions="1" expired-url="/all/loginForm"/>
 		</security:session-management>
 		
-		<!-- 
-		session-management : 세션관리.
-			invalid-session-url : 중복 로그인 발생시 이동하는 url
-			session-fixation-protection : 세션 고정공격 방어
-				1. none : 세션 고정 공격에 대응하지 않음.
-				2. newSession : 세션을 새로 만들고 기존의 데이터는 보존하지 않음.
-				3. changeSessionId : 세션 id를 변경하고 세션 내용은 보존. 3.1 이상부터
-				4. migrateSession : 3.0 이하
-		 -->
-		 
-		<!-- <security:csrf disabled="true"/>  -->
-		
-		<!-- 
-		* csrf(Cross-Site Request Forgery) 토큰 
-		스프링 시큐리티의 경우 post 방식을 사용하는경우 기본적으로 CRSF 토큰이라는 것을 이용한다.
-		사이트간 위조방지를 목적으로 특정한 토큰값을 사용하는 방식이다.
-		<security:csrf disabled="true"/>로 설정할 경우 토큰을 이용하지 않으나 추천하지 않는다.
-		사용자 계정탈취, 개인정보 유츌, 조회수 조작등이 가능해짐.
-		
-		기본적으로 post 방식으로 보낸다 하면
-		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-		이 값을 넣어줘야 한다. 이 히든값이 없으면 403에러가 뜬다.
-		
-		CSRF토큰은 사용자가 임의의 변하는 토큰 값을 서버에서 체크하는 방식이다.
-		서버에는 브라우저에 데이터를 전송할 때 토큰값을 같이 전송하며 브라우저의 CSRF값과 서버가 보관하는 토큰 값을 비교해
-		값이 다르면 작업을 처리하지 않는 방식이다.
-		-->
-		
-		<!-- 
-		session-management 
-		1. invalid-session-url : invalid session(세션 타임아웃 등) 일 때 이동 URL
-		2. max-sessions : 최대 허용 가능한 세션 수
-		3. expired-url : 중복 로그인 발생시 이동 URL (처음 접속한 세션이 invalidate가 되고 다음 요청시 invalid-session-url로 이동)
-		4. error-if-maximum-exceeded : max-sessions을 넘었을때 접속한 세션을 실패처리할지 여부 (expired-url와 얘중에 하나만 쓰면 될듯)
-		-->
-		
 		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
-		
-		<!-- 
-		remember-me 속성
-		1. key : 쿠키에 사용돠는 값을 암호화하기 위한 키
-		2. data-source-ref : DataSource를 지정하고 테이블을 이용해 기존 로그인 정보를 기록(옵션)
-		3. remember-me-cookies : 브라우저에 보관되는 쿠키의 이름을 지정. 기본값은 remember-me
-		4. remember-me-parameter : 웹 화면에서 로그인할 때 'remember-me'는 대부분 체크박스를 이용한다. 이 때 체크박스 태그는 name 속성을 의미.
-		5. token-validity-seconds : 쿠키의 유효시간 지정. 초단위이다. 7일 : 604800
-		 --> 
-		
+
 	</security:http>
 	
 	<security:authentication-manager>
