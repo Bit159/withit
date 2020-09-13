@@ -1,0 +1,117 @@
+package hj.member.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import bj.member.bean.MemberDTO;
+import hj.member.bean.MatchDTO;
+import hj.member.bean.ProgrammingDTO;
+import hj.member.bean.Search;
+import hj.member.bean.TotalDTO;
+
+@Repository
+@Transactional
+public class HjDAOMybatis implements HjDAO {
+	
+	@Autowired
+	private SqlSession sqlSession;
+
+	@Override
+	public void join(Map<String, String> map) {
+		sqlSession.insert("hjSQL.join", map);
+	}
+
+	@Override
+	public void withdrawal(String username) {
+		sqlSession.delete("hjSQL.withdrawal", username);
+	}
+
+	@Override
+	public MemberDTO getMyPage(Map<String, String> map) {
+		return sqlSession.selectOne("hjSQL.getMyPage", map);
+	}
+
+	@Override
+	public void revise(Map<String, String> map) {
+
+		sqlSession.update("hjSQL.revise", map);
+
+	}
+
+	@Override
+	public void nicknameRevise(Map<String, String> map) {
+
+		sqlSession.update("hjSQL.nicknameRevise", map);
+
+	}
+
+	@Override
+	public List<MemberDTO> getMember() {
+
+		return sqlSession.selectList("hjSQL.getMember");
+	}
+
+	@Override
+	public void memberDelete(String username) {
+
+		sqlSession.delete("hjSQL.memberDelete", username);
+
+	}
+
+	@Override
+	public List<MemberDTO> getBoardList() {
+
+		return sqlSession.selectList("hjSQL.getBoardList");
+	}
+
+	@Override
+	public List<TotalDTO> getTotalStats() {
+		return sqlSession.selectList("hjSQL.getTotalStats");
+	}
+
+	@Override
+	public List<ProgrammingDTO> getProgrammingStats() {
+		return sqlSession.selectList("hjSQL.getProgrammingStats");
+	}
+
+	@Override
+	public List<MatchDTO> getListFromMatch() {
+		return sqlSession.selectList("hjSQL.getListFromMatch");
+	}
+
+	@Override
+	public int getBoardListCnt(Search search) {
+		return sqlSession.selectOne("hjSQL.getBoardListCnt", search);
+	}
+
+	@Override
+	public List<MemberDTO> getBoardList(Search search) {
+		return sqlSession.selectList("hjSQL.getBoardList", search);
+	}
+
+	@Override
+	public List<MemberDTO> getWithdrawalList(String username) {
+		return sqlSession.selectList("hjSQL.getWithdrawalList", username);
+	}
+
+	@Override
+	public List<MemberDTO> getNickName(String nickname) {
+		return sqlSession.selectList("hjSQL.getNickName", nickname);
+	}
+
+	@Override
+	public void passwordRevise(Map<String, String> map) {
+		sqlSession.update("hjSQL.passwordRevise", map);
+	}
+
+	@Override
+	public MemberDTO login(String id, String pwd) {
+		return null;
+	}
+
+}

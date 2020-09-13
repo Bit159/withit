@@ -7,9 +7,9 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
+	<context:component-scan base-package="hj.*.*"></context:component-scan>
 	<context:component-scan base-package="kh.*.*"></context:component-scan>
-	<context:component-scan base-package="sj.board.*"></context:component-scan>
-	<context:component-scan base-package="sj.board.*"></context:component-scan>
+	<context:component-scan base-package="sj.*.*"></context:component-scan>
 	<context:component-scan base-package="bj.member.controller"></context:component-scan>
 
 	<!-- json -->

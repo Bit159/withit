@@ -21,6 +21,7 @@
 		<typeAlias type="kh.cardBoard.bean.CardBoardDTO" alias="card"/>
 		<typeAlias type="kh.cardBoard.bean.CardBoardPaging" alias="paging"/>
 		<typeAlias type="kh.cardBoard.bean.CardBoardReplyDTO" alias="reply"/>
+
  	</typeAliases>
 
  </configuration>
