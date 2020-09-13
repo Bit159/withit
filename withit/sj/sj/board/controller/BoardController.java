@@ -189,7 +189,8 @@ public class BoardController {
 								  @RequestParam(required=false, defaultValue = "1") int pg
 								 ,@RequestParam(required=false, defaultValue = "1") int range
 								 , @RequestParam(required = false, defaultValue = "title") String searchType
-								 , @RequestParam(required = false) String keyword) throws Exception {
+								 , @RequestParam(required = false) String keyword
+								 , HttpServletRequest request) throws Exception {
 		
 		// 검색
 		Search search = new Search();
@@ -234,6 +235,12 @@ public class BoardController {
 		mav.addObject("list", list);
 		mav.addObject("now", now);
 		mav.addObject("replyList", replyList);
+		boolean isAuthor = false;
+		if(bBoardDTO.getNickname().equals(request.getSession().getAttribute("nickname"))) {
+			isAuthor = true;
+		}
+		System.out.println(isAuthor);
+		mav.addObject("isAuthor", isAuthor);
 		mav.setViewName("/sj/freeView");
 		return mav;
 	}
