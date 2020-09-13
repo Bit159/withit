@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/resources/kh/css/header.css">
-
 <div id="loginBar_wrapper">
+
 	<div id="loginBar" class="container">
-		<a href="/joinForm">회원가입</a> <a href="/loginForm">로그인</a>
+		<c:if test="${nickname eq null }">
+			<a href="/joinForm">회원가입</a> <a href="/loginForm">로그인</a>
+		</c:if>
+		<c:if test="${nickname ne null }">
+			<a href="/myPage">마이페이지</a> <a href="/logout">로그아웃</a>
+		</c:if>
 	</div>
 </div>
 <div id=header_wrapper>
