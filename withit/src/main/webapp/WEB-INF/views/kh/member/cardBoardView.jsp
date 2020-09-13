@@ -51,7 +51,7 @@
                         </tr>
                         </table>
                         <div id="card-content">
-                        	<h1>상세내용</h1>
+                        	<h1>상세내용</h1> 
                         	<pre style="white-space: pre-line;">${dto.content}</pre>
                         </div>
                     </div>
