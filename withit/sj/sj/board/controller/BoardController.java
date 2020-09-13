@@ -1,10 +1,12 @@
 package sj.board.controller;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import sj.board.bean.BBoardDTO;
@@ -362,10 +363,10 @@ public class BoardController {
 	
 	
 	// 자유게시판 작성 폼	
-	@GetMapping("/board/boardWriteForm")
+	@GetMapping("/freeBoard/writeForm")
 	public ModelAndView boardWriteForm() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/boardWriteForm");
+		mav.setViewName("/sj/boardWriteForm");
 		return mav;
 	}
 	
@@ -378,20 +379,17 @@ public class BoardController {
 		}
 	
 	// 자유게시판 보드 작성
-	@PostMapping("/board/boardWrite")
-	public ModelAndView boardWrite(@RequestParam String title, String content, String nickname) {
+	@PostMapping("/freeBoard/boardWrite")
+	@ResponseBody
+	public String boardWrite(@RequestParam String title, String content, String nickname, Principal principal, HttpServletRequest request) {
 		Date now = new Date();
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title",title);
 		map.put("content",content);
-		map.put("nickname",nickname);
+		map.put("nickname",request.getSession().getAttribute("nickname"));
 		map.put("now", now);
 		boardService.writeBBoard(map); 
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/boardList2");
-		return mav;
+		return "success";
 	}
 	
 	// 자유게시판 보드 삭제

@@ -41,8 +41,7 @@
     $(document).on('click', '#boardWriteBtn', function(){
     	var title = $("#boardWriteTitleText").val();
     	var content = $("#boardWriteContentText").val();
-    	var nickname = "nickname";
-    	var param = "title="+title+"&content="+content+"&nickname="+nickname;
+    	var param = "title="+title+"&content="+content;
     	
     	var csrfHeader = document.getElementById('_csrf_header').content;
 		var csrfToken = document.getElementById('_csrf').content;
@@ -52,7 +51,7 @@
 		if(title != "" & content != ""){
 			$.ajax({
 				type : "post",
-				url : "/synergy/board/boardWrite",
+				url : "/freeBoard/boardWrite",
 				beforeSend: function(xhr){
 		    		xhr.setRequestHeader(csrfHeader, csrfToken);
 		    		
@@ -64,7 +63,7 @@
 							  '게시글이 등록되었습니다.',
 							  'success'
 							).then((res)=>{
-								location.href='/synergy/bboard/boardList2';
+								location.href='/freeBoard';
 				    		});;
 		    		
 		    	},
@@ -83,7 +82,7 @@
     
     // 글목록 버튼
     $(document).on('click', '#boardListBtn', function(){
-    	location.href='/synergy/bboard/boardList2';
+    	location.href='/freeBoard';
     });
     </script>
     
