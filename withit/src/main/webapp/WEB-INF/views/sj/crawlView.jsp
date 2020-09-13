@@ -7,7 +7,7 @@
 <meta id="_csrf" name="_csrf" content="${_csrf.token}">
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
 <meta charset="UTF-8">
-<title>게시판</title>
+<title>Okky 게시판</title>
 <link rel="stylesheet" href="/resources/sj/css/boardView.css">
 
 </head>
@@ -97,9 +97,9 @@
         </div>
     </div>
     
-    <jsp:include page="boardList1.jsp" flush="true"/>
+    <jsp:include page="crawlViewBoard.jsp" flush="true"/>
     <jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
-    <c:url var="boardListURL" value="/synergy/board/boardList"></c:url>
+    <c:url var="boardListURL" value="/crawlBoard"></c:url>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="/resources/sj/js/boardView.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

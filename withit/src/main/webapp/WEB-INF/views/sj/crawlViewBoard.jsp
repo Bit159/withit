@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>크롤게시판</title>
+<title>Okky 게시판</title>
 <link rel="stylesheet" href="/resources/sj/css/boardList.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
@@ -26,7 +26,7 @@
                     <c:forEach var="dto" items="${list }">
                     	<li class="list_group_item">
                     		<div class="bno"><c:out value="${dto.bno}" /></div>
-	                        <div class="title"><a id="titleA" href="/synergy/board/${dto.bno }?pg=${paging.page}&range=${paging.range}"><c:out value="${dto.title}" /></a></div>                        
+	                        <div class="title"><a id="titleA" href="/crawlBoard/${dto.bno }?pg=${paging.page}&range=${paging.range}"><c:out value="${dto.title}" /></a></div>                        
 	                        <div class="nickname"><c:out value="${dto.nickname}" /></div>
 	                        <div class="boarddate">
 	                        	<fmt:formatDate var="nowdate" pattern="yyyy-MM-dd" value="${now }"/>
@@ -81,7 +81,7 @@
         </div>
     </div>
     
-    <c:url var="boardListURL" value="/synergy/board/boardList"></c:url>
+    <c:url var="boardListURL" value="/crawlBoard"></c:url>
     	
     <script type="text/javascript">
 		//이전 버튼 이벤트

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>크롤게시판</title>
+<title>Okky 게시판</title>
 <link rel="stylesheet" href="/resources/sj/css/boardList.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <style>
@@ -37,7 +37,7 @@
 	                    	<li class="list_group_item">
 	                    		<div class="bno"><c:out value="${dto.bno}" /></div>
 		                        <%-- <div class="topic"><c:out value="${dto.topic}" /></div> --%>
-		                        <div class="title"><a id="titleA" href="/synergy/board/${dto.bno }?pg=${paging.page}&range=${paging.range}"><c:out value="${dto.title}" /></a></div>                        
+		                        <div class="title"><a id="titleA" href="/crawlBoard/${dto.bno }?pg=${paging.page}&range=${paging.range}"><c:out value="${dto.title}" /></a></div>                        
 		                        <div class="nickname"><c:out value="${dto.nickname}" /></div>
 		                        <div class="boarddate">
 		                        	<fmt:formatDate var="nowdate" pattern="yyyy-MM-dd" value="${now }"/>

@@ -6,10 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>크롤게시판</title>
+<title>자유게시판</title>
 <link rel="stylesheet" href="/resources/sj/css/boardList.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="/resources/sj/js/welcome.js" defer></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />

@@ -36,7 +36,7 @@ public class BoardController {
 	
 	// 크롤링 보드 리스트
 	@GetMapping("/crawlBoard")
-	public ModelAndView boardList(@RequestParam(required=false, defaultValue = "1") int pg
+	public ModelAndView crawlBoard(@RequestParam(required=false, defaultValue = "1") int pg
 							   	 ,@RequestParam(required=false, defaultValue = "1") int range
 							   	 , @RequestParam(required = false, defaultValue = "title") String searchType
 								 , @RequestParam(required = false) String keyword
@@ -78,13 +78,13 @@ public class BoardController {
 		mav.addObject("paging",search);
 		mav.addObject("list", list);
 		mav.addObject("now", now);
-		mav.setViewName("/sj/crawl");
+		mav.setViewName("/sj/crawlBoard");
 		return mav;
 	}
 	
 	//자유게시판 리스트
 	@GetMapping("/freeBoard")
-	public ModelAndView boardList2(@RequestParam(required=false, defaultValue = "1") int pg
+	public ModelAndView freeBoard(@RequestParam(required=false, defaultValue = "1") int pg
 							   	 ,@RequestParam(required=false, defaultValue = "1") int range
 							   	 , @RequestParam(required = false, defaultValue = "title") String searchType
 								 , @RequestParam(required = false) String keyword
@@ -123,12 +123,12 @@ public class BoardController {
 		mav.addObject("paging",search);
 		mav.addObject("list", list);
 		mav.addObject("now", now);
-		mav.setViewName("/sj/free");
+		mav.setViewName("/sj/freeBoard");
 		return mav;
 	}
 	
 	//크롤링 보드뷰
-	@GetMapping("/board/{bno}")
+	@GetMapping("/crawlBoard/{bno}")
 	public ModelAndView boardView(@PathVariable("bno") int bno,
 								  @RequestParam(required=false, defaultValue = "1") int pg
 								 ,@RequestParam(required=false, defaultValue = "1") int range
@@ -178,7 +178,7 @@ public class BoardController {
 		mav.addObject("list", list);
 		mav.addObject("now", now);
 		mav.addObject("replyList", replyList);
-		mav.setViewName("/board/boardView");
+		mav.setViewName("/sj/crawlView");
 		return mav;
 	}
 	
