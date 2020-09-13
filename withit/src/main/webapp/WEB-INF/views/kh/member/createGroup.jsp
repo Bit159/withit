@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
@@ -7,14 +6,14 @@
 <meta id="_csrf" name="_csrf" content="${_csrf.token}">
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
 <meta charset="UTF-8">
-<title>시너지</title>
+<title>그룹 만들기</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="../resources/css/createGroup.css">
+<link rel="stylesheet" href="/resources/kh/css/createGroup.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />	
 </head>
 <body>
-	<jsp:include page="../template/header.jsp"></jsp:include>
-	<form id="registerForm" method="post" action="/synergy-kh/member/regist">
+	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
+	<form id="registerForm" method="post" action="/cardBoard/createGroup/regist">
 	<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
     <div id="body-wrapper">
         <div id="container" style="white-space: nowrap;">
@@ -81,7 +80,7 @@
         </div>
     </div>
     </form>
-    <jsp:include page="../template/footer.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
 </body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -91,7 +90,7 @@
 $(document).ready(function(){
 	$.ajax({
 		type:'get',
-		url:'/synergy-kh/member/autocomplete',
+		url:'/cardBoard/autocomplete',
 		data:{},
 		dataType:'json',
 		success:function(data){
@@ -123,7 +122,7 @@ $('#people').select2({
 			  cancelButtonText: '취소'
 			}).then((result) => {
 			  if (result.isConfirmed) {
-				location.href='/synergy-kh/member/cardBoardList';
+				location.href='/cardBoard';
 			  }
 			})
 	});

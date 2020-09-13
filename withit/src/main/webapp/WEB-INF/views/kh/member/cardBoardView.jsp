@@ -21,8 +21,10 @@
                     <div id="card-info">
                         <h1 id="titleH1">${dto.title}</h1>
                     	<c:if test="${dto.open ne 1}">
-                        <input type="button" id="modifyCard" value="수정" onclick="location.href='/synergy-kh/member/modifyCard?seq=${dto.seq}'">
-                    	<input type="button" id="closeCard" value="마감" onclick="location.href='/synergy-kh/member/closeCard?seq=${dto.seq}'">
+	                    	<c:if test="${isAuthor eq true }">
+		                    	<input type="button" id="modifyCard" value="수정" onclick="location.href='/synergy-kh/member/modifyCard?seq=${dto.seq}'">
+	                    		<input type="button" id="closeCard" value="마감" onclick="location.href='/synergy-kh/member/closeCard?seq=${dto.seq}'">
+	                    	</c:if>
 						</c:if>
                     </div>
                         <fmt:formatDate var="registDate" pattern="yyyy-MM-dd HH:mm" value="${dto.registDate }"/>

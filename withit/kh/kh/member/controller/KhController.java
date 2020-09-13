@@ -91,20 +91,22 @@ public class KhController {
 //	 =============카드게시판 관련================
 	 @GetMapping("/cardBoard/createGroup")
 	 public String createGroup() {
-		 return "/kh/createGroup";
+		 return "/kh/member/createGroup";
 	 }
+	 
 	 //모집글 등록
-	 @PostMapping(value="/member/regist")
-	 public String regist(@ModelAttribute CardBoardDTO cardBoardDTO,Principal principal) {
+	 @PostMapping("/cardBoard/createGroup/regist")
+	 public String regist(@ModelAttribute CardBoardDTO cardBoardDTO, Principal principal) {
+		 System.out.println(cardBoardDTO.getTitle());
 		 String username = principal.getName();
 		 String nickname = memberService.getNickname(username);
 		 cardBoardDTO.setNickname(nickname);
 		 cardBoardService.regist(cardBoardDTO);
-		 return "redirect:/member/cardBoardList";
+		 return "redirect:/cardBoard";
 	 }
 	 
 	 //지역 자동완성
-	 @GetMapping("/member/autocomplete")
+	 @GetMapping("/cardBoard/autocomplete")
 	 @ResponseBody
 	 public ModelAndView autocomplete() {
 		 ModelAndView mav = new ModelAndView();
@@ -149,8 +151,9 @@ public class KhController {
 		 json.addAll(list);
 		 return json;
 	 }
-	 //댓글 보기
-	 @GetMapping("/cardBoard/cardBoardView")
+
+	 //모집글 보기
+	 @GetMapping("/cardBoardView")
 	 public ModelAndView cardBoardView(@RequestParam int seq,Principal principal) {
 		 CardBoardDTO dto = cardBoardService.getCardContent(seq);
 		 List<CardBoardReplyDTO> replyList= cardBoardService.getReplyList(seq);
@@ -160,7 +163,12 @@ public class KhController {
 		 mav.addObject("dto",dto);
 		 mav.addObject("replyList",replyList);
 		 mav.addObject("nickname",nickname);
-		 mav.setViewName("/member/cardBoardView");
+		 boolean isAuthor = false;
+		 if(nickname.equals(dto.getNickname())) {
+			 isAuthor = true;
+		 }
+		 mav.addObject("isAuthor", isAuthor);
+		 mav.setViewName("/kh/member/cardBoardView");
 		 return mav;
 	 }
 	 //댓글등록

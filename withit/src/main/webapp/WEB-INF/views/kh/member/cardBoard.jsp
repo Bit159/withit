@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta id="_csrf" name="_csrf" content="${_csrf.token}">
 	<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
-    <title>Document</title>
+    <title>스터디 모집</title>
     <link rel="stylesheet" href="/resources/kh/css/card.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.0/css/all.min.css"/>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
