@@ -28,6 +28,7 @@
                         <div class="downside_left">                                                   
                             <div class="view_nickname">${bBoardDTO.nickname }&emsp;</div>
                             <div class="view_boarddate"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${bBoardDTO.boarddate }"/></div>
+                            <%--내가 작성한 글인지 검증한 뒤에 수정, 삭제 버튼을 노출시키는 부분 --%>
                             <c:if test="${isAuthor eq true }">
 	                            <button type="button" id="modifyBoardBtn" style="width: 70px" data-bno="${bBoardDTO.bno }" data-page="${paging.page }" data-range="${paging.range }">수정</button>
                             	<button type="button" id="deleteBoardBtn" style="width: 70px" data-bno="${bBoardDTO.bno }" data-page="${paging.page }" data-range="${paging.range }">삭제</button>

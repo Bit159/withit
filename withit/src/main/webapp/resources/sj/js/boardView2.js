@@ -227,7 +227,7 @@ $(document).ready(function(){
 			function modifyBoard(){
 				$.ajax({
 					type: 'post',
-					url: '/synergy/board/boardModifyForm',
+					url: '/freeBoard/boardModifyForm',
 					beforeSend: function(xhr){
 			    		xhr.setRequestHeader(csrfHeader, csrfToken);
 			    	},

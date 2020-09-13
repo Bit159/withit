@@ -235,6 +235,9 @@ public class BoardController {
 		mav.addObject("list", list);
 		mav.addObject("now", now);
 		mav.addObject("replyList", replyList);
+		
+		//bj.member.controller.LoginSuccessHandler 에서 로그인 성공 시 session에 nickname 담아둠.
+		//세션에 담긴 nickname과 선택한 글의 nickname값을 검증하여 mav 객체에 boolean 결과값을 담아서 view로 보냄
 		boolean isAuthor = false;
 		if(bBoardDTO.getNickname().equals(request.getSession().getAttribute("nickname"))) {
 			isAuthor = true;
@@ -244,6 +247,26 @@ public class BoardController {
 		mav.setViewName("/sj/freeView");
 		return mav;
 	}
+	
+	
+	// 자유게시판 작성 폼	
+	@GetMapping("/freeBoard/writeForm")
+	public ModelAndView boardWriteForm() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/sj/boardWriteForm");
+		return mav;
+	}
+	
+	// 자유게시판 수정 폼	
+	@GetMapping("/board/boardModifyForm")
+	public ModelAndView bboardWriteForm() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/boardModifyForm");
+		return mav;
+	}
+	
+	
+	
 	
 	//크롤링 보드 댓글 생성
 	@PostMapping(path="/board/boardReply")
@@ -369,21 +392,7 @@ public class BoardController {
 		}
 	
 	
-	// 자유게시판 작성 폼	
-	@GetMapping("/freeBoard/writeForm")
-	public ModelAndView boardWriteForm() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/sj/boardWriteForm");
-		return mav;
-	}
-	
-	// 자유게시판 수정 폼	
-		@GetMapping("/board/boardModifyForm")
-		public ModelAndView bboardWriteForm() {
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("/board/boardModifyForm");
-			return mav;
-		}
+
 	
 	// 자유게시판 보드 작성
 	@PostMapping("/freeBoard/boardWrite")
