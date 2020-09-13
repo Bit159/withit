@@ -35,7 +35,7 @@
 			<div><input type="checkbox" name="remember-me" style="padding-bottom: 5pt">자동로그인</div>
 			<div class="btn-area">
 				<button type="button" id="loginBtn" onclick="checkLogin()">LOGIN</button>
-				<button type="button" onclick="location='/all/welcome'">BACK</button>
+				<button type="button" onclick="location='/'">BACK</button>
 			</div>
 			
 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
@@ -130,7 +130,7 @@
 		</div>
 
 		<div class="caption">
-			<a href="/all/joinForm">회원가입</a>&emsp;
+			<a href="/joinForm">회원가입</a>&emsp;
 			<a href="">아이디/비밀번호 찾기</a>
 		</div>
 	</section>

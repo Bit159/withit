@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+
+.body_wrapper{
+    padding: 0;
+    margin: 0 auto;
+    max-width: 1280px;
+    /* min-height: 1200px; */
+    
+}
+.body_container{
+    position: relative;
+    margin: 0 auto;
+    width: 1200px;
+    min-height: 500px;
+    margin-top: 70px;
+}
+h1{
+    text-align: center;            
+    margin-bottom: 50px;
+}
+.list_wrapper{            
+    margin-bottom: 20px;
+    background-color: #fff;
+    position : relative;
+    left: 15px;
+}
+.list_group{
+    padding-left: 0;
+    border: 1px solid;
+    border-color: #ddd;
+    border-left: 3px solid #32be78;
+}
+.list_group_item{
+    display: flex;
+    border: 1px solid;
+    border-color: #ddd;
+    text-align: center;
+	/* 
+	height: 80px;
+    line-height: 80px; 
+    */
+}
+
+li[class="list_group_item"]>div {
+	/* line-height: 58px; */
+	
+} 
+
+div[class="title"]{
+	text-align: left;
+}
+div[id="titleHeader"]{
+	text-align: center;
+}
+
+div.bno{
+    width: 10%;
+}
+div.topic{
+    width: 10%;
+}
+div.title{
+    width: 50%;
+}
+div[class="replys"]{
+    width: 5%;
+}        
+div.hit{
+    width: 5%;
+}
+div.nickname{
+    width: 10%;
+}
+div.boarddate{
+    width: 10%;
+}
+.list_group_item{
+    padding:10px;
+}
+#titleA:link { color: black; text-decoration: none; }
+#titleA:visited { color: black; text-decoration: none; }
+#titleA:hover { color: black; text-decoration: none; }
+#titleA:active { color: black; text-decoration: none; }

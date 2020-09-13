@@ -8,7 +8,13 @@
 		<typeAlias type="bj.member.bean.MemberDTO" alias="member"/>
 		<typeAlias type="bj.member.bean.ChattingDTO" alias="chatting"/>
 		<typeAlias type="bj.member.bean.ChattingRoomDTO" alias="chattingRoom"/>
+		
+		<typeAlias type="sj.board.bean.BoardDTO" alias="boardDTO"/>
+		<typeAlias type="sj.board.bean.BBoardDTO" alias="bBoardDTO"/>
+		<typeAlias type="sj.board.bean.CBoardDTO" alias="cBoardDTO"/>
+		<typeAlias type="sj.board.paging.Pagination" alias="pagination"/>
+		<typeAlias type="sj.board.bean.CBoardReplyDTO" alias="cBoardReplyDTO"/>
+		<typeAlias type="sj.board.bean.BBoardReplyDTO" alias="bBoardReplyDTO"/>
  	</typeAliases>
-
 
  </configuration>

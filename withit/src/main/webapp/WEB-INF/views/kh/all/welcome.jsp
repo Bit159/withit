@@ -27,7 +27,7 @@
 						<h2 style="white-space: nowrap;">With it</h2>
 						<p style="white-space: nowrap;">쉽고 빠른 스터디 매칭</p>
 						<ul>
-							<li><a href="/synergy/all/loginForm" class="loginIcon">Login</a>
+							<li><a href="/loginForm" class="loginIcon">Login</a>
 							</li>
 						</ul>
 					</div>

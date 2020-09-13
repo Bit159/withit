@@ -1,0 +1,309 @@
+@charset "UTF-8";
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+div[class="bodywrapper"]{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 1280px;
+    min-height: 1000px;
+    
+}
+div[class="boardwrapper"]{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 1280px;
+    min-height: 800px;
+    margin-top: 70px;
+    position : relative;
+    left: 15px;
+}
+h1{
+    margin-bottom: 50px;
+}
+div[class="boardcontainer"]{
+    display: flex;
+    flex-direction: column;    
+    border-left: 3px solid #32be78;
+    font-size: 20px;
+    
+    
+}
+div[class="board_header"]{
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    padding: 10px;
+    
+}
+div[class="header_upside"]{
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    
+    
+}
+div[class="header_downside"]{
+    display: flex;    
+    height: 40%;
+    margin-top: 7px;
+    justify-content: space-between;
+}
+div[class="downside_left"]{
+    display: flex;
+}
+div[class="downside_right"]{
+    display: flex;
+}
+div[class="board_body"]{
+    min-height: 300px;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    padding: 10px;
+    font-size: 20px;
+}
+
+div[class="board_footer"]{
+    min-height: 300px;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+div[class="view_bno"]{
+    
+}
+div[class="view_title"]{
+	font-size: 110%;
+}
+div[class="view_nickname"]{
+    margin-right: 5px;
+    line-height: 31px;
+}
+
+div[class="view_boarddate"]{
+   margin-right: 5px;
+   line-height: 31px;
+}
+div[class="view_replys"]{
+	width: 100px;   
+}
+div[class="view_hit"]{
+    min-width: 100px;
+}
+
+div[class="replywrapper"]{
+    width: 100%;
+}
+
+div[class="reply_header"]{
+    width: 100px;
+}
+button[class="origin"]{
+	width: 70px;
+	height: 30px;
+	margin-left: 10px;
+}
+
+li[class="replywrapper"]{
+	
+}
+div[class="reply_header"]{
+	margin-bottom: 20px;
+}
+li[class="reply_group_item"]{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+div[class="reply_nickname"]{
+    width: 10%;
+    border: 1px solid;
+    text-align: center;
+    line-height: 40px;
+}
+div[class="reply"]{
+    width: 80%;
+    border: 1px solid;
+    line-height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+div[class="reply_button"]{
+	
+	
+	
+}
+button[class="modifyBtn"]{
+	width:70px;
+    height: 30px;
+	
+}
+button[class="deleteBtn"]{
+	width:70px;
+    height: 30px;
+}
+
+
+/* div[class="reply_button"]{
+	display: flex;
+	width: 10%;
+	border: 1px solid;
+	line-height: 40px;
+	
+	
+}
+button[class="modifyBtn"]{
+	width: 50%;
+	
+}
+button[class="deleteBtn"]{
+	width: 50%;
+} */
+
+
+div[class="reply_writer_wrapper"]{
+	width: 100%;
+	min-height: 100px;
+	border: 1px solid #ddd;
+}
+div[class="reply_writer"]{
+    margin-top: 0px;
+    padding-top: 10px;
+}
+label[class="reply_writer_label"]{
+	padding-bottom: 10px;
+	padding-left: 20px;
+	font-weight: bold;
+}
+div[class="reply_writer_div"]{
+	display: flex;
+	 justify-content: space-between;
+	 padding: 10px;
+}
+textarea[id="reply_writer_text"]{
+	width: 1000px;
+	height: 100px;
+	padding: 4px 8px;
+	border: 1px solid #ddd;
+	margin-bottom: 10px;
+	resize: vertical;
+	font-size: 20px;
+}
+button[id="reply_writer_btn"]{
+    width: 120px;
+    height: 50px;
+	border: 1px solid black;
+	background-color: #ddd;
+	border-radius: 3px;
+	text-align: center;
+	line-height: 50px;
+	vertical-align: bottom;
+}
+
+div[class="reply_modify_wrapper"]{
+    width: 100%;
+	min-height: 100px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    display: none;
+}
+div[class="reply_modify"]{
+    margin-top: 0px;
+    padding-top: 10px;
+}
+label[class="reply_modify_label"]{
+    padding-bottom: 10px;
+	padding-left: 20px;
+	font-weight: bold;
+}
+div[class="reply_modify_div"]{
+    display: flex;
+	 justify-content: space-between;
+	 padding: 10px;
+}
+textarea[class="reply_modify_text"]{
+    width: 1000px;
+	height: 100px;
+	padding: 4px 8px;
+	border: 1px solid #ddd;
+	margin-bottom: 10px;
+	resize: vertical;
+	font-size: 20px;
+	
+}
+div[class="reply_modify_button_div"]{
+    width: 120px;
+    margin-left: 10px;
+}
+button[class="reply_modify_button"]{
+    
+    width: 100%;
+    height: 50px;
+	border: 1px solid black;
+	background-color: #ddd;
+	border-radius: 3px;
+	text-align: center;
+    line-height: 50px;
+    vertical-align: bottom;
+}
+button[class="reply_modify_cancel"]{
+    
+    width: 100%;
+    height: 50px;
+	border: 1px solid black;
+	background-color: #ddd;
+	border-radius: 3px;
+	text-align: center;
+	line-height: 50px;
+}
+
+
+
+
+
+
+
+li.reply_group_item2{
+    display: flex;
+    flex-direction: column;
+}
+div.itemwrapper{
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+div.reply_nickname2{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+div.replydate2{
+    margin-bottom: 10px;
+    color: #ddd;
+}
+textarea[class="reply_modify_text1"]{
+    width: 100%;
+    min-height:100px;
+	overflow: hidden;
+	padding: 0px;
+	border: 1px solid #ddd;
+	margin-bottom: 10px;
+	resize: none;
+	font-size: 20px;
+	readonly;
+	border: none
+}
+button.modify{
+    width:70px;
+    height: 30px;
+}
+button.delete{
+    width: 70px;
+    height: 30px;
+}

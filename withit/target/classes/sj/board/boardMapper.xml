@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="boardSQL">
+  	
+  	<!-- 목록 -->
+	<select id="getBoardList" parameterType="java.util.Map" resultType="boardDTO">
+		<![CDATA[
+		select * from
+		(select rownum rn, tt.* from
+		(select * from db.cboard order by bno desc)tt
+		)where rn>=#{startNum} and rn<=#{endNum} 
+		]]>
+	</select>
+	
+	<select id="getBoardList1" resultType="cBoardDTO">
+		select * from db.cboard 
+	</select>
+		
+	<!-- 총글수 -->
+	<select id="getBoardTotalA" resultType="int">
+		select count(*) from db.cboard
+	</select>
+	
+	<!-- 크롤링 보드 체크용 -->
+	<select id="getCBoardList" resultType="cBoardDTO">
+		SELECT * 
+		FROM db.cboard 
+		ORDER BY bno desc 
+		LIMIT 0,20
+	</select>
+	<!-- 크롤링 보드 체크용 -->
+	
+	<!-- 크롤링 보드 페이징, 검색 처리 -->
+	<select id="getCBoardList1" parameterType="pagination" resultType="cBoardDTO">
+		SELECT * 
+		FROM db.cboard 
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="searchType=='title' and keyword != null and keyword != '' ">
+
+				AND title like CONCAT('%', #{keyword}, '%')
+
+			</if>
+
+			<if test="searchType=='nickname' and keyword != null and keyword != '' ">
+
+				AND nickname like CONCAT('%', #{keyword}, '%')
+
+			</if>	
+
+		</trim>
+		ORDER BY bno desc
+		LIMIT #{startList},#{listSize};
+	</select>
+	<!-- 크롤링 보드 페이징, 검색 처리 -->
+  	
+  	<!-- 크롤링 보드 게시글 정보 -->
+  	<select id="getCBoard" parameterType="int" resultType="cBoardDTO">
+  		SELECT * from db.cboard where bno=#{bno}
+  	</select>
+  	<!-- 크롤링 보드 게시글 정보 -->
+  	
+  	<!-- 자유게시판 보드 게시글 정보 -->
+  	<select id="getBBoard" parameterType="int" resultType="bBoardDTO">
+  		SELECT * from db.board where bno=#{bno}
+  	</select>
+  	<!-- 자유게시판 보드 게시글 정보 -->
+  	
+  	<!-- 크롤링 보드 댓글  목록 -->
+  	<select id="getCBoardReplyList" parameterType="int" resultType="cBoardReplyDTO">
+  		select * from db.reply where bno=#{bno} order by bno desc 
+  	</select>
+  	<!-- 크롤링 보드 댓글  -->
+  	
+  	<!-- 자유게시판 보드 댓글 리스트 -->
+  	<select id="getBBoardReplyList" parameterType="int" resultType="bBoardReplyDTO">
+  		select * from db.reply2 where bno=#{bno} order by bno desc 
+  	</select>
+  	<!-- 자유게시판 보드 댓글 리스트 -->
+  	
+  	<!-- 크롤링 보드 댓글 생성 -->
+  	<insert id="boardReply" parameterType="java.util.Map">
+  		insert into db.reply (bno, reply, nickname, replydate, updatedate) values(#{bno}, #{reply}, #{nickname}, #{now}, #{now});
+  	</insert>	
+  	<!-- 크롤링 보드 댓글 생성 -->
+  	
+  	<!-- 자유게시판 댓글 생성 -->
+  	<insert id="boardReply2" parameterType="java.util.Map">
+  		insert into db.reply2 (bno, reply, nickname, replydate, updatedate) values(#{bno}, #{reply}, #{nickname}, #{now}, #{now});
+  	</insert>	
+  	<!-- 자유게시판 댓글 생성 -->
+  	
+  	<!-- 크롤링 보드 댓글수 증가 -->
+  	<update id="replyUpdate" parameterType="int">
+  		update db.cboard set replys=replys+1 where bno=#{bno}
+  	</update>
+  	<!-- 크롤링 보드 댓글수 증가 -->
+  	
+  	<!-- 자유게시판 댓글수 증가 -->
+  	<update id="replyUpdate2" parameterType="int">
+  		update db.board set replys=replys+1 where bno=#{bno}
+  	</update>
+  	<!-- 자유게시판 댓글수 증가 -->
+  	
+  	<!-- 조회수 증가 -->
+  	<update id="hitUpdate" parameterType="int">
+  		update db.cboard set hit=hit+1 where bno=#{bno}
+  	</update>
+  	<!-- 조회수 증가 -->
+  	
+  	<!-- 자유게시판 조회수 증가 -->
+  	<update id="boardHitUpdate" parameterType="int">
+  		update db.board set hit=hit+1 where bno=#{bno}
+  	</update>
+  	<!-- 자유게시판 조회수 증가 -->
+  	
+  	<!-- 크롤링 보드 댓글 삭제 -->
+  	<delete id="replyDelete" parameterType="int">
+  		delete from db.reply where rno=#{rno}
+  	</delete>
+  	<!-- 크롤링 보드 댓글 삭제 -->
+  	
+  	<!-- 자유게시판 댓글 삭제 -->
+  	<delete id="replyDelete2" parameterType="int">
+  		delete from db.reply2 where rno=#{rno}
+  	</delete>
+  	<!-- 자유게시판 댓글 삭제 -->
+  	
+  	<!-- 크롤링 보드 댓글수 감소 -->
+  	<update id="replyDeleteUpdate" parameterType="int">
+  		update db.cboard set replys=replys-1 where bno = #{bno}
+  	</update>
+  	<!-- 크롤링 보드 댓글수 감소 -->
+  	
+  	<!-- 자유게시판 댓글수 감소 -->
+  	<update id="replyDeleteUpdate2" parameterType="int">
+  		update db.board set replys=replys-1 where bno = #{bno}
+  	</update>
+  	<!-- 자유게시판 댓글수 감소 -->
+  	
+  	<!-- 크롤링 보드 댓글 생성 -->
+  	<insert id="replyWrite" parameterType="java.util.Map" >
+  		insert into db.reply (bno, reply, nickname, replydate, updatedate) values(#{bno}, #{reply}, #{nickname}, #{now}, #{now});
+  	</insert>
+  	<!-- 크롤링 보드 댓글 생성 -->
+  	
+  	<!--  크롤링 보드 댓글 수정 -->
+  	<update id="replyModify" parameterType="java.util.Map">
+  		update db.reply set reply = #{reply} where rno = #{rno}
+  	</update>
+  	<!--  크롤링 보드 댓글 수정 -->
+  	
+  	<!-- 자유게시판 댓글 수정 -->
+  	<update id="replyModify2" parameterType="java.util.Map">
+  		update db.reply2 set reply = #{reply} where rno = #{rno}
+  	</update>
+  	<!-- 자유게시판 댓글 수정 -->
+  	
+  	<!-- 게시글 총 개수 -->
+  	<select id="getBoardListCnt" resultType="int">
+		SELECT count(*) as listCnt 
+		FROM db.cboard
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+	
+				<if test="searchType=='title'">
+	
+					AND title like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+				<if test="searchType=='nickname'">
+	
+					AND nickname like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+	      </if>
+	
+		</trim>
+		
+		
+	</select>
+	<!-- 게시글 총 개수 -->
+	
+	<!-- 게시글 총 개수 -->
+  	<select id="getBoardListCnt1" resultType="int">
+		SELECT count(*) as listCnt 
+		FROM db.cboard
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+	
+				<if test="searchType=='title'">
+	
+					AND TITLE like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+				<if test="searchType=='nickname'">
+	
+					AND nickname like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+	      </if>
+	
+		</trim>
+		
+		
+	</select>
+	<!-- 게시글 총 개수 -->
+	
+	<!-- 크롤링 게시글 총 개수 -->
+  	<select id="getCBoardListCnt" resultType="int">
+		SELECT count(*) as listCnt 
+		FROM db.cboard
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+	
+				<if test="searchType=='title'">
+	
+					AND TITLE like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+				<if test="searchType=='nickname'">
+	
+					AND nickname like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+	      </if>
+	
+		</trim>
+		
+		
+	</select>
+	<!-- 크롤링 게시글 총 개수 -->
+	
+	<!-- 게시글 총 개수 -->
+  	<select id="getBBoardListCnt" resultType="int">
+		SELECT count(*) as listCnt 
+		FROM db.board
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+	
+				<if test="searchType=='title'">
+	
+					AND TITLE like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+				<if test="searchType=='nickname'">
+	
+					AND nickname like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+	      </if>
+	
+		</trim>
+		
+		
+	</select>
+	<!-- 게시글 총 개수 -->
+	
+	<!-- 자유게시판 글 생성 -->
+	<insert id="writeBBoard" parameterType="java.util.Map">
+		INSERT 
+		INTO db.board (title, content, nickname, boarddate, updatedate) 
+		values(#{title}, #{content}, #{nickname}, #{now}, #{now})
+	</insert>
+	<!-- 자유게시판 글 생성 -->
+	
+	<!-- 자유게시판 페이징, 검색 처리한 리스트 -->
+	<select id="getBBoardList" parameterType="pagination" resultType="bBoardDTO">
+		SELECT * 
+		FROM db.board 
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="searchType=='title' and keyword != null and keyword != '' ">
+
+				AND title like CONCAT('%', #{keyword}, '%')
+
+			</if>
+
+			<if test="searchType=='nickname' and keyword != null and keyword != '' ">
+
+				AND nickname like CONCAT('%', #{keyword}, '%')
+
+			</if>	
+
+		</trim>
+		ORDER BY bno desc
+		LIMIT #{startList},#{listSize};
+	</select>
+	<!-- 자유게시판 페이징, 검색 처리한 리스트 -->
+	
+	<!-- 자유게시판 보드 삭제 -->
+	<delete id="deleteBBoard" parameterType="int">
+		DELETE FROM db.board where bno=#{bno}
+	</delete>
+	<!-- 자유게시판 보드 삭제 -->
+  	
+  </mapper>
