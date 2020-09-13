@@ -129,7 +129,7 @@ public class BoardController {
 	
 	//크롤링 보드뷰
 	@GetMapping("/crawlBoard/{bno}")
-	public ModelAndView boardView(@PathVariable("bno") int bno,
+	public ModelAndView crawlBoardView(@PathVariable("bno") int bno,
 								  @RequestParam(required=false, defaultValue = "1") int pg
 								 ,@RequestParam(required=false, defaultValue = "1") int range
 								 , @RequestParam(required = false, defaultValue = "title") String searchType
@@ -183,78 +183,57 @@ public class BoardController {
 	}
 	
 	//자유게시판 보드뷰
-		@GetMapping("/bboard/{bno}")
-		public ModelAndView bBoardView(@PathVariable("bno") int bno,
-									  @RequestParam(required=false, defaultValue = "1") int pg
-									 ,@RequestParam(required=false, defaultValue = "1") int range
-									 , @RequestParam(required = false, defaultValue = "title") String searchType
-									 , @RequestParam(required = false) String keyword) throws Exception {
-			
-			// 검색
-			Search search = new Search();
-			search.setSearchType(searchType);
-			search.setKeyword(keyword);
-			
-			// 페이지
-			int page =  pg;
-			System.out.println("페이지"+page+"범위"+range);
-			
-			// 검색, 페이징 적용된 전체 게시글 수
-			int listCnt = boardService.getBBoardListCnt(search); 
-			
-			// 검색
-			search.pageInfo(page, range, listCnt);
-			
-			// 페이지네이션
-			Pagination paging = new Pagination();
-			paging.pageInfo(page, range, listCnt); 
-			System.out.println("paging: "+paging);	
-			
-			// 원글 불러오기
-			BBoardDTO bBoardDTO = boardService.getBBoard(bno);
-			
-			// 보드뷰 하단부 검색, 페이징 적용된 보드리스트
-			List<BBoardDTO> list = boardService.getBBoardList(search);
-			System.out.println(bBoardDTO.getTitle());
-			
-			// 보드뷰 해당 리플 리스트
-			List<BBoardReplyDTO> replyList = boardService.getBBoardReplyList(bno);
-			System.out.println(replyList);
-			
-			// 조회수 1증가
-			boardService.boardHitUpdate(bno);
-			
-			// 작성시간 표시 위한 현재 Date 객체
-			Date now = new Date();
-			
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("paging",search);
-			mav.addObject("bBoardDTO", bBoardDTO);
-			mav.addObject("list", list);
-			mav.addObject("now", now);
-			mav.addObject("replyList", replyList);
-			mav.setViewName("/board/boardView2");
-			return mav;
-		}
-	
-	@RequestMapping(value = "/board/boardList1", method = RequestMethod.GET)
-	public ModelAndView boardList1() {
+	@GetMapping("/freeBoard/{bno}")
+	public ModelAndView freeBoardView(@PathVariable("bno") int bno,
+								  @RequestParam(required=false, defaultValue = "1") int pg
+								 ,@RequestParam(required=false, defaultValue = "1") int range
+								 , @RequestParam(required = false, defaultValue = "title") String searchType
+								 , @RequestParam(required = false) String keyword) throws Exception {
 		
-		List<CBoardDTO> list = boardDAO.getCBoardList();
-		System.out.println(list.get(0).getContent());
+		// 검색
+		Search search = new Search();
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+		
+		// 페이지
+		int page =  pg;
+		System.out.println("페이지"+page+"범위"+range);
+		
+		// 검색, 페이징 적용된 전체 게시글 수
+		int listCnt = boardService.getBBoardListCnt(search); 
+		
+		// 검색
+		search.pageInfo(page, range, listCnt);
+		
+		// 페이지네이션
+		Pagination paging = new Pagination();
+		paging.pageInfo(page, range, listCnt); 
+		System.out.println("paging: "+paging);	
+		
+		// 원글 불러오기
+		BBoardDTO bBoardDTO = boardService.getBBoard(bno);
+		
+		// 보드뷰 하단부 검색, 페이징 적용된 보드리스트
+		List<BBoardDTO> list = boardService.getBBoardList(search);
+		System.out.println(bBoardDTO.getTitle());
+		
+		// 보드뷰 해당 리플 리스트
+		List<BBoardReplyDTO> replyList = boardService.getBBoardReplyList(bno);
+		System.out.println(replyList);
+		
+		// 조회수 1증가
+		boardService.boardHitUpdate(bno);
+		
+		// 작성시간 표시 위한 현재 Date 객체
 		Date now = new Date();
 		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("paging",search);
+		mav.addObject("bBoardDTO", bBoardDTO);
 		mav.addObject("list", list);
 		mav.addObject("now", now);
-		mav.setViewName("/board/boardList1");
-		return mav;
-	}
-
-
-	@GetMapping("/board/boardView")
-	public ModelAndView boardView() {
-		ModelAndView mav = new ModelAndView();
+		mav.addObject("replyList", replyList);
+		mav.setViewName("/sj/freeView");
 		return mav;
 	}
 	

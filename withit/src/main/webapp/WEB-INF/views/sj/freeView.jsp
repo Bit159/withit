@@ -8,7 +8,7 @@
 <meta id="_csrf" name="_csrf" content="${_csrf.token}">
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
 <meta charset="UTF-8">
-<title>게시판</title>
+<title>자유게시판</title>
 <link rel="stylesheet" href="/resources/sj/css/boardView.css">
 </head>
 
@@ -17,7 +17,7 @@
 
 	<div class="bodywrapper">
         <div class="boardwrapper">
-            <h1>${bBoardDTO.topic }</h1>
+            <h1>자유게시판</h1>
             <div class="boardcontainer">                
                 <div class="board_header">
                     <div class="header_upside">
@@ -102,7 +102,7 @@
         </div>
     </div>
     
-    <jsp:include page="boardList3.jsp" flush="false"/>
+    <jsp:include page="/WEB-INF/views/sj/freeViewBoard.jsp" flush="false"/>
     <jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
     
     <c:url var="boardListURL" value="/synergy/board/boardList"></c:url>

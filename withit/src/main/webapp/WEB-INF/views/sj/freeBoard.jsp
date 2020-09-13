@@ -32,7 +32,7 @@
 	                    	<li class="list_group_item">
 	                    		<div class="bno"><c:out value="${dto.bno}" /></div>
 		                        <%-- <div class="topic"><c:out value="${dto.topic}" /></div> --%>
-		                        <div class="title"><a id="titleA" href="/synergy/bboard/${dto.bno }?pg=${paging.page}&range=${paging.range}"><c:out value="${dto.title}" /></a></div>                        
+		                        <div class="title"><a id="titleA" href="/freeBoard/${dto.bno }?pg=${paging.page}&range=${paging.range}"><c:out value="${dto.title}" /></a></div>                        
 		                        <div class="nickname"><c:out value="${dto.nickname}" /></div>
 		                        <div class="boarddate">
 		                        	<fmt:formatDate var="nowdate" pattern="yyyy-MM-dd" value="${now }"/>
