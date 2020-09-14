@@ -9,7 +9,9 @@
 			<a href="/joinForm">회원가입</a> <a href="/loginForm">로그인</a>
 		</c:if>
 		<c:if test="${nickname ne null }">
-			<a href="/myPage">마이페이지</a> <a href="/logout">로그아웃</a>
+			<c:if test="${admin eq null }"><a href="/myPage">마이페이지</a></c:if>
+			<c:if test="${admin ne null }"><a href="/admin">관리자페이지</a></c:if>
+			<a href="/logout">로그아웃</a>
 		</c:if>
 	</div>
 </div>

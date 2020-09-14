@@ -54,9 +54,9 @@ public class HjController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/admin/admin_index", method = RequestMethod.GET)
-	public String admin_index() {
-		return "/admin/admin_index";
+	@GetMapping("/admin")
+	public String adminBoard() {
+		return "/hj/all/adminBoard";
 	}
 
 	@RequestMapping(value = "/all/joinForm", method = RequestMethod.GET)

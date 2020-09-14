@@ -25,8 +25,12 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 		authentication.getAuthorities().forEach(authority -> { 
 			roleNames.add(authority.getAuthority());
 		});
-		if(roleNames.contains("ROLE_ADMIN")) { 
-			response.sendRedirect("/hj/admin"); 
+		if(roleNames.contains("ROLE_ADMIN")) {
+			String username = request.getParameter("username");
+			String nickname = memberService.getNickname(username);
+			request.getSession().setAttribute("nickname", nickname);
+			request.getSession().setAttribute("admin", "admin");
+			response.sendRedirect("/"); 
 			return; 
 		} 
 		
@@ -36,6 +40,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 			HttpSession session = request.getSession();
 			session.setAttribute("nickname", nickname);
 			session.setAttribute("chattingCheck", "0");
+			request.getSession().setAttribute("admin", null);
 			response.sendRedirect("/");
 			return;
 		} 

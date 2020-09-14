@@ -11,14 +11,13 @@
 <!-- default header name is X-CSRF-TOKEN -->
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>Insert title here</title>
-<link rel="stylesheet" href="../resources/css/adminBoard.css">
+<link rel="stylesheet" href="/resources/hj/css/adminBoard.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
     
     <!-- 가운데 main 내용 -->
-	
     <div id="wrap">
         
         <aside class="aside">
@@ -27,26 +26,26 @@
                     <li class="aside_menu_top">Admin Menu</li>
                     <li class="aside_menu_list_1">
                     	<a href="/synergy2/all/adminStats" class="aside_menu_list_1_a">
-                        <img src="../resources/image/chartIcon3.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Statistics
-                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 80px;"/>
+                        <img src="/resources/hj/image/chartIcon3.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Statistics
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 80px;"/>
                     	</a>
                     </li>
                     <li class="aside_menu_list_2">
                     	<a href="/synergy2/all/programmingStats" class="aside_menu_list_2_a">
-                        <img src="../resources/image/chartIcon4.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
-                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 50px;"/>
+                        <img src="/resources/hj/image/chartIcon4.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 50px;"/>
                     	</a>
                     </li>
                     <li class="aside_menu_list_3">
                     	<a href="/synergy2/all/adminBoard" class="aside_menu_list_3_a">
-                        <img src="../resources/image/task2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
-                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                        <img src="/resources/hj/image/task2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
                     	</a>
                     </li>
                     <li class="aside_menu_list_4">
                     	<a href="/synergy2/all/admin_map" class="aside_menu_list_4_a">
-                        <img src="../resources/image/map2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
-                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                        <img src="/resources/hj/image/map2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
                     	</a>
                     </li>
                 </ul>
@@ -63,23 +62,23 @@
         <div class="sidebar">
             <ul>
                 <li class="sidebar_menu">Admin Menu</li>
-                <li><a class="sidebar_menu_button"><img src="../resources/image/chartIcon.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Member
-                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; margin-left: 30px;"/>
+                <li><a class="sidebar_menu_button"><img src="/resources/hj/image/chartIcon.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Member
+                    <img src="/resources/hj/image/right.png" style="width: 13px; height: 13px; margin-left: 30px;"/>
                 </a></li>
-                <li><a class="sidebar_menu_button"><img src="../resources/image/chartIcon2.png" style="width: 13px; height: 13px;"/>Programming
-                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
+                <li><a class="sidebar_menu_button"><img src="/resources/hj/image/chartIcon2.png" style="width: 13px; height: 13px;"/>Programming
+                    <img src="/resources/hj/image/right.png" style="width: 13px; height: 13px; "/>
                 </a></li>   
-                <li><a class="sidebar_menu_button"><img src="../resources/image/task.png" style="width: 13px; height: 13px;"/>Management
-                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
+                <li><a class="sidebar_menu_button"><img src="/resources/hj/image/task.png" style="width: 13px; height: 13px;"/>Management
+                    <img src="/resources/hj/image/right.png" style="width: 13px; height: 13px; "/>
                 </a></li>
-                <li><a class="sidebar_menu_button"><img src="../resources/image/map.png" style="width: 13px; height: 13px;"/>Location Map
-                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
+                <li><a class="sidebar_menu_button"><img src="/resources/hj/image/map.png" style="width: 13px; height: 13px;"/>Location Map
+                    <img src="/resources/hj/image/right.png" style="width: 13px; height: 13px; "/>
                 </a></li>
             </ul>
         </div>
         
         <header class="header">
-            <div class="header_title"><img src="../resources/image/task.png" style="width: 40px; height: 35px; margin-right:20px;"/>Member Management</div>
+            <div class="header_title"><img src="/resources/hj/image/task.png" style="width: 40px; height: 35px; margin-right:20px;"/>Member Management</div>
         </header>
        
         <section class="section">
@@ -112,7 +111,7 @@
                         <div class="created" name="created"><fmt:formatDate value="${memberDTO.created }" pattern="yyyy-MM-dd"/></div>
                         <input type="hidden" id="username" name="username" value="${memberDTO.username}">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <div class="button"><input type="image" src="../resources/image/basket.png" class="withdrawalBtn" id="withdrawalBtn"></div>  
+                        <div class="button"><input type="image" src="/resources/hj/image/basket.png" class="withdrawalBtn" id="withdrawalBtn"></div>  
                         
                     </li>
                     </c:forEach>
