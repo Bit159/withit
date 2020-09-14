@@ -1,7 +1,10 @@
 package bj.member.bean;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
+@Alias("chattingRoom")
 @Data
 public class ChattingRoomDTO {
 	private String chattingRoom;

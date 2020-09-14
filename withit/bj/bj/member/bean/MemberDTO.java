@@ -1,7 +1,10 @@
 package bj.member.bean;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
+@Alias("member")
 @Data
 public class MemberDTO {
 	private String username;

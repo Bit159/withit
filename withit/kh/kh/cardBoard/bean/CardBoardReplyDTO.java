@@ -2,8 +2,11 @@ package kh.cardBoard.bean;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
+@Alias("reply")
 @Data
 public class CardBoardReplyDTO {
 	private int rseq;

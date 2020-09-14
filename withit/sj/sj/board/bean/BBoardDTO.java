@@ -2,8 +2,11 @@ package sj.board.bean;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
+@Alias("bBoardDTO")
 @Data
 public class BBoardDTO {
 	private int bno;

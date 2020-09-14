@@ -5,22 +5,29 @@
  <configuration>
 
  	<typeAliases>
+ 	
+		<package name="bj.member.bean"/>
+		<package name="sj.board.bean"/>
+		<package name="sj.board.paging"/>
+		<package name="kh.cardBoard.bean"/>
+ 	
+ 		<!-- 
 		<typeAlias type="bj.member.bean.MemberDTO" alias="member"/>
 		<typeAlias type="bj.member.bean.ChattingDTO" alias="chatting"/>
-		<typeAlias type="bj.member.bean.ChattingRoomDTO" alias="chattingRoom"/>
+		<typAlias type="bj.member.bean.ChattingRoomDTO" alias="chattingRoom"/>
 		
 		<typeAlias type="sj.board.bean.BoardDTO" alias="boardDTO"/>
 		<typeAlias type="sj.board.bean.BBoardDTO" alias="bBoardDTO"/>
 		<typeAlias type="sj.board.bean.CBoardDTO" alias="cBoardDTO"/>
-		<typeAlias type="sj.board.paging.Pagination" alias="pagination"/>
 		<typeAlias type="sj.board.bean.CBoardReplyDTO" alias="cBoardReplyDTO"/>
 		<typeAlias type="sj.board.bean.BBoardReplyDTO" alias="bBoardReplyDTO"/>
-		
+		<typeAlias type="sj.board.paging.Pagination" alias="pagination"/>
 		
 		<typeAlias type="java.util.Map" alias="map"/>
 		<typeAlias type="kh.cardBoard.bean.CardBoardDTO" alias="card"/>
 		<typeAlias type="kh.cardBoard.bean.CardBoardPaging" alias="paging"/>
 		<typeAlias type="kh.cardBoard.bean.CardBoardReplyDTO" alias="reply"/>
+		 -->
 
  	</typeAliases>
 

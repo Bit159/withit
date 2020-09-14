@@ -1,7 +1,10 @@
 package kh.cardBoard.bean;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
+@Alias("paging")
 @Data
 public class CardBoardPaging {
 	private int listSize = 9; // 초기값으로 목록개수를 9로 셋팅

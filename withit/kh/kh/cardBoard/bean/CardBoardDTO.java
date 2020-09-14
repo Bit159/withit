@@ -3,8 +3,11 @@ package kh.cardBoard.bean;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
+@Alias("card")
 @Data
 public class CardBoardDTO {
 	private int seq;
