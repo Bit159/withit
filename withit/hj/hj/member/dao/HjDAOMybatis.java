@@ -90,8 +90,8 @@ public class HjDAOMybatis implements HjDAO {
 	}
 
 	@Override
-	public List<MemberDTO> getBoardList(Search search) {
-		return sqlSession.selectList("hjSQL.getBoardList", search);
+	public List<MemberDTO> getMemberList(Search search) {
+		return sqlSession.selectList("hjSQL.getMemberList", search);
 	}
 
 	@Override

@@ -60,7 +60,7 @@
 	
 	<!-- 관리자 페이지 회원정보 불러오기 -->
 	
-	 <select id="getBoardList" parameterType="hj.member.bean.Search" resultType="member">
+	 <select id="getMemberList" parameterType="hj.member.bean.Search" resultType="member">
 		select * from membertable 
 		
 		<trim prefix="WHERE" prefixOverrides="AND|OR">

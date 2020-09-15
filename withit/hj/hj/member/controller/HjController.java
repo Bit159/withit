@@ -43,6 +43,40 @@ public class HjController {
 	@Autowired
 	private HjService hjService;
 
+	//관리자 : 회원목록
+	@GetMapping("/admin")
+	public String adminBoard(
+								Model model, 
+								@RequestParam(required = false, defaultValue = "1") int page,
+								@RequestParam(required = false, defaultValue = "1") int range,
+								@RequestParam(required = false, defaultValue = "username") String searchType,
+								@RequestParam(required = false) String keyword, @ModelAttribute("search") Search search
+								) {
+
+		model.addAttribute("search", search);
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+
+		// 전체 게시글의 수
+		int listCnt = hjService.getBoardListCnt(search);
+
+		// Pagination 객체생성
+		search.pageInfo(page, range, listCnt);
+
+		List<MemberDTO> list = hjService.getMemberList(search);
+
+		model.addAttribute("list", list);
+		model.addAttribute("pagination", search);
+
+		return "/hj/all/adminBoard";
+	}
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/myPage")
 	public ModelAndView myPage(Principal principal, @Autowired MemberDTO memberDTO) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -54,10 +88,7 @@ public class HjController {
 		return mav;
 	}
 
-	@GetMapping("/admin")
-	public String adminBoard() {
-		return "/hj/all/adminBoard";
-	}
+
 
 	@RequestMapping(value = "/all/joinForm", method = RequestMethod.GET)
 	public String joinForm() {
@@ -167,30 +198,7 @@ public class HjController {
 
 	}
 
-	@RequestMapping(value = "/all/adminBoard", method = RequestMethod.GET)
-	public String adminBoard(Model model, @RequestParam(required = false, defaultValue = "1") int page,
-			@RequestParam(required = false, defaultValue = "1") int range,
-			@RequestParam(required = false, defaultValue = "username") String searchType,
-			@RequestParam(required = false) String keyword, @ModelAttribute("search") Search search) {
 
-		model.addAttribute("search", search);
-		search.setSearchType(searchType);
-		search.setKeyword(keyword);
-
-		// 전체 게시글의 수
-		int listCnt = hjService.getBoardListCnt(search);
-
-		// Pagination 객체생성
-		search.pageInfo(page, range, listCnt);
-
-		List<MemberDTO> list = hjService.getBoardList(search);
-
-		model.addAttribute("list", list);
-		model.addAttribute("pagination", search);
-
-		return "/all/adminBoard";
-
-	}
 
 	@RequestMapping(value = "/all/adminStats", method = RequestMethod.GET)
 	public String adminStats() {

@@ -43,7 +43,7 @@ public interface HjService {
 
 	public int getBoardListCnt(Search search);
 
-	public List<MemberDTO> getBoardList(Search search);
+	public List<MemberDTO> getMemberList(Search search);
 
 	public List<MemberDTO> getWithdrawalList(String username);
 

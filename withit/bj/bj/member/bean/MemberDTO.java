@@ -1,5 +1,7 @@
 package bj.member.bean;
 
+import java.util.Date;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -14,8 +16,6 @@ public class MemberDTO {
 	private String enabled;
 	
 	private int myCareer;
-	private int github;
-	private int google;
-	private int kakao;
+	private Date created;
 	
 }
