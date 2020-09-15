@@ -269,7 +269,7 @@ public class BoardController {
 	
 	
 	//크롤링 보드 댓글 생성
-	@PostMapping(path="/board/boardReply")
+	@PostMapping(path="/crawlBoard/boardReply")
 	public ModelAndView boardReply(@RequestParam String reply, int bno, HttpSession session) {
 		System.out.println("reply:"+reply+" bno:"+bno);
 		/* String nickname = (String) session.getAttribute("nickname"); */
@@ -317,7 +317,7 @@ public class BoardController {
 		}
 	
 	//크롤링 보드 댓글 삭제
-	@PostMapping("/board/replyDelete")
+	@PostMapping("/crawlBoard/replyDelete")
 	public ModelAndView replyDelete(@RequestParam int rno, int bno, HttpSession session) {
 		System.out.println("rno="+rno);
 		/* String nickname = (String) session.getAttribute("nickname"); */
@@ -325,7 +325,7 @@ public class BoardController {
 		System.out.println("bno="+bno);
 		boardService.replyDeleteUpdate(bno);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("board/boardView");
+		mav.setViewName("board/crawlView");
 		return mav;
 	}
 	
@@ -338,7 +338,7 @@ public class BoardController {
 			System.out.println("bno="+bno);
 			boardService.replyDeleteUpdate2(bno);
 			ModelAndView mav = new ModelAndView();
-			mav.setViewName("board/boardView");
+			mav.setViewName("sj/boardView");
 			return mav;
 		}
 	
