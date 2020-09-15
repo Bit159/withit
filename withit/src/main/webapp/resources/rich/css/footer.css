@@ -1,0 +1,40 @@
+@charset "UTF-8";
+html,body,div,span,img,header,nav,a,ul,li,form, label,footer,tr,th,td,
+section,article,aside {
+    margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;   
+}
+.container {
+    margin: 0 auto;
+    width: 1280px;
+    max-width: 100%;
+}
+body{
+    font-size: 13pt;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.box {
+    background: rgb(243, 243, 243);
+    border-radius: 8px;
+    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.05);
+}
+/*  */
+div[id="footer_wrapper"] {
+    margin:50px 0 0 0;
+    padding: 20px 0 20px 0;
+    height: 200px;
+    background-color: rgb(243,243,243);
+    border-top: solid 1px rgba(218, 214, 214, 0.774);
+}
+#footer{
+    display: flex;
+}
+.footer {
+    width: calc(100%/3);
+}
+#footer h1 {
+    font-size: 14pt;
+}

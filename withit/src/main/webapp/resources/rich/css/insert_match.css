@@ -1,0 +1,52 @@
+@charset "utf-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+div[id="wrap"] {
+  width: 1280px;
+  margin: 0 auto;
+  border: 5px solid pink;
+  height: 830px;
+}
+
+div[id="selections"] {
+	display:flex;
+	justify-content: center;
+}
+select {
+  direction: rtl;
+  margin-right:20px;
+}
+
+
+
+div[id="padding_insert_match"] {
+	height:50px;
+	background-color: whitesmoke;
+}
+
+li {
+	display:flex;
+	justify-content: space-around;
+	height:80px;
+	line-height:80px;
+	border-bottom : 1px solid black;
+}
+
+div[class="rangedArea"] {
+	width:50px;
+	height:50px;
+	background-color: pink;
+	margin: auto 0;
+}
+button[class="deleteButtons_in_insert_match"] {
+	width:50px;
+	height:30px;
+	background-color: rgb(236, 64, 93);
+	font-size:15px;
+	color:white;
+	border-radius: 10px;
+}

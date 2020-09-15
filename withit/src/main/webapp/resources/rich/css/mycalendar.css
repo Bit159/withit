@@ -1,0 +1,95 @@
+body {
+  margin: 40px 10px;
+  padding: 0;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+#calendar {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top:50px;
+}
+#top {
+  background: #eee;
+  border-bottom: 1px solid #ddd;
+  padding: 0 10px;
+  line-height: 40px;
+  font-size: 12px;
+}
+
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline-style: none;
+}
+
+input[id="title"] {
+  width: 80%;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12pt;
+  border-style: none;
+}
+
+div[id="underlineForTitle"] {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  border-bottom: 2px solid black;
+}
+
+div[id="underlineForTitle2"] {
+  display: none;
+  margin: 0 auto;
+  width: 0%;
+  border-bottom: 2px solid #32be78;
+  transition: all 1s;
+}
+
+textarea[id="content"] {
+  margin-top: 20px;
+  width: 80%;
+  resize: none;
+  font-size: 12pt;
+  border-style: none;
+  border-bottom: 2px solid black;
+  font-weight: 500;
+}
+
+div[id="dateWrapper"],
+div[id="timeWrapper"],
+div[id="contentWrapper"] {
+  font-size: 1.1rem;
+}
+
+#timeWrapper {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+input[id="place"] {
+  height: 30px;
+  line-height: 30px;
+  font-size: 12pt;
+  width: 80%;
+  margin: 0 auto;
+  border-style: none;
+  border-bottom: 2px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#placeWrapper {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}

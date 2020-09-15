@@ -1,0 +1,246 @@
+@charset "UTF-8";
+* {margin : 0; padding: 0; box-sizing: border-box;}
+body {
+	height: 100vh;
+	background: white;
+	background-size: cover;
+}
+body::before{
+	position: absolute; z-index: 0;
+	top: 0; right: 0; bottom: 0; left: 0;
+}
+.menuButtons {
+	float:center;
+    width: 70%;
+    display:grid;
+    grid-auto-flow: column;
+	font-size: 1.2rem;
+}
+span{
+	text-align: right;
+}
+span a {
+	color: black;
+	text-decoration: none;
+}
+span a:hover {
+	text-decoration: underline;
+	transition: all .45s;
+}
+.login-form {
+	position: relative;
+	z-index: 0;
+	width:1280px;
+	margin: 0 auto ;
+	text-align: center;
+}
+#loginFormDiv {
+	width: 50%;
+	display: inline-block;
+}
+
+.login-form h1{
+	font-size: 32px; 
+	color: rgb(50, 190, 120);
+	text-align: center;	
+	margin-top: 20px;
+}
+.info-area { 
+	display: inline-block;
+	width: 50%; 
+	position: relative;
+	margin-top: 20px;
+}
+
+.info-area first-child {
+	margin-top: 0;
+}
+
+.info-area input {
+	width: 100%;
+	padding: 20px 10px 10px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #999;
+	font-size: 18px; color: #999;
+	outline: none;
+}
+.info-area label {
+	position: absolute; left: 10px; top: 15px;
+	font-size: 18px; color: grey;
+	transition: all .35s ease;
+}
+.info-area input:focus + label,
+.info-area input:valid + label{
+	top:-2px;
+	font-size: 13px; color:#999;
+}
+#autoLogin {
+	width:50%;
+	margin:0 auto;
+	padding-right: 35%;
+}
+#remember-me {
+	
+}
+#remember-me ~ label {
+	font-size: 10pt;
+}
+/* ================= 버튼 영역 =================*/
+
+.btn-area {
+	display:inline-block;
+	margin-top:30px;
+	width:50%;
+	text-align: center;
+}
+.btn-area button{
+	width: 49%; height: 50px;
+	background:rgb(50, 190, 120);
+	color: #fff;
+	font-size: 20px;
+	border: none;
+	border-radius: 25px;
+	cursor: pointer;
+	
+}
+.caption {
+	margin-top: 20px;
+	text-align: center;
+}
+.caption a{
+	font-size: 15px; 
+	color: #999;
+	text-decoration: none;
+}
+/* ==========햄버거 메뉴===========   */
+input[id="sideicon"] {
+	display:none;
+}
+input[id="sideicon"] +label#ham {
+	display:none;
+}
+input[id="sideicon"] +label#ham span {
+	display:block;
+	position: absolute;
+	width: 100%;
+	height: 5px;
+	border-radius: 30px;
+	background:rgb(50, 190, 120);
+	transition: all .35s;
+}
+input[id="sideicon"] +label#ham span:nth-child(1) {
+	top:0;
+}
+input[id="sideicon"] +label#ham span:nth-child(2) {
+	top:50%;
+	transform: translateY(-50%);
+}
+input[id="sideicon"] +label#ham span:nth-child(3) {
+	bottom: 0;
+}
+input[id="sideicon"]:checked +label#ham {
+	z-index: 4;
+}
+input[id="sideicon"]:checked +label#ham span {
+	background: rgb(50, 190, 120);
+	z-index: 4;
+}
+input[id="sideicon"]:checked +label#ham span:nth-child(1) {
+	top:50%;
+	transform: translateY(-50%) rotate(45deg);
+}
+input[id="sideicon"]:checked +label#ham span:nth-child(2) {
+	opacity:0;
+}
+input[id="sideicon"]:checked +label#ham span:nth-child(3) {
+	bottom: 50%;
+	transform: translateY(50%) rotate(-45deg);
+}
+input[id="sideicon"] +label#ham span:nth-child(4){
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	left:0; top:0; width: 40%; height:100%;
+	border-radius: 0;
+	background: rgba(0,0,0,.8);
+	z-index: 2;
+}
+div[class="sidebar"] {
+	display:none;
+	width:60%;
+	height:100%;
+	background: #fff;
+	position: fixed;
+	right:-60%;
+	top:0;
+	z-index:3;
+	transition: all .35s;
+}
+@media (max-width:900px){
+	.menuButtons {display:none}
+	input[id="sideicon"] +label#ham{
+		display: block;
+		margin-right:20px;
+		width:40px;
+		height:30px;
+		top:35px;
+		right:0;
+		position: fixed;
+		cursor: pointer;
+	}
+	div[class="sidebar"] {
+		display:block;
+		border-left:.1px solid grey ;
+		width:40%;
+		right:-40%;
+	}
+}
+/* =================모바일 대응=============== */
+@media (max-width:480px){
+	nav {width: 100%;}
+	.info-area { 
+		width: 100%; 
+		margin-top: 20px;
+	}
+	.btn-area button{
+		width: 45%;height: 50px;
+		margin-left: 2.5%;
+	}
+	.btn-area button:nth-child(1){margin-bottom:5px;}
+	.login-form{width:70%;}
+	.menuButtons {display:none;}
+
+	input[id="sideicon"]:checked +label#ham span:nth-child(4) {
+		visibility: visible;
+		opacity: 1;
+		position: fixed;
+		top:0; left:0;
+		width: 40%;height:100%;
+		background: rgba(0,0,0,.8);
+		transition: all .2s;
+		z-index: 2;
+	}
+	div[class="sidebar"] {
+	display:block;
+	width:60%;
+	right:-60%;
+	}
+}
+/*===================사이드 메뉴=====================  */
+div[class="sidebar"] ul {
+	list-style: none;
+	margin-top: 100px;
+	background: whitesmoke;
+}
+div[class="sidebar"] > ul > li {
+	border-bottom: 1px solid #ccc;
+	margin:10;
+}
+div[class="sidebar"] > ul > li > a {
+	display:inline-block;
+	width:auto;
+	padding: 20px;
+	margin:10px;
+}
+input[id="sideicon"]:checked +label +div {right:0;}

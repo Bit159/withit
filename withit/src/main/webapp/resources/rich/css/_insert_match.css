@@ -1,0 +1,314 @@
+/* 모든 요소 마진0패딩0 박스사이징 보더박스*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*:focus{
+	outline:none;
+}
+
+/* body 전체를 감싸는 wrap. width:1280px과 margin: 0 auto를 위해 사용*/
+div[id="wrap"] {
+  width: 1280px;
+  height: 650px;
+  margin: 0 auto;
+}
+/*모든 옵션들을 한 줄에 담는 div*/
+div[id="option_boss"] {
+  padding-top: 20px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 3px solid #32be78;
+}
+/* 각 선택지들 영어 확인을 위한 보더 처리*/
+div[id="option_boss"] > div {
+  width: 180px;
+  height: 60px;
+}
+/* 옵션 보스 이하 두 요소 중 첫번째*/
+input[class="opener"] {
+  width: 120px;
+  height: 50px;
+  cursor: pointer;
+  text-align: center;
+  border: 3px solid rgb(185, 180, 180);
+  border-radius: 5px;
+  background-color: transparent;
+  font-size: 11pt;
+  margin: 0 auto;
+}
+input[class="opener"]:focus {
+  outline: none;
+}
+/* 옵션 보스 이하 두 요소 중 두번째*/
+div[class="option_wrappers"] {
+  width: 120px;
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  visibility: hidden;
+  position: relative;
+  top: -20px;
+  transition: all 0.1s;
+  margin: 0 auto;
+}
+/* 옵션 보스 이하 두 요소 중 두번째 요소 안에 있는 선택지 div들*/
+div[class="option_wrappers"] > div {
+  border-bottom: 1px solid rgb(216, 201, 201);
+  border-left: 3px solid #32be78;
+  width: 110px;
+  height: 40px;
+  line-height: 40px;
+  text-align: right;
+  cursor: pointer;
+  padding-right: 10px;
+  background-color: white;
+}
+/* 옵션 보스 이하 두 요소 중 두번째 요소 안에 있는 선택지 div들 hover 됐을 때*/
+div[class="option_wrappers"] > div:hover {
+  background-color: rgba(214, 210, 210, 0.842);
+}
+/* 요소 추가했을 때 적용되는 옵션*/
+span[class="selected"] {
+  background-color: #32be78;
+  display: inline-block;
+  position: relative;
+  top: -37px;
+  color: white;
+  font-weight: 550;
+  border-radius: 5px;
+  font-size: 9pt;
+  padding: 5px;
+  margin-right: 3px;
+}
+/* 요소 추가했을 때 만들어지는 x버튼에 적용되는 옵션*/
+div[class="deleteBtn"] {
+  display: inline-block;
+  cursor: pointer;
+  padding-bottom: -10px;
+}
+div[id="time_selection_wrapper"],
+div[id="theme_selection_wrapper"],
+div[id="career_selection_wrapper"],
+div[id="people_selection_wrapper"],
+div[id="location_selection_wrapper"] {
+  height: 50px;
+  text-align: center;
+}
+button[id="insert_match_button"] {
+  width: 80px;
+  height: 40px;
+  position: relative;
+  top: 5px;
+  margin-left: 10px;
+  border-radius: 20px;
+  background-color: #32be78;
+  color: white;
+  font-size: 11pt;
+  font-weight: 550;
+}
+button[id="insert_match_button"]:focus {
+  outline: none;
+}
+
+input[id="time_selection"] {
+  width: 250px;
+}
+#time {
+  width: 260px;
+}
+#theme {
+  width: 290px;
+}
+#career {
+  width: 130px;
+}
+#people {
+  width: 130px;
+}
+input[id="theme_selection"] {
+  width: 280px;
+}
+
+#time_option_wrapper {
+  width: 248px;
+}
+#time_option_wrapper > div {
+  width: 238px;
+}
+#theme_option_wrapper {
+  width: 278px;
+}
+#theme_option_wrapper > div {
+  width: 268px;
+}
+h1 {
+  margin-top: 10px;
+  text-align: center;
+}
+
+#location {
+  width: 105px;
+}
+
+input[id="location_selection"] {
+  width: 100px;
+}
+#location_option_wrapper {
+  width: 99px;
+}
+#location_option_wrapper > div {
+  width: 85px;
+}
+
+
+div[id="msg"] {
+	height:50px;
+	line-height:80px;
+ 	text-align:center;
+ 	color:red; 
+}
+
+/* Wish List*/
+div[id="wish_wrapper"] {
+	width:850px;
+	margin: 0 auto;
+	margin-top:30px;
+	height:500px;
+	
+}
+div[class="wishes"] {
+	height:50px;
+	margin:10px;
+	line-height: 60px;
+	display:flex;
+	justify-content: space-between;
+	vertical-align: auto;
+}
+div[class="wishes"]>input {
+	height:40px;
+}
+
+button[class="deleteButton_in_match"] {
+  width: 40px;
+  height: 30px;
+  position: relative;
+  top: 5px;
+  margin-left: 10px;
+  border-radius: 5px;
+  background-color: red;
+  color: white;
+  font-size: 10pt;
+  font-weight: 550;
+}
+button[class="deleteButton_in_match"]:focus{
+	outline:none;
+}
+
+input[class="wishElements"] {
+  width: 120px;
+  height: 50px;
+  cursor: pointer;
+  text-align: center;
+  border: 3px solid rgb(185, 180, 180);
+  border-radius: 5px;
+  background-color: transparent;
+  font-size: 11pt;
+  margin: 0 auto;
+  font-weight:550;
+  line-height:50px;
+  display:flex;
+  justify-content: left;
+}
+div[class="wishes"]>input[class="wishElements"]:nth-child(2),
+div[class="wishes"]>input[class="wishElements"]:nth-child(3){
+	width:250px;
+
+}
+div[class="wishes"]>input[class="wishElements"]:nth-child(2){
+	margin-right:-30px;
+}
+span[class="wishSelected"] {
+	display:block;
+  position: relative;
+  color: white;
+  font-weight: 550;
+  border-radius: 5px;
+  font-size: 9pt;
+  padding: 5px;
+  margin-right: 3px;
+  background-color: #32be78;
+  height:25px;
+  line-height:20px;
+  top:8px;
+  left:-180px;
+  overflow:visible;
+}
+
+/* End of Wish List*/
+
+
+
+
+
+
+
+/*new wish*/
+div[id="listtitle"] {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+div[id="wishList"] {
+  width: 900px;
+  height: 60vh;
+  margin: 0 auto;
+  margin-top:30px;
+}
+
+ul[id="wishul"] {
+  list-style: none;
+}
+
+li[class="wishes"] {
+  height: 48px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+li[class="wishes"] > * {
+  text-align: center;
+  border: 2px solid rgb(185, 180, 180);
+  border-radius: 3px;
+  font-size: 15px;
+  font-weight: 550;
+  color: black;
+}
+
+input[class="wishlist_area"] {
+  width: 90px;
+}
+input[class="wishlist_time"],
+input[class="wishlist_topic"] {
+  width: 250px;
+}
+
+input[class="wishlist_career"],
+input[class="wishlist_people"] {
+  width: 100px;
+}
+
+button[class="wishdelete"] {
+  width: 45px;
+  background-color: #e07083;
+  color: white;
+  font-weight: 550;
+  border-radius: 10px;
+}
+
+/* end of new wish*/
