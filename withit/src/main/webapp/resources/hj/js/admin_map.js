@@ -1,6 +1,6 @@
 let arr = new Array();
 
-let url = "/synergy2/all/admin_map_getList";
+let url = "/all/admin_map_getList";
 let options = {
 	method: "POST",
 	headers: {
@@ -71,7 +71,7 @@ function getInfo(ellipse, index) {
 	span3.className = 'label';
 	let span4 = document.createElement('span');
 	span4.className = 'number';
-	span4.append(document.createTextNode(arr[index].topic1+' '+arr[index].topic2+' '+arr[index].topic3));
+	span4.append(document.createTextNode(arr[index].topic));
 	li2.append(span3, span4);
 	
 	let li3 = document.createElement('li');
@@ -79,7 +79,7 @@ function getInfo(ellipse, index) {
 	span5.className = 'label';
 	span5.append(document.createTextNode('시간대'));
 	let span6 = document.createElement('span');
-	span6.append(document.createTextNode(arr[index].time1+' '+arr[index].time2+' '+arr[index].time3));
+	span6.append(document.createTextNode(arr[index].time));
 	li3.append(span5, span6);
 	
 	let li4 = document.createElement('li');
