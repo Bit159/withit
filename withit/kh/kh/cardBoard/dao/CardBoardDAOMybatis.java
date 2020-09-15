@@ -111,4 +111,9 @@ public class CardBoardDAOMybatis implements CardBoardDAO {
 	public void closeCard(int seq) {
 		sqlSession.update("cardBoardSQL.closeCard",seq);
 	}
+
+	@Override
+	public void modifyGroup(CardBoardDTO cardBoardDTO) {
+		sqlSession.update("cardBoardSQL.modifyGroup", cardBoardDTO);
+	}
 }

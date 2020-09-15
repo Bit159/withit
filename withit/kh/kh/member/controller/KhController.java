@@ -84,10 +84,6 @@ public class KhController {
 		 return mav;
 	 }
 	
-	
-	
-	
-
 //	 =============카드게시판 관련================
 	 @GetMapping("/cardBoard/createGroup")
 	 public String createGroup() {
@@ -158,21 +154,20 @@ public class KhController {
 		 CardBoardDTO dto = cardBoardService.getCardContent(seq);
 		 List<CardBoardReplyDTO> replyList= cardBoardService.getReplyList(seq);
 		 String username = principal.getName();
-		 String nickname = memberService.getNickname(username);
+		 String memberId = memberService.getNickname(dto.getNickname());
 		 ModelAndView mav = new ModelAndView();
-		 mav.addObject("dto",dto);
-		 mav.addObject("replyList",replyList);
-		 mav.addObject("nickname",nickname);
 		 boolean isAuthor = false;
-		 if(nickname.equals(dto.getNickname())) {
+		 if(username.equals(memberId)) {
 			 isAuthor = true;
 		 }
-		 mav.addObject("isAuthor", isAuthor);
+		 mav.addObject("dto",dto);
+		 mav.addObject("replyList",replyList);
+		 mav.addObject("isAuthor",isAuthor);
 		 mav.setViewName("/kh/member/cardBoardView");
 		 return mav;
 	 }
 	 //댓글등록
-	 @GetMapping(value="/member/writeReply")
+	 @GetMapping(value="/writeReply")
 	 public String writeReply(@RequestParam String reply,@RequestParam int seq,Principal principal) {
 		 String username = principal.getName();
 		 String nickname = memberService.getNickname(username);
@@ -184,36 +179,44 @@ public class KhController {
 		 cardDTO.setSeq(seq);
 		 cardBoardService.writeReply(dto);
 		 cardBoardService.replyCntup(cardDTO);
-		 return "/member/cardBoardView";
+		 return "/kh/member/cardBoardView";
 	 }
 	 //댓글 삭제
-	 @GetMapping(value="/member/deleteReply")
+	 @GetMapping(value="/deleteReply")
 	 public String deleteReply(@RequestParam int rseq, @RequestParam int seq){
 		 cardBoardService.deleteReply(rseq);
 		 CardBoardDTO cardDTO = new CardBoardDTO();
 		 cardDTO.setSeq(seq);
 		 cardBoardService.replyCntdown(cardDTO);
-		 return "/member/cardBoardView";
+		 return "/kh/member/cardBoardView";
 	 }
 	 //댓글 수정
-	 @GetMapping(value="/member/modifyReply")
+	 @GetMapping(value="/modifyReply")
 	 public String modifyReply(@RequestParam int rseq,@RequestParam String reply){
 		 CardBoardReplyDTO dto = new CardBoardReplyDTO();
 		 dto.setRseq(rseq);
 		 dto.setReply(reply);
 		 cardBoardService.modifyReply(dto);
-		 return "/member/cardBoardView";
+		 return "/kh/member/cardBoardView";
 	 }
-	 //모집 글 수정
-	 @GetMapping(value="/member/modifyCard")
+	 //모집 글 수정페이지 이동
+	 @GetMapping(value="/modifyCard")
 	 public ModelAndView modifyCard(@RequestParam int seq) {
 		 CardBoardDTO dto = cardBoardService.getCardContent(seq);
 		 ModelAndView mav = new ModelAndView();
 		 mav.addObject("dto",dto);
+		 mav.setViewName("/kh/member/modifyGroup");
 		 return mav;
 	 }
+	 //모집 글 수정
+	 @PostMapping(value="/modifyGroup")
+	 public String modifyGroup(@ModelAttribute CardBoardDTO cardBoardDTO, @RequestParam int seq) {
+		 cardBoardDTO.setSeq(seq);
+		 cardBoardService.modifyGroup(cardBoardDTO);
+		 return "redirect:/cardBoardView?seq="+seq;
+	 }
      //모집 글 마감
-	 @GetMapping(value="/member/closeCard")
+	 @GetMapping(value="/closeCard")
 	 public String closeCard(@RequestParam int seq){
 		 cardBoardService.closeCard(seq);
 		 return "redirect:/member/cardBoardList";
