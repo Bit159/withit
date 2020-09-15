@@ -153,10 +153,7 @@
 		</div>
 		<jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
 	</div>
-<form method="post" action="/synergy2/logout" >
-	<button name="logout" id="logout" value="logout">logout</button>
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-</form>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 
@@ -196,7 +193,7 @@ btn.onclick = async function(){
 						
 						$.ajax({
 							type: 'post',
-							url: '/synergy2/member/withdrawal',
+							url: '/member/withdrawal',
 							data: {'username' : username,
 									'password' : res.value},
 							beforeSend:function(xhr){
@@ -214,7 +211,7 @@ btn.onclick = async function(){
 									  text: '지금까지 이용해 주셔서 감사합니다.',
 								}).then((result) => {
 									
-									location.href="/synergy2/all/loginForm";
+									location.href="/loginForm";
 								
 								})
 
@@ -286,7 +283,7 @@ let username = document.getElementById('username').value;
 		$.ajax({
 			
 			type: 'post',
-			url: '/synergy2/member/revise',
+			url: '/member/revise',
 			data: {'username':username,
 					'password':password,
 					'nickname':nickname },
@@ -303,7 +300,7 @@ let username = document.getElementById('username').value;
 						  text: '닉네임이 변경 되었습니다.',
 					}).then((result) => {
 						
-						location.href="/synergy2/member/welcome";
+						location.href="/myPage";
 					
 					})
 					
@@ -322,7 +319,7 @@ let username = document.getElementById('username').value;
 						  text: '닉네임 중복 : 변경을 원하시면 다시 확인해 주세요.',
 					}).then((result) => {
 						
-						location.href="/synergy2/member/welcome";
+						location.href="/myPage";
 					
 					})
 					
@@ -333,7 +330,7 @@ let username = document.getElementById('username').value;
 						  text: '비밀번호와 닉네임이 변경 되었습니다.',
 					}).then((result) => {
 						
-						location.href="/synergy2/member/welcome";
+						location.href="/myPage";
 					
 					})
 				}

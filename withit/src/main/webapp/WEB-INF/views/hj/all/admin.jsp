@@ -24,26 +24,26 @@
             <div class="aside_menu">
                 <ul class="aside_menu_list">
                     <li class="aside_menu_top">Admin Menu</li>
+                    <li class="aside_menu_list_3">
+                    	<a href="/admin" class="aside_menu_list_3_a">
+                        <img src="/resources/hj/image/task2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                    	</a>
+                    </li>
                     <li class="aside_menu_list_1">
-                    	<a href="/synergy2/all/adminStats" class="aside_menu_list_1_a">
+                    	<a href="/adminMemberStats" class="aside_menu_list_1_a">
                         <img src="/resources/hj/image/chartIcon3.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Statistics
                         <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 80px;"/>
                     	</a>
                     </li>
                     <li class="aside_menu_list_2">
-                    	<a href="/synergy2/all/programmingStats" class="aside_menu_list_2_a">
+                    	<a href="/adminProgrammingStats" class="aside_menu_list_2_a">
                         <img src="/resources/hj/image/chartIcon4.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
                         <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 50px;"/>
                     	</a>
                     </li>
-                    <li class="aside_menu_list_3">
-                    	<a href="/synergy2/all/adminBoard" class="aside_menu_list_3_a">
-                        <img src="/resources/hj/image/task2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
-                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
-                    	</a>
-                    </li>
                     <li class="aside_menu_list_4">
-                    	<a href="/synergy2/all/admin_map" class="aside_menu_list_4_a">
+                    	<a href="/adminLocationMap" class="aside_menu_list_4_a">
                         <img src="/resources/hj/image/map2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
                         <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
                     	</a>
@@ -123,7 +123,7 @@
         		<ul class="pagination"> 
         		
 					<c:if test="${pagination.first}">
-						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/synergy2/all/adminBoard?page=1&range=1&searchType=${search.searchType }&keyword=${search.keyword }'">《</a></li>
+						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/admin?page=1&range=1&searchType=${search.searchType }&keyword=${search.keyword }'">《</a></li>
 					</c:if>
         		
         			<c:if test="${pagination.prev}">
@@ -154,7 +154,7 @@
         </section>
         <footer class="main_footer"></footer>
     </div>
-    <c:url var="adminBoardUrl" value="/all/adminBoard"></c:url>
+    <c:url var="adminUrl" value="/all/admin"></c:url>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 
@@ -162,7 +162,7 @@
 
 $(document).on('click', '#btnSearch', function(e){
 	e.preventDefault();
-	var url = "${adminBoard}";
+	var url = "${admin}";
 
 	url = url + "?searchType=" + $('#searchType').val();
 
@@ -182,7 +182,7 @@ function fn_prev(page, range, rangeSize, searchType, keyword) {
 
 		var range = range - 1;
 
-		var url = "${pageContext.request.contextPath}/all/adminBoard";
+		var url = "${pageContext.request.contextPath}/admin";
 
 		url = url + "?page=" + page;
 
@@ -202,7 +202,7 @@ function fn_prev(page, range, rangeSize, searchType, keyword) {
 
 	function fn_pagination(page, range, rangeSize, searchType, keyword) {
 
-		var url = "${pageContext.request.contextPath}/all/adminBoard";
+		var url = "${pageContext.request.contextPath}/admin";
 
 		url = url + "?page=" + page;
 
@@ -225,7 +225,7 @@ function fn_prev(page, range, rangeSize, searchType, keyword) {
 
 		var range = parseInt(range) + 1;
 
-		var url = "${pageContext.request.contextPath}/all/adminBoard";
+		var url = "${pageContext.request.contextPath}/admin";
 
 		url = url + "?page=" + page;
 
@@ -243,7 +243,7 @@ function fn_prev(page, range, rangeSize, searchType, keyword) {
 	//맨끝 버튼 이벤트
 	function fn_last(pageCnt, rangeSize, searchType, keyword) {
 		
-		var url = "${pageContext.request.contextPath}/all/adminBoard";
+		var url = "${pageContext.request.contextPath}/admin";
 		var range = Math.ceil(pageCnt/rangeSize);
 		url = url + "?page=" + pageCnt;
 		url = url + "&range=" + range;
@@ -292,7 +292,7 @@ for(let i = 0; i<a.length; i++){
 	    
 		  $.ajax({
 				type: 'post',
-				url: '/synergy2/all/memberDelete',
+				url: '/all/memberDelete',
 				data: {'username' : username},
 				
 				beforeSend:function(xhr){
@@ -302,7 +302,7 @@ for(let i = 0; i<a.length; i++){
 					
 					a[i].parentElement.parentElement.remove();
 					
-					location.href = "/synergy2/all/adminBoard";
+					location.href = "/admin";
 				},
 				error: function(err){
 					console.log(err);
