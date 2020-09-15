@@ -33,11 +33,6 @@
 			<input type="password" name="repwd" id="repwd" autocomplete="off" required>
 			<label for="repwd">RE-PASSWORD</label>
 		</div>
-	
-		<div class="join-area">
-			<input type="text" id="birthYear" name="birthYear" style="width: 45%;" autocomplete="off" required>
-			<label for="birthYear">BIRTH YEAR</label>
-		</div>
 		
 		<div class="btn-area">
 			<button>JOIN!</button>

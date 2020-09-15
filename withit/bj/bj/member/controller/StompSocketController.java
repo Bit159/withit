@@ -18,10 +18,6 @@ public class StompSocketController {
 	@Autowired
 	private MemberService memberService;
 	
-	public StompSocketController() {
-		System.out.println("stomp 객체 생성");
-	}
-	
 	@MessageMapping("/message")
 	public void send(ChattingDTO chattingDTO) {
 		Date date = new Date();
