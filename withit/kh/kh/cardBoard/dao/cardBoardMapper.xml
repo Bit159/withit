@@ -122,4 +122,8 @@
 	<update id="closeCard" parameterType="int">
 		update cardboard set open=1 where seq=#{seq}
 	</update>
+	<!-- ==============모집 글 수정================ -->
+	<update id="modifyGroup" parameterType="card">
+		update cardboard set title=#{title}, topic=#{topic}, location=#{location}, people=#{people}, content=#{content} where seq=#{seq}
+	</update>
 </mapper>

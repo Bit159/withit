@@ -86,8 +86,8 @@ public class HjServiceImpl implements HjService {
 	}
 
 	@Override
-	public List<MemberDTO> getBoardList(Search search) {
-		return hjDAO.getBoardList(search);
+	public List<MemberDTO> getMemberList(Search search) {
+		return hjDAO.getMemberList(search);
 	}
 
 	@Override

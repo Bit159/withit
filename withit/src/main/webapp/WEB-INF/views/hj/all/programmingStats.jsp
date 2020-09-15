@@ -9,7 +9,7 @@
 <!-- default header name is X-CSRF-TOKEN -->
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 <title>adminBoard</title>
-<link rel="stylesheet" href="../resources/css/programmingStats.css">
+<link rel="stylesheet" href="/resources/hj/css/programmingStats.css">
 </head>
 <body>
 <div id="wrap">
@@ -19,28 +19,28 @@
             <div class="aside_menu">
                 <ul class="aside_menu_list">
                 	<li class="aside_menu_top">Admin Menu</li>
+                    <li class="aside_menu_list_3">
+                    	<a href="/admin" class="aside_menu_list_3_a">
+                        <img src="/resources/hj/image/task2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                    	</a>
+                    </li>
                     <li class="aside_menu_list_1">
-                    	<a href="/synergy2/all/adminStats" class="aside_menu_list_1_a">
-                        <img src="../resources/image/chartIcon3.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Statistics
-                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 80px;"/>
+                    	<a href="/adminMemberStats" class="aside_menu_list_1_a">
+                        <img src="/resources/hj/image/chartIcon3.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Statistics
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 80px;"/>
                     	</a>
                     </li>
                     <li class="aside_menu_list_2">
-                    	<a href="/synergy2/all/programmingStats" class="aside_menu_list_2_a">
-                        <img src="../resources/image/chartIcon4.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
-                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 50px;"/>
-                    	</a>
-                    </li>
-                    <li class="aside_menu_list_3">
-                    	<a href="/synergy2/all/adminBoard" class="aside_menu_list_3_a">
-                        <img src="../resources/image/task2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
-                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                    	<a href="/adminProgrammingStats" class="aside_menu_list_2_a">
+                        <img src="/resources/hj/image/chartIcon4.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 50px;"/>
                     	</a>
                     </li>
                     <li class="aside_menu_list_4">
-                    	<a href="/synergy2/all/admin_map" class="aside_menu_list_4_a">
-                        <img src="../resources/image/map2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
-                        <img src="../resources/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                    	<a href="/adminLocationMap" class="aside_menu_list_4_a">
+                        <img src="/resources/hj/image/map2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
                     	</a>
                     </li>
                 </ul>
@@ -57,23 +57,23 @@
         <div class="sidebar">
             <ul>
                 <li class="sidebar_menu">Admin Menu</li>
-                <li><a><img src="../resources/image/chartIcon.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Member
-                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; margin-left: 30px;"/>
+                <li><a><img src="/resources/hj/image/chartIcon.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Member
+                    <img src="/resources/hj/image/right.png" style="width: 13px; height: 13px; margin-left: 30px;"/>
                 </a></li>
-                <li><a><img src="../resources/image/chartIcon2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
-                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
+                <li><a><img src="/resources/hj/image/chartIcon2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
+                    <img src="/resources/hj/image/right.png" style="width: 13px; height: 13px; "/>
                 </a></li>   
-                <li><a><img src="../resources/image/task.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
-                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
+                <li><a><img src="/resources/hj/image/task.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
+                    <img src="/resources/hj/image/right.png" style="width: 13px; height: 13px; "/>
                 </a></li>
-                <li><a><img src="../resources/image/map.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
-                    <img src="../resources/image/right.png" style="width: 13px; height: 13px; "/>
+                <li><a><img src="/resources/hj/image/map.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
+                    <img src="/resources/hj/image/right.png" style="width: 13px; height: 13px; "/>
                 </a></li>
             </ul>
         </div>
         
         <header class="header">
-            <div class="header_title"><img src="../resources/image/chartIcon5.png" style="width: 40px; height: 35px; margin-right:20px;"/>Programming Stats</div>
+            <div class="header_title"><img src="/resources/hj/image/chartIcon5.png" style="width: 40px; height: 35px; margin-right:20px;"/>Programming Stats</div>
         </header>
         <section class="section">
             <div class="section_chart">
@@ -104,7 +104,7 @@ $(document).ready(function(){
 	
 	$.ajax({
 		type: 'post',
-		url: '/synergy2/all/getProgrammingStats',
+		url: '/all/getProgrammingStats',
 		dataType: 'json',
 		beforeSend:function(xhr){
 			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);

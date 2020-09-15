@@ -25,7 +25,7 @@ public interface HjDAO {
 	public abstract List<ProgrammingDTO> getProgrammingStats();
 	public abstract List<MatchDTO> getListFromMatch();
 	public abstract int getBoardListCnt(Search search);
-	public abstract List<MemberDTO> getBoardList(Search search);
+	public abstract List<MemberDTO> getMemberList(Search search);
 	public abstract List<MemberDTO> getWithdrawalList(String username);
 	public abstract List<MemberDTO> getNickName(String nickname);
 	public abstract void passwordRevise(Map<String, String> map);

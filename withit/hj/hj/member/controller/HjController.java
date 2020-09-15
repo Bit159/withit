@@ -42,7 +42,42 @@ public class HjController {
 	private BCryptPasswordEncoder encoder;
 	@Autowired
 	private HjService hjService;
+	
+	
+	//관리자 : 회원목록
+	@GetMapping("/admin")
+	public String adminBoard(
+								Model model, 
+								@RequestParam(required = false, defaultValue = "1") int page,
+								@RequestParam(required = false, defaultValue = "1") int range,
+								@RequestParam(required = false, defaultValue = "username") String searchType,
+								@RequestParam(required = false) String keyword, @ModelAttribute("search") Search search
+								) {
 
+		model.addAttribute("search", search);
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+
+		// 전체 게시글의 수
+		int listCnt = hjService.getBoardListCnt(search);
+
+		// Pagination 객체생성
+		search.pageInfo(page, range, listCnt);
+
+		List<MemberDTO> list = hjService.getMemberList(search);
+
+		model.addAttribute("list", list);
+		model.addAttribute("pagination", search);
+
+		return "/hj/all/admin";
+	}
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/myPage")
 	public ModelAndView myPage(Principal principal, @Autowired MemberDTO memberDTO) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -54,43 +89,36 @@ public class HjController {
 		return mav;
 	}
 
-	@GetMapping("/admin")
-	public String adminBoard() {
-		return "/hj/all/adminBoard";
-	}
 
-	@RequestMapping(value = "/all/joinForm", method = RequestMethod.GET)
-	public String joinForm() {
-		return "/all/joinForm";
-	}
 
-	@RequestMapping(value = "/all/join", method = RequestMethod.POST)
-	public String join(@RequestParam Map<String, String> map) {
-		hjService.join(map);
-		return "redirect:/all/loginForm";
-	}
-
+	
+	//myPage 회원탈퇴
+	
 	@ResponseBody
 	@RequestMapping(value = "/member/withdrawal", method = RequestMethod.POST)
-	public String withdrawal(@RequestParam String username, String password, @Autowired MemberDTO memberDTO) {
+	public String withdrawal(@RequestParam String username, String password, @Autowired MemberDTO memberDTO, HttpSession session) {
 		List<MemberDTO> list = hjService.getWithdrawalList(username);
-		System.out.println(memberDTO.getPassword());// db에서 받아온 비밀번호
+		System.out.println(list.get(0).getPassword());// db에서 받아온 비밀번호
 		System.out.println(username);
 		System.out.println(password);// 입력한 비밀번호
 		String passwordEqual = null;
 		// encoder.matches(password, memberDTO.getPassword());
 
-		if (true == encoder.matches(password, memberDTO.getPassword())) {
+		if (true == encoder.matches(password, list.get(0).getPassword())) {
 			System.out.println("비번 맞춤");
 			hjService.withdrawal(username);
 			passwordEqual = "equal";
+			session.invalidate();
 		} else {
 			System.out.println("비번 틀림");
 			passwordEqual = "unEqual";
 		}
 		return passwordEqual;
 	}
-
+	
+	
+	//myPage 회원정보 수정
+	
 	@ResponseBody
 	@RequestMapping(value = "/member/revise", method = RequestMethod.POST)
 	public String revise(@RequestParam String username, String password, String nickname) {
@@ -167,48 +195,16 @@ public class HjController {
 
 	}
 
-	@RequestMapping(value = "/all/adminBoard", method = RequestMethod.GET)
-	public String adminBoard(Model model, @RequestParam(required = false, defaultValue = "1") int page,
-			@RequestParam(required = false, defaultValue = "1") int range,
-			@RequestParam(required = false, defaultValue = "username") String searchType,
-			@RequestParam(required = false) String keyword, @ModelAttribute("search") Search search) {
-
-		model.addAttribute("search", search);
-		search.setSearchType(searchType);
-		search.setKeyword(keyword);
-
-		// 전체 게시글의 수
-		int listCnt = hjService.getBoardListCnt(search);
-
-		// Pagination 객체생성
-		search.pageInfo(page, range, listCnt);
-
-		List<MemberDTO> list = hjService.getBoardList(search);
-
-		model.addAttribute("list", list);
-		model.addAttribute("pagination", search);
-
-		return "/all/adminBoard";
-
-	}
-
-	@RequestMapping(value = "/all/adminStats", method = RequestMethod.GET)
+	//관리자 페이지 회원 통계
+	
+	@GetMapping("/adminMemberStats")
 	public String adminStats() {
 
-		/*
-		 * List<TotalDTO> list = memberService.getTotalStats();
-		 * 
-		 * System.out.println(list);
-		 * 
-		 * 
-		 * 
-		 * model.addAttribute("list", list);
-		 */
-
-		return "/all/adminStats";
+		return "/hj/all/adminStats";
 
 	}
-
+	
+	//관리자 페이지 회원통계 chart 데이터 불러오기
 	@ResponseBody
 	@RequestMapping(value = "/all/getAdminStats", method = RequestMethod.POST)
 	public JSONArray getAdminStats() {
@@ -221,14 +217,17 @@ public class HjController {
 		return json;
 
 	}
-
-	@RequestMapping(value = "/all/programmingStats", method = RequestMethod.GET)
+	
+	//관리자 페이지 프로그래밍 언어 페이지
+	
+	@GetMapping("/adminProgrammingStats")
 	public String programmingStats() {
 
-		return "/all/programmingStats";
+		return "/hj/all/programmingStats";
 
 	}
-
+	
+	//관리자 페이지 프로그래밍 언어 chart 데이터
 	@ResponseBody
 	@RequestMapping(value = "/all/getProgrammingStats", method = RequestMethod.POST)
 	public JSONArray getProgrammingStats() {
@@ -241,14 +240,16 @@ public class HjController {
 		return json;
 
 	}
-
-	@RequestMapping(value = "/all/admin_map", method = RequestMethod.GET)
+	
+	//관리자 페이지 adminMap 페이지
+	@GetMapping("/adminLocationMap")
 	public String admin_map() {
 
-		return "/all/admin_map";
+		return "/hj/all/admin_map";
 
 	}
-
+	
+	//관리자 페이지 map 불러오기
 	@ResponseBody
 	@RequestMapping(value = "/all/admin_map_getList", method = RequestMethod.POST)
 	public JSONArray admin_map_getList() {
@@ -261,65 +262,31 @@ public class HjController {
 		return json;
 
 	}
-
+	
+	// 관리자 페이지 회원 회원탈퇴
+	@ResponseBody
 	@RequestMapping(value = "/all/memberDelete", method = RequestMethod.POST)
-	public String memberDelete(@RequestParam String username) {
+	public void memberDelete(@RequestParam String username) {
 
 		System.out.println(username);
 
 		hjService.memberDelete(username);
 
-		return "redirect:/all/adminBoard";
+		
+	}
+	
+	
+	
+	@RequestMapping(value = "/all/joinForm", method = RequestMethod.GET)
+	public String joinForm() {
+		return "/all/joinForm";
+	}
+
+	@RequestMapping(value = "/all/join", method = RequestMethod.POST)
+	public String join(@RequestParam Map<String, String> map) {
+		hjService.join(map);
+		return "redirect:/all/loginForm";
 	}
 
 }
 
-/*
- * @RequestMapping(value="/member/logout",method=RequestMethod.GET) public
- * String logout(HttpSession session) { session.invalidate();
- * 
- * return "/member/loginForm"; }
- */
-/*
- * @ResponseBody
- * 
- * @RequestMapping(value="/member/login",method=RequestMethod.POST) public
- * String login(@RequestParam String id, @RequestParam String pwd, HttpSession
- * session) {
- * 
- * MemberDTO memberDTO = memberService.login(id, pwd); String result = "";
- * 
- * if(memberDTO != null) { result = "success"; session.setAttribute("memId",
- * memberDTO.getId());
- * 
- * }else { result = "fail"; }
- * 
- * return result; }
- */
-
-/*
- * @RequestMapping(value="/all/getSearchAdminBoard",method=RequestMethod.GET)
- * public String getSearchAdminBoard(@RequestParam(value="nowpage", defaultValue
- * = "0") int nowpage, Model model, String username, String nickname) {
- * 
- * int row =3;
- * 
- * List<MemberDTO> list = new ArrayList<>();
- * 
- * Map<String, String> map = new HashMap<String, String>(); map.put("username",
- * username); map.put("nickname", nickname); List<MemberDTO> temp =
- * memberService.getSearchAdminBoard(map);
- * 
- * int totalpage = temp.size() / 3; if((list.size() % 3) > 0) totalpage++;
- * 
- * for(int i = nowpage * row; i < (nowpage * row) + row; i++) {
- * list.add(temp.get(i)); }
- * 
- * model.addAttribute("nowpage", nowpage); model.addAttribute("totalpage",
- * totalpage); model.addAttribute("list", list);
- * 
- * return "/all/adminBoard";
- * 
- * }
- * 
- */
