@@ -138,7 +138,6 @@
 		                    		<span>지역</span>&nbsp;&nbsp;
 		                        	<p id="card-body-location"> ${dto.location }</p>
 								</div>
-<%-- 		                        <p id="card-body-people">인원 ${dto.people}명</p> --%>
 	                   		</div> 
 	                    </div>
 	                </div>
@@ -152,16 +151,13 @@
             	</div>
 	        </c:forEach>
             </c:if>
-            <c:if test="${list eq null }">
-            <div><h1>없다아아아ㅏ아아</h1></div>
-	        </c:if>
         </div>
         </form>
         <!-- pagination{s} -->
 		<div id="paginationBox">
 			<ul class="pagination">
 				<c:if test="${paging.first}">
-					<li class="page-item"><a class="page-link" href="#" onClick="location.href='/synergy-kh/member/cardBoardList?pg=1&range=1&location=${paging.location}&topic=${paging.topic}'">《</a></li>
+					<li class="page-item"><a class="page-link" href="#" onClick="location.href='/cardBoard?pg=1&range=1&location=${paging.location}&topic=${paging.topic}'">《</a></li>
 				</c:if>
 				<c:if test="${paging.prev}">
 					<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}','${paging.location}','${paging.topic }')">〈</a></li>
@@ -277,7 +273,7 @@
 	function fn_prev(page, range, rangeSize, loc, topic) {
 		var page = ((range - 2) * rangeSize) + 1;
 		var range = range - 1;
-		var url = "${pageContext.request.contextPath}/member/cardBoardList";
+		var url = "/cardBoard";
 		url = url + "?pg=" + page;
 		url = url + "&range=" + range;
 		url = url + "&location=" + loc;
@@ -286,7 +282,7 @@
 	}
     //페이지 번호 클릭
 	function fn_pagination(page, range, rangeSize, loc, topic) {
-		var url = "${pageContext.request.contextPath}/member/cardBoardList";
+		var url = "/cardBoard";
 		url = url + "?pg=" + page;
 		url = url + "&range=" + range;
 		url = url + "&location=" + loc;
@@ -297,7 +293,7 @@
 	function fn_next(page, range, rangeSize,loc,topic) {
 		var page = parseInt((range * rangeSize)) + 1;
 		var range = parseInt(range) + 1;
-		var url = "${pageContext.request.contextPath}/member/cardBoardList";
+		var url = "/cardBoard";
 		url = url + "?pg=" + page;
 		url = url + "&range=" + range;
 		url = url + "&location=" + loc;
@@ -306,7 +302,7 @@
 	}
 	//맨끝 버튼 이벤트
 	function fn_last(pageCnt, rangeSize, loc, topic) {
-		var url = "${pageContext.request.contextPath}/member/cardBoardList";
+		var url = "/cardBoard";
 		var range = Math.ceil(pageCnt/rangeSize);
 		url = url + "?pg=" + pageCnt;
 		url = url + "&range=" + range;
