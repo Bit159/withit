@@ -154,16 +154,17 @@ public class KhController {
 		 CardBoardDTO dto = cardBoardService.getCardContent(seq);
 		 List<CardBoardReplyDTO> replyList= cardBoardService.getReplyList(seq);
 		 String username = principal.getName();
-		 String memberId = memberService.getNickname(dto.getNickname());
+		 String memberId = khService.getUsername(dto.getNickname());
 		 ModelAndView mav = new ModelAndView();
 		 boolean isAuthor = false;
 		 if(username.equals(memberId)) {
 			 isAuthor = true;
 		 }
+		 mav.addObject("username",username);
 		 mav.addObject("dto",dto);
 		 mav.addObject("replyList",replyList);
 		 mav.addObject("isAuthor",isAuthor);
-		 mav.setViewName("/kh/member/cardBoardView");
+		 mav.setViewName("/kh/member/cardBoardView"); 
 		 return mav;
 	 }
 	 //댓글등록
@@ -175,6 +176,7 @@ public class KhController {
 		 dto.setSeq(seq);
 		 dto.setReply(reply);
 		 dto.setNickname(nickname);
+		 dto.setUsername(username);
 		 CardBoardDTO cardDTO = new CardBoardDTO();
 		 cardDTO.setSeq(seq);
 		 cardBoardService.writeReply(dto);
@@ -219,6 +221,6 @@ public class KhController {
 	 @GetMapping(value="/closeCard")
 	 public String closeCard(@RequestParam int seq){
 		 cardBoardService.closeCard(seq);
-		 return "redirect:/member/cardBoardList";
+		 return "redirect:/cardBoardView?seq="+seq;
 	 }
 }

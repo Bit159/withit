@@ -206,7 +206,6 @@ input[id="menuicon"]:checked +label +div {right:0;}
 }
 #banner{
     position: relative;
-    border: dotted 2px red;
 }
 .banner_left {
     position: relative;

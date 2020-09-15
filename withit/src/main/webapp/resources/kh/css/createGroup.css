@@ -29,6 +29,12 @@ body{
 	margin: 0 30% 0 30%;
 	padding: 20px;
 }
+input[type="button"],input[type="submit"] {
+	border: solid 1px rgb(50, 190, 120);
+	color:white;
+	background:rgb(50, 190, 120);
+	cursor:pointer;
+}
 #title {
 	width:300px;
 	border:solid 1px darkgrey;

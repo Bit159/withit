@@ -17,4 +17,9 @@ public class KhServiceImpl implements KhService {
 		return khDAO.autocomplete();
 	}
 
+	@Override
+	public String getUsername(String nickname) {
+		return khDAO.getUsername(nickname);
+	}
+
 }

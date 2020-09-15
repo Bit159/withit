@@ -19,4 +19,8 @@ public class KhDAOMybatis implements KhDAO {
 		return sqlSession.selectList("khSQL.autocomplete");
 	}
 
+	@Override
+	public String getUsername(String nickname) {
+		return sqlSession.selectOne("khSQL.getUsername",nickname);
+	}
 }

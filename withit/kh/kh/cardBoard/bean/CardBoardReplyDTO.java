@@ -12,6 +12,7 @@ public class CardBoardReplyDTO {
 	private int rseq;
 	private int seq;
 	private String reply;
+	private String username;
 	private String nickname;
 	private Date regDate;
 	private Date editDate;

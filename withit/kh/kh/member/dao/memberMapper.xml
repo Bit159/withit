@@ -5,4 +5,7 @@
 	<select id="autocomplete" resultType="String">
 		select * from db.addr
 	</select>
+	<select id="getUsername" parameterType="String" resultType="String">
+		select username from membertable where nickname=#{nickname}
+	</select>
 </mapper>
