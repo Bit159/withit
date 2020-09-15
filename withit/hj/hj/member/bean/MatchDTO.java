@@ -15,8 +15,12 @@ public class MatchDTO {
 	private Double x;
 	private Double y;
 	private Double range;
-	private String time;
-	private String topic;
+	private String time1;
+	private String time2;
+	private String time3;
+	private String topic1;
+	private String topic2;
+	private String topic3;
 	private int career;
 	private int people;
 	private Date created;
