@@ -81,5 +81,9 @@ public class CardBoardServiceImpl implements CardBoardService {
 	public void closeCard(int seq) {
 		cardBoardDAO.closeCard(seq);
 	}
+	@Override
+	public void modifyGroup(CardBoardDTO cardBoardDTO) {
+		cardBoardDAO.modifyGroup(cardBoardDTO);
+	}
 	
 }
