@@ -12,6 +12,7 @@
 	<classpathentry kind="src" path="sj"/>
 	<classpathentry kind="src" path="hj"/>
 	<classpathentry kind="src" path="kh"/>
+	<classpathentry kind="src" path="rich"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

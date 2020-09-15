@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="richSQL">
+
+	<!-- To get Schedules -->
+	<select id="getGreatestNo" resultType="int">
+		SELECT MAX(`no`) FROM db.notify
+	</select>
+	
+	<insert id="createSchedule" parameterType="rich.notify.NotDTO">
+		INSERT db.notify(`username`, `group`, `start`, `end`, `title`, `place`, `content`, `created`)
+		VALUES(#{username}, #{group}, #{start}, #{end}, #{title}, #{place}, #{content}, now())
+	</insert>
+	
+	<select id="getSchedules" resultType="rich.notify.NotDTO">
+		SELECT * FROM db.notify ORDER BY `created` ASC
+	</select>
+	
+	<update id="updateSchedule" parameterType="rich.notify.NotDTO">
+		UPDATE db.notify SET `alert`=#{alert}, `time`=#{time}, `title`=#{title}, `content`=#{content}, `link`=#{link}, `updated`=NOW() WHERE `no`=#{no};
+	</update>
+	
+	<delete id="removeSchedule" parameterType="int">
+		DELETE FROM db.notify WHERE `no`=#{no}
+	</delete>
+	<!-- End of Getting Schedules -->
+
+	<!-- To get Database Server Time -->
+	<select id="getDBTime" resultType="java.util.Date">
+		SELECT now() FROM dual
+	</select>
+
+	<!-- FOR Notification -->
+	<select id="getOnTimeList" resultType="rich.notify.NotDTO">
+		<!-- 10분간격으로 돌면서 현재시간에서 1분 뺀 시간보다 더 이후 시간의 값을 갖고 있는 알림들을 가져온다. -->
+		<!-- <![CDATA[내용]]> 이렇게 작성해도 되고... <는 &lt; >는 &gt; -->
+		SELECT * FROM db.notify WHERE (`start` <![CDATA[>]]> DATE_SUB(now(), INTERVAL 1 MINUTE)) AND (`start` <![CDATA[<]]> DATE_ADD(now(), INTERVAL 1 MINUTE))
+	</select>
+	<!-- End of Notification -->
+
+	<!-- FOR MAP -->
+	<select id="getMycareer" parameterType="java.lang.String" resultType="int">
+		SELECT `mycareer` FROM membertable WHERE username=#{username}
+	</select>
+	
+	<insert id="insertMatch" parameterType="hj.member.bean.MatchDTO">
+		INSERT INTO db.match(`username`, `mycareer`, `x`, `y`, `range`, `time`, `topic`, `career`, `people`, `created`) 
+		VALUES(#{username}, #{mycareer}, #{x}, #{y}, #{range}, #{time}, #{topic}, #{career}, #{people}, now())
+	</insert>
+	
+	<select id="getListFromMatch" resultType="hj.member.bean.MatchDTO">
+		SELECT * FROM db.match ORDER BY `created` ASC
+	</select>
+	
+	<delete id="deleteMatched" parameterType="java.util.List">
+		DELETE FROM db.match
+		<where>
+			<foreach collection="list" item="item" separator="OR">
+				(`username`=#{item.username} AND `x`=#{item.x} AND `y`=#{item.y} AND
+				`range`=#{item.range})
+			</foreach>
+		</where>
+	</delete>
+	
+	<delete id="deleteMatch" parameterType="hj.member.bean.MatchDTO">
+		DELETE FROM db.match WHERE `username`=#{username} and `x`=#{x} and `y`=#{y} and `range`=#{range} and `career`=#{career} and `people`=#{people}	
+	</delete>
+	
+	<!-- End of FOR MAP -->
+	
+	<!-- FOR CRAWL -->
+	<insert id="crawlInsert" parameterType="java.util.List">
+		INSERT INTO cboard(`bno`, `title`, `nickname`, `boarddate`) VALUES
+		<foreach collection="list" item="item" separator=",">
+			 (#{item.bno}, #{item.title}, #{item.nickname}, #{item.boarddate})
+		</foreach>
+	</insert>
+	
+	<select id="getEmptyContentBno" resultType="String">
+		SELECT `bno` FROM cboard WHERE `content` IS NULL;
+	</select>
+	
+	<insert id="insertContents" parameterType="java.util.List">
+		UPDATE cboard set `content`= case
+		<foreach collection="list" item="item" separator="">
+			when `bno`=#{item.bno} then #{item.content}
+		</foreach>
+			end where `bno` in 
+		<foreach collection="list" item="item" separator="," open="(" close=")">
+			#{item.bno}
+		</foreach>
+	</insert>
+	
+	<select id="getGreatestBno" resultType="java.lang.Integer">
+		SELECT MAX(`bno`) FROM cboard
+	</select>	
+	
+	<!-- End of FOR CRAWL -->
+
+	<!-- FOR BOARD -->
+		<select id="getBoardList" resultType="sj.board.bean.CBoardDTO">
+			SELECT * FROM cboard order by bno desc limit 20
+		</select>
+	<!-- END OF BOARD -->
+
+</mapper>
+
+
