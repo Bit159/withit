@@ -23,17 +23,17 @@
 	    width: 100%;
 	    height: 100%;
 	    overflow: auto;
-	    background-color: rgba(0,0,0,0.4);
 	    align-content: right;
 	}
 	
 	.modal-content{
-		margin: 15% auto;
+		position: fixed;
 		width: 400px;
 		height: 600px;
-		right: 40%;
-		top : 30%;
+		right: 5%;
+		top : 10%;
 		background-color: white;
+		box-shadow: 3px 3px 3px 3px gray;
 	}
 	
 	.chat_list_wrap {
@@ -113,6 +113,7 @@
 	.chat_list_wrap .list ul li table td.profile_td img {
 	    width: 50px;
 	    heigth: 50px;
+	    vertical-align:middle;
 	}
 	
 	.chat_list_wrap .list ul li table td.chat_td .email {
@@ -168,7 +169,7 @@
     }
 
     #messages{
-        height: 500px;
+        height: 470px;
         overflow-y: auto;
         padding: 10px;
     }
@@ -237,9 +238,16 @@
         font-size: 17px;
         cursor: pointer;
     }
+    
+    #messages::-webkit-scrollbar{
+    	display: none;
+    }
+    
 </style>
-<script defer type="text/javascript" src="/resources/js/sockjs.min.js"></script>
-<script defer type="text/javascript" src="/resources/js/stomp.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/bj/css/toastr.min.css"/>
+<script defer type="text/javascript" src="/resources/bj/js/sockjs.min.js"></script>
+<script defer type="text/javascript" src="/resources/bj/js/stomp.min.js"></script>
+<script defer type="text/javascript" src="/resoureces/bj/js/toastr.min.js"></script>
 </head>
 <body>
 <sec:authentication property="principal.username" var="username"/>
@@ -259,7 +267,7 @@
 		                <table cellpadding="0" cellspacing="0">
 		                    <tr>
 		                        <td class="profile_td">
-		                            <img src="/resources/image/chatting_floating.png"/>
+		                            <img src="/resources/bj/image/chatting.png"/>
 		                        </td>
 		                        <td class="chat_td">
 		                        	<div class="chat_name">
@@ -305,7 +313,7 @@
 		</div>
 	</div>
 </div>
-<img id="chatting" src="/resources/image/chatting_floating.png" width="100" height="100" style="position:fixed;	top: 700px;right : 50%;margin-right: -900px;cursor:pointer;z-index : 99;">
+<img id="chatting" src="/resources/image/chatting_floating.png" width="70" height="70" style="position:fixed; top: 85%; right : 4%; cursor:pointer;">
 
 </body>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
@@ -325,9 +333,9 @@ let chattingCheck = "${chattingCheck}";
 //======================================================== 채팅방 리스트 가져오기
 
 $(document).ready(function(){
-	if(chattingCheck == '0'){
-		connect(chattingRoomNum);
-	}
+	//if(chattingCheck == '0'){
+		
+	//}
 	
 	$.ajax({
 		type : 'post',
@@ -338,13 +346,14 @@ $(document).ready(function(){
 		data : 'username=' + '${username}',
 		dataType : 'json',
 		success : function(data){
+			connect(chattingRoomNum);
 			$.each(data.list, function(index, items){
 				document.getElementById("chattingRoomList").innerHTML += "<li id='" + items.chattingRoom + "' onclick='getChatting(" + items.chattingRoom + ")'><table><tr><td class='profile_td'><img src='/resources/image/chatting.png'/></td>"
 																		+ "<td class='chat_td'><div class='chat_name'>" + items.chattingRoom + "</div><div class='email'>" + items.nickname + "</div><div class='chat_preview'>" + items.chat + "</div></td>"
 																		+ "<td class='time_td'><div class='time'>" + items.chat_date + "</div><div id='" + items.chattingRoom + "_check'></div></td></tr></table></li>";
-				if(chattingCheck == '0'){
+				//if(chattingCheck == '0'){
 					connect(items.chattingRoom);														
-				}
+				//}
 			});
 			
 		},
@@ -440,6 +449,8 @@ function connect(chattingRoom){
 	});
 }
 
+//======================================================= 메시지 보내기
+
 function send(data){
 	let chat = document.getElementById('messageInput').value;
 	
@@ -454,6 +465,8 @@ function send(data){
 	*/
 }
 
+//============================================================ 웹소켓 연결 끊기
+
 function disconnect() {
     if (stompClient != null) {
         stompClient.disconnect();
@@ -461,6 +474,8 @@ function disconnect() {
     setConnected(false);
     console.log("Disconnected");
 }
+
+//============================================================= 메시지 받았을 때 수행하는 메서드
 
 function onMessageReceived(payload){
 	let chat_preview = document.getElementById('chat_preview');
@@ -496,8 +511,19 @@ function onMessageReceived(payload){
 		document.getElementById(message.chattingRoom + '_check').innerHTML += "<p id='check'></p>";
 	}
 	
+	if(document.getElementById('modal').style.display == 'none'){
+		toastr.options = {
+				closeButton : true,
+				progressBar : true,
+				timeOut : 4000
+		}
+		toastr.success(message.chat, message.nickname);
+	}
+	
 	document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 }
+
+//========================================================= 엔터키 설정
 
 function enterKey(data){
 	if(window.event.keyCode == 13){
@@ -518,18 +544,21 @@ let span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal 
 chatting.onclick = function() {
-	modal.style.display = "block";
+	$('#modal').fadeIn();
+	$('#chatting').fadeOut();
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-    modal.style.display = "none";
+	$('#modal').fadeOut();
+	$('#chatting').fadeIn();
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+    	$('#modal').fadeOut();
+    	$('#chatting').fadeIn();
     }
 }
 

@@ -10,45 +10,45 @@
 	
 	<!-- 로그인  -->
 	<select id="getNickname" parameterType="String" resultType="String">
-		select nickname from membertable where username=#{username}
+		select nickname from db.membertable where username=#{username}
 	</select>
 	
 	<!-- 회원가입 -->
 	
 	<insert id="join" parameterType="java.util.Map">
-		insert into membertable(username, nickname, password) values(#{username}, #{nickname}, #{password})
+		insert into db.membertable(username, nickname, password) values(#{username}, #{nickname}, #{password})
 	</insert>
 	
 	<insert id="addInfo" parameterType="member">
-		insert into membertable(username, nickname, password) values(#{username}, #{nickname},#{password})
+		insert into db.membertable(username, nickname, password) values(#{username}, #{nickname},#{password})
 	</insert>
 	
 	<!-- 회원 탈퇴 -->
   	
 	<delete id="withdrawal" parameterType="String">
-		delete from membertable where username=#{username}
+		delete from db.membertable where username=#{username}
 	</delete>   
 	
 	<!-- 멤버 체크 -->
 	
 	<select id="checkMember" parameterType="String" resultType="member">
-		select * from membertable where username=#{username}
+		select * from db.membertable where username=#{username}
 	</select>
 	
 	<!-- 지역 자동완성 -->
 	
 	<select id="autocomplete" resultType="String">
-		select * from addr
+		select * from db.addr
 	</select>
 	
 	<!-- 관리자 페이지 회원정보 불러오기 -->
 	
 	<select id="getMember" resultType="member">
-		select * from membertable
+		select * from db.membertable
 	</select>
 	
 	<delete id="memberDelete" parameterType="String">
-		delete from membertable where username=#{username}
+		delete from db.membertable where username=#{username}
 	</delete>
 	
 	<!-- ============================ 마이페이지 ============================ -->
@@ -56,13 +56,13 @@
 	<!-- 패스워드 닉네임 변경 -->
 	 
   	<update id="revise" parameterType="java.util.Map">
-  		update membertable set nickname=#{nickname}, password=#{password} where username=#{username}
+  		update db.membertable set nickname=#{nickname}, password=#{password} where username=#{username}
   	</update>
   	
   	<!-- only 닉네임 변경 -->
   	
   	<update id="nicknameRevise" parameterType="java.util.Map">
-  		update membertable set nickname=#{nickname} where username=#{username}
+  		update db.membertable set nickname=#{nickname} where username=#{username}
   	</update>
   	
   	<!-- ============================ 마이페이지 ============================ -->
@@ -90,7 +90,7 @@
   	<!-- 전체 채팅방 프리뷰 가져오기 -->
   	
   	<select id="getAllChatting" resultType="chattingRoom">
-  		select * from chattingRoom order by chat_date desc limit 1
+  		select * from db.chattingRoom order by chat_date desc limit 1
   	</select>
   	
   	<!-- 채팅방 생성 -->
@@ -102,19 +102,19 @@
 	<!-- 채팅방 생성시 같은 이름이 있는지 확인 -->
 	
 	<select id="checkRoomName" parameterType="String" resultType="String">
-		select chattingRoom from chattingRoomList where chattingRoom=#{chattingRoomName}
+		select db.chattingRoom from chattingRoomList where chattingRoom=#{chattingRoomName}
 	</select>
 
   	<!-- 채팅방 리스트 뽑아오기 -->
   	
   	<select id="getChattingRoom" parameterType="String" resultType="chattingRoom">
-  		select * from chattingRoomList where members like concat('%',#{username},'%')
+  		select * from db.chattingRoomList where members like concat('%',#{username},'%')
   	</select>
   	
   	<!-- 채팅방에 들어가기 -->
   	
 	<insert id="joinChattingRoom" parameterType="java.util.Map">
-		insert into ChattingRoomList values(#{chattingRoom},#{members})
+		insert into db.ChattingRoomList values(#{chattingRoom},#{members})
 	</insert>
 	
 	
