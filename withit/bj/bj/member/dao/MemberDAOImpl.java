@@ -115,8 +115,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void createChat() {
 		String uuid = UUID.randomUUID().toString();
-		String chattingRoomName = "chattingRoom" + uuid;
-		System.out.println(uuid);
+		String chattingRoomName = "db.chattingRoom" + uuid;
 		
 		String checkRoomName = sqlSession.selectOne("memberSQL.checkRoomName", chattingRoomName);
 		
@@ -126,7 +125,7 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 		
 		Map<String, String> map = new HashedMap<String, String>();
-		String create_table = "create table " + chattingRoomName
+		String create_table = "create table db." + chattingRoomName
 							+ "(username varchar(100),"
 							+ "nickname varchar(100),"
 							+ "chat varchar(500),"
@@ -152,7 +151,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public ChattingDTO getLastChatting(String chattingRoom) {
-		return sqlSession.selectOne("memberSQL.getLastChatting", chattingRoom);
+		return sqlSession.selectOne("memberSQL.getLastChatting", "db."+chattingRoom);
 	}
 
 	@Override

@@ -15,7 +15,6 @@ import sj.board.bean.BoardDTO;
 import sj.board.bean.CBoardDTO;
 import sj.board.bean.CBoardReplyDTO;
 import sj.board.dao.BoardDAO;
-import sj.board.paging.BoardPaging;
 import sj.board.paging.Pagination;
 import sj.board.paging.Search;
 
@@ -26,9 +25,6 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired 
 	private HttpSession session;
-	 
-	@Autowired 
-	private BoardPaging boardPaging;
 	 
 	
 	@Override
@@ -202,6 +198,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void deleteBBoard(int bno) {
 		boardDAO.deleteBBoard(bno);
+	}
+
+	@Override
+	public void modifyBBoard(Map<String, Object> map) {
+		boardDAO.modifyBBoard(map);
 	}
 
 	

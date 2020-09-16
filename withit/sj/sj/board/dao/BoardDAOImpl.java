@@ -186,6 +186,11 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSession.delete("boardSQL.deleteBBoard", bno);
 	}
 
+	@Override
+	public void modifyBBoard(Map<String, Object> map) {
+		sqlSession.update("boardSQL.modifyBBoard", map);
+	}
+
 	
 
 	

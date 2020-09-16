@@ -13,6 +13,18 @@ html, body, div,h1,a,p {
     border:solid 2px lightgray;
     border-radius: 10px;
 }
+button {
+	border: solid 1px rgb(50, 190, 120);
+	color:white;
+	background:rgb(50, 190, 120);
+	cursor:pointer;
+}
+input[type="button"]{
+	border: solid 1px rgb(50, 190, 120);
+	color:white;
+	background:rgb(50, 190, 120);
+	cursor:pointer;
+}
 div[id="card-title"] h1 {
 	width:90%;
     font-size: 20pt;

@@ -63,7 +63,7 @@
 			<div id="paginationBox">
 				<ul class="pagination">
 					<c:if test="${paging.first}">
-						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/synergy/board/boardList?pg=1&range=1&searchType=${search.searchType }&keyword=${search.keyword }'">《</a></li>
+						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/crawlBoard?pg=1&range=1&searchType=${search.searchType }&keyword=${search.keyword }'">《</a></li>
 					</c:if>
 					<c:if test="${paging.prev}">
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')">〈</a></li>
@@ -102,7 +102,7 @@
 	
 	<jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
 	
-	<c:url var="boardListURL" value="/synergy/board/boardList"></c:url>
+	<c:url var="crawlBoardURL" value="/crawlBoard"></c:url>
 
 	<script type="text/javascript">
 		// 페이지 로딩시
@@ -118,7 +118,7 @@
 		function fn_prev(page, range, rangeSize, searchType, keyword) {
 			var page = ((range - 1) * rangeSize) ;
 			var range = range - 1;
-			var url = "${pageContext.request.contextPath}/board/boardList";
+			var url = "${pageContext.request.contextPath}/crawlBoard";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			url = url + "&searchType=" + $('#searchType').val();
@@ -128,7 +128,7 @@
 		
 		// 페이지 번호 클릭
 		function fn_pagination(page, range, rangeSize, searchType, keyword) {
-			var url = "${pageContext.request.contextPath}/board/boardList";
+			var url = "${pageContext.request.contextPath}/crawlBoard";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			url = url + "&searchType=" + $('#searchType').val();
@@ -140,7 +140,7 @@
 		function fn_next(page, range, rangeSize, searchType, keyword) {
 			var page = parseInt((range * rangeSize)) + 1;
 			var range = parseInt(range) + 1;
-			var url = "${pageContext.request.contextPath}/board/boardList";
+			var url = "${pageContext.request.contextPath}/crawlBoard";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			url = url + "&searchType=" + $('#searchType').val();
@@ -150,7 +150,7 @@
 		
 		// 맨끝 버튼 이벤트
 		function fn_last(pageCnt, rangeSize, searchType, keyword) {
-			var url = "${pageContext.request.contextPath}/board/boardList";
+			var url = "${pageContext.request.contextPath}/crawlBoard";
 			var range = Math.ceil(pageCnt/rangeSize);
 			url = url + "?pg=" + pageCnt;
 			url = url + "&range=" + range;
@@ -164,7 +164,7 @@
 
 			e.preventDefault();
 	
-			var url = "${boardList}";
+			var url = "${crawlBoard}";
 	
 			url = url + "?searchType=" + $('#searchType').val();
 	

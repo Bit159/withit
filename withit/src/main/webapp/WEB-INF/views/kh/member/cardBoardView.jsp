@@ -26,8 +26,7 @@
 						<c:if test="${dto.open ne 1}">
 							<c:if test="${isAuthor eq true }">
 								<input type="button" id="modifyCard" value="수정" onclick="location.href='/modifyCard?seq=${dto.seq}'">
-								<input type="button" id="closeCard" value="마감"
-									onclick="location.href='/closeCard?seq=${dto.seq}'">
+								<input type="button" id="closeCard" value="마감">
 							</c:if>
 						</c:if>
 					</div>
@@ -76,7 +75,7 @@
 									<div id="reply_regDate">${regDate}</div>
 									<div id="reply_editDate">${editDate}수정</div>
 									<div class="reply">${replydto.reply }</div>
-									<c:if test="${isAuthor eq true }">
+									<c:if test="${replydto.username eq username }">
 										<div class="reply_button">
 											<button type="button" id="modifyReplyBtn"
 												data-rseq="${ replydto.rseq }">수정</button>
@@ -121,32 +120,39 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script type="text/javascript">
 autolink($('.reply, #card-content pre'));
-$('#closeCard').click(function(){
-	$.ajax({
-		type:'get',
-		url:'/closeCard',
-		data:'seq='+$('#boardSeq').val(),
-		success:function(){
-			alert('ㅎㅎㅎ')
-		},
-		error:function(){
-			
-		}
-	});
-});
 /* ===========댓글 등록================= */
 $('#reply_write_regist').click(function(){
-	$.ajax({
-		type:'get',
-		url:'/writeReply',
-		data:{'reply':$('#reply').val(),'seq':$('#boardSeq').val()},
-		success:function(){
-			location.reload();
-		},
-		error:function(){
-			alert('다시 시도해 주세요')
-		}
-	});
+	if($('#reply').val()!=""){
+		Swal.fire({
+		    title: '등록하시겠습니까?',
+		//  text: "You won't be able to revert this!",
+		    icon: 'question',
+		    showCancelButton: true,
+		    confirmButtonColor: '#3085d6',
+		    cancelButtonColor: '#d33',
+		    confirmButtonText: '등록',
+		    cancelButtonText: '취소',
+		 	}).then((result) => {
+			    if (result.value) {
+					$.ajax({
+						type:'get',
+						url:'/writeReply',
+						data:{'reply':$('#reply').val(),'seq':$('#boardSeq').val()},
+						success:function(){
+							location.reload();
+						},
+						error:function(){
+							alert('다시 시도해 주세요')
+						}
+					});
+			    }
+		 	});
+	}else {
+		Swal.fire({
+		    title: '내용을 입력해주세요',
+		    icon: 'warning',
+		 	})
+	}
 });
 /* ==================댓글삭제========== */
 $('.reply_button').on('click','#deleteReplyBtn',function(){
@@ -154,7 +160,6 @@ $('.reply_button').on('click','#deleteReplyBtn',function(){
 	let seq = $(this).data('seq')
     Swal.fire({
     title: '삭제하시겠습니까?',
-//  text: "You won't be able to revert this!",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -188,25 +193,61 @@ $('.reply_button').on('click','#modifyReplyBtn',function(){
 	$(this).parent().parent().children('.reply_modify_wrapper').css('display','block')
 });
 $('.reply_modify_button_div').on('click','#reply_modify_button',function(){
-// 	$(this).parent().parent().parent().parent().parent().children('#reply_editDate').css('display','block');
 	let rseq = $(this).data('rseq');
 	reply = $(this).parent().parent().children('textarea').val();
-	$.ajax({
-		type:'get',
-		url:'/modifyReply',
-		data:{'rseq':rseq,'reply':reply},
-		success:function(){
-			location.reload();
-		},
-		error:function(){
-		}
-	});
+	Swal.fire({
+	    title: '수정하시겠습니까?',
+	    icon: 'warning',
+	    showCancelButton: true,
+	    confirmButtonColor: '#3085d6',
+	    cancelButtonColor: '#d33',
+	    confirmButtonText: '확인',
+	    cancelButtonText: '취소',
+	 	}).then((result) => {
+		    if (result.value) {
+				$.ajax({
+					type:'get',
+					url:'/modifyReply',
+					data:{'rseq':rseq,'reply':reply},
+					success:function(){
+						location.reload();
+					},
+					error:function(){
+					}
+				});
+		    }
+	 	});
 });
 $('.reply_modify_button_div').on('click','#reply_modify_cancel',function(){
 	$(this).parent().parent().parent().parent().css('display','none');
 	$(this).parent().parent().children('textarea').val('');
 });
-
+/* ==================마감=============== */
+$('#closeCard').click(function(){
+	Swal.fire({
+	    title: '마감하시겠습니까?',
+	    icon: 'warning',
+	    showCancelButton: true,
+	    confirmButtonColor: '#3085d6',
+	    cancelButtonColor: '#d33',
+	    confirmButtonText: '마감',
+	    cancelButtonText: '취소',
+	 	}).then((result) => {
+	    if (result.value) {
+    		$.ajax({
+    			type:'get',
+    			url:'/closeCard',
+    			data:'seq='+$('#boardSeq').val(),
+    			success:function(){
+    				location.href="/cardBoardView?seq="+$('#boardSeq').val();
+    			},
+    			error:function(){
+    				
+    			}
+    		});
+	    }
+		});
+});
 </script>
 </body>
 </html>

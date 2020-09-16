@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	
 	//댓글 쓰기 
 	$(document).on("click","#reply_writer_btn",function(){
 		var $btnObj = $(this);
@@ -15,7 +16,7 @@ $(document).ready(function(){
 		if(reply != ""){
 			$.ajax({
 				type: "post",
-				url: "/synergy/board/boardReply",
+				url: "/crawlBoard/boardReply",
 				beforeSend: function(xhr){
 		    		xhr.setRequestHeader(csrfHeader, csrfToken);
 		    		
@@ -29,33 +30,8 @@ $(document).ready(function(){
 							  text: '댓글이 등록되었습니다.',
 							  icon: 'success',
 					}).then((res)=>{
-						location.href='/synergy/board/'+bno+'?pg='+page+'&range='+range;									
+						location.href='/crawlBoard/'+bno+'?pg='+page+'&range='+range;									
 					});
-					
-					// 비동기 방식
-					/*let a = '<li class="reply_group_item"><div class="reply_nickname">'
-						    +"nickname"+
-						    '</div><div class="reply">'
-						    +reply+
-						    '</div><div class="reply_button">'
-						    +'<button type="button" class="modifyBtn">수정</button><button type="button" class="deleteBtn" data-rno="${ replydto.rno }">삭제</button>'+
-						    '</div></li>';
-					
-					let b = document.querySelector('ul.reply_group');
-					
-					b.innerHTML = b.innerHTML + a;
-					
-					$("#reply_writer_text").val('');
-					
-					let target = document.querySelector('.reply_header');
-					let newnum = target.innerText.substring(6);
-					newnum++;
-					target.innerText = `댓글수 : ${newnum}`;
-					
-					let target1 = document.querySelector('.view_replys');
-					let newnum1 = target1.innerText.substring(6);
-					newnum1++;
-					target1.innerText = `댓글수 : ${newnum1}`;*/
 
 				},
 				error: function(err){
@@ -66,7 +42,7 @@ $(document).ready(function(){
 			Swal.fire({
 					  title: '댓글 내용이 없음',
 					  text: '댓글 내용을 입력하세요',
-					  icon: 'question'
+					  icon: 'warning'
 			});
 		}
 		
@@ -103,7 +79,7 @@ $(document).ready(function(){
 		function deleteReply(){
 			$.ajax({
 				type: 'post',
-				url: '/synergy/board/replyDelete',
+				url: '/crawlBoard/replyDelete',
 				beforeSend: function(xhr){
 		    		xhr.setRequestHeader(csrfHeader, csrfToken);
 		    	},
@@ -139,38 +115,6 @@ $(document).ready(function(){
 			});
 		}
 		
-		
-		
-		/*
-		let a = document.querySelectorAll('button .deleteBtn');
-		let rno;
-		
-		for(let i = 0; i<a.length; i++){
-			rno = a[i].parentElement.parentElement.children[0].value;
-		}
-		
-		var param = "rno="+rno;
-		
-		a[i].addEventListener('click', ()=> {
-			let result = confirm("정말 삭제하시겠습니까?");
-			
-			if(result){
-				$.ajax({
-					type: 'get',
-					url: '/synergy/board/replyDelete',
-					data: param,
-					success: function(data){
-						alert("삭제 성공");
-						a[i].parentElement.parentElement.remove();
-					},
-					error: function(err){
-						console.log(err);	
-					}
-				});
-				
-			}
-		});
-		*/
 	});
 	
 	//댓글 수정
@@ -224,7 +168,7 @@ $(document).ready(function(){
 		function updateReply() {
 			$.ajax({
 				type: 'post',
-				url: '/synergy/board/replyModify',
+				url: '/crawlBoard/replyModify',
 				beforeSend: function(xhr){
 		    		xhr.setRequestHeader(csrfHeader, csrfToken);
 		    	},
@@ -236,7 +180,7 @@ $(document).ready(function(){
 							  icon: 'success',
 							  confirmButtonText: `확인`,
 		    		}).then((res)=>{
-		    			location.href='/synergy/board/'+bno+'?pg='+page+'&range='+range;
+		    			location.href='/crawlBoard/'+bno+'?pg='+page+'&range='+range;
 		    		});
 		    	},
 		    	error: function(err){

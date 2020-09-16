@@ -78,6 +78,8 @@ public interface BoardDAO {
 
 	public void deleteBBoard(int bno);
 
+	public void modifyBBoard(Map<String, Object> map);
+
 	
 
 	

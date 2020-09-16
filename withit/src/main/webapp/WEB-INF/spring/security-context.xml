@@ -11,8 +11,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/social/google http://www.springframework.org/schema/social/spring-social-google.xsd">
 		
-	
-	<bean id="loginSuccess" class="bj.member.controller.LoginSuccessHandler"></bean>
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	
 	<security:http>
@@ -20,7 +18,7 @@
 		<security:intercept-url pattern="/cardBoard" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/> <!-- ROLE_* -->
 		<security:intercept-url pattern="/myGroup" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/> <!-- ROLE_* -->
 		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
-		<security:form-login login-page="/loginForm" authentication-success-handler-ref="loginSuccess"  />
+		<security:form-login login-page="/loginForm" />
 		
 		<security:logout logout-success-url="/" invalidate-session="true" delete-cookies="remember-me,JSESSIONID" />
 		
@@ -29,7 +27,6 @@
 		</security:session-management>
 		
 		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
-
 	</security:http>
 	
 	<security:authentication-manager>
@@ -42,11 +39,3 @@
 	</security:authentication-manager>	
 	
 </beans>
-
-
-<!--
-<security:user-service>
-		<security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN, ROLE_MEMBER"/> authorities 값은 ROLE_* 형태로 작성해야 한다.
-		<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
-</security:user-service>
-  -->

@@ -3,10 +3,12 @@ package sj.board.bean;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.stereotype.Service;
 
 import lombok.Data;
 
 @Alias("cBoardDTO")
+@Service
 @Data
 public class CBoardDTO {
 	private int bno;

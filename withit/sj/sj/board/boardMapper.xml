@@ -308,5 +308,13 @@
 		DELETE FROM db.board where bno=#{bno}
 	</delete>
 	<!-- 자유게시판 보드 삭제 -->
+	
+	<!-- 자유게시판 보드 수정 -->
+	<update id="modifyBBoard" parameterType="java.util.Map">
+		UPDATE db.board 
+		SET title = #{title}, content = #{content}, nickname = #{nickname}, updatedate = #{now}
+		WHERE bno = #{bno}
+	</update>
+	<!-- 자유게시판 보드 수정 -->
   	
   </mapper>
