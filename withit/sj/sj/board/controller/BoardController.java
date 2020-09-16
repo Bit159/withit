@@ -258,10 +258,13 @@ public class BoardController {
 	}
 	
 	// 자유게시판 수정 폼	
-	@GetMapping("/board/boardModifyForm")
-	public ModelAndView bboardWriteForm() {
+	@GetMapping("/freeBoard/boardModifyForm")
+	public ModelAndView bboardWriteForm(@RequestParam int bno) {
+		// 원글 불러오기
+		BBoardDTO bBoardDTO = boardService.getBBoard(bno);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/boardModifyForm");
+		mav.addObject("bBoardDTO", bBoardDTO);
+		mav.setViewName("/sj/boardModifyForm");
 		return mav;
 	}
 	
@@ -417,5 +420,23 @@ public class BoardController {
 		mav.setViewName("/sj/freeBoard");
 		return mav;
 	}
+	
+	// 자유게시판 보드 수정
+	@PostMapping("/freeBoard/boardModify")
+	public ModelAndView boardModify(@RequestParam String title, String content, String nickname, Principal principal, HttpServletRequest request, int bno) {
+		Date now = new Date();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("title",title);
+		map.put("content",content);
+		map.put("nickname",request.getSession().getAttribute("nickname"));
+		map.put("now", now);
+		map.put("bno", bno);
+		boardService.modifyBBoard(map);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/sj/freeView");
+		return mav;
+	}
+	
+	
 	
 }

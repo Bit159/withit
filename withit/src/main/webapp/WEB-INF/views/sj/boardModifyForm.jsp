@@ -6,12 +6,13 @@
 <meta charset="UTF-8">
 <meta id="_csrf" name="_csrf" content="${_csrf.token}">
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
-<title>Insert title here</title>
-<link rel="stylesheet" href="../css/boardWriteForm.css">
+<title>게시글 수정</title>
+<link rel="stylesheet" href="/resources/sj/css/boardModifyForm.css">
 </head>
 <body>
-	<div id="boardWriteWrapper">
-        <div id="boardWriteContainer">
+	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
+	<div id="boardModifyWrapper">
+        <div id="boardModifyContainer">
         	<h1>게시글 수정</h1>
             <!--
             <div id="boardWriteTopic">
@@ -19,33 +20,37 @@
                 <div id="boardWriteTopicDiv"></div>
             </div>
             -->
-            <div id="boardWriteTitle">
-                <label for="" id="boardWriteTitleLabel"></label>
+            <div id="boardModifyTitle">
+                <label for="" id="boardModifyTitleLabel"></label>
                 <div id="boardWriteTitleDiv">
-                    <input type="text" id="boardWriteTitleText">
+                    <input type="text" id="boardModifyTitleText" value="${bBoardDTO.title }" placeholder="제목을 입력하세요.">
                 </div>
             </div>
-            <div id="boardWriteContent">
-                <label for="" id="boardWriteContentLabel"></label>
-                <div id="boardWriteContentDiv">
-                    <textarea name="boardWriteContentText" id="boardWriteContentText" ></textarea>
+            <div id="boardModifyContent">
+                <label for="" id="boardModifyContentLabel"></label>
+                <div id="boardModifyContentDiv">
+                    <textarea name="boardModifyContentText" id="boardModifyContentText" placeholder="내용을 입력하세요.">${bBoardDTO.content }</textarea>
                 </div>
             </div>
-            <div id="boardWriteButton">
-                <button id="boardWriteBtn">글 수정</button>
-                <button id="boardListBtn">글 목록</button>
+            <div id="boardModifyButton">
+                <button type="button" id="boardModifyBtn">글 수정</button>
+                <button type="button" id="boardListBtn" onclick="location.href='/freeBoard'">글 목록</button>
             </div>
         </div>
     </div>
+    <jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
     
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
     // 글 수정 버튼
-    $(document).on('click', '#boardWriteBtn', function(){
-    	var title = $("#boardWriteTitleText").val();
-    	var content = $("#boardWriteContentText").val();
+    $(document).on('click', '#boardModifyBtn', function(){
+    	var title = $("#boardModifyTitleText").val();
+    	var content = $("#boardModifyContentText").val();
     	var nickname = "nickname";
-    	var param = "title="+title+"&content="+content+"&nickname="+nickname;
+    	var bno = ${bBoardDTO.bno };
+    	var param = "title="+title+"&content="+content+"&nickname="+nickname+"&bno="+bno;
+    	
     	
     	var csrfHeader = document.getElementById('_csrf_header').content;
 		var csrfToken = document.getElementById('_csrf').content;
@@ -55,7 +60,7 @@
 		if(title != "" & content != ""){
 			$.ajax({
 				type : "post",
-				url : "/synergy/board/boardModify",
+				url : "/freeBoard/boardModify",
 				beforeSend: function(xhr){
 		    		xhr.setRequestHeader(csrfHeader, csrfToken);
 		    		
@@ -64,10 +69,10 @@
 		    	success: function(){
 		    		Swal.fire(
 							  '게시글 수정 완료',
-							  '게시글이 수정되었습니다.',
+							  '게시글이 수정 되었습니다.',
 							  'success'
 							).then((res)=>{
-								location.href='/synergy/bboard/boardList2';
+								location.href='/freeBoard/'+bno;
 				    		});;
 		    	},
 		    	error: function(err){
@@ -78,7 +83,7 @@
 			Swal.fire(
 					  '제목 또는 내용이 없음',
 					  '제목 또는 내용을 입력하세요',
-					  'question'
+					  'warning'
 					);
 		}
     });

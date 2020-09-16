@@ -200,6 +200,11 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.deleteBBoard(bno);
 	}
 
+	@Override
+	public void modifyBBoard(Map<String, Object> map) {
+		boardDAO.modifyBBoard(map);
+	}
+
 	
 	
 
