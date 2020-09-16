@@ -114,4 +114,16 @@ public class HjDAOMybatis implements HjDAO {
 		return null;
 	}
 
+	@Override
+	public int checkUsername(String username) {
+		
+		return sqlSession.selectOne("hjSQL.checkUsername", username);
+	}
+
+	@Override
+	public int checkNickname(String nickname) {
+	
+		return sqlSession.selectOne("hjSQL.checkNickname", nickname);
+	}
+
 }

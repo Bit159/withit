@@ -323,9 +323,9 @@ input[id="menuicon"]:checked + label + div {
  #btnSearch{
      width: 5%;
      height:30px;
-     background-color: white;
+     background-color: rgb(40, 32, 114);
 	border-color: rgb(40, 32, 114);
-	color: rgb(40, 32, 114);
+	color: white;
 	font-weight: bold;
  }
 

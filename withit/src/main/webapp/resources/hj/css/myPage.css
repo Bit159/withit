@@ -142,18 +142,18 @@ body{
 #reviseBtn{
 	width: 70px;
 	height: 30px;
-	background-color: white;
+	background-color: rgb(50, 190, 120);
 	border-color: rgb(50, 190, 120);
-	color: rgb(50, 190, 120);
+	color:white;
 	font-weight: bold;
 }
 
 #resetBtn{
 	width: 70px;
 	height: 30px;
-	background-color: white;
+	background-color: rgb(50, 190, 120);
 	border-color: rgb(50, 190, 120);
-	color: rgb(50, 190, 120);
+	color: white;
 	font-weight: bold;
 	
 }
@@ -168,9 +168,9 @@ body{
 #withdrawBtn{
 	width: 80px;
 	height: 30px;
-	background-color: white;
+	background-color: rgb(50, 190, 120);
 	border-color: rgb(50, 190, 120);
-	color: rgb(50, 190, 120);
+	color: white;
 	font-weight: bold;
 }
 
