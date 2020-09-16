@@ -73,6 +73,18 @@ public class MemberServiceImpl implements MemberService {
 	public ChattingRoomDTO getAllChatting() {
 		return memberDAO.getAllChatting();
 	}
+	
+	@Override
+	public void join(Map<String, String> map) {
+		String password = passwordEncoder.encode(map.get("password"));
+		map.replace("password", password);
+		memberDAO.join(map);
+	}
+
+	@Override
+	public MemberDTO checkMember(String username) {
+		return memberDAO.checkMember(username);
+	}
 
 	
 	

@@ -313,7 +313,7 @@
 		</div>
 	</div>
 </div>
-<img id="chatting" src="/resources/image/chatting_floating.png" width="70" height="70" style="position:fixed; top: 85%; right : 4%; cursor:pointer;">
+<img id="chatting" src="/resources/bj/image/chatting_floating.png" width="70" height="70" style="position:fixed; top: 85%; right : 4%; cursor:pointer;">
 
 </body>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
@@ -333,9 +333,6 @@ let chattingCheck = "${chattingCheck}";
 //======================================================== 채팅방 리스트 가져오기
 
 $(document).ready(function(){
-	//if(chattingCheck == '0'){
-		
-	//}
 	
 	$.ajax({
 		type : 'post',
@@ -351,9 +348,9 @@ $(document).ready(function(){
 				document.getElementById("chattingRoomList").innerHTML += "<li id='" + items.chattingRoom + "' onclick='getChatting(" + items.chattingRoom + ")'><table><tr><td class='profile_td'><img src='/resources/image/chatting.png'/></td>"
 																		+ "<td class='chat_td'><div class='chat_name'>" + items.chattingRoom + "</div><div class='email'>" + items.nickname + "</div><div class='chat_preview'>" + items.chat + "</div></td>"
 																		+ "<td class='time_td'><div class='time'>" + items.chat_date + "</div><div id='" + items.chattingRoom + "_check'></div></td></tr></table></li>";
-				//if(chattingCheck == '0'){
-					connect(items.chattingRoom);														
-				//}
+
+				connect(items.chattingRoom);														
+
 			});
 			
 		},

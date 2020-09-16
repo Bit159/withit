@@ -1,11 +1,13 @@
 package bj.member.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import bj.member.bean.ChattingDTO;
 import bj.member.bean.ChattingRoomDTO;
+import bj.member.bean.MemberDTO;
 import bj.member.service.MemberService;
 
 @Controller
@@ -26,6 +29,37 @@ public class MemberController{
 	@GetMapping("/loginForm")
 	public String loginForm() {
 		return "/kh/all/loginForm";
+	}
+	
+	// =========================================== 소셜 로그인 관련
+	
+	@PostMapping("/all/addInfoForm")
+	public String addInfoForm(@RequestParam String email, Model model) {
+		model.addAttribute("username", email);
+		return "/bj/all/addInfoForm";
+	}
+
+	@PostMapping("all/addInfo")
+	public String addInfo(@RequestParam Map<String, String> map) {
+		map.put("password", "bitcamp159");
+		memberService.join(map);
+
+		return "redirect:/";
+	}
+
+	@PostMapping("/checkMember")
+	@ResponseBody
+	public String checkMember(@RequestParam String username) {
+		MemberDTO memberDTO = memberService.checkMember(username);
+
+		System.out.println(username);
+		if (memberDTO != null) {
+			return "bitcamp159";
+
+		} else {
+			return "none";
+		}
+
 	}
 	
 	//============================================================== 채팅방

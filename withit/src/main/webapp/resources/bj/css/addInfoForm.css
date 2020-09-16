@@ -1,0 +1,97 @@
+@charset "UTF-8";
+* {margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+	height: 100vh;
+	background: white;
+	background-size: cover;
+}
+body::before{
+	position: absolute; z-index: 0;
+	top: 0; right: 0; bottom: 0; left: 0;
+}
+
+
+span{
+    color: #fff;
+}
+
+/* =============== section 영역 =============== */
+
+#addInfoForm{
+	position:relative;
+	align-content: center;
+}
+
+.join-form{
+	witdh:1280px;
+	height: 400px;
+	margin: 0 auto;
+	text-align:center;
+    position: relative;
+    padding-top: 60px;
+}
+
+.join-form h1 {
+    font-size: 32px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.join-area{
+	display: inline-block;
+    width: 30%;
+    position: relative;
+    margin-top: 20px;
+}
+
+
+.join-area first-child {
+    margin-top: 0;
+}
+
+.join-area input {
+    width: 100%;
+    padding : 20px 10px 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #999;
+    font-size: 18px;
+    color: black;
+    outline: none;
+}
+
+.join-area label {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    font-size: 18px;
+    color: #999;
+    transition: all .5s ease;
+}
+
+.join-area input:focus + label,
+.join-area input:valid + label{
+    top: -2px;
+    font-size: 13px;
+    color: rgb(50, 190, 120);
+}
+
+.btn-area { 
+	display:inline-block;
+	width:50%;
+	margin-top: 30px;
+	text-align:center;
+}
+.btn-area button {
+    width : 30%; height: 50px;
+    background:rgb(50, 190, 120);
+    color: #fff;
+    font-size: 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    
+}
+
