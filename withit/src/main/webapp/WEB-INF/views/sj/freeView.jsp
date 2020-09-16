@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -41,7 +42,7 @@
                     </div>
                 </div>
                 <div class="board_body">
-                    <div class="content" style="white-space:pre;">${bBoardDTO.content }</div>
+                    <div class="content" style="white-space:pre;"><pre style="white-space: pre-line;">${bBoardDTO.content }</pre></div>
                 </div>
                 <div class="board_footer">
                     <div class="replywrapper">
@@ -60,8 +61,10 @@
 					                                    </div>
 					                                    <textarea name="reply_modify_text1" class="reply_modify_text1" readonly="readonly">${replydto.reply }</textarea>
 					                                    <div class="reply_button">
+					                                    	<c:if test="${isAuthor eq true }">
 						                                	<button type="button" class="modifyBtn" data-rno="${ replydto.rno }">수정</button>
 						                                	<button type="button" class="deleteBtn" data-rno="${ replydto.rno }">삭제</button>
+						                                	</c:if>
 						                                </div>
 					                                </div>
 					                            </li>

@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="board_body">
-                    <div class="content">${cBoardDTO.content }</div>
+                    <div class="content"><pre style="white-space: pre-line;">${cBoardDTO.content }</pre></div>
                 </div>
                 <div class="board_footer">
                     <div class="replywrapper">

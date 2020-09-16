@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import bj.member.service.MemberService;
 import sj.board.bean.BBoardDTO;
 import sj.board.bean.BBoardReplyDTO;
 import sj.board.bean.CBoardDTO;
@@ -34,6 +35,8 @@ public class BoardController {
 	private BoardService boardService;
 	@Autowired
 	private BoardDAO boardDAO;
+	@Autowired
+	private MemberService memberService;
 	
 	// 크롤링 보드 리스트
 	@GetMapping("/crawlBoard")
@@ -273,11 +276,12 @@ public class BoardController {
 	
 	//크롤링 보드 댓글 생성
 	@PostMapping(path="/crawlBoard/boardReply")
-	public ModelAndView boardReply(@RequestParam String reply, int bno, HttpSession session) {
+	public ModelAndView boardReply(@RequestParam String reply, int bno, Principal principal) {
 		System.out.println("reply:"+reply+" bno:"+bno);
-		/* String nickname = (String) session.getAttribute("nickname"); */
-		String nickname = "nickname";
-		System.out.println("nickname:"+nickname);
+		String username = principal.getName();
+		System.out.println("username="+username);
+		String nickname = memberService.getNickname(username);
+		System.out.println("nickname="+nickname);
 		List<CBoardReplyDTO> replyList = boardService.getCBoardReplyList(bno);
 		System.out.println("replyList:"+replyList);
 		Date now = new Date();
@@ -297,11 +301,12 @@ public class BoardController {
 	
 	//자유게시판 댓글 생성
 		@PostMapping(path="/freeBoard/boardReply")
-		public ModelAndView bboardReply(@RequestParam String reply, int bno, HttpSession session) {
+		public ModelAndView bboardReply(@RequestParam String reply, int bno, Principal principal) {
 			System.out.println("reply:"+reply+" bno:"+bno);
-			/* String nickname = (String) session.getAttribute("nickname"); */
-			String nickname = "nickname";
-			System.out.println("nickname:"+nickname);
+			String username = principal.getName();
+			System.out.println("username="+username);
+			String nickname = memberService.getNickname(username);
+			System.out.println("nickname="+nickname);
 			List<BBoardReplyDTO> replyList = boardService.getBBoardReplyList(bno);
 			System.out.println("replyList:"+replyList);
 			Date now = new Date();
@@ -423,7 +428,8 @@ public class BoardController {
 	
 	// 자유게시판 보드 수정
 	@PostMapping("/freeBoard/boardModify")
-	public ModelAndView boardModify(@RequestParam String title, String content, String nickname, Principal principal, HttpServletRequest request, int bno) {
+	@ResponseBody
+	public String boardModify(@RequestParam String title, String content, String nickname, Principal principal, HttpServletRequest request, int bno) {
 		Date now = new Date();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title",title);
@@ -432,9 +438,7 @@ public class BoardController {
 		map.put("now", now);
 		map.put("bno", bno);
 		boardService.modifyBBoard(map);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/sj/freeView");
-		return mav;
+		return "success";
 	}
 	
 	

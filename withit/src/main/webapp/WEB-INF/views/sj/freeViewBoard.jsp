@@ -59,7 +59,8 @@
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}')">〈</a></li>
 					</c:if>
 					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-						<li class="page-item"><a class="page-link" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}')"> ${idx} </a></li>
+						<li class="page-item"><a class="page-link-${idx }" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}')"> ${idx} </a></li>
+						<input type="hidden" id="hidden-page" value="${paging.page }">
 					</c:forEach>
 					<c:if test="${paging.next}">
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${paging.range}', '${paging.range}', '${paging.rangeSize}')" >〉</a></li>
@@ -154,6 +155,9 @@
 		$(document).on('click', '#boardWriteBtn', function(){
 			location.href = "/freeBoard/writeForm";
 		});
+		
+		// 현재 페이지 음영처리
+		$('.page-link-'+$('#hidden-page').val()).css('background','green').css('color','white');
 	</script>
 </body>
 </html>
