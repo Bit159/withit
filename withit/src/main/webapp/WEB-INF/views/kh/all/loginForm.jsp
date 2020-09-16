@@ -27,21 +27,21 @@
 			</div>
 
 			<div class="info-area">
-				<input type="password" name="password" id="password" autocomplete="off" onkeyup="enterKey()" required>
+				<input type="password" name="password" id="password" autocomplete="off" onkeydown="enterKey()" required>
 				<label for="password">PASSWORD</label>
 			</div>
-			<div><input type="checkbox" name="remember-me" style="padding-bottom: 5pt">자동로그인</div>
+			<div style="margin-top:15px;"><input type="checkbox" name="remember-me">자동로그인</div>
 			<div class="btn-area">
 				<button id="loginBtn">LOGIN</button>
 				<button type="button" onclick="location='/'">BACK</button>
 			</div>
 			
 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-	
+			<input type="hidden" id="email" name="email">
 		</form>
 		
 		<div class="thirdParty" align="center" style="margin-top:30px;">
-			<div class="g-signin2" data-onsuccess="" data-theme="dark"></div>
+			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 		<script>
 		let csrfHeaderName = "${_csrf.headerName}";
 		let csrfTokenValue = "${_csrf.token}";
@@ -49,10 +49,10 @@
 		function onSignIn(googleUser) {
 			var profile = googleUser.getBasicProfile();			
 		    let username = profile.getEmail();
-		    
+		    console.log(username);
 		    $.ajax({
 		    	type : 'post',
-		    	url  : '/all/checkMember',
+		    	url  : '/checkMember',
 		    	beforeSend: function(xhr){
 		    		xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 		    		
@@ -77,11 +77,11 @@
 		    				success : function(){
 		    					let auth2 = gapi.auth2.getAuthInstance(); //소셜로그인은 바로 로그아웃 처리
 		    					auth2.signOut().then(function(){
-		    						console.log('로그아웃');
+		    						
 		    					})
 		    					auth2.disconnect();
 		    					
-		    					location="/all/welcome";
+		    					location="/";
 		    				}
 		    			});
 		    		}
@@ -104,7 +104,7 @@
 <script type="text/javascript">
 function enterKey(){
 	if(window.event.keyCode == 13){
-		document.loginForm.submit();
+		document.getElementById('loginForm').submit();
 	}
 }
 function page_move(username){

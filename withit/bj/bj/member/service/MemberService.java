@@ -18,5 +18,7 @@ public interface MemberService {
 	public String getNickname(String username);
 	public ChattingDTO getLastChatting(String chattingRoom);
 	public ChattingRoomDTO getAllChatting();
+	public void join(Map<String, String> map);
+	public MemberDTO checkMember(String username);
 
 }
