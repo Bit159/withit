@@ -75,18 +75,18 @@ public class RichController {
 		return json;
 	}
 	
-
-	@GetMapping("/insert_match") 
+	//스터디 매치 페이지
+	@GetMapping("/match") 
 	public ModelAndView insert_match() {
 		ModelAndView mav = new ModelAndView();
 		List<MatchDTO> list = richDAO.getListFromMatch();
 		mav.addObject("list", list);
-		mav.setViewName("rich/member/insert_match");
+		mav.setViewName("rich/member/match");
 		return mav; 
 	}
 	
 	//매칭 위시 넣기
-	@PostMapping(path="/insert_match_done", produces="application/json;charset=UTF-8")
+	@PostMapping(path="/insertMatch", produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public JSONObject insertMatch(@RequestBody JSONObject json, @Autowired MatchDTO matchDTO) {
 		matchDTO.setUsername("jpcnani@naver.com");

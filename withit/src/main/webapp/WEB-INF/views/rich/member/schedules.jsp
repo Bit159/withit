@@ -2,10 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta id="csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
-    <meta id="csrf" name="_csrf" content="${_csrf.token}" />
+  	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
     <title>일정관리</title>
     <link rel="stylesheet" href="/resources/rich/css/mycalendar.css" />
     <link rel="stylesheet" href="/resources/rich/css/main.css" />
