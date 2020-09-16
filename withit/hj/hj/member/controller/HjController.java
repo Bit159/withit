@@ -275,13 +275,14 @@ public class HjController {
 		
 	}
 	
-	
-	
-	@RequestMapping(value = "/all/joinForm", method = RequestMethod.GET)
+	//회원가입 페이지
+	@GetMapping("/joinForm")
 	public String joinForm() {
-		return "/all/joinForm";
+		return "/hj/all/joinForm";
+		
 	}
-
+	
+	
 	@RequestMapping(value = "/all/join", method = RequestMethod.POST)
 	public String join(@RequestParam Map<String, String> map) {
 		hjService.join(map);

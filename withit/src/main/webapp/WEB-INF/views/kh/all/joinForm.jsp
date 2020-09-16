@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<link rel="stylesheet" href="/resources/css/join.css">
+<link rel="stylesheet" href="/resources/hj/css/join.css">
 <script defer type="text/javascript" src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script defer type="text/javascript" src="/resources/bj/js/join.js"></script>
 </head>
