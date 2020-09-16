@@ -11,7 +11,7 @@ public interface RichDAO {
 
 	//지도용
 	public abstract int insertMatch(MatchDTO matchDTO);
-	public abstract List<MatchDTO> getListFromMatch();
+	public abstract List<MatchDTO> getMyListFromMatch(String username);
 	public abstract int deleteMatched(List<MatchDTO> list);
 	public abstract int deleteMatch(MatchDTO matchDTO);
 	public abstract int getMycareer(String username);

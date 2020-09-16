@@ -51,8 +51,8 @@
 		VALUES(#{username}, #{mycareer}, #{x}, #{y}, #{range}, #{time}, #{topic}, #{career}, #{people}, now())
 	</insert>
 	
-	<select id="getListFromMatch" resultType="hj.member.bean.MatchDTO">
-		SELECT * FROM db.match ORDER BY `created` ASC
+	<select id="getMyListFromMatch" parameterType="String" resultType="hj.member.bean.MatchDTO">
+		SELECT * FROM db.match where `username` = #{username} ORDER BY `created` ASC 
 	</select>
 	
 	<delete id="deleteMatched" parameterType="java.util.List">

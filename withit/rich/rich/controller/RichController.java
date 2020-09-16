@@ -1,5 +1,6 @@
 package rich.controller;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -77,9 +78,9 @@ public class RichController {
 	
 	//스터디 매치 페이지
 	@GetMapping("/match") 
-	public ModelAndView insert_match() {
+	public ModelAndView match(Principal principal) {
 		ModelAndView mav = new ModelAndView();
-		List<MatchDTO> list = richDAO.getListFromMatch();
+		List<MatchDTO> list = richDAO.getMyListFromMatch(principal.getName());
 		mav.addObject("list", list);
 		mav.setViewName("rich/member/match");
 		return mav; 
@@ -88,9 +89,10 @@ public class RichController {
 	//매칭 위시 넣기
 	@PostMapping(path="/insertMatch", produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public JSONObject insertMatch(@RequestBody JSONObject json, @Autowired MatchDTO matchDTO) {
-		matchDTO.setUsername("jpcnani@naver.com");
-		matchDTO.setMycareer(richDAO.getMycareer(matchDTO.getUsername()));
+	public JSONObject insertMatch(@RequestBody JSONObject json, @Autowired MatchDTO matchDTO, Principal principal) {
+		System.out.println("insertMatch");
+		matchDTO.setUsername(principal.getName());
+		matchDTO.setMycareer(richDAO.getMycareer(principal.getName()));
 		matchDTO.setX(json.getDouble("x"));
 		matchDTO.setY(json.getDouble("y"));
 		matchDTO.setRange(json.getDouble("range"));

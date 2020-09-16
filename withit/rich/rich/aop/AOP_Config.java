@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import hj.member.bean.MatchDTO;
+import hj.member.dao.HjDAO;
 import rich.dao.RichDAO;
 import rich.notify.Email;
 import sj.board.bean.CBoardDTO;
@@ -22,6 +23,8 @@ import sj.board.bean.CBoardDTO;
 @Aspect
 public class AOP_Config {
 
+	@Autowired
+	private HjDAO hjDAO;
 	@Autowired
 	private RichDAO richDAO;
 	@Autowired
@@ -76,7 +79,7 @@ public class AOP_Config {
 	public void after() {
 		System.out.println("---------------------------------------------------------");
 		System.out.println("match db 삽입 후 매칭 검증을 위한 after Returning");
-		List<MatchDTO> listFromMatch = richDAO.getListFromMatch();
+		List<MatchDTO> listFromMatch = hjDAO.getListFromMatch();
 		List<MatchDTO> rangeValidatedList = rangeValidation(listFromMatch);
 		System.out.println();
 		System.out.println("최종결과");

@@ -33,8 +33,8 @@ public class RichDAOImpl implements RichDAO {
 	}
 
 	@Override
-	public List<MatchDTO> getListFromMatch() {
-		return sqlSession.selectList("richSQL.getListFromMatch");
+	public List<MatchDTO> getMyListFromMatch(String username) {
+		return sqlSession.selectList("richSQL.getMyListFromMatch", username);
 	}
 
 	@Override

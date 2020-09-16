@@ -6,13 +6,20 @@
 //5. 검색기능
 //6. 원 그리기
 //7. 오버레이
+let options = undefined;
+
+function setOnline(){
+	document.getElementById('x').value = 0;
+	document.getElementById('y').value = 0;
+	document.getElementById('range').value = 0;
+}
 
 function insertMatch() {
   Swal.mixin({
     confirmButtonText: "다음 &rarr;",
     cancelButtonText: "취소",
     showCancelButton: true,
-    progressSteps: ["1", "2", "3", "4"],
+    progressSteps: ["1", "2", "3", "4", "5"],
     allowOutsideClick: false,
   })
     .queue([
@@ -26,7 +33,7 @@ function insertMatch() {
           `&emsp;` +
           `<button type="button" id="searchButton">검색</button><br><br>` +
           `&emsp;` +
-          `<button type="button" id="onlineButton">온라인</button><br><br>` +
+          `<button type="button" id="onlineButton" onclick="setOnline()">온라인</button><br><br>` +
           `</div>` +
           `<input type="hidden" id="x" />` +
           `<input type="hidden" id="y" />` +
@@ -101,38 +108,62 @@ function insertMatch() {
         text: "매칭 희망 인원을 선택하세요",
         showCancelButton: true,
       },
+      {
+        title: "경력 선택",
+        input: "select",
+        inputOptions: {
+          '0~2': "0~2년",
+          '2~5': "2~5년",
+          '5~10': "5~10년",
+          '10~': "10년 이상",
+        },
+        text: "매칭 희망 경력을 선택하세요",
+        showCancelButton: true,
+      },
     ])
-    .then((result) => {
+    .then(result => {
       if (result.value) {
-        console.log(result);
         let x = parseFloat(result.value[0][0]).toFixed(2);
         let y = parseFloat(result.value[0][1]).toFixed(2);
         let range = parseFloat(result.value[0][2] / 1000.0).toFixed(2);
         let time = result.value[1];
         let topic = result.value[2];
         let people = result.value[3];
+		let career = result.value[4];
         const answers = JSON.stringify(result.value);
+		let place = undefined;
+		if(x == '0.00') {
+			place = `<span>온라인</span>`;
+		}else {
+			place = `<span>위도: ${x}&emsp;</span><span>경도: ${y}&emsp;</span><span>반경: ${range}km&emsp;</span><br>`;
+		}
         Swal.fire({
           title: "등록 확인",
           icon: "info",
-          html: `
-          <span>위도: ${x}&emsp;</span>
-          <span>경도: ${y}&emsp;</span>
-          <span>반경: ${range}&emsp;</span><br>
-          <p>시간대: ${time}&emsp;</p>
-          <p>주제: ${topic}&emsp;</p>
-          <p>인원: ${people}명&emsp;</p>
-        `,
+          html: 
+		  `${place}<p>시간대: ${time}&emsp;</p><p>주제: ${topic}&emsp;</p><p>인원: ${people}명&emsp;</p><p>경력: ${career}년</p>`,
           confirmButtonText: "등록하기",
           cancelButtonText: "취소",
           showCancelButton: true,
-        }).then((res) => {
+        }).then(res => {
           if (res.isConfirmed) {
-			const url = "/insertMatch";
-			const options = {
-				
-			}        
+			let ob = new Object();
+			ob.x = result.value[0][0];
+			ob.y = result.value[0][1];
+			ob.range = result.value[0][2];
+			ob.time = result.value[1];
+			ob.topic = result.value[2];
+			ob.people = result.value[3];
+			ob.career = result.value[4].split('~')[0];
+			
+			console.log(result.value[0][2]);
+			let url = "/insertMatch";
+			options = myOptions(ob);
 
+			fetch(url, options).then(res=>res.json().then(json=>{
+				Swal.fire('등록 완료', '등록을 완료하였습니다', 'success')
+				.then(res=>location.href="/match");
+			}));
 
           } else {
             Swal.fire("등록 취소", "등록을 취소하였습니다", "error");
@@ -497,4 +528,19 @@ function addDrawFunction() {
     document.getElementById("range").value = distance;
     return content;
   }
+}
+
+
+function myOptions(ob) {
+	let options = {
+		method: "POST",
+		headers: {
+			'X-CSRF-TOKEN': document.getElementById('csrf').content,
+			Accept: "application/json",
+			"Content-Type": "application/json; charset=utf-8",
+		},
+		body: JSON.stringify(ob),
+	};
+	
+	return options;
 }

@@ -64,3 +64,12 @@ div[id="wrapper"] {
   font-weight: bold;
   color: #00a0e9;
 }
+
+
+div[id="wrap"] {
+	margin-top: 25px;
+}
+
+h1[id="matchTitle"] {
+	text-align: center;
+}
