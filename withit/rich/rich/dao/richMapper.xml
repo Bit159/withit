@@ -15,8 +15,8 @@
 		VALUES(#{username}, #{group}, #{start}, #{end}, #{title}, #{place}, #{content}, now())
 	</insert>
 	
-	<select id="getSchedules" resultType="rich.notify.NotDTO">
-		SELECT * FROM db.notify ORDER BY `created` ASC
+	<select id="getMySchedules" parameterType="String" resultType="rich.notify.NotDTO">
+		SELECT * FROM db.notify WHERE `username`=#{username} ORDER BY `created` ASC
 	</select>
 	
 	<update id="updateSchedule" parameterType="rich.notify.NotDTO">
