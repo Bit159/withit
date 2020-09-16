@@ -293,7 +293,7 @@ public class BoardController {
 	}
 	
 	//자유게시판 댓글 생성
-		@PostMapping(path="/bboard/boardReply2")
+		@PostMapping(path="/freeBoard/boardReply")
 		public ModelAndView bboardReply(@RequestParam String reply, int bno, HttpSession session) {
 			System.out.println("reply:"+reply+" bno:"+bno);
 			/* String nickname = (String) session.getAttribute("nickname"); */
@@ -325,22 +325,22 @@ public class BoardController {
 		System.out.println("bno="+bno);
 		boardService.replyDeleteUpdate(bno);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("board/crawlView");
+		mav.setViewName("sj/crawlView");
 		return mav;
 	}
 	
 	//자유게시판 댓글 삭제
-		@PostMapping("/bboard/replyDelete2")
-		public ModelAndView replyDelete2(@RequestParam int rno, int bno, HttpSession session) {
-			System.out.println("rno="+rno);
-			/* String nickname = (String) session.getAttribute("nickname"); */
-			boardService.replyDelete2(rno);
-			System.out.println("bno="+bno);
-			boardService.replyDeleteUpdate2(bno);
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("sj/boardView");
-			return mav;
-		}
+	@PostMapping("/freeBoard/replyDelete")
+	public ModelAndView replyDelete2(@RequestParam int rno, int bno, HttpSession session) {
+		System.out.println("rno="+rno);
+		/* String nickname = (String) session.getAttribute("nickname"); */
+		boardService.replyDelete2(rno);
+		System.out.println("bno="+bno);
+		boardService.replyDeleteUpdate2(bno);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("sj/freeBoard");
+		return mav;
+	}
 	
 	@PostMapping("/board/replyWrite") 
 	public ModelAndView replyWrite(@RequestParam String reply_writer_text, int bno, HttpSession session) {
@@ -362,7 +362,7 @@ public class BoardController {
 	}
 	
 	// 크롤링 보드 댓글 수정
-	@PostMapping("/board/replyModify")
+	@PostMapping("/crawlBoard/replyModify")
 	public ModelAndView replyModify(@RequestParam String reply, int rno, HttpSession session) {
 		System.out.println(reply);
 		System.out.println(rno);
@@ -372,24 +372,24 @@ public class BoardController {
 		map.put("reply", reply);
 		boardService.replyModify(map);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/boardView");
+		mav.setViewName("/sj/crawlView");
 		return mav;
 	}
 	
 	// 자유게시판 댓글 수정
-		@PostMapping("/bboard/replyModify2")
-		public ModelAndView replyModify2(@RequestParam String reply, int rno, HttpSession session) {
-			System.out.println(reply);
-			System.out.println(rno);
-			/* String nickname = (String) session.getAttribute("nickname"); */
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("rno",rno);
-			map.put("reply", reply);
-			boardService.replyModify2(map);
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("/board/boardView");
-			return mav;
-		}
+	@PostMapping("/freeBoard/replyModify")
+	public ModelAndView replyModify2(@RequestParam String reply, int rno, HttpSession session) {
+		System.out.println(reply);
+		System.out.println(rno);
+		/* String nickname = (String) session.getAttribute("nickname"); */
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("rno",rno);
+		map.put("reply", reply);
+		boardService.replyModify2(map);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/sj/freeView");
+		return mav;
+	}
 	
 	
 
@@ -409,12 +409,12 @@ public class BoardController {
 	}
 	
 	// 자유게시판 보드 삭제
-	@PostMapping("/board/boardDelete")
+	@PostMapping("/freeBoard/boardDelete")
 	public ModelAndView boardDelete(@RequestParam int bno) {
 		boardService.deleteBBoard(bno);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/boardList2");
+		mav.setViewName("/sj/freeBoard");
 		return mav;
 	}
 	

@@ -168,7 +168,7 @@ $(document).ready(function(){
 		function updateReply() {
 			$.ajax({
 				type: 'post',
-				url: '/board/replyModify',
+				url: '/crawlBoard/replyModify',
 				beforeSend: function(xhr){
 		    		xhr.setRequestHeader(csrfHeader, csrfToken);
 		    	},
