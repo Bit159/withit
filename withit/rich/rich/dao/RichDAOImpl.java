@@ -37,6 +37,7 @@ public class RichDAOImpl implements RichDAO {
 		return sqlSession.selectList("richSQL.getMyListFromMatch", username);
 	}
 
+	//매칭될 경우 match 테이블에서 제거하는 함수
 	@Override
 	public int deleteMatched(List<MatchDTO> list) {
 		return sqlSession.delete("richSQL.deleteMatched", list);

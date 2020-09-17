@@ -53,7 +53,8 @@
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}')">〈</a></li>
 					</c:if>
 					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-						<li class="page-item"><a class="page-link" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}')"> ${idx} </a></li>
+						<li class="page-item"><a class="page-link-${idx }" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}')"> ${idx} </a></li>
+						<input type="hidden" id="hidden-page" value="${paging.page }">
 					</c:forEach>
 					<c:if test="${paging.next}">
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${paging.range}', '${paging.range}', '${paging.rangeSize}')" >〉</a></li>
@@ -64,20 +65,17 @@
 				</ul>
 			</div>
 
-			<div class="form-group row justify-content-center">
-				<div class="w100" style="padding-right:10px">
-					<select class="form-control form-control-sm" name="searchType" id="searchType">
-						<option value="title">제목</option>
-						<option value="nickname">작성자</option>
-					</select>
-				</div>
-				<div class="w300" style="padding-right:10px">
-					<input type="text" class="form-control form-control-sm" name="keyword" id="keyword">
-				</div>
-				<div>
-					<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch">검색</button>
-				</div>
+			<!-- search{s} -->
+			<div id="searchDiv">
+				<select name="searchType" id="searchType">
+					<option value="title">제목</option>
+					<option value="nickname">작성자</option>
+				</select>
+				<input type="text" name="keyword" id="keyword" >
+				<button name="btnSearch" id="btnSearch">검색</button>
 			</div>
+			<!-- search{e} -->
+			
         </div>
     </div>
     
@@ -137,6 +135,9 @@
 			console.log(url);
 	
 		});
+		
+		// 현재 페이지 음영처리
+		$('.page-link-'+$('#hidden-page').val()).css('background','#0065a5').css('color','white');
 	</script>
 </body>
 </html>

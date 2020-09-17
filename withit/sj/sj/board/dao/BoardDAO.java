@@ -5,7 +5,6 @@ import java.util.Map;
 
 import sj.board.bean.BBoardDTO;
 import sj.board.bean.BBoardReplyDTO;
-import sj.board.bean.BoardDTO;
 import sj.board.bean.CBoardDTO;
 import sj.board.bean.CBoardReplyDTO;
 import sj.board.paging.Pagination;
@@ -13,8 +12,6 @@ import sj.board.paging.Search;
 
 
 public interface BoardDAO {
-
-	public List<BoardDTO> getBoardList(Map<String, Integer> map);
 
 	public int getBoardTotalA();
 

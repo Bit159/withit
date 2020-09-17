@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
 	$.ajax({
 		type : 'post',
 		url : '/synergy/board/getBoardList',
@@ -100,4 +100,4 @@ $('#boardSearchBtn').click(function(event, str){
 			}
 		});
 	}
-});
+});*/

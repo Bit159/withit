@@ -5,11 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta id="_csrf" name="_csrf" content="${_csrf.token}">
-<meta id="_csrf_header" name="_csrf_header"
-	content="${_csrf.headerName}">
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+<title>위드잇</title>
 <link rel="stylesheet" href="/resources/kh/css/cardBoardView.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -42,6 +39,10 @@
 					<h1>모집내용</h1>
 					<table id="viewTable">
 						<tr>
+							<th>최대인원</th>
+							<td>${dto.people }명</td>
+						</tr>
+						<tr>
 							<th>주제</th>
 							<td>${dto.topic }</td>
 						</tr>
@@ -49,24 +50,20 @@
 							<th>지역</th>
 							<td>${dto.location }</td>
 						</tr>
-						<tr>
-							<th>최대인원</th>
-							<td>${dto.people }명</td>
-						</tr>
 					</table>
 					<div id="card-content">
 						<h1>상세내용</h1>
-						<pre style="white-space: pre-line;">${dto.content}</pre>
+						<div>${dto.content}</div>
 					</div>
 				</div>
 			</div>
 			<div class="view-reply">
 				<ul class="reply_group">
+					<li id="reply_group_top">댓글 ${dto.replys }개</li>
 					<c:forEach var="replydto" items="${replyList }">
 						<c:if test="${not empty replydto }">
 							<li class="reply_group_item">
 								<div class="reply_group_div">
-									<%-- <input type="hidden" class="reply_rno" value="${replydto.rno }"> --%>
 									<div class="reply_nickname">${replydto.nickname }</div>
 									<fmt:formatDate var="regDate" pattern="yyyy-MM-dd HH:mm:ss"
 										value="${replydto.regDate }" />

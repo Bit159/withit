@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" href="/resources/kh/css/footer.css">
 <div id="footer_wrapper">
+<sec:authorize access="isAuthenticated()">
+    <jsp:include page="/WEB-INF/views/bj/member/chattingList.jsp"/>
+</sec:authorize>
 	<footer id="footer" class="container">
 		<div class="footer">
 			<h1>서비스</h1>

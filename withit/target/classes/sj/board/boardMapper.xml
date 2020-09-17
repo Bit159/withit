@@ -6,15 +6,6 @@
   <mapper namespace="boardSQL">
   	
   	<!-- 목록 -->
-	<select id="getBoardList" parameterType="java.util.Map" resultType="boardDTO">
-		<![CDATA[
-		select * from
-		(select rownum rn, tt.* from
-		(select * from db.cboard order by bno desc)tt
-		)where rn>=#{startNum} and rn<=#{endNum} 
-		]]>
-	</select>
-	
 	<select id="getBoardList1" resultType="cBoardDTO">
 		select * from db.cboard 
 	</select>
@@ -83,13 +74,13 @@
   	
   	<!-- 크롤링 보드 댓글 생성 -->
   	<insert id="boardReply" parameterType="java.util.Map">
-  		insert into db.reply (bno, reply, nickname, replydate, updatedate) values(#{bno}, #{reply}, #{nickname}, #{now}, #{now});
+  		insert into db.reply (bno, reply, username, nickname, replydate, updatedate) values(#{bno}, #{reply}, #{username}, #{nickname}, #{now}, #{now});
   	</insert>	
   	<!-- 크롤링 보드 댓글 생성 -->
   	
   	<!-- 자유게시판 댓글 생성 -->
   	<insert id="boardReply2" parameterType="java.util.Map">
-  		insert into db.reply2 (bno, reply, nickname, replydate, updatedate) values(#{bno}, #{reply}, #{nickname}, #{now}, #{now});
+  		insert into db.reply2 (bno, reply, username, nickname, replydate, updatedate) values(#{bno}, #{reply}, #{username}, #{nickname}, #{now}, #{now});
   	</insert>	
   	<!-- 자유게시판 댓글 생성 -->
   	
@@ -140,12 +131,6 @@
   		update db.board set replys=replys-1 where bno = #{bno}
   	</update>
   	<!-- 자유게시판 댓글수 감소 -->
-  	
-  	<!-- 크롤링 보드 댓글 생성 -->
-  	<insert id="replyWrite" parameterType="java.util.Map" >
-  		insert into db.reply (bno, reply, nickname, replydate, updatedate) values(#{bno}, #{reply}, #{nickname}, #{now}, #{now});
-  	</insert>
-  	<!-- 크롤링 보드 댓글 생성 -->
   	
   	<!--  크롤링 보드 댓글 수정 -->
   	<update id="replyModify" parameterType="java.util.Map">
@@ -274,8 +259,8 @@
 	<!-- 자유게시판 글 생성 -->
 	<insert id="writeBBoard" parameterType="java.util.Map">
 		INSERT 
-		INTO db.board (title, content, nickname, boarddate, updatedate) 
-		values(#{title}, #{content}, #{nickname}, #{now}, #{now})
+		INTO db.board (title, content, username, nickname, boarddate, updatedate) 
+		values(#{title}, #{content}, #{username}, #{nickname}, #{now}, #{now})
 	</insert>
 	<!-- 자유게시판 글 생성 -->
 	
@@ -312,7 +297,7 @@
 	<!-- 자유게시판 보드 수정 -->
 	<update id="modifyBBoard" parameterType="java.util.Map">
 		UPDATE db.board 
-		SET title = #{title}, content = #{content}, nickname = #{nickname}, updatedate = #{now}
+		SET title = #{title}, content = #{content}, updatedate = #{now}
 		WHERE bno = #{bno}
 	</update>
 	<!-- 자유게시판 보드 수정 -->
