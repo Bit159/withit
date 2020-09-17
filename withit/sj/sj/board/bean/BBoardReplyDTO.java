@@ -12,6 +12,7 @@ public class BBoardReplyDTO {
 	private int rno;
 	private int bno;
 	private String reply;
+	private String username;
 	private String nickname;
 	private Date replydate;
 	private Date updatedate;

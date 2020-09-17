@@ -14,7 +14,7 @@ fetch(url, options).then((res) => res.json().then((json)=> {
 	arr = json;
 	let j = json;
 	for(let i =0; i <json.length; i++) {
-		drawCircle(json[i].y, json[i].x, json[i].range);
+		drawCircle(json[i].x, json[i].y, json[i].range);
 	}
 	drawInfo();
 }));

@@ -5,9 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta id="_csrf" name="_csrf" content="${_csrf.token}">
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
-<meta charset="UTF-8">
+<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
 <title>위드잇</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/kh/css/createGroup.css">
@@ -17,7 +15,6 @@
 	<jsp:include page="../template/header.jsp"></jsp:include>
 	<form id="registerForm" method="post" action="/modifyGroup">
 	<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
-   
     <div id="body-wrapper">
         <div id="container" style="white-space: nowrap;">
             <div class="registForm-header">
@@ -32,31 +29,34 @@
                     <h1>주제 검색<span>*</span></h1>
 <!--                <input type="text" id="topic" name="topic" placeholder="ex) Java"> -->
                     <select id="selectTopic" name="topic">
-						<option value="Java">Java</option>
-						<option value="JavaScript">JavaScript</option>
-						<option value="Python">Python</option>
-						<option value="Spring">Spring</option>
-						<option value="Vue">Vue</option>
-						<option value="React">React</option>
-						<option value="Android">Android</option>
-						<option value="iOs">iOs</option>
-						<option value="Swift">Swift</option>
-						<option value="모각코">모각코</option>
-						<option>option13</option>
-						<option>option14</option>
-						<option>option15</option>
-						<option>option16</option>
-						<option>option17</option>
-						<option>option18</option>
-						<option>option19</option>
-						<option>option20</option>
+        				<option value="Java">Java</option>
+        				<option value="JavaScript">JavaScript</option>
+        				<option value="Python">Python</option>
+        				<option value="C">C</option>
+        				<option value="C++">C++</option>
+        				<option value="C#">C#</option>
+        				<option value="React">React</option>
+        				<option value="Vue">Vue</option>
+        				<option value="Spring">Spring</option>
+        				<option value="SpringBoot">SpringBoot</option>
+        				<option value="SQL">SQL</option>
+        				<option value="Android">Android</option>
+        				<option value="iOS">iOS</option>
+        				<option value="Swift">Swift</option>
+        				<option value="FrontEnd">FrontEnd</option>
+        				<option value="BackEnd">BackEnd</option>
+        				<option value="Algorithm">Algorithm</option>
+        				<option value="Toy Project">Toy Project</option>
+        				<option value="모각코">모각코</option>
 						</select>
+						<input type="hidden" id="hiddenTopic" value="${dto.topic }">
                     <div id="AddTopic"></div>
                 </div>
                 <div class="registForm-location">
                     <h1>지역 검색<span>*</span></h1>
 <!--                     <input type="text" name="location" id="location" placeholder="ex) 서울 송파구"> -->
                     <select id="location" name="location"></select>
+                    <input type="hidden" id="hiddenLocation" value="${dto.location }">
                 </div>
                 <div class="registForm-people">
                     <h1>최대 인원<span>*</span></h1>
@@ -69,6 +69,7 @@
                         <option value="8">8명</option>
                         <option value="9">9명</option>
                     </select>
+                    <input type="hidden" id="hiddenPeople" value="${dto.people }">
                 </div>
                 <div class="registForm-content">
                     <h1>상세설명</h1>
@@ -103,9 +104,24 @@ $(document).ready(function(){
 	            allowClear: false,
 	            data: data.arr
 	        });
+			$('#location option').each(function(){
+				if($(this).val()==$('#hiddenLocation').val()){
+					$(this).attr("selected","selected");
+				}
+			});
 		},	
 		error:function(){
 			alert('값 가져오기 실패')
+		}
+	});
+	$('#selectTopic option').each(function(){
+		if($(this).val()==$('#hiddenTopic').val()){
+			$(this).prop("selected","selected");
+		}
+	});
+	$('#people option').each(function(){
+		if($(this).val()==$('#hiddenPeople').val()){
+			$(this).attr("selected","selected");
 		}
 	});
 });

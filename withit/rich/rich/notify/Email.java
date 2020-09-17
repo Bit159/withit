@@ -61,23 +61,13 @@ public class Email {
 		this.session = session;
 	}
 
-	// 리스트 발송 메소드.
-	public int sendToList(List<String> list) {
-		if (list.size() == 0) {
-			System.out.println("리스트가 비었습니다");
-			return 0;
-		}
-		send(list);
-		return list.size();
-	}
-
 	// 리스트 메일 발송 메소드
 	public void send(List<String> list) {
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(userName));
 			message.setSubject("매치가 완료되었습니다!"); // 메일 제목을 입력
-			message.setText("안녕하세요 withIT입니다. 매치가 완료되었으니 마이페이지에서 확인바랍니다."); // 메일 내용을 입력
+			message.setText("안녕하세요 withIT입니다. 매치가 완료되었으니 마이페이지에서 확인하세요!"); // 메일 내용을 입력
 			InternetAddress[] addresses = new InternetAddress[list.size()]; // 수신자 배열 생성
 			for (int i = 0; i < list.size(); i++) { // 수신자 배열에 주소 주입
 				addresses[i] = new InternetAddress(list.get(i));

@@ -8,7 +8,7 @@
 <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
 <!-- default header name is X-CSRF-TOKEN -->
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
-<title>adminBoard</title>
+<title>관리자 프로그래밍 통계</title>
 <link rel="stylesheet" href="/resources/hj/css/programmingStats.css">
 </head>
 <body>
@@ -41,6 +41,12 @@
                     	<a href="/adminLocationMap" class="aside_menu_list_4_a">
                         <img src="/resources/hj/image/map2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
                         <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                    	</a>
+                    </li>
+                    <li class="aside_menu_list_5">
+                    	<a href="/" class="aside_menu_list_5_a">
+                        <img src="/resources/hj/image/home.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Main Menu
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 61px;"/>
                     	</a>
                     </li>
                 </ul>
@@ -79,7 +85,10 @@
             <div class="section_chart">
                 <canvas id="myChart"></canvas>
             </div>
-            
+            <div class="totalDiv">
+            	<div class="nameTotal" id="nameTotal">총 게시판 수</div>
+            	<div class="totalProgramming" id="totalProgramming"></div>
+        	</div>
         </section>
         <footer class="footer"></footer>
        
@@ -87,20 +96,52 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>    
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>    
 <script type="text/javascript">
+ $(document).ready(function(){
+	
+	 var csrfHeaderName = document.getElementById('_csrf_header').content;
+	var csrfTokenValue = document.getElementById('_csrf').content;
+	
+	$.ajax({
+		type: 'post',
+		url: '/all/totalprogramming',
+		dataType: 'json',
+		beforeSend:function(xhr){
+			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		},
+		success: function(data){
+			//alert(JSON.stringify(data));
+			
+			let totalProgramming = data;
+			
+			document.getElementById('totalProgramming').innerHTML = totalProgramming;
+			
+		},
+		error: function(err){
+			console.log(err);
+		}
+	
+	}); 
+	
+	
+}); 
+
+</script>
+
+<script type="text/javascript">
 $(document).ready(function(){
 	//alert("111");
 	
 	var csrfHeaderName = document.getElementById('_csrf_header').content;
 	var csrfTokenValue = document.getElementById('_csrf').content;
 	
-	console.log(csrfHeaderName);
-	console.log(csrfTokenValue);
+	//console.log(csrfHeaderName);
+	//console.log(csrfTokenValue);
 	
 	let a = new Array();
 			
 	let b = new Array();
 	
-	let c = new Array();
+	var c;
 	
 	$.ajax({
 		type: 'post',
@@ -124,6 +165,8 @@ $(document).ready(function(){
 				
 			});
 			
+			
+		
 			
 			var ctx = document.getElementById('myChart').getContext('2d');
 			var myChart = new Chart(ctx, {

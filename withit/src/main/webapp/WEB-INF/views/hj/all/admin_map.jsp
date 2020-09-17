@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Insert title here</title>
+<title>관리자 회원 맵</title>
 <meta id="csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 <meta id="csrf" name="_csrf" content="${_csrf.token}" />
 <script defer src="/resources/hj/js/admin_map.js" ></script>
@@ -43,6 +43,12 @@
                     	<a href="/adminLocationMap" class="aside_menu_list_4_a">
                         <img src="/resources/hj/image/map2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
                         <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                    	</a>
+                    </li>
+                    <li class="aside_menu_list_5">
+                    	<a href="/" class="aside_menu_list_5_a">
+                        <img src="/resources/hj/image/home.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Main Menu
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 61px;"/>
                     	</a>
                     </li>
                 </ul>

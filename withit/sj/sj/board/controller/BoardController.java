@@ -137,7 +137,8 @@ public class BoardController {
 								  @RequestParam(required=false, defaultValue = "1") int pg
 								 ,@RequestParam(required=false, defaultValue = "1") int range
 								 , @RequestParam(required = false, defaultValue = "title") String searchType
-								 , @RequestParam(required = false) String keyword) throws Exception {
+								 , @RequestParam(required = false) String keyword
+								 , Principal principal) throws Exception {
 		
 		// 검색
 		Search search = new Search();
@@ -193,7 +194,8 @@ public class BoardController {
 								 ,@RequestParam(required=false, defaultValue = "1") int range
 								 , @RequestParam(required = false, defaultValue = "title") String searchType
 								 , @RequestParam(required = false) String keyword
-								 , HttpServletRequest request) throws Exception {
+								 , HttpServletRequest request
+								 , Principal principal) throws Exception {
 		
 		// 검색
 		Search search = new Search();
@@ -242,9 +244,15 @@ public class BoardController {
 		//bj.member.controller.LoginSuccessHandler 에서 로그인 성공 시 session에 nickname 담아둠.
 		//세션에 담긴 nickname과 선택한 글의 nickname값을 검증하여 mav 객체에 boolean 결과값을 담아서 view로 보냄
 		boolean isAuthor = false;
-		if(bBoardDTO.getNickname().equals(request.getSession().getAttribute("nickname"))) {
-			isAuthor = true;
+		if(principal != null) {
+			if(bBoardDTO.getUsername().equals(principal.getName())) {
+				isAuthor = true;
+			}
 		}
+		/*
+		 * if(bBoardDTO.getUsername().equals(request.getSession().getAttribute(
+		 * "nickname"))) { isAuthor = true; }
+		 */
 		System.out.println(isAuthor);
 		mav.addObject("isAuthor", isAuthor);
 		mav.setViewName("/sj/freeView");
@@ -277,6 +285,7 @@ public class BoardController {
 	//크롤링 보드 댓글 생성
 	@PostMapping(path="/crawlBoard/boardReply")
 	public ModelAndView boardReply(@RequestParam String reply, int bno, Principal principal) {
+		
 		System.out.println("reply:"+reply+" bno:"+bno);
 		String username = principal.getName();
 		System.out.println("username="+username);
@@ -289,6 +298,7 @@ public class BoardController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("bno",bno);
 		map.put("reply", reply);
+		map.put("username", username);
 		map.put("nickname", nickname);
 		map.put("now", now);
 		boardService.boardReply(map);
@@ -314,6 +324,7 @@ public class BoardController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("bno",bno);
 			map.put("reply", reply);
+			map.put("username", username);
 			map.put("nickname", nickname);
 			map.put("now", now);
 			boardService.boardReply2(map);
@@ -350,25 +361,6 @@ public class BoardController {
 		return mav;
 	}
 	
-	@PostMapping("/board/replyWrite") 
-	public ModelAndView replyWrite(@RequestParam String reply_writer_text, int bno, HttpSession session) {
-		System.out.println(reply_writer_text);
-		System.out.println(bno);
-		String text = reply_writer_text;
-		String nickname = "nickname";
-		Date now = new Date();
-		
-		Map map = new HashMap();
-		map.put("text",text);
-		map.put("bno",bno);
-		map.put("nickname", nickname);
-		map.put("now", now);
-		boardService.replyWrite(map);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("board/boardView");
-		return mav;
-	}
-	
 	// 크롤링 보드 댓글 수정
 	@PostMapping("/crawlBoard/replyModify")
 	public ModelAndView replyModify(@RequestParam String reply, int rno, HttpSession session) {
@@ -400,17 +392,23 @@ public class BoardController {
 	}
 	
 	
-
-	
 	// 자유게시판 보드 작성
 	@PostMapping("/freeBoard/boardWrite")
 	@ResponseBody
-	public String boardWrite(@RequestParam String title, String content, String nickname, Principal principal, HttpServletRequest request) {
+	public String boardWrite(@RequestParam String title, String content, Principal principal, HttpServletRequest request) {
 		Date now = new Date();
+		
+		String username = principal.getName();
+		System.out.println("username="+username);
+		String nickname = memberService.getNickname(username);
+		System.out.println("nickname="+nickname);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title",title);
 		map.put("content",content);
-		map.put("nickname",request.getSession().getAttribute("nickname"));
+		map.put("username", username);
+		/* map.put("nickname",request.getSession().getAttribute("nickname")); */
+		map.put("nickname", nickname);
 		map.put("now", now);
 		boardService.writeBBoard(map); 
 		return "success";
@@ -429,12 +427,11 @@ public class BoardController {
 	// 자유게시판 보드 수정
 	@PostMapping("/freeBoard/boardModify")
 	@ResponseBody
-	public String boardModify(@RequestParam String title, String content, String nickname, Principal principal, HttpServletRequest request, int bno) {
+	public String boardModify(@RequestParam String title, String content, Principal principal, HttpServletRequest request, int bno) {
 		Date now = new Date();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title",title);
 		map.put("content",content);
-		map.put("nickname",request.getSession().getAttribute("nickname"));
 		map.put("now", now);
 		map.put("bno", bno);
 		boardService.modifyBBoard(map);

@@ -201,11 +201,12 @@ public class KhController {
 		 cardBoardService.modifyReply(dto);
 		 return "/kh/member/cardBoardView";
 	 }
-	 //모집 글 수정페이지 이동
+	 //모집 글 페이지 뷰
 	 @GetMapping(value="/modifyCard")
 	 public ModelAndView modifyCard(@RequestParam int seq) {
 		 CardBoardDTO dto = cardBoardService.getCardContent(seq);
 		 ModelAndView mav = new ModelAndView();
+		 
 		 mav.addObject("dto",dto);
 		 mav.setViewName("/kh/member/modifyGroup");
 		 return mav;

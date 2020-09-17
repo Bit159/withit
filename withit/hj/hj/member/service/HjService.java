@@ -55,6 +55,8 @@ public interface HjService {
 
 	public int checkNickname(String nickname);
 
+	public int totalprogramming();
+
 	
 
 	

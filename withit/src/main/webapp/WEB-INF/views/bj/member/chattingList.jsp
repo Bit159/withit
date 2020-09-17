@@ -243,7 +243,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/bj/css/toastr.min.css"/>
 <script defer type="text/javascript" src="/resources/bj/js/sockjs.min.js"></script>
 <script defer type="text/javascript" src="/resources/bj/js/stomp.min.js"></script>
-<script defer type="text/javascript" src="/resoureces/bj/js/toastr.min.js"></script>
+<script defer type="text/javascript" src="/resources/bj/js/toastr.min.js"></script>
 <sec:authentication property="principal.username" var="username"/>
 <div class="modal" id="modal">
 	<div id="modal-content" class="modal-content">
@@ -337,7 +337,7 @@ $(document).ready(function(){
 		success : function(data){
 			connect(chattingRoomNum);
 			$.each(data.list, function(index, items){
-				document.getElementById("chattingRoomList").innerHTML += "<li id='" + items.chattingRoom + "' onclick='getChatting(" + items.chattingRoom + ")'><table><tr><td class='profile_td'><img src='/resources/image/chatting.png'/></td>"
+				document.getElementById("chattingRoomList").innerHTML += "<li id='" + items.chattingRoom + "' onclick='getChatting(" + items.chattingRoom + ")'><table><tr><td class='profile_td'><img src='/resources/bj/image/chatting.png'/></td>"
 																		+ "<td class='chat_td'><div class='chat_name'>" + items.chattingRoom + "</div><div class='email'>" + items.nickname + "</div><div class='chat_preview'>" + items.chat + "</div></td>"
 																		+ "<td class='time_td'><div class='time'>" + items.chat_date + "</div><div id='" + items.chattingRoom + "_check'></div></td></tr></table></li>";
 

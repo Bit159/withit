@@ -3,9 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta id="_csrf" name="_csrf" content="${_csrf.token}">
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
-<meta charset="UTF-8">
+<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
 <title>그룹 만들기</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/kh/css/createGroup.css">
@@ -29,24 +27,25 @@
                     <h1>주제 검색<span>*</span></h1>
 <!--                <input type="text" id="topic" name="topic" placeholder="ex) Java"> -->
                     <select id="selectTopic" name="topic">
-						<option value="Java">Java</option>
-						<option value="JavaScript">JavaScript</option>
-						<option value="Python">Python</option>
-						<option value="Spring">Spring</option>
-						<option value="Vue">Vue</option>
-						<option value="React">React</option>
-						<option value="Android">Android</option>
-						<option value="iOs">iOs</option>
-						<option value="Swift">Swift</option>
-						<option value="모각코">모각코</option>
-						<option>option13</option>
-						<option>option14</option>
-						<option>option15</option>
-						<option>option16</option>
-						<option>option17</option>
-						<option>option18</option>
-						<option>option19</option>
-						<option>option20</option>
+        				<option value="Java">Java</option>
+        				<option value="JavaScript">JavaScript</option>
+        				<option value="Python">Python</option>
+        				<option value="C">C</option>
+        				<option value="C++">C++</option>
+        				<option value="C#">C#</option>
+        				<option value="React">React</option>
+        				<option value="Vue">Vue</option>
+        				<option value="Spring">Spring</option>
+        				<option value="SpringBoot">SpringBoot</option>
+        				<option value="SQL">SQL</option>
+        				<option value="Android">Android</option>
+        				<option value="iOS">iOS</option>
+        				<option value="Swift">Swift</option>
+        				<option value="FrontEnd">FrontEnd</option>
+        				<option value="BackEnd">BackEnd</option>
+        				<option value="Algorithm">Algorithm</option>
+        				<option value="Toy Project">Toy Project</option>
+        				<option value="모각코">모각코</option>
 						</select>
                     <div id="AddTopic"></div>
                 </div>
