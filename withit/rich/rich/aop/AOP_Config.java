@@ -84,8 +84,22 @@ public class AOP_Config {
 		System.out.println();
 		System.out.println("최종결과");
 		System.out.println(rangeValidatedList);
-
-		//메일발송, db삭제
+		
+		//매칭된 리스트가 존재할 경우
+		if(rangeValidatedList != null) {
+			//메일 발송을 위해 매칭된 요소들의 username을 리스트에 담음
+			List<String> emailList = new ArrayList<>();
+			for(MatchDTO dto: rangeValidatedList) {
+				emailList.add(dto.getUsername());
+			}
+			
+			//1. 메일발송
+			email.send(emailList);
+			//2. db.match 에서 제거
+			richDAO.deleteMatched(rangeValidatedList);
+			//3. 동적 테이블 생성
+			
+		}
 		
 	}// after method
 	
@@ -165,21 +179,45 @@ public class AOP_Config {
 				if(!(candidateList.get(0).getPeople() == sourceList.get(i).getPeople()))
 					rangeMatchWithAllCandidates = false;
 			}
+			//모든 요소와 접면 존재할 경우 추가검증
 			if(rangeMatchWithAllCandidates)	{
-				boolean isExist = false;
+				//하나라도 조건을 만족하지 않으면 추가하지 않기 위한 변수선언.
+				boolean isNotSatisfied = false;
+				
+				//이미 존재하는 값은 아닌지
 				for(MatchDTO dto : candidateList) {
 					if(dto.toString().equals(sourceList.get(i).toString()))
-						isExist = true;
+						isNotSatisfied = true;
 				}
-				if(candidateList.get(0).getPeople() != sourceList.get(i).getPeople()) isExist = true;
-				if(candidateList.get(0).getCareer() > sourceList.get(i).getMycareer()) isExist = true;
-				if(sourceList.get(i).getCareer() > candidateList.get(0).getMycareer()) isExist = true;
-				if(!candidateList.get(0).getTopic().equals(sourceList.get(i).getTopic())) isExist = true;
-				if(!candidateList.get(0).getTime().equals(sourceList.get(i).getTime())) isExist = true;
+				//같은 유저가 생성한 게 아닌지
+				for(MatchDTO dto : candidateList) {
+					if(dto.getUsername().equals(sourceList.get(i).getUsername()))
+						isNotSatisfied = true;
+				}
+				
+				//상호 경력조건을 만족하는지
+				if(candidateList.get(0).getPeople() != sourceList.get(i).getPeople()) isNotSatisfied = true;
+				for(MatchDTO dto : candidateList) {
+					if(dto.getMycareer() < sourceList.get(i).getCareer()) {
+						isNotSatisfied = true;
+					}
+					if(dto.getCareer() > sourceList.get(i).getMycareer()) {
+						isNotSatisfied = true;
+					}
+				} 
+				
+				//if(candidateList.get(0).getCareer() > sourceList.get(i).getMycareer()) isNotSatisfied = true;
+				//if(sourceList.get(i).getCareer() > candidateList.get(0).getMycareer()) isNotSatisfied = true;
+
+				//주제가 일치하는지
+				if(!candidateList.get(0).getTopic().equals(sourceList.get(i).getTopic())) isNotSatisfied = true;
+				//시간대가 일치하는지
+				if(!candidateList.get(0).getTime().equals(sourceList.get(i).getTime())) isNotSatisfied = true;
+				
 				
 				//모늗 후보리스트 요소와 접면이 존재하고, + 후보리스트에 이미 존재하지 않을 경우 후보리스트에 추가한다.
 				//기준의 인원수 제한을 넘기지 않았는지 검증을 추가해야 한다.
-				if(!isExist) candidateList.add(sourceList.get(i));
+				if(!isNotSatisfied) candidateList.add(sourceList.get(i));
 			}else {
 			}
 		}

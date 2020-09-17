@@ -5,15 +5,12 @@ import java.util.Map;
 
 import sj.board.bean.BBoardDTO;
 import sj.board.bean.BBoardReplyDTO;
-import sj.board.bean.BoardDTO;
 import sj.board.bean.CBoardDTO;
 import sj.board.bean.CBoardReplyDTO;
 import sj.board.paging.Pagination;
 import sj.board.paging.Search;
 
 public interface BoardService {
-
-	public List<BoardDTO> getBoardList(String pg);
 
 	public List<CBoardDTO> getBoardList1();
 

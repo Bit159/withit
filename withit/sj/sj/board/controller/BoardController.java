@@ -137,7 +137,8 @@ public class BoardController {
 								  @RequestParam(required=false, defaultValue = "1") int pg
 								 ,@RequestParam(required=false, defaultValue = "1") int range
 								 , @RequestParam(required = false, defaultValue = "title") String searchType
-								 , @RequestParam(required = false) String keyword) throws Exception {
+								 , @RequestParam(required = false) String keyword
+								 , Principal principal) throws Exception {
 		
 		// 검색
 		Search search = new Search();
@@ -193,7 +194,8 @@ public class BoardController {
 								 ,@RequestParam(required=false, defaultValue = "1") int range
 								 , @RequestParam(required = false, defaultValue = "title") String searchType
 								 , @RequestParam(required = false) String keyword
-								 , HttpServletRequest request) throws Exception {
+								 , HttpServletRequest request
+								 , Principal principal) throws Exception {
 		
 		// 검색
 		Search search = new Search();
@@ -242,9 +244,15 @@ public class BoardController {
 		//bj.member.controller.LoginSuccessHandler 에서 로그인 성공 시 session에 nickname 담아둠.
 		//세션에 담긴 nickname과 선택한 글의 nickname값을 검증하여 mav 객체에 boolean 결과값을 담아서 view로 보냄
 		boolean isAuthor = false;
-		if(bBoardDTO.getNickname().equals(request.getSession().getAttribute("nickname"))) {
-			isAuthor = true;
+		if(principal != null) {
+			if(bBoardDTO.getUsername().equals(principal.getName())) {
+				isAuthor = true;
+			}
 		}
+		/*
+		 * if(bBoardDTO.getUsername().equals(request.getSession().getAttribute(
+		 * "nickname"))) { isAuthor = true; }
+		 */
 		System.out.println(isAuthor);
 		mav.addObject("isAuthor", isAuthor);
 		mav.setViewName("/sj/freeView");
@@ -277,6 +285,7 @@ public class BoardController {
 	//크롤링 보드 댓글 생성
 	@PostMapping(path="/crawlBoard/boardReply")
 	public ModelAndView boardReply(@RequestParam String reply, int bno, Principal principal) {
+		
 		System.out.println("reply:"+reply+" bno:"+bno);
 		String username = principal.getName();
 		System.out.println("username="+username);
