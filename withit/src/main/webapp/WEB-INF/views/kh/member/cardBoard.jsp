@@ -4,10 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta id="_csrf" name="_csrf" content="${_csrf.token}">
-	<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
     <title>스터디 모집</title>
     <link rel="stylesheet" href="/resources/kh/css/card.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.0/css/all.min.css"/>
@@ -51,10 +48,10 @@
         		<div id="selectTopic">
         			<select id="sel">
         				<option value="" selected>전체</option>
+        				<option value="Algorithm">Algorithm</option>
         				<option value="Java">Java</option>
         				<option value="JavaScript">JavaScript</option>
         				<option value="Python">Python</option>
-        				<option value="Algorithm">Algorithm</option>
         				<option value="C">C</option>
         				<option value="C++">C++</option>
         				<option value="C#">C#</option>
@@ -68,6 +65,7 @@
         				<option value="Swift">Swift</option>
         				<option value="FrontEnd">FrontEnd</option>
         				<option value="BackEnd">BackEnd</option>
+        				<option value="Toy Project">Toy Project</option>
         				<option value="모각코">모각코</option>
         			</select>
         		</div>
