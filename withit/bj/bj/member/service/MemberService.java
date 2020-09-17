@@ -20,5 +20,6 @@ public interface MemberService {
 	public ChattingRoomDTO getAllChatting();
 	public void join(Map<String, String> map);
 	public MemberDTO checkMember(String username);
+	public void newPwd(Map<String, String> map);
 
 }

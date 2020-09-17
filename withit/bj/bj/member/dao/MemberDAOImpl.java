@@ -159,4 +159,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne("memberSQL.getAllChatting");
 	}
 
+	@Override
+	public void newPwd(Map<String, String> map) {
+		sqlSession.update("memberSQL.newPwd", map);
+	}
+
 }

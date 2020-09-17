@@ -13,6 +13,11 @@
 		select nickname from db.membertable where username=#{username}
 	</select>
 	
+	<!-- 비밀번호 찾기에서 비밀번호 변경 -->
+	<update id="newPwd" parameterType="java.util.Map">
+		update membertable set password=#{password} where username=#{username}
+	</update>
+	
 	<!-- 회원가입 -->
 	
 	<insert id="join" parameterType="java.util.Map">

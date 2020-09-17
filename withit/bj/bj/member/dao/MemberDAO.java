@@ -47,4 +47,6 @@ public interface MemberDAO {
 
 	public ChattingRoomDTO getAllChatting();
 
+	public void newPwd(Map<String, String> map);
+
 }
