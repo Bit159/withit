@@ -2,6 +2,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
 <link rel="stylesheet" href="/resources/kh/css/header.css">
+<link rel="shortcut icon" href="/resources/rich/image/favicon.png" />
 <div id="loginBar_wrapper">
 	<div id="loginBar" class="container">
 		<sec:authorize access="isAnonymous()">

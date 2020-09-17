@@ -219,7 +219,8 @@
 				console.log('error');
 			}
 		});
-		$('.page-link-'+$('#hidden-page').val()).css('background','green').css('color','white');
+		/* 현재 페이지 색상 적용 */
+		$('.page-link-'+$('#hidden-page').val()).css('background','#0065a5').css('color','white');
 		/* 마감 모집글 음영처리 */
 		if($('#hidden-open').val()==1){
 			$('.card').css('background','lightgray');

@@ -14,7 +14,7 @@ body{
 	font-size: 13pt;
 }
 .registForm {
-	border:dotted 1px rgb(50, 190, 120);
+	border:solid 2px lightgray;
 	margin: 0 30% 0 30% ;
 	border-radius: 10px;
 }

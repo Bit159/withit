@@ -91,6 +91,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
 <script>
+var selTopic = $('#selectTopic').select2();
+var selLocation = $('#location').select2();
+var selPeople = $('#people').select2();
+
 $(document).ready(function(){
 	$.ajax({
 		type:'get',
@@ -104,9 +108,11 @@ $(document).ready(function(){
 	            allowClear: false,
 	            data: data.arr
 	        });
+// 			alert($('#location option:nth-child(0)').val());
 			$('#location option').each(function(){
 				if($(this).val()==$('#hiddenLocation').val()){
-					$(this).attr("selected","selected");
+					$(this).prop("selected",true);
+					selLocation.val($('#hiddenLocation').val()).trigger("change");
 				}
 			});
 		},	
@@ -116,14 +122,17 @@ $(document).ready(function(){
 	});
 	$('#selectTopic option').each(function(){
 		if($(this).val()==$('#hiddenTopic').val()){
-			$(this).prop("selected","selected");
+			$(this).prop("selected",true);
+			selTopic.val($('#hiddenTopic').val()).trigger("change");
 		}
 	});
 	$('#people option').each(function(){
 		if($(this).val()==$('#hiddenPeople').val()){
-			$(this).attr("selected","selected");
+			$(this).prop("selected",true);
+			selPeople.val($('#hiddenPeople').val()).trigger("change");
 		}
 	});
+	
 });
 $('#selectTopic').select2();
 $('#people').select2({

@@ -12,6 +12,7 @@ html, body, div,h1,a,p {
     margin:0 auto;
     border:solid 2px lightgray;
     border-radius: 10px;
+    margin-top: 40px;
 }
 button {
 	border: solid 1px rgb(50, 190, 120);
@@ -37,6 +38,7 @@ div[id="card-info"]{
 }
 div[class="card-info2"] {
 	padding:10px 0 5px 0;
+	margin-bottom: 10px;
 }
 input[id="modifyCard"] {
 	width:50px;
@@ -70,21 +72,26 @@ div[id="card-content"] div {
 	height:auto;
 	white-space: pre-line;
 }
+div[id="card-content"] h1 {
+	font-size: 22px;
+}
 
 /* ===============댓글==================== */
 li[id="reply_group_top"]{
-	padding:15px 10px 15px 10px;
+	padding:12px 10px 12px 10px;
 	list-style: none;
 	border: solid 1px lightgray;
 	border-bottom: solid 2px #0060a5;
 	font-weight: bold;
 	font-size: 20px;
+	cursor:default;
 }
 div[class="view-reply"] {
 	margin:10px;
 }
 li[class="reply_group_item"]{
     display: flex;
+    cursor:default;
 }
 div[class="reply_group_div"] {
 	width:100%;

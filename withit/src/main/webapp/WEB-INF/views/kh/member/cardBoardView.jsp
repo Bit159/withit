@@ -36,19 +36,19 @@
 					<input type="hidden" id="boardSeq" value="${dto.seq}">
 				</div>
 				<div id="view-content">
-					<h1>모집내용</h1>
+<!-- 					<h1>모집내용</h1> -->
 					<table id="viewTable">
 						<tr>
-							<th>최대인원</th>
-							<td>${dto.people }명</td>
+							<th>지역</th>
+							<td>${dto.location }</td>
 						</tr>
 						<tr>
 							<th>주제</th>
 							<td>${dto.topic }</td>
 						</tr>
 						<tr>
-							<th>지역</th>
-							<td>${dto.location }</td>
+							<th>최대인원</th>
+							<td>${dto.people }명</td>
 						</tr>
 					</table>
 					<div id="card-content">
