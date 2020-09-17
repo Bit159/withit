@@ -5,6 +5,28 @@
 
 <mapper namespace="richSQL">
 
+	<!-- 매칭 발생시 사용되는 SQL들 -->
+	
+	<!-- 매칭 값들 db.match에서 제거할 때 사용되는 SQL -->
+	<delete id="deleteMatched" parameterType="java.util.List">
+		DELETE FROM db.match
+		<where>
+			<foreach collection="list" item="item" separator="OR">
+				(`username`=#{item.username} AND `x`=#{item.x} AND `y`=#{item.y} AND `range`=#{item.range} AND `time`=#{item.time} AND `topic`=#{item.topic} AND `career`=#{item.career} AND `people`=#{item.people})
+			</foreach>
+		</where>
+	</delete>
+	
+	<!-- 그룹 테이블 생성에 사용되는 SQL -->
+	<select id="createGroup" parameterType="java.util.Map">
+		${sql}
+	</select>	
+	
+	<!-- End of 매칭 발생시 사용되는 SQL들 -->
+
+
+
+
 	<!-- To get Schedules -->
 	<select id="getGreatestNo" resultType="int">
 		SELECT MAX(`no`) FROM db.notify
@@ -55,16 +77,7 @@
 		SELECT * FROM db.match where `username` = #{username} ORDER BY `created` ASC 
 	</select>
 	
-	<delete id="deleteMatched" parameterType="java.util.List">
-		DELETE FROM db.match
-		<where>
-			<foreach collection="list" item="item" separator="OR">
-				(`username`=#{item.username} AND `x`=#{item.x} AND `y`=#{item.y} AND
-				`range`=#{item.range})
-			</foreach>
-		</where>
-	</delete>
-	
+	<!-- 유저가 매칭값을 제거할 때 사용되는 SQL -->
 	<delete id="deleteMatch" parameterType="hj.member.bean.MatchDTO">
 		DELETE FROM db.match WHERE `username`=#{username} and `x`=#{x} and `y`=#{y} and `range`=#{range} and `career`=#{career} and `people`=#{people}	
 	</delete>
@@ -73,18 +86,18 @@
 	
 	<!-- FOR CRAWL -->
 	<insert id="crawlInsert" parameterType="java.util.List">
-		INSERT INTO cboard(`bno`, `title`, `nickname`, `boarddate`) VALUES
+		INSERT INTO db.cboard(`bno`, `title`, `nickname`, `boarddate`) VALUES
 		<foreach collection="list" item="item" separator=",">
 			 (#{item.bno}, #{item.title}, #{item.nickname}, #{item.boarddate})
 		</foreach>
 	</insert>
 	
 	<select id="getEmptyContentBno" resultType="String">
-		SELECT `bno` FROM cboard WHERE `content` IS NULL;
+		SELECT `bno` FROM db.cboard WHERE `content` IS NULL;
 	</select>
 	
 	<insert id="insertContents" parameterType="java.util.List">
-		UPDATE cboard set `content`= case
+		UPDATE db.cboard set `content`= case
 		<foreach collection="list" item="item" separator="">
 			when `bno`=#{item.bno} then #{item.content}
 		</foreach>
@@ -95,16 +108,18 @@
 	</insert>
 	
 	<select id="getGreatestBno" resultType="java.lang.Integer">
-		SELECT MAX(`bno`) FROM cboard
+		SELECT MAX(`bno`) FROM db.cboard
 	</select>	
 	
 	<!-- End of FOR CRAWL -->
 
 	<!-- FOR BOARD -->
 		<select id="getBoardList" resultType="sj.board.bean.CBoardDTO">
-			SELECT * FROM cboard order by bno desc limit 20
+			SELECT * FROM db.cboard order by bno desc limit 20
 		</select>
 	<!-- END OF BOARD -->
+	
+	
 
 </mapper>
 
