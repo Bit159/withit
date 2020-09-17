@@ -12,13 +12,11 @@ html, body, div,h1,a,p {
     width:1280px;
     height:100%;
     margin:0 auto;
-    border:solid 2px lightgray;
-    border-radius: 10px;
+    border:solid 3px lightgray;
     margin-top: 40px;
 }
 #selectBox {
 	background:rgb(243, 243, 243);
-	border-radius: 10px;
 	font-size: 11pt;
 }
 div[id="selectBox"] h1 {

@@ -30,7 +30,7 @@
 					<fmt:formatDate var="registDate" pattern="yyyy-MM-dd HH:mm"
 						value="${dto.registDate }" />
 					<div class="card-info2">
-						<span id="writer">작성자 ${dto.nickname}</span> <span id="registDate">등록일
+						<span id="writer">작성자 ${dto.nickname}</span> &nbsp;<span id="registDate">등록일
 							${registDate}</span>
 					</div>
 					<input type="hidden" id="boardSeq" value="${dto.seq}">
