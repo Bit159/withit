@@ -77,8 +77,13 @@
 					</c:if>
 				</ul>
 			</div>
-			<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
+			<!-- pagination{e} -->
+			
+			<!-- search{s} -->
 			<div class="form-group row justify-content-center">
+				<!-- 글 생성 버튼 -->
+				<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
+				<!-- 글 생성 버튼 -->
 				<div class="w100" style="padding-right:10px">
 					<select class="form-control form-control-sm" name="searchType" id="searchType">
 						<option value="title">제목</option>
@@ -92,6 +97,7 @@
 					<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch">검색</button>
 				</div>
 			</div>
+			<!-- search{e} -->
         </div>
     </div>
     

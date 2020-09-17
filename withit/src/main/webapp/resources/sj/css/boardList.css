@@ -162,3 +162,21 @@ input[id="keyword"]{
 input[id="searchBtn"]{
 	height:30px;
 }
+
+div[class="form-group row justify-content-center"]{
+	display: flex;
+	justify-content: center;
+}
+select[class="searchType"]{
+	width: 70px;
+	height: 30px;
+}
+input[id="keyword"]{
+	
+	width: 500px;
+	height: 30px;
+}
+button[id="btnSearch"]{
+	width: 70px;
+	height: 30px;
+}

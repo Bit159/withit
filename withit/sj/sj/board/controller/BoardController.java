@@ -289,6 +289,7 @@ public class BoardController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("bno",bno);
 		map.put("reply", reply);
+		map.put("username", username);
 		map.put("nickname", nickname);
 		map.put("now", now);
 		boardService.boardReply(map);
@@ -314,6 +315,7 @@ public class BoardController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("bno",bno);
 			map.put("reply", reply);
+			map.put("username", username);
 			map.put("nickname", nickname);
 			map.put("now", now);
 			boardService.boardReply2(map);
@@ -350,25 +352,6 @@ public class BoardController {
 		return mav;
 	}
 	
-	@PostMapping("/board/replyWrite") 
-	public ModelAndView replyWrite(@RequestParam String reply_writer_text, int bno, HttpSession session) {
-		System.out.println(reply_writer_text);
-		System.out.println(bno);
-		String text = reply_writer_text;
-		String nickname = "nickname";
-		Date now = new Date();
-		
-		Map map = new HashMap();
-		map.put("text",text);
-		map.put("bno",bno);
-		map.put("nickname", nickname);
-		map.put("now", now);
-		boardService.replyWrite(map);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("board/boardView");
-		return mav;
-	}
-	
 	// 크롤링 보드 댓글 수정
 	@PostMapping("/crawlBoard/replyModify")
 	public ModelAndView replyModify(@RequestParam String reply, int rno, HttpSession session) {
@@ -400,17 +383,23 @@ public class BoardController {
 	}
 	
 	
-
-	
 	// 자유게시판 보드 작성
 	@PostMapping("/freeBoard/boardWrite")
 	@ResponseBody
-	public String boardWrite(@RequestParam String title, String content, String nickname, Principal principal, HttpServletRequest request) {
+	public String boardWrite(@RequestParam String title, String content, Principal principal, HttpServletRequest request) {
 		Date now = new Date();
+		
+		String username = principal.getName();
+		System.out.println("username="+username);
+		String nickname = memberService.getNickname(username);
+		System.out.println("nickname="+nickname);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title",title);
 		map.put("content",content);
-		map.put("nickname",request.getSession().getAttribute("nickname"));
+		map.put("username", username);
+		/* map.put("nickname",request.getSession().getAttribute("nickname")); */
+		map.put("nickname", nickname);
 		map.put("now", now);
 		boardService.writeBBoard(map); 
 		return "success";

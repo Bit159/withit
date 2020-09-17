@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,10 +55,15 @@
 					                                    </div>
 					                                    <textarea name="reply_modify_text1" class="reply_modify_text1" readonly="readonly">${replydto.reply }</textarea>
 					                                    <div class="reply_button">
-						                                	<button type="button" class="modifyBtn" data-rno="${ replydto.rno }">수정</button>
-						                                	<button type="button" class="deleteBtn" data-rno="${ replydto.rno }">삭제</button>
+					                                    	<sec:authorize access="isAuthenticated()">
+					                                    	<sec:authentication property="principal.username" var="username"/>
+					                                    	
+							                                	<button type="button" class="modifyBtn" data-rno="${ replydto.rno }">수정</button>
+							                                	<button type="button" class="deleteBtn" data-rno="${ replydto.rno }">삭제</button>
+						                                	
+						                           	</sec:authorize>
 						                                </div>
-					                                </div>
+					                                     </div>
 					                            </li>
 					                            <div class="reply_modify_wrapper">
 					                                <div class="reply_modify">
@@ -76,8 +82,9 @@
 	                            </c:forEach>
 	                        </ul>
 	                        
-	                        <br><br><br><br>
+	                        <br><br>
 	                        
+	                    <sec:authorize access="isAuthenticated()">	                        
 						<div class="reply_writer_wrapper">
 							<div class="reply_writer">
 								<label class="reply_writer_label">
@@ -90,6 +97,7 @@
 								<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
 							</div>
 						</div>
+						</sec:authorize>
 						
                     </div>                    
                 </div>

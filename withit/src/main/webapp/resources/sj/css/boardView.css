@@ -4,6 +4,9 @@
 	padding:0;
 	box-sizing:border-box;
 }
+textarea:focus {
+    outline: none;
+}
 div[class="bodywrapper"]{
     display: flex;
     justify-content: center;
@@ -30,7 +33,7 @@ div[class="boardcontainer"]{
     flex-direction: column;    
     border-left: 3px solid #32be78;
     font-size: 20px;
-    
+    margin-bottom: 50px;
     
 }
 div[class="board_header"]{
