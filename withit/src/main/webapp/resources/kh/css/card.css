@@ -14,6 +14,7 @@ html, body, div,h1,a,p {
     margin:0 auto;
     border:solid 2px lightgray;
     border-radius: 10px;
+    margin-top: 40px;
 }
 #selectBox {
 	background:rgb(243, 243, 243);
@@ -126,7 +127,7 @@ a {
     background: white;
     position: relative;
     display: inline-block;
-    box-shadow: 0 4px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
     text-decoration: none;
     text-align:left;
     display:inline-block;

@@ -201,11 +201,9 @@ div[class="sidebar fixed"] > ul > li > a {
 }
 input[id="menuicon"]:checked +label +div {right:0;}
 /* =============banner=============== */
-#banner_wrppaer {
-    margin-bottom: 10px;
-}
 #banner{
     position: relative;
+    margin-top: 40px;
 }
 .banner_left {
     position: relative;
