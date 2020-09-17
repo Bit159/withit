@@ -29,5 +29,7 @@ public interface HjDAO {
 	public abstract List<MemberDTO> getWithdrawalList(String username);
 	public abstract List<MemberDTO> getNickName(String nickname);
 	public abstract void passwordRevise(Map<String, String> map);
+	public abstract int checkUsername(String username);
+	public abstract int checkNickname(String nickname);
 
 }

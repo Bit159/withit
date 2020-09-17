@@ -59,7 +59,8 @@
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}')">〈</a></li>
 					</c:if>
 					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-						<li class="page-item"><a class="page-link" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}')"> ${idx} </a></li>
+						<li class="page-item"><a class="page-link-${idx }" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}')"> ${idx} </a></li>
+						<input type="hidden" id="hidden-page" value="${paging.page }">
 					</c:forEach>
 					<c:if test="${paging.next}">
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${paging.range}', '${paging.range}', '${paging.rangeSize}')" >〉</a></li>
@@ -69,12 +70,15 @@
 					</c:if>
 				</ul>
 			</div>
-		
-			<!-- 글 생성 버튼 -->
-			<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
-			<!-- 글 생성 버튼 -->
+			<!-- pagination{e} -->
+			
+			
+			
 			<!-- search{s} -->
 			<div class="form-group row justify-content-center">
+				<!-- 글 생성 버튼 -->
+				<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
+				<!-- 글 생성 버튼 -->
 				<div class="w100" style="padding-right:10px">
 					<select class="form-control form-control-sm" name="searchType" id="searchType">
 						<option value="title">제목</option>
@@ -93,14 +97,14 @@
         </div>
     </div>
     
-    <c:url var="boardListURL" value="/synergy/bboard/boardList2"></c:url>
+    <c:url var="freeBoardURL" value="/freeBoard"></c:url>
     	
     <script type="text/javascript">
 		//이전 버튼 이벤트
 		function fn_prev(page, range, rangeSize) {
 			var page = ((range - 1) * rangeSize);
 			var range = range - 1;
-			var url = "${pageContext.request.contextPath}/bboard/boardList2";
+			var url = "${pageContext.request.contextPath}/freeBoard";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			location.href = url;
@@ -108,7 +112,7 @@
 		
 		//페이지 번호 클릭
 		function fn_pagination(page, range, rangeSize) {
-			var url = "${pageContext.request.contextPath}/bboard/boardList2";
+			var url = "${pageContext.request.contextPath}/freeBoard";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			location.href = url;	
@@ -118,7 +122,7 @@
 		function fn_next(page, range, rangeSize) {
 			var page = parseInt((range * rangeSize)) + 1;
 			var range = parseInt(range) + 1;
-			var url = "${pageContext.request.contextPath}/bboard/boardList2";
+			var url = "${pageContext.request.contextPath}/freeBoard";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			location.href = url;
@@ -126,7 +130,7 @@
 		
 		//맨끝 버튼 이벤트
 		function fn_last(pageCnt, rangeSize) {
-			var url = "${pageContext.request.contextPath}/bboard/boardList2";
+			var url = "${pageContext.request.contextPath}/freeBoard";
 			var range = Math.ceil(pageCnt/rangeSize);
 			url = url + "?pg=" + pageCnt;
 			url = url + "&range=" + range;
@@ -138,7 +142,7 @@
 
 			e.preventDefault();
 	
-			var url = "${pageContext.request.contextPath}/bboard/boardList2";
+			var url = "${pageContext.request.contextPath}/freeBoard";
 	
 			url = url + "?searchType=" + $('#searchType').val();
 	
@@ -154,6 +158,9 @@
 		$(document).on('click', '#boardWriteBtn', function(){
 			location.href = "/freeBoard/writeForm";
 		});
+		
+		// 현재 페이지 음영처리
+		$('.page-link-'+$('#hidden-page').val()).css('background','green').css('color','white');
 	</script>
 </body>
 </html>

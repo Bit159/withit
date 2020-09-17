@@ -28,11 +28,11 @@ public class RichController {
 	@Autowired
 	private RichDAO richDAO;
 	
+	//달력에서 Ajax로 일정을 생성하는 함수입니다.
 	@ResponseBody
 	@PostMapping(path="/createSchedule", produces="application/json;charset=UTF-8")
-	public JSONObject createSchedule(@RequestBody JSONObject json, @Autowired NotDTO dto) {
-		System.out.println(json);
-		dto.setUsername(json.getString("username"));
+	public JSONObject createSchedule(@RequestBody JSONObject json, @Autowired NotDTO dto, Principal principal) {
+		dto.setUsername(principal.getName());
 		dto.setGroup(json.getInt("group"));
 		dto.setStart(new Date(json.getLong("start")));
 		dto.setEnd(new Date(json.getLong("end")));
@@ -44,8 +44,8 @@ public class RichController {
 		json.put("no", richDAO.getGreatestNo());
 		return json;
 	}
-	
-	//일정 제거하기
+
+	//달력에서 Ajax로 일정을 제거할 때 사용되는 함수입니다 
 	@PostMapping("/removeSchedule")
 	@ResponseBody
 	public int removeSchedule(@RequestBody int no) {
@@ -68,11 +68,11 @@ public class RichController {
 	}
 	
 	//일정보기 페이지 진입시 ajax로 정보 요청하기
-	@PostMapping(path="/getSchedules", produces="application/json;charset=UTF-8")
+	@PostMapping(path="/getMySchedules", produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public JSONArray getMySchedules() {
+	public JSONArray getMySchedules(Principal principal) {
 		JSONArray json = new JSONArray();
-		json.addAll(richDAO.getSchedules());
+		json.addAll(richDAO.getMySchedules(principal.getName()));
 		return json;
 	}
 	
@@ -108,9 +108,8 @@ public class RichController {
 	
 	//매칭 위시 삭제
 	@PostMapping(path="/delete_match", produces="application/json;charset=UTF-8")
-	public @ResponseBody JSONObject deleteMatch(@RequestBody JSONObject json, @Autowired MatchDTO matchDTO) {
-		System.out.println(json);
-		matchDTO.setUsername("jpcnani@naver.com");
+	public @ResponseBody JSONObject deleteMatch(@RequestBody JSONObject json, @Autowired MatchDTO matchDTO, Principal principal) {
+		matchDTO.setUsername(principal.getName());
 		matchDTO.setX(json.getDouble("x"));
 		matchDTO.setY(json.getDouble("y"));
 		matchDTO.setRange(json.getDouble("range"));

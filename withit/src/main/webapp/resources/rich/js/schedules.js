@@ -8,16 +8,8 @@ let calendar = undefined;
 /*Read : 페이지 로드했을 때 db에서 값 가져와서 달력그리기 */
 document.addEventListener("DOMContentLoaded", function () {
   //fetch로 notify 테이블의 모든 값 가져와서 myData에 저장 및 schedules 배열 준비
-  let url = "/getSchedules";
-  let options = {
-    method: "POST",
-    headers: {
-      "X-CSRF-TOKEN": document.getElementById("csrf").content,
-      Accept: "application/json",
-      "Content-Type": "application/json; charset=utf-8",
-      SameSite: false,
-    },
-  };
+  let url = "/getMySchedules";
+  let options = myOptions();
 
   //notify 테이블에서 값들을 가져와서 FullCalendar에서 사용할 수 있는 schedules 배열로 변환하는 함수입니다.
   fetch(url, options)

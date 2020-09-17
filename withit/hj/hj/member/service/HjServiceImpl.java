@@ -114,6 +114,22 @@ public class HjServiceImpl implements HjService {
 
 	@Override
 	public void join(Map<String, String> map) {
+		String password = encoder.encode(map.get("password"));
+		map.replace("password", password);
+	//	map.put("auth", "ROLE_MEMBER");
+		hjDAO.join(map);
+	}
+
+	@Override
+	public int checkUsername(String username) {
+		
+		return hjDAO.checkUsername(username);
+	}
+
+	@Override
+	public int checkNickname(String nickname) {
+		
+		return hjDAO.checkNickname(nickname);
 	}
 
 }

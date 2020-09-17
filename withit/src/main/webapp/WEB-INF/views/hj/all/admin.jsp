@@ -27,7 +27,7 @@
                     <li class="aside_menu_list_3">
                     	<a href="/admin" class="aside_menu_list_3_a">
                         <img src="/resources/hj/image/task2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
-                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 49px;"/>
                     	</a>
                     </li>
                     <li class="aside_menu_list_1">
@@ -39,7 +39,7 @@
                     <li class="aside_menu_list_2">
                     	<a href="/adminProgrammingStats" class="aside_menu_list_2_a">
                         <img src="/resources/hj/image/chartIcon4.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
-                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 50px;"/>
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 46px;"/>
                     	</a>
                     </li>
                     <li class="aside_menu_list_4">

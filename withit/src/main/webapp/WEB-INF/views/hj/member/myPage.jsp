@@ -24,6 +24,7 @@
         }
         .study_name:hover, .study_name:focus, .study:hover, .study:focus {
             background-color: rgb(50, 190, 120);
+            color: white;
         }
         .study_content{
             display: none;

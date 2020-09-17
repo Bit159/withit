@@ -15,6 +15,7 @@ public class BBoardDTO {
 	private String content;
 	private int replys;
 	private int hit;
+	private String username;
 	private String nickname;
 	private Date boarddate;
 	private Date updatedate;

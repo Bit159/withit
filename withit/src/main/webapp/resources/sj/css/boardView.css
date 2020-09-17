@@ -4,6 +4,9 @@
 	padding:0;
 	box-sizing:border-box;
 }
+textarea:focus {
+    outline: none;
+}
 div[class="bodywrapper"]{
     display: flex;
     justify-content: center;
@@ -18,7 +21,7 @@ div[class="boardwrapper"]{
     margin: 0 auto;
     width: 1280px;
     min-height: 800px;
-    margin-top: 70px;
+    margin-top: 20px;
     position : relative;
     left: 15px;
 }
@@ -30,7 +33,7 @@ div[class="boardcontainer"]{
     flex-direction: column;    
     border-left: 3px solid #32be78;
     font-size: 20px;
-    
+    margin-bottom: 50px;
     
 }
 div[class="board_header"]{

@@ -51,6 +51,10 @@ public interface HjService {
 
 	public void passwordRevise(Map<String, String> map);
 
+	public int checkUsername(String username);
+
+	public int checkNickname(String nickname);
+
 	
 
 	

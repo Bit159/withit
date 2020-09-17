@@ -194,6 +194,10 @@ public class HjController {
 		return revice;
 
 	}
+	
+	
+	
+	
 
 	//관리자 페이지 회원 통계
 	
@@ -275,18 +279,75 @@ public class HjController {
 		
 	}
 	
-	
-	
-	@RequestMapping(value = "/all/joinForm", method = RequestMethod.GET)
+	//회원가입 페이지
+	@GetMapping("/joinForm")
 	public String joinForm() {
-		return "/all/joinForm";
+		return "/hj/all/joinForm";
+		
 	}
-
-	@RequestMapping(value = "/all/join", method = RequestMethod.POST)
+	
+	//회원가입
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(@RequestParam Map<String, String> map) {
 		hjService.join(map);
-		return "redirect:/all/loginForm";
+		return "redirect:/loginForm";
 	}
+	
+		//회원가입 페이지 아이디 중복 체크
+		@ResponseBody
+		@RequestMapping(value = "/all/checkUsername", method = RequestMethod.POST)
+		public String checkUsername(@RequestParam String username) {
+
+			
+			
+			int cnt = 0;
+			
+			cnt = hjService.checkUsername(username);
+			
+			
+			
+			String overlap = "";
+			
+			if(cnt!=0) {
+				overlap = "fail";
+			}else {
+				overlap = "success";
+			}
+			
+			return overlap;
+
+		}
+		
+		
+		
+		//회원가입 페이지 닉네임 중복 체크
+		@ResponseBody
+		@RequestMapping(value = "/all/checkNickname", method = RequestMethod.POST)
+		public String checkNickname(@RequestParam String nickname) {
+
+			
+			
+			int cnt2 = 0;
+			
+			cnt2 = hjService.checkNickname(nickname);
+			
+			
+			
+			String overlap = "";
+			
+			if(cnt2!=0) {
+				overlap = "fail";
+			}else {
+				overlap = "success";
+			}
+			
+			return overlap;
+
+		}
+	
+	
+	
+	
 
 }
 

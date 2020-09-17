@@ -29,7 +29,7 @@ public interface RichDAO {
 	//스케쥴용
 	public abstract int getGreatestNo();
 	public abstract int createSchedule(NotDTO dto);
-	public abstract List<NotDTO> getSchedules();
+	public abstract List<NotDTO> getMySchedules(String username);
 	public abstract int updateSchedule(NotDTO dto);
 	public abstract int removeSchedule(int no);
 }

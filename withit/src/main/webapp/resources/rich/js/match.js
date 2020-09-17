@@ -529,18 +529,3 @@ function addDrawFunction() {
     return content;
   }
 }
-
-
-function myOptions(ob) {
-	let options = {
-		method: "POST",
-		headers: {
-			'X-CSRF-TOKEN': document.getElementById('csrf').content,
-			Accept: "application/json",
-			"Content-Type": "application/json; charset=utf-8",
-		},
-		body: JSON.stringify(ob),
-	};
-	
-	return options;
-}

@@ -48,7 +48,7 @@ html, body{
    
     height: 50px;
     line-height: 50px;
-    cursor: pointer;
+    
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgb(255, 255, 255);
@@ -59,6 +59,7 @@ html, body{
 	text-decoration: none;
 	border: none;
 	color:white;
+	cursor: pointer;
 }
 
 .aside_menu_list_1:hover{
@@ -66,7 +67,7 @@ html, body{
 }
 
 .aside_menu_list_2{
-    cursor: pointer;
+    
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgb(255, 255, 255);
@@ -79,6 +80,7 @@ html, body{
 	text-decoration: none;
 	border: none;
 	color:white;
+	cursor: pointer;
 }
 
 .aside_menu_list_2:hover{
@@ -87,7 +89,7 @@ html, body{
 
 
 .aside_menu_list_3{
-    cursor: pointer;
+    
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgb(255, 255, 255);
@@ -100,6 +102,7 @@ html, body{
 	text-decoration: none;
 	border: none;
 	color:white;
+	cursor: pointer;
 }
 
 .aside_menu_list_3:hover{
@@ -107,7 +110,7 @@ html, body{
 }
 
 .aside_menu_list_4{
-    cursor: pointer;
+    
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgb(255, 255, 255);
@@ -120,6 +123,7 @@ html, body{
 	text-decoration: none;
 	border: none;
 	color:white;
+	cursor: pointer;
 }
 
 .aside_menu_list_4:hover{
@@ -308,14 +312,21 @@ input[id="menuicon"]:checked + label + div {
  
  #keyword{
      width: 20%; 
+     height:25px;
  }
  
- #searchOption{
+ #searchType{
      width: 10%;
+     height:30px;
  }
  
- #searchBtn{
+ #btnSearch{
      width: 5%;
+     height:30px;
+     background-color: rgb(40, 32, 114);
+	border-color: rgb(40, 32, 114);
+	color: white;
+	font-weight: bold;
  }
 
 /*페이징 창*/

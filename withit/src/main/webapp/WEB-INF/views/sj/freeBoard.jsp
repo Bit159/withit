@@ -64,7 +64,8 @@
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')">〈</a></li>
 					</c:if>
 					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-						<li class="page-item"><a class="page-link" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')"> ${idx} </a></li>
+						<li class="page-item"><a class="page-link-${idx }" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')"> ${idx} </a></li>
+						<input type="hidden" id="hidden-page" value="${paging.page }">
 					</c:forEach>
 					<c:if test="${paging.next}">
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${paging.range}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')" >〉</a></li>
@@ -76,8 +77,13 @@
 					</c:if>
 				</ul>
 			</div>
-			<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
+			<!-- pagination{e} -->
+			
+			<!-- search{s} -->
 			<div class="form-group row justify-content-center">
+				<!-- 글 생성 버튼 -->
+				<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
+				<!-- 글 생성 버튼 -->
 				<div class="w100" style="padding-right:10px">
 					<select class="form-control form-control-sm" name="searchType" id="searchType">
 						<option value="title">제목</option>
@@ -91,6 +97,7 @@
 					<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch">검색</button>
 				</div>
 			</div>
+			<!-- search{e} -->
         </div>
     </div>
     
@@ -175,6 +182,8 @@
 			location.href = "/freeBoard/writeForm";
 		});
 
+		// 현재 페이지 음영처리
+		$('.page-link-'+$('#hidden-page').val()).css('background','green').css('color','white');
 
 	</script>
 </body>

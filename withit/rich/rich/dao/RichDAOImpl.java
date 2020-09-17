@@ -101,8 +101,8 @@ public class RichDAOImpl implements RichDAO {
 		return sqlSession.insert("richSQL.createSchedule", dto);
 	}
 	@Override
-	public List<NotDTO> getSchedules() {
-		return sqlSession.selectList("richSQL.getSchedules");
+	public List<NotDTO> getMySchedules(String username) {
+		return sqlSession.selectList("richSQL.getMySchedules", username);
 	}
 	@Override
 	public int updateSchedule(NotDTO dto) {

@@ -17,61 +17,6 @@ body{
     font-size: 13pt;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-/* header */
-#header_wrapper {
-    padding: 5px 0 5px;
-}
-header {
-    position:relative;
-    display:flex;
-}
-#logo {
-    display:inline-block;
-}
-#nav {
-    display: block;
-    position:absolute;
-    right:0px;
-    top:0px;
-    height: 50px;
-}
-#nav ul li {
-    display: list-item;
-    list-style: none;
-    float:left;
-    padding-left:2em;
-    line-height: 59.8px;
-}
-#nav ul li a{
-    font-weight: 550;
-    text-decoration: none;
-    color:black;
-    padding: .5em;
-    border-radius: 1rem;
-    transition: all .3s;
-}
-#nav ul li a:hover{
-    background: rgb(50, 190, 120, 0.6);
-    color:white;
-    transition: all .3s;
-    border-radius: 1.5rem;
-}
-/* banner */
-div[id=loginBar_wrapper] {
-    background:rgb(50, 190, 120);
-    height: 30px;
-}
-div[id=loginBar] {
-    margin:0 auto;
-}
-div[id=loginBar] a {
-    text-decoration: none;
-    color: white;
-    font-size: 10pt;
-    padding-left: 10px;
-    line-height: 30px;
-    float: right;
-}
 
 /* main */
 
@@ -87,9 +32,9 @@ div[id=loginBar] a {
 .header_label{
     width: 100%;
     text-align: center;
-    padding-top: 30px;
+    padding-top: 50px;
     font-weight: 700;
-    font-size: 30px;
+    font-size: 40px;
    
 }
 
@@ -101,7 +46,7 @@ div[id=loginBar] a {
 
 .content_section{
     float: left; width: 70%; height: 600px; 
-    margin-top: 50px;
+    margin-top: 80px;
 }
 
 .table_left{
@@ -111,7 +56,7 @@ div[id=loginBar] a {
     border-top-color: rgb(221, 221, 221);
     border-top-style: solid;    
     border-top-width: 1px;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 700;
     vertical-align: middle;
     text-align: right;
@@ -165,7 +110,7 @@ div[id=loginBar] a {
     border-bottom-color: rgb(221, 221, 221);
     border-bottom-style: solid;    
     border-bottom-width: 1px;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 700;
     vertical-align: middle;
     text-align: right;
@@ -194,12 +139,39 @@ div[id=loginBar] a {
     width: 80%;
 }
 
+#reviseBtn{
+	width: 70px;
+	height: 30px;
+	background-color: rgb(50, 190, 120);
+	border-color: rgb(50, 190, 120);
+	color:white;
+	font-weight: bold;
+}
+
+#resetBtn{
+	width: 70px;
+	height: 30px;
+	background-color: rgb(50, 190, 120);
+	border-color: rgb(50, 190, 120);
+	color: white;
+	font-weight: bold;
+	
+}
 /* 회원 탈퇴 구간*/
 
 .withdrawDiv{
     width: 85%;
     height: 150px;
    
+}
+
+#withdrawBtn{
+	width: 80px;
+	height: 30px;
+	background-color: rgb(50, 190, 120);
+	border-color: rgb(50, 190, 120);
+	color: white;
+	font-weight: bold;
 }
 
 
@@ -213,7 +185,7 @@ div[id=loginBar] a {
     border-bottom-width: 1px;
     padding: 15px;
     text-align: right;
-    margin-top: 100px;
+    margin-top: 180px;
    
 }
 
