@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import sj.board.bean.BBoardDTO;
 import sj.board.bean.BBoardReplyDTO;
-import sj.board.bean.BoardDTO;
 import sj.board.bean.CBoardDTO;
 import sj.board.bean.CBoardReplyDTO;
 import sj.board.dao.BoardDAO;
@@ -25,21 +24,8 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired 
 	private HttpSession session;
-	 
-	
-	@Override
-	public List<BoardDTO> getBoardList(String pg) {
-		//1페이지당 5개씩
-		int endNum = Integer.parseInt(pg)*5;
-		int startNum = endNum-4;
-		
-		Map<String,Integer> map = new HashMap<String,Integer>();
-		map.put("startNum", startNum);
-		map.put("endNum", endNum);
-		
-		return boardDAO.getBoardList(map);
-	}
 
+	
 	@Override
 	public List<CBoardDTO> getBoardList1() {
 		return boardDAO.getBoardList1();

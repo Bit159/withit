@@ -4,6 +4,13 @@
 	box-sizing:border-box;
 }
 
+button {
+   border: solid 1px rgb(50, 190, 120);
+   color:white;
+   background:rgb(50, 190, 120);
+   cursor:pointer;
+}
+
 div[id="boardModifyWrapper"]{
     margin: 0 auto;
     width: 1280px;
