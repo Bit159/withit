@@ -119,7 +119,7 @@
 	                        <div id="card-header-text"> 모집중 </div>
 	                        </c:if>
 	                        <c:if test="${dto.open eq 1}">
-	                        <div id="card-header-text"> 마감 </div>
+	                        <div id="card-header-text" style="color:red"> 마감 </div>
 	                        </c:if>
 	                    </div>
 	                </div>
@@ -222,9 +222,11 @@
 		/* 현재 페이지 색상 적용 */
 		$('.page-link-'+$('#hidden-page').val()).css('background','#0065a5').css('color','white');
 		/* 마감 모집글 음영처리 */
-		if($('#hidden-open').val()==1){
-			$('.card').css('background','lightgray');
-		}
+		$('.card').each(function(){
+			if($(this).children().children().children('#card-header-text').text()==' 마감 '){
+				$(this).css('background','lightgray');
+			}
+		});
 	});		
 	/* 하위지역 선택 */	
 	$('#select-gu').on('click','li',function(){
