@@ -174,7 +174,7 @@
 		});
 		
 		// 현재 페이지 음영처리
-		$('.page-link-'+$('#hidden-page').val()).css('background','green').css('color','white');
+		$('.page-link-'+$('#hidden-page').val()).css('background','#0065a5').css('color','white');
 		
 	</script>
 </body>
