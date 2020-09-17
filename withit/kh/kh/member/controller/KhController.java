@@ -206,6 +206,7 @@ public class KhController {
 	 public ModelAndView modifyCard(@RequestParam int seq) {
 		 CardBoardDTO dto = cardBoardService.getCardContent(seq);
 		 ModelAndView mav = new ModelAndView();
+		 
 		 mav.addObject("dto",dto);
 		 mav.setViewName("/kh/member/modifyGroup");
 		 return mav;
