@@ -6,15 +6,6 @@
   <mapper namespace="boardSQL">
   	
   	<!-- 목록 -->
-	<select id="getBoardList" parameterType="java.util.Map" resultType="boardDTO">
-		<![CDATA[
-		select * from
-		(select rownum rn, tt.* from
-		(select * from db.cboard order by bno desc)tt
-		)where rn>=#{startNum} and rn<=#{endNum} 
-		]]>
-	</select>
-	
 	<select id="getBoardList1" resultType="cBoardDTO">
 		select * from db.cboard 
 	</select>

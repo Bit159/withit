@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.Setter;
 import sj.board.bean.BBoardDTO;
 import sj.board.bean.BBoardReplyDTO;
-import sj.board.bean.BoardDTO;
 import sj.board.bean.CBoardDTO;
 import sj.board.bean.CBoardReplyDTO;
 import sj.board.paging.Pagination;
@@ -24,13 +23,6 @@ public class BoardDAOImpl implements BoardDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private BoardDTO dto;
-
-	@Override
-	public List<BoardDTO> getBoardList(Map<String, Integer> map) {
-		return sqlSession.selectList("boardSQL.getBoardList", map);
-	}
-
 	@Override
 	public int getBoardTotalA() {
 		return sqlSession.selectOne("boardSQL.getBoardTotalA");

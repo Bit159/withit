@@ -6,6 +6,13 @@
 	box-sizing:border-box;
 }
 
+button {
+   border: solid 1px rgb(50, 190, 120);
+   color:white;
+   background:rgb(50, 190, 120);
+   cursor:pointer;
+}
+
 div[class="body_wrapper"]{
     padding: 0;
     margin: 0 auto;
@@ -28,7 +35,7 @@ div[class="list_wrapper"]{
     margin-bottom: 20px;
     background-color: #fff;
     position : relative;
-    left: 15px;
+    /* left: 15px; */
 }
 ul[class="list_group"]{
     padding-left: 0;
@@ -133,6 +140,7 @@ a{
 }
 
 div[id="paginationBox"] {
+	display: flex;
 	text-align: center;
 	vertical-align: center;
 	width:100%;
@@ -163,7 +171,7 @@ input[id="searchBtn"]{
 	height:30px;
 }
 
-div[class="form-group row justify-content-center"]{
+div[id="searchDiv"]{
 	display: flex;
 	justify-content: center;
 }
@@ -172,11 +180,15 @@ select[class="searchType"]{
 	height: 30px;
 }
 input[id="keyword"]{
-	
 	width: 500px;
 	height: 30px;
 }
 button[id="btnSearch"]{
+	width: 70px;
+	height: 30px;
+}
+button[id="boardWriteBtn"]{
+	left: 15px;
 	width: 70px;
 	height: 30px;
 }

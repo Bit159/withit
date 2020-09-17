@@ -22,7 +22,6 @@
                 <div class="board_header">
                     <div class="header_upside">
                         <div class="view_bno">${cBoardDTO.bno }</div>
-                        
                         <div class="view_title">${cBoardDTO.title }</div>
                     </div>
                     <div class="header_downside">
@@ -53,14 +52,17 @@
 					                                    <div class="replydate2">
 					                                    	<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${replydto.replydate }"/>
 					                                    </div>
-					                                    <textarea name="reply_modify_text1" class="reply_modify_text1" readonly="readonly">${replydto.reply }</textarea>
+					                                    <%-- <textarea name="reply_modify_text1" class="reply_modify_text1" readonly="readonly">${replydto.reply }</textarea> --%>
+					                                    <div class="reply_reply">
+					                                    	${replydto.reply }
+					                                    </div>
 					                                    <div class="reply_button">
 					                                    	<sec:authorize access="isAuthenticated()">
 					                                    	<sec:authentication property="principal.username" var="username"/>
-					                                    	
+					                                    	<c:if test="${replydto.username eq username }">	
 							                                	<button type="button" class="modifyBtn" data-rno="${ replydto.rno }">수정</button>
 							                                	<button type="button" class="deleteBtn" data-rno="${ replydto.rno }">삭제</button>
-						                                	
+						                                	</c:if>
 						                           	</sec:authorize>
 						                                </div>
 					                                     </div>
@@ -82,9 +84,10 @@
 	                            </c:forEach>
 	                        </ul>
 	                        
-	                        <br><br>
 	                        
-	                    <sec:authorize access="isAuthenticated()">	                        
+	                        
+	                    <sec:authorize access="isAuthenticated()">	
+	                    <br><br>                        
 						<div class="reply_writer_wrapper">
 							<div class="reply_writer">
 								<label class="reply_writer_label">

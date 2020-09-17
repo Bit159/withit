@@ -51,6 +51,9 @@
             
             <!-- pagination{s} -->
 			<div id="paginationBox">
+				<!-- 글 생성 버튼 -->
+				<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
+				<!-- 글 생성 버튼 -->
 				<ul class="pagination">
 					<c:if test="${paging.first}">
 						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/synergy/bboard/boardList?pg=1&range=1'">《</a></li>
@@ -72,28 +75,17 @@
 			</div>
 			<!-- pagination{e} -->
 			
-			
-			
 			<!-- search{s} -->
-			<div class="form-group row justify-content-center">
-				<!-- 글 생성 버튼 -->
-				<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
-				<!-- 글 생성 버튼 -->
-				<div class="w100" style="padding-right:10px">
-					<select class="form-control form-control-sm" name="searchType" id="searchType">
-						<option value="title">제목</option>
-						<!-- <option value="Content">본문</option> -->
-						<option value="nickname">작성자</option>
-					</select>
-				</div>
-				<div class="w300" style="padding-right:10px">
-					<input type="text" class="form-control form-control-sm" name="keyword" id="keyword">
-				</div>
-				<div>
-					<button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch">검색</button>
-				</div>
+			<div id="searchDiv">
+				<select name="searchType" id="searchType">
+					<option value="title">제목</option>
+					<option value="nickname">작성자</option>
+				</select>
+				<input type="text" name="keyword" id="keyword" >
+				<button name="btnSearch" id="btnSearch">검색</button>
 			</div>
 			<!-- search{e} -->
+			
         </div>
     </div>
     
