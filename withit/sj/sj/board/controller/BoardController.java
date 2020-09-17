@@ -427,12 +427,11 @@ public class BoardController {
 	// 자유게시판 보드 수정
 	@PostMapping("/freeBoard/boardModify")
 	@ResponseBody
-	public String boardModify(@RequestParam String title, String content, String nickname, Principal principal, HttpServletRequest request, int bno) {
+	public String boardModify(@RequestParam String title, String content, Principal principal, HttpServletRequest request, int bno) {
 		Date now = new Date();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title",title);
 		map.put("content",content);
-		map.put("nickname",request.getSession().getAttribute("nickname"));
 		map.put("now", now);
 		map.put("bno", bno);
 		boardService.modifyBBoard(map);

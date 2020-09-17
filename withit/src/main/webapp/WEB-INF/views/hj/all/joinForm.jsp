@@ -9,7 +9,7 @@
 <title>회원가입</title>
 <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
 	<!-- default header name is X-CSRF-TOKEN -->
-	<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/> 
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/> 
 <link rel="stylesheet" href="/resources/hj/css/join.css">
 <script defer type="text/javascript" src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script defer type="text/javascript" scr="/resources/hj/css/join.js"></script>

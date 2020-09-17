@@ -86,6 +86,14 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.checkMember(username);
 	}
 
+	@Override
+	public void newPwd(Map<String, String> map) {
+		String password = passwordEncoder.encode(map.get("password"));
+		map.put("password", password);
+		
+		memberDAO.newPwd(map);
+	}
+
 	
 	
 }

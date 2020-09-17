@@ -130,6 +130,29 @@ html, body{
     color: rgba(200, 200, 200, 200);
 }
 
+.aside_menu_list_5{
+    
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(255, 255, 255);
+    height: 50px;
+    line-height: 50px;
+    padding-top: 10px;
+}
+
+.aside_menu_list_5_a{
+	text-decoration: none;
+	border: none;
+	color:white;
+	cursor: pointer;
+}
+
+.aside_menu_list_5:hover{
+    color: rgba(200, 200, 200, 200);
+}
+
+
+
 .navbar{
     margin: 0;
    
@@ -330,7 +353,7 @@ input[id="menuicon"]:checked + label + div {
  }
 
 /*페이징 창*/
-
+/* 
 .page-link{
     text-decoration: none;
     border: solid;
@@ -351,7 +374,31 @@ input[id="menuicon"]:checked + label + div {
 
 .pagination li{
     list-style: none; 
+} */
+
+
+div[id="paginationBox"] {
+    text-align: center;
+    vertical-align: center;
+    width:100%;
+    margin-bottom: 10px;
 }
+div[id="paginationBox"] ul {
+    display:inline-flex;
+}
+div[id="paginationBox"] ul li{
+    list-style: none;
+    padding:10px 0 10px 0;
+}
+div[id="paginationBox"] ul li a {
+    padding:5px 10px 5px 10px;
+    color:black;
+    border: solid 1px gray;
+    line-height: 22px;
+    text-decoration: none;
+}
+
+
 
 
 

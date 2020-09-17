@@ -9,4 +9,5 @@ import lombok.Data;
 public class TotalDTO {
 	private String month;
 	private int total;
+	
 }

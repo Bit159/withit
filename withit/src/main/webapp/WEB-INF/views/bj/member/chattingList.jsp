@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>    
-<!DOCTYPE html>
-<html>
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MyPage</title>
 <style type="text/css">
 	* {
 	    margin: 0;
@@ -247,9 +243,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/bj/css/toastr.min.css"/>
 <script defer type="text/javascript" src="/resources/bj/js/sockjs.min.js"></script>
 <script defer type="text/javascript" src="/resources/bj/js/stomp.min.js"></script>
-<script defer type="text/javascript" src="/resoureces/bj/js/toastr.min.js"></script>
-</head>
-<body>
+<script defer type="text/javascript" src="/resources/bj/js/toastr.min.js"></script>
 <sec:authentication property="principal.username" var="username"/>
 <div class="modal" id="modal">
 	<div id="modal-content" class="modal-content">
@@ -314,8 +308,6 @@
 	</div>
 </div>
 <img id="chatting" src="/resources/bj/image/chatting_floating.png" width="70" height="70" style="position:fixed; top: 85%; right : 4%; cursor:pointer;">
-
-</body>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script> -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -345,7 +337,7 @@ $(document).ready(function(){
 		success : function(data){
 			connect(chattingRoomNum);
 			$.each(data.list, function(index, items){
-				document.getElementById("chattingRoomList").innerHTML += "<li id='" + items.chattingRoom + "' onclick='getChatting(" + items.chattingRoom + ")'><table><tr><td class='profile_td'><img src='/resources/image/chatting.png'/></td>"
+				document.getElementById("chattingRoomList").innerHTML += "<li id='" + items.chattingRoom + "' onclick='getChatting(" + items.chattingRoom + ")'><table><tr><td class='profile_td'><img src='/resources/bj/image/chatting.png'/></td>"
 																		+ "<td class='chat_td'><div class='chat_name'>" + items.chattingRoom + "</div><div class='email'>" + items.nickname + "</div><div class='chat_preview'>" + items.chat + "</div></td>"
 																		+ "<td class='time_td'><div class='time'>" + items.chat_date + "</div><div id='" + items.chattingRoom + "_check'></div></td></tr></table></li>";
 
@@ -438,7 +430,9 @@ function connect(chattingRoom){
 	let socket = new SockJS('/chat');
 	stompClient = Stomp.over(socket);
 	stompClient.connect({}, function(){
-		stompClient.subscribe('/topic/' + chattingRoom, onMessageReceived); 
+		setTimeout(function(){
+			stompClient.subscribe('/topic/' + chattingRoom, onMessageReceived); 
+		}, 100);
 		/* 
 		첫번째 매개변수는 구독할 주소를 말하고
 		두번째 매개변수는 메시지를 받았을 때 수행할 메소드를 넣으면 된다.
@@ -560,4 +554,3 @@ window.onclick = function(event) {
 }
 
 </script>
-</html>
