@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,7 +78,7 @@ public class HjController {
 	
 	
 	
-	
+	//myPage 페이지
 	@GetMapping("/myPage")
 	public ModelAndView myPage(Principal principal, @Autowired MemberDTO memberDTO) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -208,25 +209,54 @@ public class HjController {
 
 	}
 	
+	
+	
+	
+	
 	//관리자 페이지 회원통계 chart 데이터 불러오기
 	@ResponseBody
 	@RequestMapping(value = "/all/getAdminStats", method = RequestMethod.POST)
 	public JSONArray getAdminStats() {
 
 		List<TotalDTO> list = hjService.getTotalStats();
-
+		
+		int totalprogramming = hjService.totalprogramming();
+		
+		     
+		
 		JSONArray json = new JSONArray();
 		json.addAll(list);
+		
 
 		return json;
 
 	}
 	
+		//관리자 페이지 프로그래밍 게시판 chart 데이터 불러오기
+		@ResponseBody
+		@RequestMapping(value = "/all/totalprogramming", method = RequestMethod.POST)
+		public JSONArray totalprogramming() {
+	
+			int totalprogramming = hjService.totalprogramming();
+			
+			System.out.println(totalprogramming);
+			
+			JSONArray json = new JSONArray();
+			
+			json.add(totalprogramming);
+			
+			return json;
+
+
+		}
+	
 	//관리자 페이지 프로그래밍 언어 페이지
 	
 	@GetMapping("/adminProgrammingStats")
 	public String programmingStats() {
-
+		
+		
+		
 		return "/hj/all/programmingStats";
 
 	}
@@ -298,14 +328,10 @@ public class HjController {
 		@RequestMapping(value = "/all/checkUsername", method = RequestMethod.POST)
 		public String checkUsername(@RequestParam String username) {
 
-			
-			
 			int cnt = 0;
 			
 			cnt = hjService.checkUsername(username);
-			
-			
-			
+		
 			String overlap = "";
 			
 			if(cnt!=0) {

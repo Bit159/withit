@@ -126,4 +126,10 @@ public class HjDAOMybatis implements HjDAO {
 		return sqlSession.selectOne("hjSQL.checkNickname", nickname);
 	}
 
+	@Override
+	public int totalprogramming() {
+		
+		return sqlSession.selectOne("hjSQL.totalprogramming");
+	}
+
 }

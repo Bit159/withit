@@ -10,7 +10,7 @@
 <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
 <!-- default header name is X-CSRF-TOKEN -->
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
-<title>Insert title here</title>
+<title>관리자 페이지</title>
 <link rel="stylesheet" href="/resources/hj/css/adminBoard.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
@@ -48,7 +48,14 @@
                         <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 45px;"/>
                     	</a>
                     </li>
+                    <li class="aside_menu_list_5">
+                    	<a href="/" class="aside_menu_list_5_a">
+                        <img src="/resources/hj/image/home.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Main Menu
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 61px;"/>
+                    	</a>
+                    </li>
                 </ul>
+                
             </div>
         </aside>
         
@@ -119,7 +126,7 @@
                 </ul>
             </div>
            
-         	<div class="paginationDiv">
+         	<div id="paginationBox">
         		<ul class="pagination"> 
         		
 					<c:if test="${pagination.first}">
@@ -134,8 +141,8 @@
 
 					<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
 
-						<li class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}', '${search.searchType }', '${search.keyword }')"> ${idx} </a></li>
-
+						<li class="page-item  <c:out value="${pagination.page == idx ? 'active' : ''}"/>  "><a class="page-link-${idx}" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}', '${search.searchType }', '${search.keyword }')"> ${idx} </a></li>
+						<input type="hidden" id="hidden-page" value="${pagination.page }">
 					</c:forEach>	
 
 					<c:if test="${pagination.next}">
@@ -216,7 +223,8 @@ function fn_prev(page, range, rangeSize, searchType, keyword) {
 
 	}
 
-
+	   $('.page-link-'+$('#hidden-page').val()).css('background','#0065a5').css('color','white');
+  
 	//다음 버튼 이벤트
 
 	function fn_next(page, range, rangeSize, searchType, keyword) {

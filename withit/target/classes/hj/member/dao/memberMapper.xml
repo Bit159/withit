@@ -63,6 +63,11 @@
     <select id="getProgrammingStats" resultType="hj.member.bean.ProgrammingDTO">
     	select topic, count(*) topicTotal from db.cardboard group by topic order by topic asc;
     </select>
+    
+    <!-- 프로그래밍 언저 총 갯수 -->
+	<select id="totalprogramming" resultType="int">
+		select count(*) from cardboard
+	</select>
 
 	<!-- 관리자 지도 map -->
 	

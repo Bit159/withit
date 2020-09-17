@@ -132,4 +132,10 @@ public class HjServiceImpl implements HjService {
 		return hjDAO.checkNickname(nickname);
 	}
 
+	@Override
+	public int totalprogramming() {
+		
+		return hjDAO.totalprogramming();
+	}
+
 }
