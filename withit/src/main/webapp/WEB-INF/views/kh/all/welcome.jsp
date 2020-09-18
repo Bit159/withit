@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,7 +27,12 @@
 						<div class="withIt"><h2 id="with" style="white-space: nowrap;">with</h2><h2 id="IT">IT</h2></div>
 						<p style="white-space: nowrap;">쉽고 빠른 스터디 매칭</p>
 						<p style="white-space: nowrap;">지금 바로 시작하세요</p>
-						<button onclick="location='/loginForm'" class="loginIcon">시작하기</button>
+						<sec:authorize access="isAnonymous()">
+							<button onclick="location='/loginForm'" class="loginIcon">시작하기</button>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<button onclick="location='/match'" class="loginIcon">매칭하기</button>
+						</sec:authorize>
 					</div>
 				</div>
 			</div>
