@@ -157,7 +157,7 @@ $('.reply_button').on('click','#deleteReplyBtn',function(){
 	let seq = $(this).data('seq')
     Swal.fire({
     title: '삭제하시겠습니까?',
-    icon: 'warning',
+    icon: 'question',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
@@ -194,7 +194,7 @@ $('.reply_modify_button_div').on('click','#reply_modify_button',function(){
 	reply = $(this).parent().parent().children('textarea').val();
 	Swal.fire({
 	    title: '수정하시겠습니까?',
-	    icon: 'warning',
+	    icon: 'question',
 	    showCancelButton: true,
 	    confirmButtonColor: '#3085d6',
 	    cancelButtonColor: '#d33',
@@ -223,7 +223,7 @@ $('.reply_modify_button_div').on('click','#reply_modify_cancel',function(){
 $('#closeCard').click(function(){
 	Swal.fire({
 	    title: '마감하시겠습니까?',
-	    icon: 'warning',
+	    icon: 'question',
 	    showCancelButton: true,
 	    confirmButtonColor: '#3085d6',
 	    cancelButtonColor: '#d33',
