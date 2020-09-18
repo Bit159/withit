@@ -225,6 +225,8 @@
 		$('.card').each(function(){
 			if($(this).children().children().children('#card-header-text').text()==' 마감 '){
 				$(this).css('background','lightgray');
+				$(this).children('.card-footer').children('span').css('color','black');
+				$(this).children('.card-footer').css('border-top','solid 1px black');
 			}
 		});
 	});		
