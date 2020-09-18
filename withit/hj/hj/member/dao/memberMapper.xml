@@ -42,7 +42,7 @@
   	
   	<!-- only 닉네임 변경 -->
   	<update id="nicknameRevise" parameterType="java.util.Map">
-  		update membertable set nickname=#{nickname} where username=#{username}
+  		update membertable set nickname=#{nickname}, myCareer=#{myCareer} where username=#{username}
   	</update>
   	
 	

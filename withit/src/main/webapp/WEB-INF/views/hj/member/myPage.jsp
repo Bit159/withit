@@ -34,6 +34,28 @@
         .study_content1{
             display:block;
         }
+        
+        .table_right input {
+		    width: 50%;
+		    padding : 20px 10px 10px;
+		    background-color: transparent;
+		    border: none;
+		    border-bottom: 1px solid #999;
+		    font-size: 16px;
+		    color: black;
+		    outline: none;
+		}
+		
+		.table_right_bottom input {
+			width: 50%;
+		    padding : 20px 10px 10px;
+		    background-color: transparent;
+		    border: none;
+		    border-bottom: 1px solid #999;
+		    font-size: 16px;
+		    color: black;
+		    outline: none;
+		}
 	</style>
 	
 </head>
@@ -65,15 +87,24 @@
 			</aside>
             <section class="content_section" id="content_section">
             	<div class="revise_wrap" id="revise_wrap">
+	                <form name="reviseForm" id="reviseForm" method="post" action="/synergy2/member/revise">
 	                <table>
 	                    <tbody>
 	                        <tr>
 	                            <th class="table_left">아이디</th>
 	                            <td class="id_label">${memberDTO.username}</td>
 	                        </tr>
+	                        
+	                        <tr>
+	                            <th class="table_left">경력 사항</th>
+	                            <td class="table_right">
+	                                <input type="number" name="nickname" id="nickname" value="${memberDTO.myCareer}">
+	                                <div id="careerDiv"></div>
+	                            </td>
+	                        </tr>
+	                        
 	                        <tr>
 	                            <th class="table_left">비밀번호</th>
-	                            	<form name="reviseForm" id="reviseForm" method="post" action="/synergy2/member/revise">
 	                            <td class="table_right">
 	                            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	                            	<input type="hidden" id="username" name="username" value="${memberDTO.username}">
@@ -96,10 +127,11 @@
 	                                <div id="nicknameDiv"></div>
 	                            </td>
 	                        </tr>
-	                           </form>
+
 	                        
 	                    </tbody>
 	                </table>
+	                </form>
 	                <div class="buttonDiv">
 	                    <input type="button" id="reviseBtn" value="수정">
 	                    <input type="reset" id="resetBtn" value="취소"> 
