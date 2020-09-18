@@ -5,7 +5,7 @@
 
 <mapper namespace="richSQL">
 
-	<!-- 매칭 발생시 사용되는 SQL들 -->
+<!-- 매칭 발생시 사용되는 SQL들 -->
 	
 	<!-- 매칭 값들 db.match에서 제거할 때 사용되는 SQL -->
 	<delete id="deleteMatched" parameterType="java.util.List">
@@ -17,12 +17,61 @@
 		</where>
 	</delete>
 	
-	<!-- 그룹 테이블 생성에 사용되는 SQL -->
-	<select id="createGroup" parameterType="java.util.Map">
-		${sql}
-	</select>	
+	<!-- 가장 큰 그룹 넘버를 가져오는 SQL -->
+	<!-- numberOfGno : select `group`.`gno` AS `gno` from `group` group by `group`.`gno` -->
+	<select id="getGreatestGno" resultType="int">
+		SELECT (COUNT(*)+1) FROM numberOfGno
+	</select>
 	
-	<!-- End of 매칭 발생시 사용되는 SQL들 -->
+	<!-- 매칭 값들 db.group에 삽입할 때 사용되는 SQL -->
+	<insert id="createGroup">
+		INSERT INTO db.group(`gno`, `username`, `created`) VALUES 
+		<foreach collection="list" item="item" index="i" separator=",">
+			(#{item.gno}, #{item.username}, NOW())
+		</foreach>
+	</insert>	
+	
+	<!-- 채팅방 인덱스를 추가하는데 사용되는 SQL -->
+	<update id="addChattingRoomIndex">
+		UPDATE `db`.`ChattingRoomIndex` SET `chattingRoomIndex`=`chattingRoomIndex`+1 WHERE  `id`=1;
+	</update>
+	
+	<!-- 채팅방 생성에 필요한 인덱스를 가져오는데 사용되는 SQL -->
+	<select id="getChattingRoomIndex" resultType="int">
+		SELECT chattingRoomIndex FROM db.ChattingRoomIndex WHERE `id`=1
+	</select>
+	
+	<!-- 매칭 값들 db.z{index} 로 채팅방 생성하는데 사용되는 SQL -->
+	<!-- ${}는 '' 이 붙지 않는다 -->
+	<select id="createChattingRoom" parameterType="String">
+		CREATE TABLE IF NOT EXISTS ${talbeName} 
+		(`gno` bigint DEFAULT NULL,
+		`username` VARCHAR(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+		`nickname` varchar(60) DEFAULT NULL,
+		`chat` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+		`chat_date` varchar(60) DEFAULT NULL,
+		`created` datetime DEFAULT CURRENT_TIMESTAMP) 
+		ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+	</select>
+	
+	<!-- 생성된 채팅방에 첫 채팅을 삽입하는 SQL -->
+	<insert id="setChattingRoomMembers" parameterType="java.util.List">
+		INSERT INTO db.${list[0].tableName} (`gno`,`username`,`nickname`, `chat`, `chat_date`) VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.gno}, #{item.username}, #{item.nickname}, #{item.chat}, NOW())
+		</foreach>
+	</insert>
+	
+	<!-- 채팅방 목록을 업데이트 하는 SQL -->
+	<insert id="registerNewChattingRoom" parameterType="java.util.List">
+		INSERT INTO db.chattingRoomList VALUES
+		<foreach collection="list" item="item" separator=",">
+			(#{item.tableName}, #{item.username})
+		</foreach>
+	</insert>
+	
+	
+<!-- End of 매칭 발생시 사용되는 SQL들 -->
 
 
 

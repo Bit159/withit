@@ -75,20 +75,11 @@ public class MemberController{
 		String reUsername = username.substring(1, username.length() -1); //json은 앞뒤로 "가 붙어서 오므로 빼준당.
 		MemberDTO memberDTO = memberService.checkMember(reUsername);
 		
-		if(memberDTO == null) {
-			return "none";
+		String result = "";
+		if(memberDTO == null) result = "none";
+		else result = reUsername;
 		
-		}else {
-			String newPwd = UUID.randomUUID().toString().substring(0, 10);
-			email.send(reUsername, "withIT 변경된 새로운 비밀번호입니다.", "변경된 새로운 비밀번호는\n" + newPwd + " 입니다.");
-			Map<String, String> map = new HashedMap<String, String>();
-			map.put("username", reUsername);
-			map.put("password", newPwd);
-			
-			memberService.newPwd(map);
-			
-			return "ok";
-		}
+		return result;
 	}
 	
 	//============================================================== 채팅방

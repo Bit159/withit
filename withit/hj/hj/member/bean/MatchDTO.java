@@ -21,6 +21,11 @@ public class MatchDTO {
 	private int people;
 	private Date created;
 	private boolean visited;
+	private String gname;
+	private int gno;
+	private String tableName;
+	private String nickname;
+	private String chat;
 	// people 규칙
 	// 0 : 무관
 	// 3 : 3명

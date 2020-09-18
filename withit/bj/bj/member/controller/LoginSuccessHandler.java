@@ -21,7 +21,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-		List<String> roleNames = new ArrayList<String>();
+		/*List<String> roleNames = new ArrayList<String>();
 		authentication.getAuthorities().forEach(authority -> { 
 			roleNames.add(authority.getAuthority());
 		});
@@ -39,12 +39,13 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 			String nickname = memberService.getNickname(username);
 			HttpSession session = request.getSession();
 			session.setAttribute("nickname", nickname);
-			session.setAttribute("chattingCheck", "0");
 			request.getSession().setAttribute("admin", null);
 			response.sendRedirect("/");
 			return;
-		} 
-
+		} */
+		String username = request.getParameter("username");
+		String nickname = memberService.getNickname(username);
+		request.getSession().setAttribute("nickname", nickname);
 		response.sendRedirect("/");
 		
 	}

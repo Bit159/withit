@@ -27,7 +27,7 @@
 		width: 400px;
 		height: 600px;
 		right: 5%;
-		top : 10%;
+		bottom : 10%;
 		background-color: white;
 		box-shadow: 3px 3px 3px 3px gray;
 	}
@@ -206,6 +206,7 @@
     	padding : 0px 5px;
         font-size: 12px;
         display: block;
+        font-weight: bold;
     }
 
     #messageForm{
@@ -506,6 +507,10 @@ function onMessageReceived(payload){
 		toastr.options = {
 				closeButton : true,
 				progressBar : true,
+				onclick: function(){
+					$('#modal').fadeIn();
+					$('#chatting').fadeOut();
+				},
 				timeOut : 4000
 		}
 		toastr.success(message.chat, message.nickname);

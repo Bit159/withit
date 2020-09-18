@@ -2,8 +2,12 @@ package rich.aop;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import bj.member.service.MemberService;
 import hj.member.bean.MatchDTO;
 import hj.member.dao.HjDAO;
 import rich.dao.RichDAO;
@@ -29,6 +34,23 @@ public class AOP_Config {
 	private RichDAO richDAO;
 	@Autowired
 	private Email email;
+	@Autowired
+	private MemberService memberService;
+	
+	//비밀번호 찾기 메일 발송
+	@Async
+	@AfterReturning(value="execution(public * bj.member.controller.MemberController.findPwd(..))", returning="returnValue")
+	public void sendNewPwd(String returnValue) {
+		//MemberController.findPwd()의 리턴값이 none이 아닐 경우
+		if(!returnValue.equals("none")) {
+			String newPwd = UUID.randomUUID().toString().substring(0, 10);
+			email.send(returnValue, "withIT 변경된 새로운 비밀번호입니다.", "변경된 새로운 비밀번호는\n" + newPwd + " 입니다.");
+			Map<String, String> map = new HashedMap<String, String>();
+			map.put("username", returnValue);
+			map.put("password", newPwd);
+			memberService.newPwd(map);
+		}
+	}
 
 	//글 내용 삽입하기
 	@Async
@@ -95,10 +117,27 @@ public class AOP_Config {
 			
 			//1. 메일발송
 			email.send(emailList);
+			
 			//2. db.match 에서 제거
 			richDAO.deleteMatched(rangeValidatedList);
-			//3. 동적 테이블 생성
 			
+			//3. db.group 에 추가
+			int gno = richDAO.getGreatestGno();
+			for(MatchDTO dto : rangeValidatedList) dto.setGno(gno);
+			richDAO.createGroup(rangeValidatedList);
+			
+			//4. db.zChat{index} 테이블 추가하기
+			richDAO.addChattingRoomIndex();
+			int chattingRoomIndex = richDAO.getChattingRoomIndex();
+			String tableName = "zchat"+chattingRoomIndex;
+			richDAO.createChattingRoom(tableName);
+			for(MatchDTO dto : rangeValidatedList) {
+				dto.setTableName(tableName);
+				dto.setNickname(memberService.getNickname(dto.getUsername()));
+				dto.setChat(dto.getNickname()+"님이 입장하셨습니다");
+			}
+			richDAO.setChattingRoomMembers(rangeValidatedList);
+			richDAO.registerNewChattingRoom(rangeValidatedList);
 		}
 		
 	}// after method
