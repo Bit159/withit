@@ -194,6 +194,9 @@ div[class="card-footer"] span{
 	margin-right: 150px;
 	font-size: 12pt;
 }
+h3[id="noResult"]{
+	padding:50px 0 30px 0;
+}
 div[id="paginationBox"] {
 	text-align: center;
 	vertical-align: center;
