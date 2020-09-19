@@ -15,6 +15,8 @@ import hj.member.bean.ProgrammingDTO;
 import hj.member.bean.Search;
 import hj.member.bean.TotalDTO;
 import hj.member.dao.HjDAO;
+import sj.board.bean.BBoardDTO;
+import sj.board.bean.BBoardReplyDTO;
 
 @Service
 public class HjServiceImpl implements HjService {
@@ -136,6 +138,36 @@ public class HjServiceImpl implements HjService {
 	public int totalprogramming() {
 		
 		return hjDAO.totalprogramming();
+	}
+
+	@Override
+	public List<BBoardDTO> getBBoardList(Search search) {
+		
+		return hjDAO.getBBoardList(search);
+	}
+
+	@Override
+	public int getBBoardListCnt(Search search) {
+		
+		return hjDAO.getBBoardListCnt(search);
+	}
+
+	@Override
+	public BBoardDTO getBBoard(int bno) {
+		
+		return hjDAO.getBBoard(bno);
+	}
+
+	@Override
+	public List<BBoardReplyDTO> getBBoardReplyList(int bno) {
+		
+		return hjDAO.getBBoardReplyList(bno);
+	}
+
+	@Override
+	public void deleteBBoard(int bno) {
+		hjDAO.deleteBBoard(bno);
+		
 	}
 
 }

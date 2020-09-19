@@ -1,10 +1,12 @@
 package hj.member.controller;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +32,9 @@ import hj.member.bean.Search;
 import hj.member.bean.TotalDTO;
 import hj.member.service.HjService;
 import net.sf.json.JSONArray;
+import sj.board.bean.BBoardDTO;
+import sj.board.bean.BBoardReplyDTO;
+import sj.board.paging.Pagination;
 
 @Controller
 public class HjController {
@@ -371,9 +378,138 @@ public class HjController {
 
 		}
 	
-	
-	
-	
+		
+		//관리자 페이지 자유게시판 관리
+		
+		@GetMapping("/adminFreeView")
+		public ModelAndView adminFreeView(@RequestParam(required=false, defaultValue = "1") int pg
+								   	 ,@RequestParam(required=false, defaultValue = "1") int range
+								   	 , @RequestParam(required = false, defaultValue = "title") String searchType
+									 , @RequestParam(required = false) String keyword
+									 , @ModelAttribute("search") Search search) throws Exception  {
+
+			// 검색
+			/* Search search = new Search(); */
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+			
+			// 페이지
+			int page =  pg;
+			//System.out.println("페이지"+page+"범위"+range);
+			
+			// 검색, 페이징 적용된 전체 게시글 수
+			int listCnt = hjService.getBBoardListCnt(search); 
+			
+			// 검색
+			search.pageInfo(page, range, listCnt);
+			
+			// 페이지네이션
+			Pagination paging = new Pagination();
+			paging.pageInfo(page, range, listCnt); 
+			//System.out.println("paging: "+paging);
+			
+			// 검색, 페이징 적용된 보드리스트
+			List<BBoardDTO> list = hjService.getBBoardList(search); 
+			
+			// 작성시간 표시 위한 현재 Date 객체
+			Date now = new Date();
+			
+			ModelAndView mav = new ModelAndView();
+			// 검색
+			mav.addObject("search",search);
+			// 페이징(검색 적용)
+			mav.addObject("paging",search);
+			mav.addObject("list", list);
+			mav.addObject("now", now);
+			mav.setViewName("/hj/all/adminFreeView");
+			return mav;
+
+		
+		}
+		
+		//관리자 페이지 자유게시판 관리
+		@GetMapping("/adminFreeView/{bno}")
+		public ModelAndView freeBoardView(@PathVariable("bno") int bno,
+									  @RequestParam(required=false, defaultValue = "1") int pg
+									 ,@RequestParam(required=false, defaultValue = "1") int range
+									 , @RequestParam(required = false, defaultValue = "title") String searchType
+									 , @RequestParam(required = false) String keyword
+									 , HttpServletRequest request
+									 , Principal principal) throws Exception {
+			
+			// 검색
+			Search search = new Search();
+			search.setSearchType(searchType);
+			search.setKeyword(keyword);
+			
+			// 페이지
+			int page =  pg;
+			//System.out.println("페이지"+page+"범위"+range);
+			
+			// 검색, 페이징 적용된 전체 게시글 수
+			int listCnt = hjService.getBBoardListCnt(search); 
+			
+			// 검색
+			search.pageInfo(page, range, listCnt);
+			
+			// 페이지네이션
+			Pagination paging = new Pagination();
+			paging.pageInfo(page, range, listCnt); 
+			//System.out.println("paging: "+paging);	
+			
+			// 원글 불러오기
+			BBoardDTO bBoardDTO = hjService.getBBoard(bno);
+			
+			// 보드뷰 하단부 검색, 페이징 적용된 보드리스트
+			List<BBoardDTO> list = hjService.getBBoardList(search);
+			//System.out.println(bBoardDTO.getTitle());
+			
+			// 보드뷰 해당 리플 리스트
+			List<BBoardReplyDTO> replyList = hjService.getBBoardReplyList(bno);
+			//System.out.println(replyList);
+			
+			
+			
+			// 작성시간 표시 위한 현재 Date 객체
+			Date now = new Date();
+			
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("paging",search);
+			mav.addObject("bBoardDTO", bBoardDTO);
+			mav.addObject("list", list);
+			mav.addObject("now", now);
+			mav.addObject("replyList", replyList);
+			
+			
+			
+			mav.setViewName("/hj/all/adminFreeViewForm");
+			return mav;
+		}
+		
+		
+		
+		
+		// 자유게시판 보드 삭제
+		@ResponseBody
+		@RequestMapping(value = "/all/boardDelete", method = RequestMethod.POST)
+		public ModelAndView boardDelete(@RequestParam int bno) {
+		
+			hjService.deleteBBoard(bno);
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/hj/all/adminFreeView");
+			return mav;
+			
+			
+
+		}
+		
+
+		
+		
+		
+		
+		
 
 }
 

@@ -10,6 +10,8 @@ import hj.member.bean.MatchDTO;
 import hj.member.bean.ProgrammingDTO;
 import hj.member.bean.Search;
 import hj.member.bean.TotalDTO;
+import sj.board.bean.BBoardDTO;
+import sj.board.bean.BBoardReplyDTO;
 
 public interface HjService {
 
@@ -56,6 +58,16 @@ public interface HjService {
 	public int checkNickname(String nickname);
 
 	public int totalprogramming();
+
+	public List<BBoardDTO> getBBoardList(Search search);
+
+	public int getBBoardListCnt(Search search);
+
+	public BBoardDTO getBBoard(int bno);
+
+	public List<BBoardReplyDTO> getBBoardReplyList(int bno);
+
+	public void deleteBBoard(int bno);
 
 	
 
