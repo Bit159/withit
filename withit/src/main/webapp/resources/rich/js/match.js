@@ -529,3 +529,103 @@ function addDrawFunction() {
     return content;
   }
 }
+
+
+
+
+
+//2020.09.20 추가
+
+//컨트롤러에서 받아온 데이터를 기반으로 아래의 for문을 통해 개인의 위시리시트를 표현해준다.
+let mapArr = document.getElementsByClassName("mapdiv");
+
+for (let i = 0; i < mapArr.length; i++) {
+	if(mapArr[i].dataset.lat==="0.0") {
+		mapArr[i].style.backgroundImage = "url('/resources/kh/image/online.png')";
+		mapArr[i].style.backgroundSize = "100%";
+		mapArr[i].style.backgroundRepeat = "no-repeat";
+
+	}else {
+	  let map = drawMapForCard(mapArr[i], mapArr[i].dataset.lat, mapArr[i].dataset.lng, mapArr[i].dataset.level);
+	  drawCircleForCard(mapArr[i].dataset.lat, mapArr[i].dataset.lng, mapArr[i].dataset.range, map);
+	}
+}
+
+//페이지가 로드되면 모든 삭제버튼에 이벤트를 추가해준다.
+let btnArr = document.getElementsByClassName("cardDeleteButton");
+for (let i = 0; i < btnArr.length; i++) {
+  btnArr[i].addEventListener('click', function(){
+	Swal.fire({
+		title:`삭제`,
+		text:`정말 삭제하시겠습니까?`,
+		icon:`question`,
+		showCancelButton:true,
+		confirmButtonText:`삭제`,
+		cancelButtonText:`취소`,
+	})
+	.then(res=>{
+		if(res.isConfirmed) {
+			let url="/deleteMatch";
+			let options= myOptionsNotJSON(btnArr[i].dataset.mno);
+			
+			fetch(url, options)
+			.then(res=>res.text())
+			.then(text=>{
+				if(text==="success") {
+					Swal.fire("삭제", "정상적으로 삭제되었습니다", "success")
+					.then(()=>location.reload(true));
+				}else {
+					Swal.fire("삭제", "삭제에 실패했습니다. 다시 시도해주세요.", "error")
+					.then(()=>location.reload(true));
+				}
+			});
+		}else {
+			Swal.fire("삭제","삭제를 취소하셨습니다","info");
+		}
+	})
+
+  });
+}
+
+//주어진 영역에 지도를 그리는 함수
+function drawMapForCard(div, lat, lng, level) {
+  var mapContainer = div, // 지도를 표시할 div
+    mapOption = {
+      center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+      level: level, // 지도의 확대 레벨
+    };
+  var mapForCard = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+  return mapForCard;
+}
+
+// 지도에 표시할 원을 생성합니다
+function drawCircleForCard(y, x, range, mapForCard) {
+  var circle = new kakao.maps.Circle({
+    center: new kakao.maps.LatLng(y, x), // 원의 중심좌표 입니다
+    radius: range, // 미터 단위의 원의 반지름입니다
+    strokeWeight: 3, // 선의 두께입니다
+    strokeColor: "#32be78", // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: "solid", // 선의 스타일 입니다
+    fillColor: "#CFE7FF", // 채우기 색깔입니다CFE7FF
+    fillOpacity: 0.4, // 채우기 불투명도 입니다
+  });
+
+  // 지도에 원을 표시합니다
+  circle.setMap(mapForCard);
+}
+
+
+
+
+
+
+
+//동적으로 height를 조정하는 함수
+(function setHeightForCardWrapper() {
+	if(document.querySelectorAll('div.card').length < 5) {
+		document.querySelector('section[id="cardWrapper"]').offsetHeight === 600;	
+	}else {
+		document.querySelector('section[id="cardWrapper"]').offsetHeight === 900;
+	}
+})();

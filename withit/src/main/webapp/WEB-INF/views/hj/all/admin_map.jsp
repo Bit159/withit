@@ -4,13 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>관리자 회원 맵</title>
-<meta id="csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
-<meta id="csrf" name="_csrf" content="${_csrf.token}" />
+<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
 <script defer src="/resources/hj/js/admin_map.js" ></script>
 <link rel="stylesheet" href="/resources/hj/css/admin_map.css" />
+<title>관리자 회원 맵</title>
 </head>
 <body>
 

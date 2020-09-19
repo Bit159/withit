@@ -50,8 +50,8 @@ public class RichDAOImpl implements RichDAO {
 
 	//개인의 매칭 위시 제거
 	@Override
-	public int deleteMatch(MatchDTO matchDTO) {
-		return sqlSession.delete("richSQL.deleteMatch", matchDTO);
+	public int deleteMatch(int mno) {
+		return sqlSession.delete("richSQL.deleteMatch", mno);
 	}
 	// End of FOR MAP
 	

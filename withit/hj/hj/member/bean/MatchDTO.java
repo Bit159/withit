@@ -26,6 +26,11 @@ public class MatchDTO {
 	private String tableName;
 	private String nickname;
 	private String chat;
+	private String stringCreated;
+	private String stringPeople;
+	private String stringCareer;
+	private int mno;
+	private int level;
 	// people 규칙
 	// 0 : 무관
 	// 3 : 3명

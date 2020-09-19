@@ -13,3 +13,12 @@ function myOptions(ob) {
 	
 	return options;
 }
+
+function myOptionsNotJSON(body) {
+	let options = {
+					method: "POST",
+					headers: {'X-CSRF-TOKEN': document.getElementById('csrf').content},
+					body: body,
+				};
+	return options;
+}
