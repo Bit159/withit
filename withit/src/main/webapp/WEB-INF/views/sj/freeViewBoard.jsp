@@ -14,12 +14,10 @@
 <body>
 	<div class="body_wrapper">
         <div class="body_container">
-            <!-- <h1>외부게시판</h1> -->
             <div class="list_wrapper">
                 <ul class="list_group">
                     <li class="list_group_item">
                         <div class="bno">글번호</div>
-                        <!-- <div class="topic">말머리</div> -->
                         <div class="title">제목</div>                        
                         <div class="nickname">작성자</div>
                         <div class="boarddate">작성시간</div>
@@ -49,11 +47,13 @@
                 </ul>
             </div>
             
+            <!-- 글 생성 버튼 -->
+			<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
+			<!-- 글 생성 버튼 -->
+            
             <!-- pagination{s} -->
 			<div id="paginationBox">
-				<!-- 글 생성 버튼 -->
-				<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
-				<!-- 글 생성 버튼 -->
+				
 				<ul class="pagination">
 					<c:if test="${paging.first}">
 						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/synergy/bboard/boardList?pg=1&range=1'">《</a></li>

@@ -13,6 +13,8 @@ import hj.member.bean.MatchDTO;
 import hj.member.bean.ProgrammingDTO;
 import hj.member.bean.Search;
 import hj.member.bean.TotalDTO;
+import sj.board.bean.BBoardDTO;
+import sj.board.bean.BBoardReplyDTO;
 
 @Repository
 @Transactional
@@ -130,6 +132,48 @@ public class HjDAOMybatis implements HjDAO {
 	public int totalprogramming() {
 		
 		return sqlSession.selectOne("hjSQL.totalprogramming");
+	}
+
+	@Override
+	public List<BBoardDTO> getBBoardList(Search search) {
+		
+		return sqlSession.selectList("hjSQL.getBBoardList", search);
+	}
+
+	@Override
+	public int getBBoardListCnt(Search search) {
+		
+		return sqlSession.selectOne("hjSQL.getBBoardListCnt",search);
+	}
+
+	@Override
+	public BBoardDTO getBBoard(int bno) {
+		
+		return sqlSession.selectOne("hjSQL.getBBoard", bno);
+	}
+
+	@Override
+	public List<BBoardReplyDTO> getBBoardReplyList(int bno) {
+		
+		return sqlSession.selectList("hjSQL.getBBoardReplyList", bno);
+	}
+
+	@Override
+	public void deleteBBoard(int bno) {
+		sqlSession.delete("hjSQL.deleteBBoard", bno);
+		
+	}
+
+	@Override
+	public void replyDelete2(int rno) {
+		sqlSession.delete("hjSQL.replyDelete2", rno);
+		
+	}
+
+	@Override
+	public void replyDeleteUpdate2(int bno) {
+		sqlSession.update("hjSQL.replyDeleteUpdate2",bno);
+		
 	}
 
 }

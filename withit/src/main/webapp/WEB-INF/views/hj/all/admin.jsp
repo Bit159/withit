@@ -30,6 +30,12 @@
                         <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 49px;"/>
                     	</a>
                     </li>
+                    <li class="aside_menu_list_6">
+                    	<a href="/adminFreeView" class="aside_menu_list_6_a">
+                        <img src="/resources/hj/image/freeBoard.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Board Management
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 2px;"/>
+                    	</a>
+                    </li>
                     <li class="aside_menu_list_1">
                     	<a href="/adminMemberStats" class="aside_menu_list_1_a">
                         <img src="/resources/hj/image/chartIcon3.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Statistics
@@ -310,7 +316,7 @@ for(let i = 0; i<a.length; i++){
 					
 					a[i].parentElement.parentElement.remove();
 					
-					location.href = "/admin";
+					location.reload(true);
 				},
 				error: function(err){
 					console.log(err);

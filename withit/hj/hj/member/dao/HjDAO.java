@@ -8,6 +8,8 @@ import hj.member.bean.MatchDTO;
 import hj.member.bean.ProgrammingDTO;
 import hj.member.bean.Search;
 import hj.member.bean.TotalDTO;
+import sj.board.bean.BBoardDTO;
+import sj.board.bean.BBoardReplyDTO;
 
 public interface HjDAO {
 
@@ -32,5 +34,12 @@ public interface HjDAO {
 	public abstract int checkUsername(String username);
 	public abstract int checkNickname(String nickname);
 	public abstract int totalprogramming();
+	public abstract List<BBoardDTO> getBBoardList(Search search);
+	public abstract int getBBoardListCnt(Search search);
+	public abstract BBoardDTO getBBoard(int bno);
+	public abstract List<BBoardReplyDTO> getBBoardReplyList(int bno);
+	public abstract void deleteBBoard(int bno);
+	public abstract void replyDelete2(int rno);
+	public abstract void replyDeleteUpdate2(int bno);
 
 }

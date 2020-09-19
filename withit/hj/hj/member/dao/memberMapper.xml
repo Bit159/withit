@@ -125,6 +125,84 @@
 		</trim>
 
 	</select>
+	
+	<!-- 자유게시판 페이징, 검색 처리한 리스트 -->
+	<select id="getBBoardList" parameterType="hj.member.bean.Search" resultType="bBoardDTO">
+		SELECT * 
+		FROM db.board 
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="searchType=='title' and keyword != null and keyword != '' ">
+
+				AND title like CONCAT('%', #{keyword}, '%')
+
+			</if>
+
+			<if test="searchType=='nickname' and keyword != null and keyword != '' ">
+
+				AND nickname like CONCAT('%', #{keyword}, '%')
+
+			</if>	
+
+		</trim>
+		ORDER BY bno desc
+		LIMIT #{startList},#{listSize};
+	</select>
+	
+	<!-- 게시글 총 개수 -->
+  	<select id="getBBoardListCnt" resultType="int">
+		SELECT count(*) as listCnt 
+		FROM db.board
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+	
+				<if test="searchType=='title'">
+	
+					AND TITLE like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+				<if test="searchType=='nickname'">
+	
+					AND nickname like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+	      </if>
+	
+		</trim>
+		
+		
+	</select>
+	
+	
+	<!-- 자유게시판 보드 게시글 정보 -->
+  	<select id="getBBoard" parameterType="int" resultType="bBoardDTO">
+  		SELECT * from db.board where bno=#{bno}
+  	</select>
+  	
+  	<!-- 자유게시판 보드 댓글 리스트 -->
+  	<select id="getBBoardReplyList" parameterType="int" resultType="bBoardReplyDTO">
+  		select * from db.reply2 where bno=#{bno} order by bno desc 
+  	</select>
+  	
+  	<!-- 자유게시판 보드 삭제 -->
+	<delete id="deleteBBoard" parameterType="int">
+		DELETE FROM db.board where bno=#{bno}
+	</delete>
+	
+	<!-- 자유게시판 댓글 삭제 -->
+  	<delete id="replyDelete2" parameterType="int">
+  		delete from db.reply2 where rno=#{rno}
+  	</delete>
+  	
+  	<!-- 자유게시판 댓글수 감소 -->
+  	<update id="replyDeleteUpdate2" parameterType="int">
+  		update db.board set replys=replys-1 where bno = #{bno}
+  	</update>
+	
+	
 	 
 	 <!-- mypage 회원정보 수정 -->
 	 

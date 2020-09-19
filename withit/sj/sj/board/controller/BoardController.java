@@ -417,6 +417,8 @@ public class BoardController {
 	// 자유게시판 보드 삭제
 	@PostMapping("/freeBoard/boardDelete")
 	public ModelAndView boardDelete(@RequestParam int bno) {
+		
+		
 		boardService.deleteBBoard(bno);
 		
 		ModelAndView mav = new ModelAndView();
