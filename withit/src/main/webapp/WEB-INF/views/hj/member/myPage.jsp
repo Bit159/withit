@@ -2,63 +2,14 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>    
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-	<!-- default header name is X-CSRF-TOKEN -->
-	<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>    
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
     <link rel="stylesheet" href="/resources/hj/css/myPage.css">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
-	
-    <title>MyPage</title>
-	<style type="text/css">
-        .aside_menu div{
-            border-radius: 10px;
-            padding: 10px 10px;
-            cursor: pointer;
-        }
-        .study_wrap{
-            text-align: left;
-        }
-        .study_name:hover, .study_name:focus, .study:hover, .study:focus {
-            background-color: rgb(50, 190, 120);
-            color: white;
-        }
-        .study_content{
-            display: none;
-            text-align: left;
-            font-size: 15px;
-        }
-        .study_content1{
-            display:block;
-        }
-        
-        .table_right input {
-		    width: 50%;
-		    padding : 20px 10px 10px;
-		    background-color: transparent;
-		    border: none;
-		    border-bottom: 1px solid #999;
-		    font-size: 16px;
-		    color: black;
-		    outline: none;
-		}
-		
-		.table_right_bottom input {
-			width: 50%;
-		    padding : 20px 10px 10px;
-		    background-color: transparent;
-		    border: none;
-		    border-bottom: 1px solid #999;
-		    font-size: 16px;
-		    color: black;
-		    outline: none;
-		}
-	</style>
-	
 </head>
+
 <body>
 
 	<div id=body_wrapper>

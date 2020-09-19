@@ -4,17 +4,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Okky 게시판</title>
-<link rel="stylesheet" href="/resources/sj/css/boardList.css">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<style>
-*:focus {
-	outline-style: none;
-}
-</style>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/sj/css/boardList.css">
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 	

@@ -3,12 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
+
 <head>
-<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
-<script defer src="/resources/hj/js/admin_map.js" ></script>
-<link rel="stylesheet" href="/resources/hj/css/admin_map.css" />
-<title>관리자 회원 맵</title>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<script defer src="/resources/hj/js/admin_map.js" ></script>
+	<link rel="stylesheet" href="/resources/hj/css/admin_map.css" />
 </head>
+
 <body>
 
 	<div id="wrap">

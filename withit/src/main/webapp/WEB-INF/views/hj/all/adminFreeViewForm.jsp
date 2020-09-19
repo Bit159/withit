@@ -1,21 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>    
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-<!-- default header name is X-CSRF-TOKEN -->
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
-<title>관리자 페이지</title>
-<link rel="stylesheet" href="/resources/hj/css/adminFreeViewForm.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/hj/css/adminFreeViewForm.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
 </head>
+
 <body>
     
     <!-- 가운데 main 내용 -->
@@ -172,8 +168,8 @@ $(document).ready(function(){
 	
 	// 보드 삭제
 	$(document).on("click","#deleteBoardBtn", function(){
-		var csrfHeaderName = document.getElementById('_csrf_header').content;
-		var csrfTokenValue = document.getElementById('_csrf').content;	
+		var csrfHeaderName = document.getElementById('csrf_header').content;
+		var csrfTokenValue = document.getElementById('csrf').content;	
 		var $btnObj = $(this);
 		var page = $(this).data('page');
 		var range = $(this).data('range');
@@ -235,8 +231,8 @@ $(document).ready(function(){
 		let rno = $(this).data('rno'); // data-rno
 		var bno = document.querySelector('div.view_bno').innerText;
 		
-		var csrfHeaderName = document.getElementById('_csrf_header').content;
-		var csrfTokenValue = document.getElementById('_csrf').content;	
+		var csrfHeaderName = document.getElementById('csrf_header').content;
+		var csrfTokenValue = document.getElementById('csrf').content;	
 		
 		var param = "rno="+rno+"&bno="+bno;
 		

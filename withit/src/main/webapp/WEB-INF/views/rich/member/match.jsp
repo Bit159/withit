@@ -4,15 +4,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
 	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
-	<title>withIT</title>
 	<link rel="stylesheet" href="/resources/rich/css/match.css" />
 	<script defer src="/resources/rich/js/match.js"></script>
 	<script src="/resources/rich/js/rich.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
 	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=41be22a5170d5fc6115853c77dc3d45e&libraries=services,clusterer,drawing"></script>
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" flush="true" />
 	<div class="matchDiv">

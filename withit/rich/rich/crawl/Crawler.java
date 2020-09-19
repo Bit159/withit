@@ -34,7 +34,6 @@ public class Crawler {
 	@Async
 	@Scheduled(cron="0 0/10 * * * *") // (cron="0 0/N * * * *") N분마다
 	public void getList() {
-		System.out.println("10분마다 작동하는 클제목 크롤링 시도");
 		/*
 		 * Document 클래스 : 연결해서 얻어온 HTML 전체 문서 Element 클래스 : Documnet의 HTML 요소 Elements
 		 * 클래스 : Element가 모인 자료형
@@ -59,20 +58,13 @@ public class Crawler {
 			standard = 0;
 		}
 		for (Element element : titles) {
-
 			cboardDTO = new CBoardDTO();
 
-			String fullSource = element.text();
-			// #754380 정기모임/스터디 자연어 텍스트 nlp 딥러닝 자연어 처리 스터디 모집 0 0 460 오키동 10 2020-08-05
-			// 11:20:32
-
-			int bno = Integer
-					.parseInt(element.getElementsByClass("list-group-item-text article-id").text().substring(1));
+			int bno = Integer.parseInt(element.getElementsByClass("list-group-item-text article-id").text().substring(1));
 			// #754380 -> substring -> 754380
 
 			// db에 있는 글 번호중 가장 큰 값 보다 작을 경우 skip한다.
-			if (bno <= standard)
-				continue;
+			if (bno <= standard) continue;
 
 			String title = element.getElementsByClass("list-group-item-heading list-group-item-evaluate").text();
 			// [온라인] 알고리즘 스터디 인원 추가합니다
@@ -97,18 +89,17 @@ public class Crawler {
 			list.add(cboardDTO);
 		}
 		
-		if (list.size() == 0)
-			return;
-		int result = 0;
+		//크롤 대상이 없을 경우 return;
+		if (list.size() == 0) return;
+		
+		//있을 경우 db 저장
 		try {
-			result = userDAO.crawlInsert(list);
+			userDAO.crawlInsert(list);
 		} catch (Exception e) {
 			email.send("jpcnani@naver.com", "글 목록 Insert 중 에러 발생!", "글 목록 db 입력 중 예외가 발생하였습니다!\r\n\r\n"+e.getMessage()+"\r\n\r\n"+e.getLocalizedMessage());
 			return;
 		}
-		if(result != 0) {
-			//email.send("jpcnani@naver.com", "글 목록 크롤링 완료!", result+"개의 글을 정상적으로 등록하였습니다. ");
-		}
+
 	}
 
 }
