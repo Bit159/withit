@@ -54,13 +54,13 @@
                 </ul>
             </div>
             
-            <!-- 글 생성 버튼 -->
-			<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
-			<!-- 글 생성 버튼 -->
+            
             
             <!-- pagination{s} -->
 			<div id="paginationBox">
-				
+				<!-- 글 생성 버튼 -->
+				<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
+				<!-- 글 생성 버튼 -->
 				<ul class="pagination">
 					<c:if test="${paging.first}">
 						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/freeBoard?pg=1&range=1&searchType=${search.searchType }&keyword=${search.keyword }'">《</a></li>
