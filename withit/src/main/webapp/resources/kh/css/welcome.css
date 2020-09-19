@@ -10,7 +10,6 @@ section,article,aside {
 .container {
     margin: 0 auto;
     width: 1280px;
-    max-width: 100%;
 }
 body{
     font-size: 13pt;
