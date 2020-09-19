@@ -27,6 +27,14 @@ public class RichController {
 	@Autowired
 	private RichDAO richDAO;
 	
+	@GetMapping("/myGroup")
+	public ModelAndView myGroup(Principal principal) {
+		ModelAndView mav = new ModelAndView();
+		String username = principal.getName();
+		mav.setViewName("rich/member/myGroup");
+		return mav;
+	}
+	
 	//달력에서 Ajax로 일정을 생성하는 함수입니다.
 	@ResponseBody
 	@PostMapping(path="/createSchedule", produces="application/json;charset=UTF-8")
