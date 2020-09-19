@@ -15,12 +15,24 @@
 			<input type="text" name="username" id="username" autocomplete="off" value="${username}" required readonly >
 			<label for="username" style="top: -2px;font-size: 13px;color: rgb(50, 190, 120);">E-MAIL</label>
 		</div>
+		
 		<br>
+		
 		<div class="join-area">
 			<input type="text" name="nickname" id="nickname" autocomplete="off" required>
 			<label for="nickname">NICKNAME</label>
 		</div>
+		
 		<br>
+		
+		<div class="join-area">
+			<input type="number" id="mycareer" name="mycareer" autocomplete="off" required>
+			<label for="mycareer">Career</label>
+			<div class="careerDiv"></div>
+		</div>
+	
+		<br>
+	
 		<div class="btn-area">
 			<button>JOIN!</button>
 			<button type="button" name="back" id="back" onclick="javascript='history.go(-1)'">BACK</button>

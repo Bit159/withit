@@ -22,7 +22,7 @@
 			<form name="joinFormDiv" action="/join" method="post">
 				
 					<div class="join-area">
-						<input type="text" name="username" id="username" autocomplete="off" placeholder="email형식으로 입력" onblur="checkUsername()">
+						<input type="text" name="username" id="username" autocomplete="off" placeholder="실제 사용하는 이메일로 가입해주세요!" onblur="checkUsername()">
 						<label for="email">E-MAIL</label>
 						<div class="usernameDiv"></div>
 					</div>
@@ -46,7 +46,7 @@
 					</div>
 				
 					<div class="join-area">
-						<input type="text" id="mycareer" name="mycareer" style="width: 45%;" autocomplete="off" required>
+						<input type="number" id="mycareer" name="mycareer" style="width: 45%;" autocomplete="off" required>
 						<label for="mycareer">Career</label>
 						<div class="careerDiv"></div>
 					</div>

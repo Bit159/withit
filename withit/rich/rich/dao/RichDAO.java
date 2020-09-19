@@ -2,6 +2,9 @@ package rich.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import hj.member.bean.MatchDTO;
 import rich.notify.NotDTO;
@@ -32,4 +35,13 @@ public interface RichDAO {
 	public abstract List<NotDTO> getMySchedules(String username);
 	public abstract int updateSchedule(NotDTO dto);
 	public abstract int removeSchedule(int no);
+	
+	//그룹 생성
+	public abstract int createGroup(List<MatchDTO> rangeValidatedList);
+	public abstract int getGreatestGno();
+	public abstract int getChattingRoomIndex();
+	public abstract int createChattingRoom(String tableName);
+	public abstract int addChattingRoomIndex();
+	public abstract int setChattingRoomMembers(List<MatchDTO> rangeValidatedList);
+	public abstract int registerNewChattingRoom(List<MatchDTO> rangeValidatedList);
 }
