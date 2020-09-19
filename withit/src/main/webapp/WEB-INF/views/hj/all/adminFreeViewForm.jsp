@@ -143,7 +143,11 @@
 					                                    <div class="reply_reply">
 					                                    	${replydto.reply }
 					                                    </div>
+					                                    <div class="reply_button">
 					                                    
+							                               <button type="button" class="deleteBtn" data-rno="${ replydto.rno }">삭제</button>
+						                                
+						                                </div>
 					                                </div>
 					                            </li>
 					                            
@@ -221,6 +225,90 @@ $(document).ready(function(){
 		
 		
 	});
+	
+	
+	
+	
+	// 댓글 삭제
+	$(document).on("click",".deleteBtn", function(){
+		var $btnObj = $(this);
+		let rno = $(this).data('rno'); // data-rno
+		var bno = document.querySelector('div.view_bno').innerText;
+		
+		var csrfHeaderName = document.getElementById('_csrf_header').content;
+		var csrfTokenValue = document.getElementById('_csrf').content;	
+		
+		var param = "rno="+rno+"&bno="+bno;
+		
+		
+		Swal.fire({
+			title:`댓글 삭제`,
+			text:`정말 삭제하시겠습니까?`,
+			icon:`question`,
+			confirmButtonText:`확인`,
+			showCancelButton:true,
+			cancelButtonText:`취소`,
+		}).then((res)=>{
+			if(res.isConfirmed){
+				console.log('승인, 댓글삭제처리가 들어올 곳')
+				deleteReply();
+			}else {
+				console.log('비승인');
+				Swal.fire('취소', '댓글 삭제가 취소되었습니다', 'error');
+			}
+		});
+		
+		function deleteReply(){
+			$.ajax({
+				type: 'post',
+				url: '/all/replyDelete',
+				beforeSend: function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		    	},
+				data: param,
+				success: function(data){
+					$btnObj.parent().parent().remove();
+					
+					let target = document.querySelector('.reply_header');
+					let newnum = target.innerText.substring(6);
+					newnum--;
+					console.log(newnum);
+					target.innerHTML = '댓글수 : ${newnum1}';
+					
+					let target1 = document.querySelector('.view_replys');
+					let newnum1 = target1.innerText.substring(6);
+					newnum1--;
+					target1.innerText = '댓글수 : ${newnum1}';
+					
+					Swal.fire({
+							  title: '댓글 삭제 완료',
+							  text: '댓글이 삭제되었습니다.',
+							  icon: 'success'
+					})
+					.then(()=>location.reload(true));
+					
+					
+					
+				},
+				error: function(err){
+					console.log(err);
+					Swal.fire({
+							  title: '댓글 삭제 실패',
+							  text: '댓글이 삭제 되지 않았습니다',
+							  icon: 'error'
+					});
+					
+				}
+			});
+		}
+		
+	});
+	
+	
+	
+	
+	
+	
 	
 	
 });

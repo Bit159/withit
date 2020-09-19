@@ -192,6 +192,16 @@
 		DELETE FROM db.board where bno=#{bno}
 	</delete>
 	
+	<!-- 자유게시판 댓글 삭제 -->
+  	<delete id="replyDelete2" parameterType="int">
+  		delete from db.reply2 where rno=#{rno}
+  	</delete>
+  	
+  	<!-- 자유게시판 댓글수 감소 -->
+  	<update id="replyDeleteUpdate2" parameterType="int">
+  		update db.board set replys=replys-1 where bno = #{bno}
+  	</update>
+	
 	
 	 
 	 <!-- mypage 회원정보 수정 -->

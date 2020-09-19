@@ -69,6 +69,10 @@ public interface HjService {
 
 	public void deleteBBoard(int bno);
 
+	public void replyDelete2(int rno);
+
+	public void replyDeleteUpdate2(int bno);
+
 	
 
 	

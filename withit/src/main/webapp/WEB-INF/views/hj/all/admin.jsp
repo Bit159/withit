@@ -316,7 +316,7 @@ for(let i = 0; i<a.length; i++){
 					
 					a[i].parentElement.parentElement.remove();
 					
-					location.href = "/admin";
+					location.reload(true);
 				},
 				error: function(err){
 					console.log(err);

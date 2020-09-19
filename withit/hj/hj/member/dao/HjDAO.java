@@ -39,5 +39,7 @@ public interface HjDAO {
 	public abstract BBoardDTO getBBoard(int bno);
 	public abstract List<BBoardReplyDTO> getBBoardReplyList(int bno);
 	public abstract void deleteBBoard(int bno);
+	public abstract void replyDelete2(int rno);
+	public abstract void replyDeleteUpdate2(int bno);
 
 }

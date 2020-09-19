@@ -164,4 +164,16 @@ public class HjDAOMybatis implements HjDAO {
 		
 	}
 
+	@Override
+	public void replyDelete2(int rno) {
+		sqlSession.delete("hjSQL.replyDelete2", rno);
+		
+	}
+
+	@Override
+	public void replyDeleteUpdate2(int bno) {
+		sqlSession.update("hjSQL.replyDeleteUpdate2",bno);
+		
+	}
+
 }

@@ -504,6 +504,22 @@ public class HjController {
 
 		}
 		
+		
+		//자유게시판 댓글 삭제
+		@ResponseBody
+		@RequestMapping(value = "/all/replyDelete", method = RequestMethod.POST)
+		public ModelAndView replyDelete2(@RequestParam int rno, int bno, HttpSession session) {
+			System.out.println("rno="+rno);
+			/* String nickname = (String) session.getAttribute("nickname"); */
+			hjService.replyDelete2(rno);
+			System.out.println("bno="+bno);
+			hjService.replyDeleteUpdate2(bno);
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/hj/all/adminFreeView");
+			mav.addObject(bno);
+			return mav;
+		}
+		
 
 		
 		

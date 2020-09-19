@@ -170,4 +170,16 @@ public class HjServiceImpl implements HjService {
 		
 	}
 
+	@Override
+	public void replyDelete2(int rno) {
+		hjDAO.replyDelete2(rno);
+		
+	}
+
+	@Override
+	public void replyDeleteUpdate2(int bno) {
+		hjDAO.replyDeleteUpdate2(bno);
+		
+	}
+
 }
