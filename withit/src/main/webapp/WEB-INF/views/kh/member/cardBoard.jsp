@@ -148,6 +148,9 @@
             	</div>
 	        </c:forEach>
             </c:if>
+            <c:if test="${list.size() eq 0}">
+				<img width="500px" src="/resources/kh/image/nodata.jpg">
+			</c:if>
         </div>
         </form>
         <!-- pagination{s} -->
