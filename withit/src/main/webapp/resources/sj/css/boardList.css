@@ -156,3 +156,8 @@ button[id="btnSearch"]{
 	width: 70px;
 	height: 30px;
 }
+
+
+*:focus {
+	outline-style: none;
+}

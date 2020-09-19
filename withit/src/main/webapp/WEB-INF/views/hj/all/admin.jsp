@@ -4,17 +4,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-<!-- default header name is X-CSRF-TOKEN -->
-<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
-<title>관리자 페이지</title>
-<link rel="stylesheet" href="/resources/hj/css/adminBoard.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/hj/css/adminBoard.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
 </head>
+
 <body>
     
     <!-- 가운데 main 내용 -->
@@ -273,8 +270,8 @@ function fn_prev(page, range, rangeSize, searchType, keyword) {
 <script type="text/javascript">
 
 
-var csrfHeaderName = "${_csrf.headerName}";
-var csrfTokenValue = document.getElementById('_csrf').content;
+var csrfHeaderName = document.getElementById('csrf_header').content;
+var csrfTokenValue = document.getElementById('csrf').content;
 
 
 	

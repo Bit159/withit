@@ -2,13 +2,12 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta id="_csrf" name="_csrf" content="${_csrf.token}">
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
-<title>새 글 작성</title>
-<link rel="stylesheet" href="/resources/sj/css/boardWriteForm.css">
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/sj/css/boardWriteForm.css">
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 	<div id="boardWriteWrapper">
@@ -43,8 +42,8 @@
     	var content = $("#boardWriteContentText").val();
     	var param = "title="+title+"&content="+content;
     	
-    	var csrfHeader = document.getElementById('_csrf_header').content;
-		var csrfToken = document.getElementById('_csrf').content;
+    	var csrfHeader = document.getElementById('csrf_header').content;
+		var csrfToken = document.getElementById('csrf').content;
 		console.log(csrfHeader);
 		console.log(csrfToken);
     	
