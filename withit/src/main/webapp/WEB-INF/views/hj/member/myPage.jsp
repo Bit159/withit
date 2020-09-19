@@ -98,7 +98,7 @@
 	                        <tr>
 	                            <th class="table_left">경력 사항</th>
 	                            <td class="table_right">
-	                                <input type="number" name="nickname" id="nickname" value="${memberDTO.myCareer}">
+	                                <input type="number" name="myCareer" id="myCareer" value="${memberDTO.myCareer}">
 	                                <div id="careerDiv"></div>
 	                            </td>
 	                        </tr>

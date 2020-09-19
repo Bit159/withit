@@ -339,8 +339,8 @@ $(document).ready(function(){
 			connect(chattingRoomNum);
 			$.each(data.list, function(index, items){
 				document.getElementById("chattingRoomList").innerHTML += "<li id='" + items.chattingRoom + "' onclick='getChatting(" + items.chattingRoom + ")'><table><tr><td class='profile_td'><img src='/resources/bj/image/chatting.png'/></td>"
-																		+ "<td class='chat_td'><div class='chat_name'>" + items.chattingRoom + "</div><div class='email'>" + items.nickname + "</div><div class='chat_preview'>" + items.chat + "</div></td>"
-																		+ "<td class='time_td'><div class='time'>" + items.chat_date + "</div><div id='" + items.chattingRoom + "_check'></div></td></tr></table></li>";
+																		+ "<td class='chat_td'><div class='chat_name'>" + items.chattingRoom + "</div><div id='" + items.chattingRoom + "_email' class='email'>" + items.nickname + "</div><div id='" + items.chattingRoom + "_chat_preview' class='chat_preview'>" + items.chat + "</div></td>"
+																		+ "<td class='time_td'><div id='" + items.chattingRoom + "_time' class='time'>" + items.chat_date + "</div><div id='" + items.chattingRoom + "_check'></div></td></tr></table></li>";
 
 				connect(items.chattingRoom);														
 
@@ -470,16 +470,14 @@ function disconnect() {
 //============================================================= 메시지 받았을 때 수행하는 메서드
 
 function onMessageReceived(payload){
-	let chat_preview = document.getElementById('chat_preview');
-	let email = document.getElementById('email');
-	let time = document.getElementById('time');
-	
-	$('#chat_preview').empty();
-	$('#email').empty();
-	$('#time').empty();
-	
-	console.log(payload.chat);
 	let message = JSON.parse(payload.body);
+	let chat_preview = document.getElementById(message.chattingRoom + "_chat_preview");
+	let email = document.getElementById(message.chattingRoom + "_email");
+	let time = document.getElementById(message.chattingRoom + "_time");
+	
+	$('#' + message.chattingRoom + '_chat_preview').empty();
+	$('#' + message.chattingRoom + '_email').empty();
+	$('#' + message.chattingRoom + '_time').empty();
 	
 	if(username == message.username){
 		messages.innerHTML += "<div class='myMessage'><span class='message'>" + message.chat + "</span>"
