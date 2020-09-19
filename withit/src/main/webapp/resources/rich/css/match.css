@@ -156,9 +156,14 @@ h3[id="emptyAlert"] {
 	margin: 0 auto;
 	margin-top: 100px;
 	margin-bottom:100px;
+	
 }
 
 
 div[class="cardInfo"] {
 	margin-left:24px;
+}
+
+div[class="matchDiv"] {
+	min-height: calc(100vh - 400px);
 }

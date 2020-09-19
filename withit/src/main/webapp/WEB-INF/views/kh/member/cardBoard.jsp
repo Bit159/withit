@@ -5,7 +5,6 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
-    <title>스터디 모집</title>
     <link rel="stylesheet" href="/resources/kh/css/card.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.0/css/all.min.css"/>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-html,body,div,span,img,header,nav,a,ul,li,form, label,footer,tr,th,td,
+html,body,span,img,header,nav,a,ul,li,form, label,tr,th,td,
 section,article,aside {
     margin: 0;
 	padding: 0;
@@ -200,6 +200,9 @@ div[class="sidebar fixed"] > ul > li > a {
 }
 input[id="menuicon"]:checked +label +div {right:0;}
 /* =============banner=============== */
+div[id="banner_wrapper"] {
+	min-height: calc(100vh - 380px);
+}
 #banner{
     position: relative;
     margin-top: 40px;
@@ -254,7 +257,7 @@ h2[id="IT"]{
 }
 /* ==========article=========== */
 #article_wrapper {
-    padding: 30px 0 45px 0;f
+    padding: 30px 0 45px 0;
 }
 .article_content {
     display: flex;

@@ -5,7 +5,6 @@
 <html lang="ko">
 <head>
 <%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
-<title>With IT</title>
 <link rel="stylesheet" href="/resources/kh/css/welcome.css">
 <script src="http://code.jquery.com/jquery-latest.min.js" defer></script>
 <script src="/resources/kh/js/welcome.js" defer></script>
@@ -37,6 +36,7 @@
 				</div>
 			</div>
 		</div>
+		<jsp:include page="/WEB-INF/views/kh/template/footer.jsp" flush="true" />
 		<!-- 아티클 -->
 <!-- 		<div id="article_wrapper"> -->
 <!-- 			<div class="container"> -->
@@ -61,7 +61,6 @@
 <!-- 			</div> -->
 <!-- 		</div> -->
 		<!-- 푸터 -->
-		<jsp:include page="/WEB-INF/views/kh/template/footer.jsp" flush="true" />
 	</div>
 </body>
 </html>
