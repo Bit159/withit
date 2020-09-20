@@ -59,9 +59,8 @@
 	</select>
 
 	<!-- 관리자 지도 map -->
-	
 	<select id="getListFromMatch" resultType="hj.member.bean.MatchDTO">
-		SELECT * FROM `db`.`match` ORDER BY `CREATED` ASC
+		SELECT * FROM `db`.`match` ORDER BY `range` DESC;
 	</select>
 	
 	<!-- 관리자 페이지 회원정보 불러오기 -->
