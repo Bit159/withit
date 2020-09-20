@@ -190,6 +190,23 @@
   	<update id="replyDeleteUpdate2" parameterType="int">
   		update db.board set replys=replys-1 where bno = #{bno}
   	</update>
+  	
+  	<!-- 자유게시판 글 생성 -->
+	<insert id="writeBBoard" parameterType="java.util.Map">
+		INSERT 
+		INTO db.board (title, content, username, nickname, boarddate, updatedate) 
+		values(#{title}, #{content}, #{username}, #{nickname}, #{now}, #{now})
+	</insert>
+	
+	<!-- 자유게시판 댓글 생성 -->
+  	<insert id="boardReply2" parameterType="java.util.Map">
+  		insert into db.reply2 (bno, reply, username, nickname, replydate, updatedate) values(#{bno}, #{reply}, #{username}, #{nickname}, #{now}, #{now});
+  	</insert>
+  	
+  	<!-- 자유게시판 댓글수 증가 -->
+  	<update id="replyUpdate2" parameterType="int">
+  		update db.board set replys=replys+1 where bno=#{bno}
+  	</update>
 	
 	
 	 

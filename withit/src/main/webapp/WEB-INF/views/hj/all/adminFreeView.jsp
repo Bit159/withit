@@ -142,6 +142,8 @@
 	            
 	            <!-- pagination{s} -->
 				<div id="paginationBox">
+					<!-- 글 생성 버튼 -->
+					<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
 					
 					<ul class="pagination">
 						<c:if test="${paging.first}">
@@ -250,6 +252,10 @@ $(document).on('click', '#btnSearch', function(e){
 
 });
 
+//글생성 버튼
+$(document).on('click', '#boardWriteBtn', function(){
+	location.href = "/adminFreeViewWrite";
+});
 
 //현재 페이지 음영처리
 $('.page-link-'+$('#hidden-page').val()).css('background','#525965').css('color','white');

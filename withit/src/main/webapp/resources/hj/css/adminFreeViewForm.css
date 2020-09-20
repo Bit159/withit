@@ -445,6 +445,7 @@ button[id="reply_writer_btn"]{
 	text-align: center;
 	line-height: 50px;
 	vertical-align: bottom;
+	margin-left: 10px;
 }
 
 div[class="reply_modify_wrapper"]{

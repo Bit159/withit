@@ -43,5 +43,8 @@ public interface HjDAO {
 	public abstract void deleteBBoard(int bno);
 	public abstract void replyDelete2(int rno);
 	public abstract void replyDeleteUpdate2(int bno);
+	public abstract void writeBBoard(Map<String, Object> map);
+	public abstract void boardReply2(Map<String, Object> map);
+	public abstract void replyUpdate2(int bno);
 
 }
