@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import hj.member.bean.MatchDTO;
+import hj.member.bean.MatchedDTO;
 import rich.notify.NotDTO;
 import sj.board.bean.CBoardDTO;
 
@@ -44,4 +45,6 @@ public interface RichDAO {
 	public abstract int addChattingRoomIndex();
 	public abstract int setChattingRoomMembers(List<MatchDTO> rangeValidatedList);
 	public abstract int registerNewChattingRoom(List<MatchDTO> rangeValidatedList);
+	public abstract List<MatchDTO> getMatchingResultMap(String gno);
+	public abstract List<MatchedDTO> getMyGroups(String username);
 }

@@ -10,12 +10,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import hj.member.bean.MatchDTO;
+import hj.member.bean.MatchedDTO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import rich.dao.RichDAO;
@@ -27,10 +30,41 @@ public class RichController {
 	@Autowired
 	private RichDAO richDAO;
 	
+	@GetMapping("/myGroupSchedule")
+	public ModelAndView myGroupSchedule(Principal principal) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("rich/member/myGroupSchedule");
+		return mav;
+	}
+	
+	@PostMapping("/myGroup{menu}")
+	public ModelAndView myGroupMap(Principal principal, @PathVariable("menu") String menu, @RequestParam int gno) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println(menu);
+		System.out.println(gno);
+		mav.setViewName("rich/member/myGroup"+menu);
+		System.out.println(mav.getViewName());
+		return mav;
+	}
+	
+	@PostMapping("/getMatchingResultMap")
+	@ResponseBody
+	public JSONArray getMatchingResultMap(Principal principal, @RequestBody String gno) {
+		System.out.println(Integer.parseInt(gno));
+		List<MatchDTO> list = richDAO.getMatchingResultMap(gno);
+		System.out.println(list);
+		System.out.println(list.get(0));
+		JSONArray json = new JSONArray();
+		json.addAll(list);
+		return json;
+	}
+	
+	
 	@GetMapping("/myGroup")
 	public ModelAndView myGroup(Principal principal) {
 		ModelAndView mav = new ModelAndView();
-		String username = principal.getName();
+		List<MatchedDTO> list = richDAO.getMyGroups(principal.getName());
+		mav.addObject("list", list);
 		mav.setViewName("rich/member/myGroup");
 		return mav;
 	}

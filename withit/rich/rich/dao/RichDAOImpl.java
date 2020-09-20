@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import hj.member.bean.MatchDTO;
+import hj.member.bean.MatchedDTO;
 import lombok.Setter;
 import rich.notify.NotDTO;
 import sj.board.bean.CBoardDTO;
@@ -175,6 +176,18 @@ public class RichDAOImpl implements RichDAO {
 	@Override
 	public int registerNewChattingRoom(List<MatchDTO> rangeValidatedList) {
 		return sqlSession.insert("richSQL.registerNewChattingRoom", rangeValidatedList);
+	}
+
+	
+	//그룹의 매칭 결과를 보여주는데 사용되는 SQL
+	@Override
+	public List<MatchDTO> getMatchingResultMap(String gno) {
+		return sqlSession.selectList("richSQL.getMatchingResultMap", gno);
+	}
+
+	@Override
+	public List<MatchedDTO> getMyGroups(String username) {
+		return sqlSession.selectList("richSQL.getMyGroups", username);
 	}
 	
 
