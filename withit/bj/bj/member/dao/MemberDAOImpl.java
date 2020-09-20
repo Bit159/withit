@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import bj.member.bean.ChattingDTO;
 import bj.member.bean.ChattingRoomDTO;
 import bj.member.bean.MemberDTO;
+import sj.board.bean.BBoardDTO;
+import sj.board.paging.Search;
 
 @Transactional
 @Repository
@@ -162,6 +164,18 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void newPwd(Map<String, String> map) {
 		sqlSession.update("memberSQL.newPwd", map);
+	}
+
+	// =============================================================== 공지사항 관련
+	
+	@Override
+	public int getNoticeListCnt(Search search) {
+		return sqlSession.selectOne("memberSQL.getNoticeListCnt", search);
+	}
+
+	@Override
+	public List<BBoardDTO> getNoticeList(Search search) {
+		return sqlSession.selectList("memberSQL.getNoticeList", search);
 	}
 
 }

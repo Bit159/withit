@@ -90,5 +90,61 @@
 	
 	
 	<!-- ============================ 채 팅 ============================ -->
+	
+	<!-- ============================ 공 지 사 항 ============================ -->
+	
+	<!-- 게시글 총 개수 -->
+	
+  	<select id="getNoticeListCnt" resultType="int">
+		SELECT count(*) as listCnt 
+		FROM db.notice
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+	
+				<if test="searchType=='title'">
+	
+					AND TITLE like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+				<if test="searchType=='nickname'">
+	
+					AND nickname like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+	      </if>
+	
+		</trim>
+		
+		
+	</select>
+	<!-- 게시글 총 개수 -->
+	
+	<!-- 자유게시판 페이징, 검색 처리한 리스트 -->
+	<select id="getNoticeList" parameterType="pagination" resultType="bBoardDTO">
+		SELECT * 
+		FROM db.notice 
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="searchType=='title' and keyword != null and keyword != '' ">
+
+				AND title like CONCAT('%', #{keyword}, '%')
+
+			</if>
+
+			<if test="searchType=='nickname' and keyword != null and keyword != '' ">
+
+				AND nickname like CONCAT('%', #{keyword}, '%')
+
+			</if>	
+
+		</trim>
+		ORDER BY bno desc
+		LIMIT #{startList},#{listSize};
+	</select>
+	<!-- 자유게시판 페이징, 검색 처리한 리스트 -->
+	
 </mapper>
  

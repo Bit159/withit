@@ -8,7 +8,7 @@
 	<footer id="footer" class="container">
 		<div class="footer">
 			<h1>서비스</h1>
-			<p>공지사항</p>
+			<p onclick="location='/notice'" style="cursor:pointer;">공지사항</p>
 			<p>자주 묻는 질문</p>
 		</div>
 		<div class="footer">

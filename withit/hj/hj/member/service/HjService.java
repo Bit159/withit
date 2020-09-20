@@ -57,6 +57,10 @@ public interface HjService {
 
 	public int totalprogramming();
 
+	public void careerRevise(Map<String, String> map);
+
+	public void careerPasswordRevise(Map<String, String> map);
+
 	
 
 	

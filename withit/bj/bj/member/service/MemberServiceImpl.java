@@ -12,6 +12,8 @@ import bj.member.bean.ChattingDTO;
 import bj.member.bean.ChattingRoomDTO;
 import bj.member.bean.MemberDTO;
 import bj.member.dao.MemberDAO;
+import sj.board.bean.BBoardDTO;
+import sj.board.paging.Search;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -92,6 +94,16 @@ public class MemberServiceImpl implements MemberService {
 		map.put("password", password);
 		
 		memberDAO.newPwd(map);
+	}
+
+	@Override
+	public int getNoticeListCnt(Search search) {
+		return memberDAO.getNoticeListCnt(search);
+	}
+
+	@Override
+	public List<BBoardDTO> getNoticeList(Search search) {
+		return memberDAO.getNoticeList(search);
 	}
 
 	

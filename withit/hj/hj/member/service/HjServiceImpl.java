@@ -138,4 +138,17 @@ public class HjServiceImpl implements HjService {
 		return hjDAO.totalprogramming();
 	}
 
+	@Override
+	public void careerRevise(Map<String, String> map) {
+		hjDAO.careerRevise(map);
+	}
+
+	@Override
+	public void careerPasswordRevise(Map<String, String> map) {
+		String password = encoder.encode(map.get("password"));
+		map.replace("password", password);
+		
+		hjDAO.careerPasswordRevise(map);
+	}
+
 }

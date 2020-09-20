@@ -6,6 +6,8 @@ import java.util.Map;
 import bj.member.bean.ChattingDTO;
 import bj.member.bean.ChattingRoomDTO;
 import bj.member.bean.MemberDTO;
+import sj.board.bean.BBoardDTO;
+import sj.board.paging.Search;
 
 public interface MemberDAO {
 
@@ -48,5 +50,9 @@ public interface MemberDAO {
 	public ChattingRoomDTO getAllChatting();
 
 	public void newPwd(Map<String, String> map);
+
+	public int getNoticeListCnt(Search search);
+
+	public List<BBoardDTO> getNoticeList(Search search);
 
 }

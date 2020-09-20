@@ -109,7 +109,7 @@
 	                            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	                            	<input type="hidden" id="username" name="username" value="${memberDTO.username}">
 	                                <input type="password" name="password" id="password" placeholder="비밀번호 입력">
-	                                
+	                                <img src="/resources/bj/image/info.png" width="20" height="20" onclick="showPwdRules()" style="cursor:pointer;">
 	                                <div id="pwdDiv"></div>
 	                            </td>
 	                        </tr>
@@ -289,29 +289,38 @@ btn.onclick = async function(){
 <script type="text/javascript">
 
 $('#reviseBtn').click(function(){
-
+	let passwordRules = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/;
+	let password = $('#password').val();
+	let repwd = $('#repwd').val();
+	let nickname = $('#nickname').val();
+	let username = document.getElementById('username').value;
+	let myCareer = document.getElementById('myCareer').value;
+	let newNickname = '0';
 	var csrfHeaderName = document.getElementById('_csrf_header').content;
 	var csrfTokenValue = document.getElementById('_csrf').content;	
 	
-	
-$('#pwdDiv').empty();	
-$('#nicknameDiv').empty();
-	
-let password = $('#password').val();
-let repwd = $('#repwd').val();
-let nickname = $('#nickname').val();
-let username = document.getElementById('username').value;
-	
+	$('#pwdDiv').empty();	
+	$('#nicknameDiv').empty();
+
 	if(password != repwd){
 		
 		$('#pwdDiv').text("비밀번호를 동일하게 입력해 주세요").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");	
 		
+	}else if(!passwordRules.test(password)){
+		$('#pwdDiv').text("숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
+		
+	else if(password.indexOf(" ") != -1){
+		$('#pwdDiv').text("비밀번호에 공백을 사용하실 수 없습니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
+
 	}else if(nickname == null || nickname == ""){
 	
 		$('#nicknameDiv').text("닉네임을 입력해 주세요").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
 	
 	}else{
-		
+
+		if(nickname != '${nickname}'){
+			newNickname = '1';
+		}
 		
 		$.ajax({
 			
@@ -319,18 +328,21 @@ let username = document.getElementById('username').value;
 			url: '/member/revise',
 			data: {'username':username,
 					'password':password,
-					'nickname':nickname },
+					'nickname':nickname,
+					'myCareer':myCareer,
+					'newNickname':newNickname
+			},
 			beforeSend:function(xhr){
 						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 			},
 			success: function(data){
 
-				if(data =='onlyNickname'){
+				if(data =='success'){
 					
 					Swal.fire({
 						  icon: 'success',
-						  title: '닉네임 변경 완료',
-						  text: '닉네임이 변경 되었습니다.',
+						  title: '변경 완료',
+						  text: '변경 되었습니다.',
 					}).then((result) => {
 						
 						location.href="/myPage";
@@ -375,13 +387,19 @@ let username = document.getElementById('username').value;
 					
 		});
 		
-		
 	}
 	
 });
 
 </script>
 <script type="text/javascript">
+function showPwdRules(){
+	Swal.fire({
+		title : '비밀번호 생성 규칙',
+		text : '영문과 숫자를 포함한 8~16자리로 설정해야합니다.'
+	});
+}
+
 
 function getStudyInfo(){
 	let header_label = document.getElementById('header_label');

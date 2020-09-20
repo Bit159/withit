@@ -132,4 +132,14 @@ public class HjDAOMybatis implements HjDAO {
 		return sqlSession.selectOne("hjSQL.totalprogramming");
 	}
 
+	@Override
+	public void careerRevise(Map<String, String> map) {
+		sqlSession.update("hjSQL.careerRevise", map);
+	}
+
+	@Override
+	public void careerPasswordRevise(Map<String, String> map) {
+		sqlSession.update("careerPasswordRevise", map);
+	}
+
 }

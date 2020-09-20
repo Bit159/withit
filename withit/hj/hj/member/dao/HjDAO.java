@@ -32,5 +32,7 @@ public interface HjDAO {
 	public abstract int checkUsername(String username);
 	public abstract int checkNickname(String nickname);
 	public abstract int totalprogramming();
+	public abstract void careerRevise(Map<String, String> map);
+	public abstract void careerPasswordRevise(Map<String, String> map);
 
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,42 +123,43 @@ public class HjController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/revise", method = RequestMethod.POST)
-	public String revise(@RequestParam String username, String password, String nickname) {
-
-		System.out.println(username);
-		System.out.println(password);// 입력한 password
-		System.out.println(nickname);// 입력한 닉네임
-
+	public String revise(@RequestParam String username, String password, String nickname, String myCareer, String newNickname, HttpServletRequest request) {
 		String revice = null;
-
+		System.out.println(newNickname);
+		HttpSession session = request.getSession();
+		
 		if (password == null || password == "") {
-
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("username", username);
 			map.put("nickname", nickname);
-
+			map.put("myCareer", myCareer);
+			
 			List<MemberDTO> list = hjService.getNickName(nickname);
-
+			
 			String dbNickName = "";
 
 			for (int i = 0; i < list.size(); i++) {
 				dbNickName = list.get(i).getNickname();
 			}
-
-			if (dbNickName == null || dbNickName == "") {
-
-				System.out.println("닉네임 수정 가능");
-
-				hjService.nicknameRevice(map);
-
-				revice = "onlyNickname";
-
-			} else {
-
-				System.out.println("닉네임 수정 불가능");
-
-				revice = "fail";
-
+			
+			if(newNickname.equals("1")) { // ===================================== 커리어, 닉네임 수정
+				if (dbNickName == null || dbNickName == "") {
+					System.out.println("닉네임 수정 가능");
+					hjService.nicknameRevice(map);
+					
+					session.setAttribute("nickname", nickname);
+					
+					revice = "success";
+	
+				} else {
+					System.out.println("닉네임 수정 불가능");
+					revice = "fail";
+	
+				}
+				
+			}else { // ===================================== 커리어만 수정	
+				hjService.careerRevise(map);
+				revice = "success";
 			}
 
 		} else {
@@ -166,28 +168,46 @@ public class HjController {
 			map.put("username", username);
 			map.put("password", password);
 			map.put("nickname", nickname);
-
-			List<MemberDTO> list = hjService.getNickName(nickname);
-
-			String dbNickName = "";
-
-			for (int i = 0; i < list.size(); i++) {
-				dbNickName = list.get(i).getNickname();
-			}
-
-			if (dbNickName.equals(nickname)) {
-
-				hjService.passwordRevise(map);
-				System.out.println("비밀번호 바꿀때 닉네임이 같음");
-
-				revice = "onlyPassword";
-
-			} else {
-
-				System.out.println("비밀번호 바꿀때 닉네임이 다름");
-				hjService.revise(map);
-
-				revice = "dualSuccess";
+			map.put("myCareer", myCareer);
+			
+			if(newNickname.equals("0")) { // ===================================== 커리어, 비밀번호 수정!
+				hjService.careerPasswordRevise(map);
+				revice = "success";
+				
+			}else {
+				List<MemberDTO> list = hjService.getNickName(nickname);
+	
+				String dbNickName = "";
+	
+				for (int i = 0; i < list.size(); i++) {
+					dbNickName = list.get(i).getNickname();
+				}
+	
+				/*if (dbNickName.equals(nickname)) {
+	
+					hjService.passwordRevise(map);
+					System.out.println("비밀번호 바꿀때 닉네임이 같음");
+	
+					revice = "onlyPassword";
+	
+				} else {
+	
+					System.out.println("비밀번호 바꿀때 닉네임이 다름");
+					hjService.revise(map);
+	
+					revice = "dualSuccess";
+				}*/
+				if (dbNickName == null || dbNickName == "") { // ===================================== 전체 수정!
+					System.out.println("닉네임 수정 가능");
+					hjService.revise(map);
+					session.setAttribute("nickname", nickname);
+					revice = "success";
+	
+				} else {
+					System.out.println("닉네임 수정 불가능");
+					revice = "fail";
+	
+				}
 			}
 
 		}
