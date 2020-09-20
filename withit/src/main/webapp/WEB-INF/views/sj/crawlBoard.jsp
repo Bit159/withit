@@ -16,7 +16,7 @@
 	
 	<div class="body_wrapper">
         <div class="body_container">
-            <h1>Okky 게시판</h1>
+            <h1 id="board_header">Okky 게시판</h1>
             <div class="list_wrapper">
                 <ul class="list_group">
                     <li class="list_group_item">

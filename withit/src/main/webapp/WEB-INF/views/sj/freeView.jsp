@@ -15,7 +15,7 @@
 
 	<div class="bodywrapper">
         <div class="boardwrapper">
-            <h1>자유게시판</h1>
+            <h1 id="board_header">자유게시판</h1>
             <div class="boardcontainer">                
                 <div class="board_header">
                     <div class="header_upside">

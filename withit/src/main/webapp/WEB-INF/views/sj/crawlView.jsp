@@ -15,7 +15,7 @@
 
 	<div class="bodywrapper">
         <div class="boardwrapper">
-            <h1>Okky 게시판</h1>
+            <h1 id="board_header">Okky 게시판</h1>
             <div class="boardcontainer">                
                 <div class="board_header">
                     <div class="header_upside">
