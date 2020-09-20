@@ -4,18 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 	<meta charset="UTF-8">
 	<meta name="google-signin-scope" content="profile email" />
 	<meta name="google-site-verification" content="fb6rIsh8WzJKvF5SCARFAzqdWF95ZEKdhPfXX2lLTzw"/>
 	<meta name="google-signin-client_id" content="752749290235-0lrjurm4fdk31il80d87i99knklc9650.apps.googleusercontent.com"/>
-	<title>로그인</title>
 	<script defer src="https://apis.google.com/js/platform.js"></script>
 	<link rel="stylesheet" href="/resources/kh/css/login.css">
 	<script defer type="text/javascript" src="/resources/kh/js/login.js"></script>
 	<script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 	<section class="login-form">
 		<label for="sideicon" id="back"></label>
 		<h1>Let's Withit</h1>

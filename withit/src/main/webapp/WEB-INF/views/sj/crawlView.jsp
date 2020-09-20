@@ -4,20 +4,18 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta id="_csrf" name="_csrf" content="${_csrf.token}">
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
-<meta charset="UTF-8">
-<title>Okky 게시판</title>
-<link rel="stylesheet" href="/resources/sj/css/boardView.css">
 
+<head>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/sj/css/boardView.css">
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 
 	<div class="bodywrapper">
         <div class="boardwrapper">
-            <h1>Okky 게시판</h1>
+            <h1 id="board_header">Okky 게시판</h1>
             <div class="boardcontainer">                
                 <div class="board_header">
                     <div class="header_upside">

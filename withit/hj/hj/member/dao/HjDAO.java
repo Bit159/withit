@@ -34,6 +34,8 @@ public interface HjDAO {
 	public abstract int checkUsername(String username);
 	public abstract int checkNickname(String nickname);
 	public abstract int totalprogramming();
+	public abstract void careerRevise(Map<String, String> map);
+	public abstract void careerPasswordRevise(Map<String, String> map);
 	public abstract List<BBoardDTO> getBBoardList(Search search);
 	public abstract int getBBoardListCnt(Search search);
 	public abstract BBoardDTO getBBoard(int bno);

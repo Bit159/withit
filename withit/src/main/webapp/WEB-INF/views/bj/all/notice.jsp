@@ -2,21 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
-
 <head>
-	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
-	<link rel="stylesheet" href="/resources/sj/css/boardList.css">
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<meta charset="UTF-8">
+<title>자유게시판</title>
+<link rel="stylesheet" href="/resources/sj/css/boardList.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
-
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
-	
 	<div class="body_wrapper">
         <div class="body_container">
-            <h1 id="board_header">Okky 게시판</h1>
+            <h1>공 지 사 항</h1>
             <div class="list_wrapper">
                 <ul class="list_group">
                     <li class="list_group_item">
@@ -28,12 +27,13 @@
                         <div class="replys">댓글수</div>
                         <div class="hit">조회수</div>
                     </li>
+                    
                     <c:if test="${list.size() != 0}">
 	                    <c:forEach var="dto" items="${list }">
 	                    	<li class="list_group_item">
 	                    		<div class="bno"><c:out value="${dto.bno}" /></div>
 		                        <%-- <div class="topic"><c:out value="${dto.topic}" /></div> --%>
-		                        <div class="title"><a id="titleA" href="/crawlBoard/${dto.bno }?pg=${paging.page}&range=${paging.range}"><c:out value="${dto.title}" /></a></div>                        
+		                        <div class="title"><a id="titleA" href="/freeBoard/${dto.bno }?pg=${paging.page}&range=${paging.range}"><c:out value="${dto.title}" /></a></div>                        
 		                        <div class="nickname"><c:out value="${dto.nickname}" /></div>
 		                        <div class="boarddate">
 		                        	<fmt:formatDate var="nowdate" pattern="yyyy-MM-dd" value="${now }"/>
@@ -55,21 +55,28 @@
                 </ul>
             </div>
             
+            <!-- 글 생성 버튼 -->
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+				<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
+			</sec:authorize>
+			<!-- 글 생성 버튼 -->
+            
             <!-- pagination{s} -->
 			<div id="paginationBox">
+				
 				<ul class="pagination">
 					<c:if test="${paging.first}">
-						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/crawlBoard?pg=1&range=1&searchType=${search.searchType }&keyword=${search.keyword }'">《</a></li>
+						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/freeBoard?pg=1&range=1&searchType=${search.searchType }&keyword=${search.keyword }'">《</a></li>
 					</c:if>
 					<c:if test="${paging.prev}">
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')">〈</a></li>
 					</c:if>
 					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-						<li class="page-item"><a class="page-link-${idx }" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')">${idx}</a></li>
+						<li class="page-item"><a class="page-link-${idx }" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')"> ${idx} </a></li>
 						<input type="hidden" id="hidden-page" value="${paging.page }">
 					</c:forEach>
 					<c:if test="${paging.next}">
-						<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')" >〉</a></li>
+						<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${paging.range}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')" >〉</a></li>
 					</c:if>
 					<c:if test="${paging.last}">
 						<c:if test="${list.size() != 0}">
@@ -78,6 +85,7 @@
 					</c:if>
 				</ul>
 			</div>
+			<!-- pagination{e} -->
 			
 			<!-- search{s} -->
 			<div id="searchDiv">
@@ -92,10 +100,10 @@
 			
         </div>
     </div>
+    
+    <jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
 	
-	<jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
-	
-	<c:url var="crawlBoardURL" value="/crawlBoard"></c:url>
+	<c:url var="freeBoardURL" value="/freeBoard"></c:url>
 
 	<script type="text/javascript">
 		// 페이지 로딩시
@@ -111,7 +119,7 @@
 		function fn_prev(page, range, rangeSize, searchType, keyword) {
 			var page = ((range - 1) * rangeSize) ;
 			var range = range - 1;
-			var url = "${pageContext.request.contextPath}/crawlBoard";
+			var url = "${pageContext.request.contextPath}/freeBoard";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			url = url + "&searchType=" + $('#searchType').val();
@@ -121,7 +129,7 @@
 		
 		// 페이지 번호 클릭
 		function fn_pagination(page, range, rangeSize, searchType, keyword) {
-			var url = "${pageContext.request.contextPath}/crawlBoard";
+			var url = "${pageContext.request.contextPath}/freeBoard";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			url = url + "&searchType=" + $('#searchType').val();
@@ -133,7 +141,7 @@
 		function fn_next(page, range, rangeSize, searchType, keyword) {
 			var page = parseInt((range * rangeSize)) + 1;
 			var range = parseInt(range) + 1;
-			var url = "${pageContext.request.contextPath}/crawlBoard";
+			var url = "${pageContext.request.contextPath}/freeBoard";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			url = url + "&searchType=" + $('#searchType').val();
@@ -143,7 +151,7 @@
 		
 		// 맨끝 버튼 이벤트
 		function fn_last(pageCnt, rangeSize, searchType, keyword) {
-			var url = "${pageContext.request.contextPath}/crawlBoard";
+			var url = "${pageContext.request.contextPath}/freeBoard";
 			var range = Math.ceil(pageCnt/rangeSize);
 			url = url + "?pg=" + pageCnt;
 			url = url + "&range=" + range;
@@ -157,21 +165,26 @@
 
 			e.preventDefault();
 	
-			var url = "${crawlBoard}";
+			var url = "${freeBoard}";
 	
 			url = url + "?searchType=" + $('#searchType').val();
 	
 			url = url + "&keyword=" + $('#keyword').val();
-			
-			location.href = encodeURI(url);
+	
+			location.href = url;
 	
 			console.log(url);
 	
 		});
-		
+
+		// 글생성 버튼
+		$(document).on('click', '#boardWriteBtn', function(){
+			location.href = "/freeBoard/writeForm";
+		});
+
 		// 현재 페이지 음영처리
 		$('.page-link-'+$('#hidden-page').val()).css('background','#0065a5').css('color','white');
-		
+
 	</script>
 </body>
 </html>

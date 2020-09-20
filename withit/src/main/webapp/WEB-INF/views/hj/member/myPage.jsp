@@ -2,63 +2,14 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>    
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-	<!-- default header name is X-CSRF-TOKEN -->
-	<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>    
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
     <link rel="stylesheet" href="/resources/hj/css/myPage.css">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
-	
-    <title>MyPage</title>
-	<style type="text/css">
-        .aside_menu div{
-            border-radius: 10px;
-            padding: 10px 10px;
-            cursor: pointer;
-        }
-        .study_wrap{
-            text-align: left;
-        }
-        .study_name:hover, .study_name:focus, .study:hover, .study:focus {
-            background-color: rgb(50, 190, 120);
-            color: white;
-        }
-        .study_content{
-            display: none;
-            text-align: left;
-            font-size: 15px;
-        }
-        .study_content1{
-            display:block;
-        }
-        
-        .table_right input {
-		    width: 50%;
-		    padding : 20px 10px 10px;
-		    background-color: transparent;
-		    border: none;
-		    border-bottom: 1px solid #999;
-		    font-size: 16px;
-		    color: black;
-		    outline: none;
-		}
-		
-		.table_right_bottom input {
-			width: 50%;
-		    padding : 20px 10px 10px;
-		    background-color: transparent;
-		    border: none;
-		    border-bottom: 1px solid #999;
-		    font-size: 16px;
-		    color: black;
-		    outline: none;
-		}
-	</style>
-	
 </head>
+
 <body>
 
 	<div id=body_wrapper>
@@ -109,7 +60,7 @@
 	                            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	                            	<input type="hidden" id="username" name="username" value="${memberDTO.username}">
 	                                <input type="password" name="password" id="password" placeholder="비밀번호 입력">
-	                                
+	                                <img src="/resources/bj/image/info.png" width="20" height="20" onclick="showPwdRules()" style="cursor:pointer;">
 	                                <div id="pwdDiv"></div>
 	                            </td>
 	                        </tr>
@@ -289,29 +240,38 @@ btn.onclick = async function(){
 <script type="text/javascript">
 
 $('#reviseBtn').click(function(){
-
+	let passwordRules = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/;
+	let password = $('#password').val();
+	let repwd = $('#repwd').val();
+	let nickname = $('#nickname').val();
+	let username = document.getElementById('username').value;
+	let myCareer = document.getElementById('myCareer').value;
+	let newNickname = '0';
 	var csrfHeaderName = document.getElementById('_csrf_header').content;
 	var csrfTokenValue = document.getElementById('_csrf').content;	
 	
-	
-$('#pwdDiv').empty();	
-$('#nicknameDiv').empty();
-	
-let password = $('#password').val();
-let repwd = $('#repwd').val();
-let nickname = $('#nickname').val();
-let username = document.getElementById('username').value;
-	
+	$('#pwdDiv').empty();	
+	$('#nicknameDiv').empty();
+
 	if(password != repwd){
 		
 		$('#pwdDiv').text("비밀번호를 동일하게 입력해 주세요").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");	
 		
+	}else if(!passwordRules.test(password)){
+		$('#pwdDiv').text("숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
+		
+	else if(password.indexOf(" ") != -1){
+		$('#pwdDiv').text("비밀번호에 공백을 사용하실 수 없습니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
+
 	}else if(nickname == null || nickname == ""){
 	
 		$('#nicknameDiv').text("닉네임을 입력해 주세요").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
 	
 	}else{
-		
+
+		if(nickname != '${nickname}'){
+			newNickname = '1';
+		}
 		
 		$.ajax({
 			
@@ -319,18 +279,21 @@ let username = document.getElementById('username').value;
 			url: '/member/revise',
 			data: {'username':username,
 					'password':password,
-					'nickname':nickname },
+					'nickname':nickname,
+					'myCareer':myCareer,
+					'newNickname':newNickname
+			},
 			beforeSend:function(xhr){
 						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 			},
 			success: function(data){
 
-				if(data =='onlyNickname'){
+				if(data =='success'){
 					
 					Swal.fire({
 						  icon: 'success',
-						  title: '닉네임 변경 완료',
-						  text: '닉네임이 변경 되었습니다.',
+						  title: '변경 완료',
+						  text: '변경 되었습니다.',
 					}).then((result) => {
 						
 						location.href="/myPage";
@@ -375,13 +338,19 @@ let username = document.getElementById('username').value;
 					
 		});
 		
-		
 	}
 	
 });
 
 </script>
 <script type="text/javascript">
+function showPwdRules(){
+	Swal.fire({
+		title : '비밀번호 생성 규칙',
+		text : '영문과 숫자를 포함한 8~16자리로 설정해야합니다.'
+	});
+}
+
 
 function getStudyInfo(){
 	let header_label = document.getElementById('header_label');

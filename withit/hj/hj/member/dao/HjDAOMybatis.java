@@ -135,6 +135,15 @@ public class HjDAOMybatis implements HjDAO {
 	}
 
 	@Override
+	public void careerRevise(Map<String, String> map) {
+		sqlSession.update("hjSQL.careerRevise", map);
+	}
+
+	@Override
+	public void careerPasswordRevise(Map<String, String> map) {
+		sqlSession.update("careerPasswordRevise", map);
+	}
+	
 	public List<BBoardDTO> getBBoardList(Search search) {
 		
 		return sqlSession.selectList("hjSQL.getBBoardList", search);

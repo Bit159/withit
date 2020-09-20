@@ -1,20 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>자유게시판</title>
-<link rel="stylesheet" href="/resources/sj/css/boardList.css">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/sj/css/boardList.css">
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 	<div class="body_wrapper">
         <div class="body_container">
-            <h1>자유게시판</h1>
+            <h1 id="board_header">자유게시판</h1>
             <div class="list_wrapper">
                 <ul class="list_group">
                     <li class="list_group_item">

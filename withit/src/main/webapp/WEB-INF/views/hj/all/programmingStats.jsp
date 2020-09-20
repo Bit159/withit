@@ -2,15 +2,12 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-<!-- default header name is X-CSRF-TOKEN -->
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
-<title>관리자 프로그래밍 통계</title>
-<link rel="stylesheet" href="/resources/hj/css/programmingStats.css">
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/hj/css/programmingStats.css">
 </head>
+
 <body>
 <div id="wrap">
     
@@ -106,8 +103,8 @@
 <script type="text/javascript">
  $(document).ready(function(){
 	
-	 var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;
+	var csrfHeaderName = document.getElementById('csrf_header').content;
+	var csrfTokenValue = document.getElementById('csrf').content;
 	
 	$.ajax({
 		type: 'post',
@@ -139,8 +136,8 @@
 $(document).ready(function(){
 	//alert("111");
 	
-	var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;
+	var csrfHeaderName = document.getElementById('csrf_header').content;
+	var csrfTokenValue = document.getElementById('csrf').content;
 	
 	//console.log(csrfHeaderName);
 	//console.log(csrfTokenValue);

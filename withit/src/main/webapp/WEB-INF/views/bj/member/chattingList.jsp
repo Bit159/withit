@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>    
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,20 +36,6 @@
 	    width: 400px;
 	    height : 600px;
 	    background-color: white;
-	}
-	
-	.close {	
-	    color: #aaa;	
-	    float: right;	
-	    font-size: 28px;	
-	    font-weight: bold;	
-	}
-	
-	.close:hover,
-	.close:focus {
-	    color: black;
-	    text-decoration: none;
-	    cursor: pointer;
 	}
 	
 	.chat_list_wrap .header {
@@ -101,6 +86,10 @@
 	    padding-right: 11px;
 	}
 	
+	.chat_td{
+		vertical-align: top;
+	}
+	
 	.chat_name{
 		font-size: 15px;
 		font-weight : 1000;
@@ -137,6 +126,20 @@
 	}
 	
 	li{
+	    cursor: pointer;
+	}
+	
+	.close {	
+	    color: #aaa;	
+	    float: right;	
+	    font-size: 28px;	
+	    font-weight: bold;	
+	}
+	
+	.close:hover,
+	.close:focus {
+	    color: black;
+	    text-decoration: none;
 	    cursor: pointer;
 	}
 	
@@ -251,7 +254,7 @@
 		<span class="close">&times;</span>
 		<div class="chat_list_wrap" id="chat_list_wrap">
 		    <div class="header">
-		        Synergy
+		        withIT
 		    </div>
 		    <div class="search">
 		        <input type="text" placeholder="이메일 검색" />
@@ -264,21 +267,21 @@
 		                        <td class="profile_td">
 		                            <img src="/resources/bj/image/chatting.png"/>
 		                        </td>
-		                        <td class="chat_td">
+		                        <td class="chat_td" style="vertical-align:top;">
 		                        	<div class="chat_name">
 		                        		전체 채팅방
 		                        	</div>
 		                        	
-		                            <div class="email" id="email">
+		                            <div class="email" id="chattingRoom_email">
 		                                
 		                            </div>
 		                            
-		                            <div class="chat_preview" id="chat_preview">
+		                            <div class="chat_preview" id="chattingRoom_chat_preview">
 		                               	 
 		                            </div>
 		                        </td>
 		                        <td class="time_td">
-		                            <div class="time" id="time">
+		                            <div class="time" id="chattingRoom_time">
 		                                
 		                            </div>
 		                            <div id="chattingRoom_check">
@@ -357,9 +360,9 @@ $(document).ready(function(){
     	url : '/member/getAllChatting',
     	dataType : 'json',
     	success : function(data){
-    		document.getElementById("email").innerHTML += data.chattingRoomDTO.nickname;
-    		document.getElementById("time").innerHTML += data.chattingRoomDTO.chat_date;
-    		document.getElementById("chat_preview").innerHTML += data.chattingRoomDTO.chat;
+    		document.getElementById("chattingRoom_email").innerHTML += data.chattingRoomDTO.nickname;
+    		document.getElementById("chattingRoom_time").innerHTML += data.chattingRoomDTO.chat_date;
+    		document.getElementById("chattingRoom_chat_preview").innerHTML += data.chattingRoomDTO.chat;
     	}
 	});
 });
@@ -446,8 +449,11 @@ function connect(chattingRoom){
 function send(data){
 	let chat = document.getElementById('messageInput').value;
 	
-	stompClient.send("/app/message", {}, JSON.stringify({'nickname' : '${nickname}', 'chat' : chat, 'chattingRoom' : data.id, 'username' : username }))
+	if(chat == null || chat == ""){
+		return;
+	}
 	
+	stompClient.send("/app/message", {}, JSON.stringify({'nickname' : '${nickname}', 'chat' : chat, 'chattingRoom' : data.id, 'username' : username }))
 	document.getElementById("messageInput").value="";
 	
 	/*
@@ -504,12 +510,11 @@ function onMessageReceived(payload){
 	if(document.getElementById('modal').style.display == 'none'){
 		toastr.options = {
 				closeButton : true,
-				progressBar : true,
 				onclick: function(){
 					$('#modal').fadeIn();
 					$('#chatting').fadeOut();
 				},
-				timeOut : 4000
+				timeOut : 5000
 		}
 		toastr.success(message.chat, message.nickname);
 	}

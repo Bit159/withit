@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>    
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,14 @@
 <link rel="stylesheet" href="/resources/hj/css/join.css">
 <script defer type="text/javascript" src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script defer type="text/javascript" scr="/resources/hj/css/join.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/hj/css/join.css">
+	<script defer type="text/javascript" src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script defer type="text/javascript" scr="/resources/hj/css/join.js"></script>
 </head>
+
 <body>
 <jsp:include page="/WEB-INF/views/kh/template/header.jsp"/>
 	<div class="joinDiv">
@@ -34,21 +41,22 @@
 					</div>
 					
 					<div class="join-area">
-						<input type="password" name="password" id="password" autocomplete="off" placeholder="영문,숫자  4글자 이상">
+						<input type="password" name="password" id="password" autocomplete="off" placeholder="영문,숫자  포함 8~16자리">
 						<label for="pwd">PASSWORD</label>
 						<div class="passwordDiv"></div>
 					</div>
 					
 					<div class="join-area">
-						<input type="password" name="repwd" id="repwd" autocomplete="off" placeholder="다시한번 입력해 주세요">
+						<input type="password" name="repwd" id="repwd" autocomplete="off">
 						<label for="repwd">RE-PASSWORD</label>
 						<div class="rePasswordDiv"></div>
 					</div>
 				
 					<div class="join-area">
 						<input type="number" id="mycareer" name="mycareer" style="width: 45%;" autocomplete="off" required>
-						<label for="mycareer">Career</label>
+						<label for="mycareer">Career</label><br>
 						<div class="careerDiv"></div>
+						<div style="font-size:8pt;color:gray;margin-top:5px;"><span style="color:red;">&emsp;*</span>경력 년수를 입력해주세요!</div>
 					</div>
 					<div class="buttonDiv"></div>
 					<div class="btn-area">
@@ -70,8 +78,8 @@ var checkNick = false;
 //아이디 중복검사
 function checkUsername(){
 	
-	var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;	
+	var csrfHeaderName = document.getElementById('csrf_header').content;
+	var csrfTokenValue = document.getElementById('csrf').content;	
 	
 	var emailValidate = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	
@@ -122,8 +130,8 @@ function checkUsername(){
 //닉네임 중복검사
 function checkNickname(){
 	
-	var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;	
+	var csrfHeaderName = document.getElementById('csrf_header').content;
+	var csrfTokenValue = document.getElementById('csrf').content;	
 	
 	let nickname = $('#nickname').val();
 	
@@ -168,7 +176,7 @@ function checkNickname(){
 //유효성 검사
 
 function validate() {
-	var pwdValidate = /^[a-zA-Z0-9]{4,12}$/ // 패스워드가 적합한지 검사할 정규식
+	var pwdValidate = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/;/ // 패스워드가 적합한지 검사할 정규식
 	var emailValidate = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	       // 이메일이 적합한지 검사할 정규식
 	       
@@ -247,6 +255,13 @@ function validate() {
 		
 		
 	}
+}
+
+function showPwdRules(){
+	Swal.fire({
+		title : '비밀번호 생성 규칙',
+		text : '영문과 숫자를 포함한 8~16자리로 설정해야합니다.'
+	});
 }
 
 </script>

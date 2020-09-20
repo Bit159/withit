@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>회원가입</title>
-<link rel="stylesheet" href="../resources/css/join.css">
-<script defer src="../resources/js/join.js"></script>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="../resources/css/join.css">
+	<script defer src="../resources/js/join.js"></script>
 </head>
+
 <body>
 <div class="nav">
 	<nav>

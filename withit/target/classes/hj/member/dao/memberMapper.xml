@@ -35,17 +35,6 @@
   		select * from membertable where username=#{username}
   	</select>
   	
-  	<!-- 패스워드 닉네임 변경 -->
-  	<update id="revise" parameterType="java.util.Map">
-  		update membertable set nickname=#{nickname}, password=#{password} where username=#{username}
-  	</update>
-  	
-  	<!-- only 닉네임 변경 -->
-  	<update id="nicknameRevise" parameterType="java.util.Map">
-  		update membertable set nickname=#{nickname}, myCareer=#{myCareer} where username=#{username}
-  	</update>
-  	
-	
 	<!-- 회원 탈퇴 시키기 -->
 	<delete id="memberDelete" parameterType="String">
 		delete from membertable where username=#{username}
@@ -217,5 +206,25 @@
 	<select id="passwordRevise" parameterType="java.util.Map">
 		update membertable set password=#{password} where nickname=#{nickname}
 	</select>
+	
+	<!-- 커리어 비번 변경 -->
+	<update id="careerPasswordRevise" parameterType="java.util.Map">
+		update membertable set myCareer=#{myCareer}, password=#{password} where username=#{username}
+	</update>
+	
+	<!-- 다 변경-->
+  	<update id="revise" parameterType="java.util.Map">
+  		update membertable set nickname=#{nickname},myCareer=#{myCereer}, password=#{password} where username=#{username}
+  	</update>
+  	
+  	<!-- 닉네임, 커리어 변경 -->
+  	<update id="nicknameRevise" parameterType="java.util.Map">
+  		update membertable set nickname=#{nickname}, myCareer=#{myCareer} where username=#{username}
+  	</update>
+  	
+  	<!-- 경력 사항 변경 -->
+  	<update id="careerRevise" parameterType="java.util.Map">
+  		update membertable set myCareer=#{myCareer} where username=#{username}
+  	</update>
 	  
   </mapper>

@@ -1,17 +1,19 @@
 package bj.member.controller;
 
+import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.google.api.plus.moments.ReviewActivity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +24,11 @@ import bj.member.bean.ChattingRoomDTO;
 import bj.member.bean.MemberDTO;
 import bj.member.service.MemberService;
 import rich.notify.Email;
+import sj.board.bean.BBoardDTO;
+import sj.board.bean.BBoardReplyDTO;
+import sj.board.paging.Pagination;
+import sj.board.paging.Search;
+import sj.board.service.BoardService;
 
 @Controller
 public class MemberController{
@@ -29,6 +36,8 @@ public class MemberController{
 	private MemberService memberService;
 	@Autowired
 	private Email email;
+	@Autowired
+	private BoardService boardService;
 	
 	//=========================================== 로그인
 	
@@ -83,11 +92,6 @@ public class MemberController{
 	}
 	
 	//============================================================== 채팅방
-		
-	@GetMapping("/member/chattingList")
-	public String chattingList() {
-		return "/member/chattingList";
-	}
 	
 	@PostMapping("/member/getChattingRoom")
 	@ResponseBody
@@ -138,6 +142,54 @@ public class MemberController{
 	@ResponseBody
 	public void createChat() {
 		memberService.createChat();
+	}
+	
+	//=========================================================== 공지사항
+	
+	@GetMapping("/notice")
+	public ModelAndView notice(@RequestParam(required=false, defaultValue = "1") int pg
+						   	 ,@RequestParam(required=false, defaultValue = "1") int range
+						   	 , @RequestParam(required = false, defaultValue = "title") String searchType
+							 , @RequestParam(required = false) String keyword
+							 , @ModelAttribute("search") Search search) throws Exception {
+		
+		/* Search search = new Search(); */
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+		
+		// 페이지
+		int page =  pg;
+		System.out.println("페이지"+page+"범위"+range);
+		
+		// 검색, 페이징 적용된 전체 게시글 수
+		int listCnt = boardService.getBBoardListCnt(search); 
+		int listCntN = memberService.getNoticeListCnt(search);
+		
+		// 검색
+		search.pageInfo(page, range, listCntN);
+		
+		// 페이지네이션
+		Pagination paging = new Pagination();
+		paging.pageInfo(page, range, listCntN); 
+		System.out.println("paging: "+paging);
+		
+		// 검색, 페이징 적용된 보드리스트
+		//List<BBoardDTO> list = boardService.getBBoardList(search); 
+		List<BBoardDTO> list = memberService.getNoticeList(search);
+		
+		// 작성시간 표시 위한 현재 Date 객체
+		Date now = new Date();
+		
+		ModelAndView mav = new ModelAndView();
+		// 검색
+		mav.addObject("search",search);
+		// 페이징(검색 적용)
+		mav.addObject("paging",search);
+		mav.addObject("list", list);
+		mav.addObject("now", now);
+		mav.setViewName("/bj/all/notice");
+		return mav;
+
 	}
 	
 }
