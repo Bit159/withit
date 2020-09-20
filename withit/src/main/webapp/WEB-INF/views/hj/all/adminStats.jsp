@@ -6,7 +6,6 @@
 <head>
 	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
 	<link rel="stylesheet" href="/resources/hj/css/adminStats.css">
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </head>
 
 <body>
@@ -284,9 +283,11 @@ $(document).ready(function(){
 $(document).ready(function(){
 	//alert("111");
 	
-	var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;
 	
+	
+	
+	var csrfHeaderName = document.getElementById('csrf_header').content;
+	var csrfTokenValue = document.getElementById('csrf').content;
 	//console.log(csrfHeaderName);
 	//console.log(csrfTokenValue);
 	
@@ -403,8 +404,8 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	
-	 var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;
+	var csrfHeaderName = document.getElementById('csrf_header').content;
+	var csrfTokenValue = document.getElementById('csrf').content;
 	
 	$.ajax({
 		type: 'post',
