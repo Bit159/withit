@@ -3,12 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
-<link rel="stylesheet" href="/resources/hj/css/adminBoard.css">
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/hj/css/adminBoard.css">
 </head>
+
 <body>
 
 <div id=body_wrapper>

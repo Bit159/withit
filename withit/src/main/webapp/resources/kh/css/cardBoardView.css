@@ -146,6 +146,7 @@ textarea[id="reply"] {
 	font-size: 12pt;
 	font-weight: 550;
 	margin:0;
+	resize : vertical
 }
 div[class="reply_write_item"] {
 	display:flex;
@@ -156,7 +157,8 @@ div[class="reply_write_button"] {
 	padding:15px;
 }
 div[class="reply_write_button"] button {
-	width:100%;
+	width:100px;
+	height:50px;
 	padding:10px;
 	margin:5px;
 }

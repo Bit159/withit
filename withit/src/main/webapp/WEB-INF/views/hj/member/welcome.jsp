@@ -3,10 +3,11 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
 </head>
+
 <body>
 
 로그인 성공

@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>    
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,12 @@
 <script defer type="text/javascript" scr="/resources/hj/css/join.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/hj/css/join.css">
+	<script defer type="text/javascript" src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script defer type="text/javascript" scr="/resources/hj/css/join.js"></script>
 </head>
+
 <body>
 <jsp:include page="/WEB-INF/views/kh/template/header.jsp"/>
 	<div class="joinDiv">
@@ -73,8 +78,8 @@ var checkNick = false;
 //아이디 중복검사
 function checkUsername(){
 	
-	var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;	
+	var csrfHeaderName = document.getElementById('csrf_header').content;
+	var csrfTokenValue = document.getElementById('csrf').content;	
 	
 	var emailValidate = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	
@@ -125,8 +130,8 @@ function checkUsername(){
 //닉네임 중복검사
 function checkNickname(){
 	
-	var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;	
+	var csrfHeaderName = document.getElementById('csrf_header').content;
+	var csrfTokenValue = document.getElementById('csrf').content;	
 	
 	let nickname = $('#nickname').val();
 	

@@ -4,17 +4,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-<!-- default header name is X-CSRF-TOKEN -->
-<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
-<title>관리자 페이지</title>
-<link rel="stylesheet" href="/resources/hj/css/adminBoard.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/hj/css/adminBoard.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
 </head>
+
 <body>
     
     <!-- 가운데 main 내용 -->
@@ -28,6 +25,12 @@
                     	<a href="/admin" class="aside_menu_list_3_a">
                         <img src="/resources/hj/image/task2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
                         <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 49px;"/>
+                    	</a>
+                    </li>
+                    <li class="aside_menu_list_6">
+                    	<a href="/adminFreeView" class="aside_menu_list_6_a">
+                        <img src="/resources/hj/image/freeBoard.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Board Management
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 2px;"/>
                     	</a>
                     </li>
                     <li class="aside_menu_list_1">
@@ -267,8 +270,8 @@ function fn_prev(page, range, rangeSize, searchType, keyword) {
 <script type="text/javascript">
 
 
-var csrfHeaderName = "${_csrf.headerName}";
-var csrfTokenValue = document.getElementById('_csrf').content;
+var csrfHeaderName = document.getElementById('csrf_header').content;
+var csrfTokenValue = document.getElementById('csrf').content;
 
 
 	
@@ -310,7 +313,7 @@ for(let i = 0; i<a.length; i++){
 					
 					a[i].parentElement.parentElement.remove();
 					
-					location.href = "/admin";
+					location.reload(true);
 				},
 				error: function(err){
 					console.log(err);

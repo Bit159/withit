@@ -1,25 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>자유게시판</title>
-<link rel="stylesheet" href="/resources/sj/css/boardList.css">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="/resources/sj/js/welcome.js" defer></script>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/sj/css/boardList.css">
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="/resources/sj/js/welcome.js" defer></script>
 </head>
+
 <body>
 	<div class="body_wrapper">
         <div class="body_container">
-            <!-- <h1>외부게시판</h1> -->
             <div class="list_wrapper">
                 <ul class="list_group">
                     <li class="list_group_item">
                         <div class="bno">글번호</div>
-                        <!-- <div class="topic">말머리</div> -->
                         <div class="title">제목</div>                        
                         <div class="nickname">작성자</div>
                         <div class="boarddate">작성시간</div>
@@ -49,11 +47,13 @@
                 </ul>
             </div>
             
+            <!-- 글 생성 버튼 -->
+			<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
+			<!-- 글 생성 버튼 -->
+            
             <!-- pagination{s} -->
 			<div id="paginationBox">
-				<!-- 글 생성 버튼 -->
-				<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
-				<!-- 글 생성 버튼 -->
+				
 				<ul class="pagination">
 					<c:if test="${paging.first}">
 						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/synergy/bboard/boardList?pg=1&range=1'">《</a></li>

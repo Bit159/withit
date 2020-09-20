@@ -8,8 +8,8 @@ $(document).ready(function(){
 		var reply = $("#reply_writer_text").val();
 		var bno = document.querySelector('div.view_bno').innerText;
 		var param = "reply="+reply+"&bno="+bno;
-		var csrfHeader = document.getElementById('_csrf_header').content;
-		var csrfToken = document.getElementById('_csrf').content;
+		var csrfHeader = document.getElementById('csrf_header').content;
+		var csrfToken = document.getElementById('csrf').content;
 		console.log(csrfHeader);
 		console.log(csrfToken);
 		
@@ -54,8 +54,8 @@ $(document).ready(function(){
 		let rno = $(this).data('rno'); // data-rno
 		var bno = document.querySelector('div.view_bno').innerText;
 		
-		var csrfHeader = document.getElementById('_csrf_header').content;
-		var csrfToken = document.getElementById('_csrf').content;
+		var csrfHeader = document.getElementById('csrf_header').content;
+		var csrfToken = document.getElementById('csrf').content;
 		
 		var param = "rno="+rno+"&bno="+bno;
 		
@@ -138,8 +138,8 @@ $(document).ready(function(){
 		let rno = $(this).data('rno') // data-rno
 		var reply = $(this).parent().parent().children('textarea.reply_modify_text').val();
 		console.log(reply);
-		var csrfHeader = document.getElementById('_csrf_header').content;
-		var csrfToken = document.getElementById('_csrf').content;
+		var csrfHeader = document.getElementById('csrf_header').content;
+		var csrfToken = document.getElementById('csrf').content;
 		
 		var param = "reply="+reply+"&rno="+rno;
 		console.log(param);

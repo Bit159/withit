@@ -2,17 +2,13 @@
     pageEncoding="UTF-8"%>    
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-<!-- default header name is X-CSRF-TOKEN -->
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
-<title>관리자 회원 통계</title>
-<link rel="stylesheet" href="/resources/hj/css/adminStats.css">
-    
-<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/hj/css/adminStats.css">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </head>
+
 <body>
     
        
@@ -27,6 +23,12 @@
                     	<a href="/admin" class="aside_menu_list_3_a">
                         <img src="/resources/hj/image/task2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Management
                         <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 49px;"/>
+                    	</a>
+                    </li>
+                    <li class="aside_menu_list_6">
+                    	<a href="/adminFreeView" class="aside_menu_list_6_a">
+                        <img src="/resources/hj/image/freeBoard.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Board Management
+                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 2px;"/>
                     	</a>
                     </li>
                     <li class="aside_menu_list_1">
@@ -107,8 +109,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;
+	var csrfHeaderName = document.getElementById('csrf_header').content;
+	var csrfTokenValue = document.getElementById('csrf').content;
 	
 	console.log(csrfHeaderName);
 	console.log(csrfTokenValue);

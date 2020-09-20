@@ -4,23 +4,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Okky 게시판</title>
-<link rel="stylesheet" href="/resources/sj/css/boardList.css">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<style>
-*:focus {
-	outline-style: none;
-}
-</style>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/sj/css/boardList.css">
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 	
 	<div class="body_wrapper">
         <div class="body_container">
-            <h1>Okky 게시판</h1>
+            <h1 id="board_header">Okky 게시판</h1>
             <div class="list_wrapper">
                 <ul class="list_group">
                     <li class="list_group_item">
@@ -69,7 +65,7 @@
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')">〈</a></li>
 					</c:if>
 					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-						<li class="page-item"><a class="page-link-${idx }" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')"> ${idx} </a></li>
+						<li class="page-item"><a class="page-link-${idx }" href="#" onClick="fn_pagination('${idx}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')">${idx}</a></li>
 						<input type="hidden" id="hidden-page" value="${paging.page }">
 					</c:forEach>
 					<c:if test="${paging.next}">

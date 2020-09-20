@@ -5,7 +5,6 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
-    <title>스터디 모집</title>
     <link rel="stylesheet" href="/resources/kh/css/card.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.0/css/all.min.css"/>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
@@ -111,7 +110,7 @@
 	                        <i class="fab fa-swift fa-2x" style="color:Orange;"></i><span id="topicIcon">&nbsp;Swift</span>
 	                        </c:when>
 	                       	<c:when test="${topic eq '모각코'}">
-	                        <i class="fas fa-laptop-code fa-2x" style="color:silver;"></i><span id="topicIcon" style="width:100px;font-size: 15pt">&nbsp;모각코</span>
+	                        <i class="fas fa-laptop-code fa-2x" style="color:silver;"></i><span id="topicIcon" style="width:110px;font-size: 15pt">&nbsp;모각코</span>
 	                        </c:when>
 	                        </c:choose>
 	                        <input type="hidden" id="hidden-open" value="${dto.open }">
@@ -149,6 +148,9 @@
             	</div>
 	        </c:forEach>
             </c:if>
+            <c:if test="${list.size() eq 0}">
+				<img width="500px" src="/resources/kh/image/nodata.jpg">
+			</c:if>
         </div>
         </form>
         <!-- pagination{s} -->

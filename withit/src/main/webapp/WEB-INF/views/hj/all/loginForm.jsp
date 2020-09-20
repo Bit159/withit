@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <head>
-	<meta charset="UTF-8">
-	<title>로그인</title>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
 	<script src="../resources/js/login.js" defer></script>
 	<link rel="stylesheet" href="../resources/css/login.css"/>
 </head>
+
 <body>
 	<nav class="navbar">
 		<div class="logoDiv">

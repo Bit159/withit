@@ -128,7 +128,7 @@
 	
 	<!-- 유저가 매칭값을 제거할 때 사용되는 SQL -->
 	<delete id="deleteMatch" parameterType="hj.member.bean.MatchDTO">
-		DELETE FROM db.match WHERE `username`=#{username} and `x`=#{x} and `y`=#{y} and `range`=#{range} and `career`=#{career} and `people`=#{people}	
+		DELETE FROM db.match WHERE `mno`=#{mno} 	
 	</delete>
 	
 	<!-- End of FOR MAP -->

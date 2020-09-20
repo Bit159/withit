@@ -2,7 +2,10 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  outline-style: none;
 }
+
+
 input[id="search"] {
   width: 65%;
   height: 40px;
@@ -72,4 +75,95 @@ div[id="wrap"] {
 
 h1[id="matchTitle"] {
 	text-align: center;
+}
+
+
+
+/* 2020.09.20 추가*/
+section[id="cardWrapper"] {
+  padding-top: 10px;
+  width: 1150px;
+  /*height: 900px; match.js에서 처리하기로함*/ 
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+div[class="card"] {
+  width: 250px;
+  height: 365px;
+  margin: 15px;
+  font-family: "Poppins", sans-serif;
+  border-radius: 5%;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+div[class="cardHeader"] {
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-bottom: 2px solid #32be78;
+  margin-bottom: 3px;
+}
+
+button[class="cardDeleteButton"] {
+  position: relative;
+  top: -1.5px;
+  border: 1px solid #32be78;
+  border-radius: 5px;
+  background-color:white;
+}
+
+div[class="cardInfo"] {
+  font-family: "Poppins", sans-serif;
+  padding: 10px;
+  font-size: 15px;
+}
+
+div[class="cardInfo"]>div>span{
+	font-weight: 550;
+}
+
+h2[id="matchTitle"] {
+  margin-top: 30px;
+  text-align: center;
+}
+
+button[id="key"] {
+  position: relative;
+  padding: 10px;
+  border: 2px solid rgb(50, 190, 120);
+  border-radius: 10px;
+  background: white;
+  color: black;
+  cursor: pointer;
+  outline-style: none;
+  font-size: 15px;
+  font-weight: 550;
+}
+
+
+div[class="mapdiv"] {
+	margin-top:10px;
+	margin-bottom:5px;
+	width: 100%;
+	height: 200px;
+}
+
+h3[id="emptyAlert"] {
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 100px;
+	margin-bottom:100px;
+	
+}
+
+
+div[class="cardInfo"] {
+	margin-left:24px;
+}
+
+div[class="matchDiv"] {
+	min-height: calc(100vh - 400px);
 }

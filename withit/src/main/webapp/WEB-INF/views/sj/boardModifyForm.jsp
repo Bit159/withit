@@ -2,13 +2,12 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta id="_csrf" name="_csrf" content="${_csrf.token}">
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
-<title>게시글 수정</title>
-<link rel="stylesheet" href="/resources/sj/css/boardModifyForm.css">
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/sj/css/boardModifyForm.css">
 </head>
+
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 	<div id="boardModifyWrapper">
@@ -52,8 +51,8 @@
     	var param = "title="+title+"&content="+content+"&nickname="+nickname+"&bno="+bno;
     	
     	
-    	var csrfHeader = document.getElementById('_csrf_header').content;
-		var csrfToken = document.getElementById('_csrf').content;
+    	var csrfHeader = document.getElementById('csrf_header').content;
+		var csrfToken = document.getElementById('csrf').content;
 		console.log(csrfHeader);
 		console.log(csrfToken);
     	

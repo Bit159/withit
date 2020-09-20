@@ -6,7 +6,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
-<title>위드잇</title>
 <link rel="stylesheet" href="/resources/kh/css/cardBoardView.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">

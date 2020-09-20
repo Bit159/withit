@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>    
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -255,7 +254,7 @@
 		<span class="close">&times;</span>
 		<div class="chat_list_wrap" id="chat_list_wrap">
 		    <div class="header">
-		        Synergy
+		        withIT
 		    </div>
 		    <div class="search">
 		        <input type="text" placeholder="이메일 검색" />

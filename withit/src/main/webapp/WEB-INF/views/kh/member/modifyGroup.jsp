@@ -6,7 +6,6 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
-<title>위드잇</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/kh/css/createGroup.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />	

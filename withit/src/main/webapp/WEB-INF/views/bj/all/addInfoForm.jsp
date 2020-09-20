@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>추가 정보 입력</title>
-<link rel="stylesheet" href="/resources/bj/css/addInfoForm.css">
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
+	<link rel="stylesheet" href="/resources/bj/css/addInfoForm.css">
 </head>
+
 <body>
 <jsp:include page="/WEB-INF/views/kh/template/header.jsp"/>
 <section id="addInfoForm" class="addInfoForm">
