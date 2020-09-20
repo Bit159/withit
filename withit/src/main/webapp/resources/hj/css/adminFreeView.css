@@ -344,6 +344,7 @@ div[class="title"]{
     width: 56%;
     overflow: hidden;
     text-overflow: ellipsis;
+   
 }
 div[class="replys"]{
     width: 7%;
