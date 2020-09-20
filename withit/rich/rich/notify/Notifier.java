@@ -23,7 +23,6 @@ public class Notifier {
 	@Async
 	@Scheduled(cron = "0 0/10 * * * *")
 	public void getOnTimeList() {
-		System.out.println("10분마다 작동하는 알림 메일 발송");
 		List<NotDTO> onTimeList = richDAO.getOnTimeList();
 		for(NotDTO dto : onTimeList) email.send(dto.getUsername(), dto.getTitle(), dto.getContent());
 	}

@@ -56,7 +56,6 @@ public class AOP_Config {
 	@Async
 	@After("execution(public * rich.crawl.Crawler.getList(..))")
 	public void getContent() {
-		System.out.println("10분마다 작동하는 글 내용 삽입을 위한 애프터");
 		List<String> list = richDAO.getEmptyContentBno();
 		if (list.size() == 0)
 			return;
@@ -71,7 +70,7 @@ public class AOP_Config {
 			try {
 				doc = Jsoup.connect(url).get();
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
+				email.send("ztzy1907@gmail.com", "크롤링중 에러 발생", e.getMessage());
 			}
 
 			CBoardDTO cboardDTO = new CBoardDTO();
@@ -99,13 +98,8 @@ public class AOP_Config {
 	@Async
 	@AfterReturning("execution(public * com.bit159.withit.HomeController.home(..))")
 	public void after() {
-		System.out.println("---------------------------------------------------------");
-		System.out.println("match db 삽입 후 매칭 검증을 위한 after Returning");
 		List<MatchDTO> listFromMatch = hjDAO.getListFromMatch();
 		List<MatchDTO> rangeValidatedList = rangeValidation(listFromMatch);
-		System.out.println();
-		System.out.println("최종결과");
-		System.out.println(rangeValidatedList);
 		
 		//매칭된 리스트가 존재할 경우
 		if(rangeValidatedList != null) {
@@ -162,7 +156,6 @@ public class AOP_Config {
 	
 	public List<MatchDTO> rangeValidation(List<MatchDTO> listFromMatch) { // match 테이블 전체 리스트를 파라메타로 받는다.
 		for(MatchDTO dto : listFromMatch) System.out.print(dto.toString()+" ");
-		System.out.println();
 		List<MatchDTO> result = null;
 		
 		for (int i = 0; i < listFromMatch.size(); i++) { 
@@ -180,7 +173,6 @@ public class AOP_Config {
 			
 			rangeValidation(sourceList, candidateList, rangeValidatedList, 0);
 			if(rangeValidatedList.isEmpty()) {
-				System.out.println(i + "번째 기준 " + listFromMatch.get(i).toString() + "매칭 실패");
 			}else {
 				result = rangeValidatedList;
 				break;

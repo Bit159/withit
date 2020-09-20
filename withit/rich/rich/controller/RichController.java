@@ -59,15 +59,6 @@ public class RichController {
 		return richDAO.removeSchedule(no);
 	}
 	
-	//일정 수정하기
-	@PostMapping("/updateSchedule")
-	@ResponseBody
-	public int updateSchedule(@RequestBody JSONObject json) {
-		NotDTO dto = new NotDTO();
-		System.out.println(json);
-		return 0;
-	}
-	
 	//일정보기 페이지
 	@GetMapping("/schedules")
 	public String schedules() {

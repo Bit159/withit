@@ -45,7 +45,7 @@ public class Crawler {
 		try {
 			doc = Jsoup.connect(url).get(); // -- 1. get방식의 URL에 연결해서 가져온 값을 doc에 담는다.
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			email.send("ztzy1907@gmail.com", "크롤링 중 에러 발생", e.getMessage());
 		}
 
 		Elements titles = doc.select(selector); // -- 2. doc에서 selector의 내용을 가져와 Elemntes 클래스에 담는다.
