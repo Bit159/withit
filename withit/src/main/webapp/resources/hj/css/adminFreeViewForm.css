@@ -13,9 +13,9 @@ html, body{
 }
 
 button {
-   border: solid 1px rgb(40, 32, 114);
+   border: solid 1px #525965;
    color:white;
-   background:rgb(40, 32, 114);
+   background:#525965;
    cursor:pointer;
 }
 
@@ -26,15 +26,16 @@ button {
 .aside{
    float: left; 
    width: 20%;
-   height: 900px;
+   height: 1500px;
    margin: 0;
+   
 }
 
 .aside_menu{
     width: 98%;
     height: 100%;
-    background-color: rgb(40, 32, 114);
-
+    background-color: #525965;
+	overflow: hidden;
 }
 
 .aside_menu_list{
@@ -74,26 +75,7 @@ button {
     color: rgba(200, 200, 200, 200);
 }
 
-.aside_menu_list_2{
-    
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: rgb(255, 255, 255);
-    height: 50px;
-    line-height: 50px;
-    padding-top: 10px;
-}
 
-.aside_menu_list_2_a{
-	text-decoration: none;
-	border: none;
-	color:white;
-	cursor: pointer;
-}
-
-.aside_menu_list_2:hover{
-    color: rgba(200, 200, 200, 200);
-}
 
 
 .aside_menu_list_3{
@@ -288,12 +270,12 @@ input[id="menuicon"]:checked + label + div {
 
 .section{
     float: left;
-    width: 80%;
+    width: 70%;
     height: 800px;
 }
 
 div[class="boardwrapper"]{
-    border-left: 3px solid rgb(40, 32, 114);
+    border-left: 3px solid rgb(200, 241, 221);
     margin-left:30px;
 }
 
@@ -411,11 +393,7 @@ div[class="reply"]{
     padding-right: 10px;
 }
 
-div[class="reply_button"]{
 	
-	
-	
-}
 button[class="modifyBtn"]{
 	width:70px;
     height: 30px;

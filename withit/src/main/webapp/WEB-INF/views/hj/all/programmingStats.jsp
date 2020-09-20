@@ -92,8 +92,10 @@
                 <canvas id="myChart"></canvas>
             </div>
             <div class="totalDiv">
-            	<div class="nameTotal" id="nameTotal">총 게시판 수</div>
+            	<img class="nameTotal" src="/resources/hj/image/board.png">
+            	<!-- <div class="nameTotal" id="nameTotal">총 게시판 수</div> -->
             	<div class="totalProgramming" id="totalProgramming"></div>
+            	<div class="totalName">TotalBoard</div>
         	</div>
         </section>
         <footer class="footer"></footer>

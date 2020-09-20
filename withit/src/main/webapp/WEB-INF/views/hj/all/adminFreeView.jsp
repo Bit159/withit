@@ -42,12 +42,6 @@
                         <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 80px;"/>
                     	</a>
                     </li>
-                    <li class="aside_menu_list_2">
-                    	<a href="/adminProgrammingStats" class="aside_menu_list_2_a">
-                        <img src="/resources/hj/image/chartIcon4.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
-                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 46px;"/>
-                    	</a>
-                    </li>
                     <li class="aside_menu_list_4">
                     	<a href="/adminLocationMap" class="aside_menu_list_4_a">
                         <img src="/resources/hj/image/map2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
@@ -99,9 +93,20 @@
         	
         	<div class="body_container">
 	            
+	            <!-- search{s} -->
+	            
+					<div id="searchDiv">
+						<select name="searchType" id="searchType">
+							<option value="title">제목</option>
+							<option value="nickname">작성자</option>
+						</select>
+						<input type="text" name="keyword" id="keyword" >
+						<button name="btnSearch" id="btnSearch">검색</button>
+					</div>
+
 	            <div class="list_wrapper">
 	                <ul class="list_group">
-	                    <li class="list_group_item">
+	                    <li class="list_group_item_top">
 	                        <div class="bno">글번호</div>
 	                        <!-- <div class="topic">말머리</div> -->
 	                        <div class="title" id="titleHeader">제목</div>                        
@@ -163,15 +168,7 @@
 					</ul>
 				</div>
 				
-				<!-- search{s} -->
-				<div id="searchDiv">
-					<select name="searchType" id="searchType">
-						<option value="title">제목</option>
-						<option value="nickname">작성자</option>
-					</select>
-					<input type="text" name="keyword" id="keyword" >
-					<button name="btnSearch" id="btnSearch">검색</button>
-				</div>
+				
 	            
 	            
 	            
@@ -258,7 +255,7 @@ $(document).on('click', '#btnSearch', function(e){
 
 
 //현재 페이지 음영처리
-$('.page-link-'+$('#hidden-page').val()).css('background','#0065a5').css('color','white');
+$('.page-link-'+$('#hidden-page').val()).css('background','#525965').css('color','white');
 
 
 </script>

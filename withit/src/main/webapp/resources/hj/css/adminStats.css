@@ -24,7 +24,7 @@ html, body{
 .aside_menu{
     width: 98%;
     height: 100%;
-    background-color: rgb(40, 32, 114);
+    background-color: #525965;
 }
 
 .aside_menu_list{
@@ -65,26 +65,7 @@ html, body{
     color: rgba(200, 200, 200, 200);
 }
 
-.aside_menu_list_2{
-    cursor: pointer;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: rgb(255, 255, 255);
-    height: 50px;
-    line-height: 50px;
-    padding-top: 10px;
-}
 
-.aside_menu_list_2_a{
-	text-decoration: none;
-	border: none;
-	color:white;
-}
-
-
-.aside_menu_list_2:hover{
-    color: rgba(200, 200, 200, 200);
-}
 
 
 .aside_menu_list_3{
@@ -263,7 +244,7 @@ input[id="menuicon"]:checked + label + div {
 
 .header{
     float: left;
-    width: 70%;
+    width: 80%;
     height: 100px;
     
 }
@@ -285,22 +266,22 @@ input[id="menuicon"]:checked + label + div {
 
 .section{
     float: left;
-    width: 70%;
+    width: 80%;
     height: 700px;
 }
 
 .section_chart{
     padding-top: 80px;  
     padding-left: 50px;  
-    width: 500px;
+    width: 450px;
     height: 300px; 
     float: left;
 	display: inline-block;
 }
 
 .totalDiv{
-	width: 300px;
-	height: 100px;
+	width: 450px;
+	height: 300px;
 	display: inline-block;
 	float:left;
 	padding-top: 80px;
@@ -311,24 +292,47 @@ input[id="menuicon"]:checked + label + div {
 	list-style: none;
 }
 
+.totalDivUl{
+	border-left: 5px solid #4e73df!important;
+	height: 100px;
+	border-radius: .35rem;  
+	
+}
+
+.totalDivUl2{
+	border-left: 5px solid #4e73df!important;
+	height: 100px;
+	border-radius: .35rem;
+	
+}
+
 .totalList{
-	background-color: rgb(150,100,100);
-	color: white;
-	font-size: 20px;
-	text-align: center;
-	border-bottom: solid;
-	border-bottom-color: white;
-	border-bottom-width: medium;
+	font-size: 25px;
 	font-weight: bold;
+	color:#4e73df!important;
+	height: 50px;
+	line-height:50px;
 }
 
 .totalList2{
-	text-align: center;
-	font-size: 80px;
-	background-color: rgb(200,150,150);
-	color: white;
-	height: 170px;
-	line-height:170px;
+	
+	font-size: 20px;
+	height: 50px;
+	line-height:50px;
+}
+
+.totalList3{
+	font-size: 25px;
+	height: 50px;
+	line-height:50px;
+	font-weight: bold;
+	color:#4e73df!important;
+}
+
+.totalList4{
+	font-size: 20px;
+	height: 50px;
+	line-height:50px;
 }
 
 #myChart{
@@ -336,12 +340,22 @@ input[id="menuicon"]:checked + label + div {
 }
 
 
-.section_chart2{
-	padding-left: 50px;  
-    width: 500px;
+.section_chart2{  
+    width: 450px;
     height: 300px;
-		
+    display: inline-block;
+    float:left;
+    padding-left: 50px;  
 }
+
+.section_chart3{
+	width: 450px;
+	height: 300px;
+	display: inline-block;
+	float:left;
+	margin-left:40px;
+}
+
 
 .footer{
     float: left;

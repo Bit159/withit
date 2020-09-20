@@ -25,7 +25,7 @@ html, body{
 .aside_menu{
     width: 98%;
     height: 100%;
-    background-color: rgb(40, 32, 114);
+    background-color: #525965;
 
 }
 
@@ -66,26 +66,7 @@ html, body{
     color: rgba(200, 200, 200, 200);
 }
 
-.aside_menu_list_2{
-    
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: rgb(255, 255, 255);
-    height: 50px;
-    line-height: 50px;
-    padding-top: 10px;
-}
 
-.aside_menu_list_2_a{
-	text-decoration: none;
-	border: none;
-	color:white;
-	cursor: pointer;
-}
-
-.aside_menu_list_2:hover{
-    color: rgba(200, 200, 200, 200);
-}
 
 
 .aside_menu_list_3{
@@ -350,7 +331,7 @@ input[id="menuicon"]:checked + label + div {
 /* 검색창 */
 
 .searchDiv{
-    margin-top: 100px;
+    margin-top: 80px;
     text-align: right; 
  }
  
@@ -367,35 +348,13 @@ input[id="menuicon"]:checked + label + div {
  #btnSearch{
      width: 5%;
      height:30px;
-     background-color: rgb(40, 32, 114);
-	border-color: rgb(40, 32, 114);
+     background-color: #525965;
+	border-color: #525965;
 	color: white;
 	font-weight: bold;
  }
 
-/*페이징 창*/
-/* 
-.page-link{
-    text-decoration: none;
-    border: solid;
-    border-width: 1px;
-    border-color: gray;
-    padding: 5px 10px 5px 10px;
-}
 
-.paginationDiv{
-	width: 100%;
-	text-align: center;
-}
-
-.pagination{
-    margin-top: 15px;
-    display: inline-flex;
-}
-
-.pagination li{
-    list-style: none; 
-} */
 
 
 div[id="paginationBox"] {

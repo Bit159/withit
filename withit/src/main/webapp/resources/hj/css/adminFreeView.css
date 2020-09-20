@@ -13,9 +13,9 @@ html, body{
 }
 
 button {
-   border: solid 1px rgb(40, 32, 114);
+   border: solid 1px #525965;
    color:white;
-   background:rgb(40, 32, 114);
+   background:#525965;
    cursor:pointer;
 }
 
@@ -32,7 +32,7 @@ button {
 .aside_menu{
     width: 98%;
     height: 100%;
-    background-color: rgb(40, 32, 114);
+    background-color: #525965;
 
 }
 
@@ -73,26 +73,6 @@ button {
     color: rgba(200, 200, 200, 200);
 }
 
-.aside_menu_list_2{
-    
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: rgb(255, 255, 255);
-    height: 50px;
-    line-height: 50px;
-    padding-top: 10px;
-}
-
-.aside_menu_list_2_a{
-	text-decoration: none;
-	border: none;
-	color:white;
-	cursor: pointer;
-}
-
-.aside_menu_list_2:hover{
-    color: rgba(200, 200, 200, 200);
-}
 
 
 .aside_menu_list_3{
@@ -285,7 +265,7 @@ input[id="menuicon"]:checked + label + div {
 
 .section{
     float: left;
-    width: 70%;
+    width: 75%;
     height: 700px;
 }
 
@@ -293,7 +273,7 @@ input[id="menuicon"]:checked + label + div {
 div[class="body_container"]{
     position: relative;
     margin: 0 auto;
-    width: 1280px;
+    width: 100%;
     min-height: 500px;
     margin-top: 20px;
 }
@@ -302,7 +282,7 @@ h1{
     margin-bottom: 25px;
 }
 div[class="list_wrapper"]{
-	margin-top:90px;
+	margin-top:10px;
     margin-bottom: 20px;
     margin-left: 30px;
     background-color: #fff;
@@ -313,9 +293,25 @@ ul[class="list_group"]{
     padding-left: 0;
     border: 1px solid;
     border-color: #ddd;
-    border-left: 3px solid rgb(40, 32, 114);
-    font-weight: bold;
+    
+    
 }
+
+li[class="list_group_item_top"]{
+	display: flex;
+    border: 1px solid;
+    border-color: #ddd;
+    text-align: center;
+    height: 45px;
+    line-height: 45px; 
+    background-color: rgb(239,239,239);
+    font-weight: 700;
+    font-size: 18px;
+    border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
+}
+
 li[class="list_group_item"]{
     display: flex;
     border: 1px solid;
@@ -323,10 +319,9 @@ li[class="list_group_item"]{
     text-align: center;
     height: 45px;
     line-height: 45px; 
-	/* 
-	height: 80px;
-    line-height: 80px; 
-    */
+    font-weight: 600;
+    border-left: 3px solid rgb(200, 241, 221);
+	
 }
 
 
@@ -346,15 +341,15 @@ div[class="bno"]{
 
 div[class="title"]{
 	white-space: nowrap;
-    width: 60%;
+    width: 56%;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 div[class="replys"]{
-    width: 5%;
+    width: 7%;
 }        
 div[class="hit"]{
-    width: 5%;
+    width: 7%;
 }
 div[class="nickname"]{
 	white-space: nowrap;
@@ -376,38 +371,17 @@ a#titleA:active { color: black; text-decoration: none; }
 
 /* 검색 창*/
 
-.searchDiv{
-   text-align: center; margin-top: 40px;
-}
+
 
 #keyword{
-    width: 40%; margin-left: 30px; margin-right: 30px;
+    
 }
 
-#searchOption{
-    width: 12%;
-}
 
-#searchBtn{
-    width: 12%;
-}
 
 
 
 /*페이징 창*/
-
-.pagination{
-    width: 100%;
-	list-style: none; 
-    margin-top: 15px;
-    text-align: center;
-    
-}
-
-.pagination li{
-    display: inline-block;
-}
-
 
 a{
     text-decoration: none;
@@ -415,14 +389,13 @@ a{
 }
 
 div[id="paginationBox"] {
-	display: flex;
 	text-align: center;
 	vertical-align: center;
 	width:100%;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 div[id="paginationBox"] ul {
-	
+	display:inline-flex;
 }
 div[id="paginationBox"] ul li{
 	list-style: none;
@@ -440,15 +413,18 @@ div[id="paginationBox"] ul li a {
 
 
 div[id="searchDiv"]{
-	display: flex;
-	justify-content: center;
+	
+	text-align: right;
+	margin-top: 80px;
 }
 select[id="searchType"]{
 	width: 80px;
 	height: 35px;
 }
 input[id="keyword"]{
-	width: 500px;
+	width: 30%; 
+	margin-left: 5px; 
+	margin-right: 5px;
 	height: 30px;
 }
 button[id="btnSearch"]{

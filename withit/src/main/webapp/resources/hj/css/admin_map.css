@@ -24,7 +24,7 @@ html, body{
 .aside_menu{
     width: 98%;
     height: 100%;
-    background-color: rgb(40, 32, 114);
+    background-color: #525965;
 }
 
 .aside_menu_list{
@@ -64,25 +64,6 @@ html, body{
     color: rgba(200, 200, 200, 200);
 }
 
-.aside_menu_list_2{
-    cursor: pointer;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom-color: rgb(255, 255, 255);
-    height: 50px;
-    line-height: 50px;
-    padding-top: 10px;
-}
-
-.aside_menu_list_2_a{
-	text-decoration: none;
-	border: none;
-	color:white;
-}
-
-.aside_menu_list_2:hover{
-    color: rgba(200, 200, 200, 200);
-}
 
 
 .aside_menu_list_3{

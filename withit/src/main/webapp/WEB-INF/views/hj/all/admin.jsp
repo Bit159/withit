@@ -42,12 +42,6 @@
                         <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 80px;"/>
                     	</a>
                     </li>
-                    <li class="aside_menu_list_2">
-                    	<a href="/adminProgrammingStats" class="aside_menu_list_2_a">
-                        <img src="/resources/hj/image/chartIcon4.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Programming
-                        <img src="/resources/hj/image/right2.png" style="width: 13px; height: 13px; padding-left: 46px;"/>
-                    	</a>
-                    </li>
                     <li class="aside_menu_list_4">
                     	<a href="/adminLocationMap" class="aside_menu_list_4_a">
                         <img src="/resources/hj/image/map2.png" style="width: 13px; height: 13px; margin-right: 10px;"/>Location Map
@@ -229,7 +223,7 @@ function fn_prev(page, range, rangeSize, searchType, keyword) {
 
 	}
 
-	   $('.page-link-'+$('#hidden-page').val()).css('background','#0065a5').css('color','white');
+	   $('.page-link-'+$('#hidden-page').val()).css('background','#525965').css('color','white');
   
 	//다음 버튼 이벤트
 
