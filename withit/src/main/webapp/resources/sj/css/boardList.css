@@ -27,7 +27,7 @@ div[class="body_container"]{
     min-height: 500px;
     margin-top: 20px;
 }
-h1{
+h1[id="board_header"]{
     text-align: center;            
     margin-bottom: 25px;
 }
@@ -155,9 +155,4 @@ input[id="keyword"]{
 button[id="btnSearch"]{
 	width: 70px;
 	height: 30px;
-}
-
-
-*:focus {
-	outline-style: none;
 }
