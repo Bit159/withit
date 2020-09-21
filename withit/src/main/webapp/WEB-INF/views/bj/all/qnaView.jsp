@@ -100,7 +100,7 @@
 								</label>
 								<div class="reply_writer_div">
 									<textarea id="reply_writer_text"></textarea>
-									<button type="submit" id="reply_writer_btn" data-page="${paging.page }" data-range="${paging.range }">등록</button>
+									<div class="reply_writer_button"><button type="submit" id="reply_writer_btn" data-page="${paging.page }" data-range="${paging.range }">등록</button></div>
 								</div>
 								<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
 							</div>

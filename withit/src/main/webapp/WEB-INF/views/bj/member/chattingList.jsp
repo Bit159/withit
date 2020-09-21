@@ -3,10 +3,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
-	* {
+	/* * {
 	    margin: 0;
 	    padding: 0;
-	}
+	}*/
 	
 	.modal {
 		font-size : 11px;
@@ -249,7 +249,7 @@
 <script defer type="text/javascript" src="/resources/bj/js/stomp.min.js"></script>
 <script defer type="text/javascript" src="/resources/bj/js/toastr.min.js"></script>
 <sec:authentication property="principal.username" var="username"/>
-<div class="modal" id="modal">
+<div class="modal" id="modal" style="display:none;">
 	<div id="modal-content" class="modal-content">
 		<span class="close">&times;</span>
 		<div class="chat_list_wrap" id="chat_list_wrap">
@@ -257,7 +257,7 @@
 		        withIT
 		    </div>
 		    <div class="search">
-		        <input type="text" placeholder="이메일 검색" />
+		        <input type="text"/>
 		    </div>
 		    <div class="list">
 		        <ul id="chattingRoomList">
@@ -508,6 +508,7 @@ function onMessageReceived(payload){
 	}
 	
 	if(document.getElementById('modal').style.display == 'none'){
+		console.log(message.chattingRoom);
 		toastr.options = {
 				closeButton : true,
 				onclick: function(){

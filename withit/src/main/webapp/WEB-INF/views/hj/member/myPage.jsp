@@ -145,9 +145,8 @@ var btn = document.getElementById("withdrawBtn");
 
 btn.onclick = async function(){
 
-
-	var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenValue = "${_csrf.token}";
 
 	await Swal.fire({
 		  title: '회원을 탈퇴 하시겠습니까?',
@@ -247,8 +246,8 @@ $('#reviseBtn').click(function(){
 	let username = document.getElementById('username').value;
 	let myCareer = document.getElementById('myCareer').value;
 	let newNickname = '0';
-	var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;	
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenValue = "${_csrf.token}";
 	
 	$('#pwdDiv').empty();	
 	$('#nicknameDiv').empty();
@@ -257,17 +256,11 @@ $('#reviseBtn').click(function(){
 		
 		$('#pwdDiv').text("비밀번호를 동일하게 입력해 주세요").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");	
 		
-	}else if(!passwordRules.test(password)){
-		$('#pwdDiv').text("숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
-		
-	else if(password.indexOf(" ") != -1){
-		$('#pwdDiv').text("비밀번호에 공백을 사용하실 수 없습니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
-
 	}else if(nickname == null || nickname == ""){
 	
 		$('#nicknameDiv').text("닉네임을 입력해 주세요").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
 	
-	}else{
+	}else if(password == ""){
 
 		if(nickname != '${nickname}'){
 			newNickname = '1';
@@ -295,8 +288,8 @@ $('#reviseBtn').click(function(){
 						  title: '변경 완료',
 						  text: '변경 되었습니다.',
 					}).then((result) => {
-						
-						location.href="/myPage";
+						logout();
+						//location.href="/myPage";
 					
 					})
 					
@@ -338,7 +331,13 @@ $('#reviseBtn').click(function(){
 					
 		});
 		
+	}else if(!passwordRules.test(password)){
+		$('#pwdDiv').text("숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
+		
+	}else if(password.indexOf(" ") != -1){
+		$('#pwdDiv').text("비밀번호에 공백을 사용하실 수 없습니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
 	}
+
 	
 });
 
@@ -386,6 +385,13 @@ function showMenu(obj){
         content.style.display="none";
     }
     obj.classList.toggle("1");
+}
+
+function logout(){
+	let form = document.reviseForm;
+	form.action="/logout";
+	form.method="post";
+	form.submit();
 }
 </script>
 </body>
