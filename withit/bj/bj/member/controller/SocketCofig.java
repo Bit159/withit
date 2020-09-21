@@ -1,5 +1,11 @@
 package bj.member.controller;
 
+import java.net.URI;
+import java.util.Objects;
+
+import javax.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -18,7 +24,9 @@ public class SocketCofig implements WebSocketMessageBrokerConfigurer{
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/chat").withSockJS();
+		registry.addEndpoint("/chat")
+				.setAllowedOrigins("*")
+				.withSockJS();
 	}
 	
 }
