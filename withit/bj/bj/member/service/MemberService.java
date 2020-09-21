@@ -7,6 +7,7 @@ import bj.member.bean.ChattingDTO;
 import bj.member.bean.ChattingRoomDTO;
 import bj.member.bean.MemberDTO;
 import sj.board.bean.BBoardDTO;
+import sj.board.bean.BBoardReplyDTO;
 import sj.board.paging.Search;
 
 public interface MemberService {
@@ -25,5 +26,14 @@ public interface MemberService {
 	public void newPwd(Map<String, String> map);
 	public int getNoticeListCnt(Search search);
 	public List<BBoardDTO> getNoticeList(Search search);
+	public BBoardDTO getNotice(int bno);
+	public void noticeHipUpdate(int bno);
+	public List<BBoardReplyDTO> getNoticeReplyList(int bno);
+	public void noticeReply(Map<String, Object> map);
+	public void noticeReplyDelete(Map<String, Integer> map);
+	public void noticeReplyModify(Map<String, Object> map);
+	public void noticeDelete(int bno);
+	public void noticeWrite(Map<String, Object> map);
+	public void noticeModify(Map<String, Object> map);
 
 }

@@ -14,6 +14,7 @@ import bj.member.bean.ChattingDTO;
 import bj.member.bean.ChattingRoomDTO;
 import bj.member.bean.MemberDTO;
 import sj.board.bean.BBoardDTO;
+import sj.board.bean.BBoardReplyDTO;
 import sj.board.paging.Search;
 
 @Transactional
@@ -176,6 +177,51 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public List<BBoardDTO> getNoticeList(Search search) {
 		return sqlSession.selectList("memberSQL.getNoticeList", search);
+	}
+
+	@Override
+	public BBoardDTO getNotice(int bno) {
+		return sqlSession.selectOne("memberSQL.getNotice", bno);
+	}
+
+	@Override
+	public void noticeHitUpdate(int bno) {
+		sqlSession.update("memberSQL.noticeHitUpdate", bno);
+	}
+
+	@Override
+	public List<BBoardReplyDTO> getNoticeReplyList(int bno) {
+		return sqlSession.selectList("memberSQL.getNoticeReplyList", bno);
+	}
+
+	@Override
+	public void noticeReply(Map<String, Object> map) {
+		sqlSession.update("memberSQL.noticeReply", map);
+	}
+
+	@Override
+	public void noticeReplyDelete(Map<String, Integer> map) {
+		sqlSession.delete("memberSQL.noticeReplyDelete", map);
+	}
+
+	@Override
+	public void noticeReplyModify(Map<String, Object> map) {
+		sqlSession.update("memberSQL.noticeReplyModify", map);
+	}
+
+	@Override
+	public void noticeDelete(int bno) {
+		sqlSession.delete("memberSQL.noticeDelete", bno);
+	}
+
+	@Override
+	public void noticeWrite(Map<String, Object> map) {
+		sqlSession.insert("memberSQL.noticeWrite", map);
+	}
+
+	@Override
+	public void noticeModify(Map<String, Object> map) {
+		sqlSession.update("memberSQL.noticeModify", map);
 	}
 
 }
