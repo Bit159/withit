@@ -201,7 +201,7 @@ div[class="sidebar fixed"] > ul > li > a {
 input[id="menuicon"]:checked +label +div {right:0;}
 /* =============banner=============== */
 div[id="banner_wrapper"] {
-	min-height: calc(100vh - 380px);
+	min-height: calc(100vh - 350px);
 }
 #banner{
     position: relative;

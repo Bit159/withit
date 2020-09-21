@@ -14,6 +14,7 @@ html, body, div,h1,a,p {
     margin:0 auto;
     border:solid 3px lightgray;
     margin-top: 40px;
+    min-height: calc(110vh + 50px);
 }
 #selectBox {
 	background:rgb(243, 243, 243);
