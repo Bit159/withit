@@ -229,7 +229,7 @@ public class MemberController{
 		System.out.println("페이지"+page+"범위"+range);
 		
 		// 검색, 페이징 적용된 전체 게시글 수
-		int listCnt = boardService.getBBoardListCnt(search); 
+		int listCnt = memberService.getNoticeListCnt(search); 
 		
 		// 검색
 		search.pageInfo(page, range, listCnt);
@@ -373,5 +373,230 @@ public class MemberController{
 		return "success";
 	}
 	
+	//======================================================= QnA
 	
+	@GetMapping("/qna")
+	public ModelAndView qna(@RequestParam(required=false, defaultValue = "1") int pg
+		   	 ,@RequestParam(required=false, defaultValue = "1") int range
+		   	 , @RequestParam(required = false, defaultValue = "title") String searchType
+			 , @RequestParam(required = false) String keyword
+			 , @ModelAttribute("search") Search search) throws Exception {
+		
+		/* Search search = new Search(); */
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+		
+		// 페이지
+		int page =  pg;
+		System.out.println("페이지"+page+"범위"+range);
+		
+		// 검색, 페이징 적용된 전체 게시글 수
+		int listCnt = memberService.getQnaListCnt(search);
+		
+		// 검색
+		search.pageInfo(page, range, listCnt);
+		
+		// 페이지네이션
+		Pagination paging = new Pagination();
+		paging.pageInfo(page, range, listCnt); 
+		System.out.println("paging: "+paging);
+		
+		// 검색, 페이징 적용된 보드리스트
+		//List<BBoardDTO> list = boardService.getBBoardList(search); 
+		List<BBoardDTO> list = memberService.getQnaList(search);
+		
+		// 작성시간 표시 위한 현재 Date 객체
+		Date now = new Date();
+		
+		ModelAndView mav = new ModelAndView();
+		// 검색
+		mav.addObject("search",search);
+		// 페이징(검색 적용)
+		mav.addObject("paging",search);
+		mav.addObject("list", list);
+		mav.addObject("now", now);
+		mav.setViewName("/bj/all/qna");
+		
+		return mav;
+	}
+	
+	//================================================== QnA 뷰
+	 
+	@GetMapping("/qna/{bno}")
+	public ModelAndView qnaView(@PathVariable("bno") int bno
+						  	  ,@RequestParam(required=false, defaultValue = "1") int pg
+						  	  ,@RequestParam(required=false, defaultValue = "1") int range
+						  	  ,@RequestParam(required = false, defaultValue = "title") String searchType
+						  	  ,@RequestParam(required = false) String keyword
+						  	  ,HttpServletRequest request
+						  	  ,Principal principal) throws Exception {
+		
+		// 검색
+		Search search = new Search();
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+		
+		// 페이지
+		int page =  pg;
+		
+		// 검색, 페이징 적용된 전체 게시글 수
+		int listCnt = memberService.getQnaListCnt(search); 
+		
+		// 검색
+		search.pageInfo(page, range, listCnt);
+		
+		// 페이지네이션
+		Pagination paging = new Pagination();
+		paging.pageInfo(page, range, listCnt); 
+		
+		// 원글 불러오기
+		BBoardDTO bBoardDTO = memberService.getQna(bno);
+		
+		// 보드뷰 하단부 검색, 페이징 적용된 보드리스트
+		List<BBoardDTO> list = memberService.getQnaList(search);
+		
+		// 보드뷰 해당 리플 리스트
+		List<BBoardReplyDTO> replyList = memberService.getQnaReplyList(bno);
+		
+		// 조회수 1증가
+		memberService.qnaHipUpdate(bno);
+		
+		// 작성시간 표시 위한 현재 Date 객체
+		Date now = new Date();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("paging",search);
+		mav.addObject("bBoardDTO", bBoardDTO);
+		mav.addObject("list", list);
+		mav.addObject("now", now);
+		mav.addObject("replyList", replyList);
+		
+		//bj.member.controller.LoginSuccessHandler 에서 로그인 성공 시 session에 nickname 담아둠.
+		//세션에 담긴 nickname과 선택한 글의 nickname값을 검증하여 mav 객체에 boolean 결과값을 담아서 view로 보냄
+		boolean isAuthor = false;
+		if(principal != null) {
+			if(bBoardDTO.getUsername().equals(principal.getName())) {
+				isAuthor = true;
+			}
+		}
+		/*
+		 * if(bBoardDTO.getUsername().equals(request.getSession().getAttribute(
+		 * "nickname"))) { isAuthor = true; }
+		 */
+		mav.addObject("isAuthor", isAuthor);
+		mav.setViewName("/bj/all/qnaView");
+		return mav;
+	}
+	
+	//================================================== QnA 댓글 추가
+	
+		@PostMapping("/qna/qnaReply")
+		public ModelAndView qnaReply(@RequestParam String reply, int bno, Principal principal) {
+			String username = principal.getName();
+			String nickname = memberService.getNickname(username);
+			List<BBoardReplyDTO> replyList = memberService.getQnaReplyList(bno);
+			Date now = new Date();
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("bno",bno);
+			map.put("reply", reply);
+			map.put("username", username);
+			map.put("nickname", nickname);
+			map.put("now", now);
+			memberService.qnaReply(map);
+			
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("replyList", replyList);
+			mav.setViewName("jsonView");
+			
+			return mav;
+		}
+		
+		//======================================================= QnA 댓글 삭제
+		
+		@PostMapping("/qna/replyDelete")
+		@ResponseBody
+		public void qnaDelete(@RequestParam int rno, int bno) {
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("rno", rno);
+			map.put("bno", bno);
+			memberService.qnaReplyDelete(map);
+		}
+		
+		//======================================================= QnA 댓글 수정
+		
+		@PostMapping("/qna/replyModify")
+		@ResponseBody
+		public void qnaReply(@RequestParam String reply, int rno) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("rno",rno);
+			map.put("reply", reply);
+			
+			memberService.qnaReplyModify(map);
+		}
+		
+		//======================================================= QnA 삭제
+		
+		@PostMapping("/qna/qnaDelete")
+		@ResponseBody
+		public void qnaDelete(@RequestParam int bno) {
+			System.out.println(bno);
+			memberService.qnaDelete(bno);
+		}
+		
+		//======================================================= QnA 글쓰기, 수정 폼
+		
+		@GetMapping("/qna/qnaWriteForm")
+		public String qnaWriteForm() {
+			return "/bj/member/qnaWriteForm";
+		}
+		
+		@GetMapping("/qna/qnaModifyForm")
+		public ModelAndView qnaModifyForm(@RequestParam int bno) {
+			BBoardDTO bBoardDTO = memberService.getQna(bno);
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("bBoardDTO", bBoardDTO);
+			
+			mav.setViewName("/bj/member/qnaModifyForm");
+			
+			return mav;
+		}
+		
+		//======================================================= QnA 글쓰기, 수정 폼
+		
+		@PostMapping("/qna/qnaWrite")
+		@ResponseBody
+		public String qnaWrite(@RequestParam String title, String content, Principal principal, HttpServletRequest request) {
+			Date now = new Date();
+			
+			String username = principal.getName();
+			String nickname = memberService.getNickname(username);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("title",title);
+			map.put("content",content);
+			map.put("username", username);
+			map.put("nickname", nickname);
+			map.put("now", now);
+			
+			memberService.qnaWrite(map); 
+			
+			return "success";
+		}
+		
+		@PostMapping("/qna/qnaModify")
+		@ResponseBody
+		public String qnaModify(@RequestParam String title, String content, Principal principal, HttpServletRequest request, int bno) {
+			Date now = new Date();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("title",title);
+			map.put("content",content);
+			map.put("now", now);
+			map.put("bno", bno);
+			memberService.qnaModify(map);
+			
+			return "success";
+		}
+		
+		
 }

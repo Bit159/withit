@@ -224,4 +224,64 @@ public class MemberDAOImpl implements MemberDAO {
 		sqlSession.update("memberSQL.noticeModify", map);
 	}
 
+	@Override
+	public int getQnaListCnt(Search search) {
+		return sqlSession.selectOne("memberSQL.getQnaListCnt", search);
+	}
+
+	@Override
+	public List<BBoardDTO> getQnaList(Search search) {
+		return sqlSession.selectList("memberSQL.getQnaList", search);
+	}
+
+	@Override
+	public BBoardDTO getQnaList(int bno) {
+		return sqlSession.selectOne("memberSQL.getQnaList", bno);
+	}
+
+	@Override
+	public List<BBoardReplyDTO> getQnaReplyList(int bno) {
+		return sqlSession.selectList("memberSQL.getQnaReplyList", bno);
+	}
+
+	@Override
+	public void qnaHitUpdate(int bno) {
+		sqlSession.update("memberSQL.qnaHitUpdate", bno);
+	}
+
+	@Override
+	public void qnaReply(Map<String, Object> map) {
+		sqlSession.insert("memberSQL.qnaReply",map);
+	}
+
+	@Override
+	public void qnaReplyDelete(Map<String, Integer> map) {
+		sqlSession.delete("memberSQL.qnaReplyDelete", map);
+	}
+
+	@Override
+	public void qnaReplyModify(Map<String, Object> map) {
+		sqlSession.update("memberSQL.qnaReplyModify", map);
+	}
+
+	@Override
+	public void qnaDelete(int bno) {
+		sqlSession.delete("memberSQL.qnaDelete", bno);
+	}
+
+	@Override
+	public void qnaWrite(Map<String, Object> map) {
+		sqlSession.insert("memberSQL.qnaWrite", map);
+	}
+
+	@Override
+	public void qnaModify(Map<String, Object> map) {
+		sqlSession.update("memberSQL.qnaModify", map);
+	}
+
+	@Override
+	public BBoardDTO getQna(int bno) {
+		return sqlSession.selectOne("memberSQL.getQna", bno);
+	}
+
 }
