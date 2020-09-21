@@ -13,6 +13,7 @@ import bj.member.bean.ChattingRoomDTO;
 import bj.member.bean.MemberDTO;
 import bj.member.dao.MemberDAO;
 import sj.board.bean.BBoardDTO;
+import sj.board.bean.BBoardReplyDTO;
 import sj.board.paging.Search;
 
 @Service
@@ -104,6 +105,51 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<BBoardDTO> getNoticeList(Search search) {
 		return memberDAO.getNoticeList(search);
+	}
+
+	@Override
+	public BBoardDTO getNotice(int bno) {
+		return memberDAO.getNotice(bno);
+	}
+
+	@Override
+	public void noticeHipUpdate(int bno) {
+		memberDAO.noticeHitUpdate(bno);
+	}
+
+	@Override
+	public List<BBoardReplyDTO> getNoticeReplyList(int bno) {
+		return memberDAO.getNoticeReplyList(bno);
+	}
+
+	@Override
+	public void noticeReply(Map<String, Object> map) {
+		memberDAO.noticeReply(map);
+	}
+
+	@Override
+	public void noticeReplyDelete(Map<String, Integer> map) {
+		memberDAO.noticeReplyDelete(map);
+	}
+
+	@Override
+	public void noticeReplyModify(Map<String, Object> map) {
+		memberDAO.noticeReplyModify(map);
+	}
+
+	@Override
+	public void noticeDelete(int bno) {
+		memberDAO.noticeDelete(bno);
+	}
+
+	@Override
+	public void noticeWrite(Map<String, Object> map) {
+		memberDAO.noticeWrite(map);
+	}
+
+	@Override
+	public void noticeModify(Map<String, Object> map) {
+		memberDAO.noticeModify(map);
 	}
 
 	

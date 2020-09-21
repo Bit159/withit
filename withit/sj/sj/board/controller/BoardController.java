@@ -366,7 +366,7 @@ public class BoardController {
 	public ModelAndView replyModify(@RequestParam String reply, int rno, HttpSession session) {
 		System.out.println(reply);
 		System.out.println(rno);
-		/* String nickname = (String) session.getAttribute("nickname"); */
+		/* String nickname = (String) ses sion.getAttribute("nickname"); */
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("rno",rno);
 		map.put("reply", reply);

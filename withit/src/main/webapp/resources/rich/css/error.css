@@ -1,0 +1,60 @@
+@charset "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #32be78;
+}
+
+div[class="error"] {
+	font-size: 10rem;
+	color: white;
+	font-family: "Poppins", sans-serif;
+	margin: 0 auto;
+	width: 500px;
+	text-align: center;
+}
+
+div[id="nodataImage"] {
+	background-image: url("/resources/rich/image/nodatasmall.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 300px;
+	height: 300px;
+	margin: 0 auto;
+	margin-top: -35px;
+}
+
+div[class="msg"] {
+	width: 500px;
+	margin: 0 auto;
+	font-size: 2rem;
+	text-align: center;
+	color: white;
+	font-weight: 600;
+	text-shadow: gray 10px 2px 20px;
+	margin-top: -20px;
+}
+
+button {
+	margin-top: 30px;
+	text-decoration: none;
+	padding: 1rem 3rem;
+	color: black;
+	background: #fff;
+	border-radius: 1rem;
+	font-size: 1.5rem;
+	font-weight: bold;
+	cursor: pointer;
+	border: none;
+	box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0
+		rgba(0, 0, 0, 0.19);
+}
+
+button[id="back"] {
+	margin-left: 20px;
+}

@@ -3,19 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>공지사항</title>
+
 <link rel="stylesheet" href="/resources/sj/css/boardList.css">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script >
-</head>
-<body>
-	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 	<div class="body_wrapper">
         <div class="body_container">
-            <h1 id="board_header">공 지 사 항</h1>
             <div class="list_wrapper">
                 <ul class="list_group">
                     <li class="list_group_item">
@@ -100,9 +93,6 @@
 			
         </div>
     </div>
-    
-    <jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
-	
 	<c:url var="freeBoardURL" value="/freeBoard"></c:url>
 
 	<script type="text/javascript">
@@ -179,12 +169,10 @@
 
 		// 글생성 버튼
 		$(document).on('click', '#boardWriteBtn', function(){
-			location.href = "/notice/noticeWriteForm";
+			location.href = "/notice/noticeWrite";
 		});
 
 		// 현재 페이지 음영처리
 		$('.page-link-'+$('#hidden-page').val()).css('background','#0065a5').css('color','white');
 
 	</script>
-</body>
-</html>
