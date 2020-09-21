@@ -15,7 +15,7 @@
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 	<div class="body_wrapper">
         <div class="body_container">
-            <h1 id="board_header">공 지 사 항</h1>
+            <h1 id="board_header">Q & A</h1>
             <div class="list_wrapper">
                 <ul class="list_group">
                     <li class="list_group_item">
@@ -33,7 +33,7 @@
 	                    	<li class="list_group_item">
 	                    		<div class="bno"><c:out value="${dto.bno}" /></div>
 		                        <%-- <div class="topic"><c:out value="${dto.topic}" /></div> --%>
-		                        <div class="title"><a id="titleA" href="/notice/${dto.bno }?pg=${paging.page}&range=${paging.range}"><c:out value="${dto.title}" /></a></div>                        
+		                        <div class="title"><a id="titleA" href="/qna/${dto.bno }?pg=${paging.page}&range=${paging.range}"><c:out value="${dto.title}" /></a></div>                        
 		                        <div class="nickname"><c:out value="${dto.nickname}" /></div>
 		                        <div class="boarddate">
 		                        	<fmt:formatDate var="nowdate" pattern="yyyy-MM-dd" value="${now }"/>
@@ -56,7 +56,7 @@
             </div>
             
             <!-- 글 생성 버튼 -->
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <sec:authorize access="isAuthenticated()">
 				<button type="button" id="boardWriteBtn" name="boardWriteBtn">글생성</button>
 			</sec:authorize>
 			<!-- 글 생성 버튼 -->
@@ -66,7 +66,7 @@
 				
 				<ul class="pagination">
 					<c:if test="${paging.first}">
-						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/notice?pg=1&range=1&searchType=${search.searchType }&keyword=${search.keyword }'">《</a></li>
+						<li class="page-item"><a class="page-link" href="#" onClick="location.href='/qna?pg=1&range=1&searchType=${search.searchType }&keyword=${search.keyword }'">《</a></li>
 					</c:if>
 					<c:if test="${paging.prev}">
 						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${search.searchType }', '${search.keyword }')">〈</a></li>
@@ -103,7 +103,7 @@
     
     <jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
 	
-	<c:url var="notice" value="/notice"></c:url>
+	<c:url var="qna" value="/qna"></c:url>
 
 	<script type="text/javascript">
 		// 페이지 로딩시
@@ -119,7 +119,7 @@
 		function fn_prev(page, range, rangeSize, searchType, keyword) {
 			var page = ((range - 1) * rangeSize) ;
 			var range = range - 1;
-			var url = "${pageContext.request.contextPath}/notice";
+			var url = "${pageContext.request.contextPath}/qna";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			url = url + "&searchType=" + $('#searchType').val();
@@ -129,7 +129,7 @@
 		
 		// 페이지 번호 클릭
 		function fn_pagination(page, range, rangeSize, searchType, keyword) {
-			var url = "${pageContext.request.contextPath}/notice";
+			var url = "${pageContext.request.contextPath}/qna";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			url = url + "&searchType=" + $('#searchType').val();
@@ -141,7 +141,7 @@
 		function fn_next(page, range, rangeSize, searchType, keyword) {
 			var page = parseInt((range * rangeSize)) + 1;
 			var range = parseInt(range) + 1;
-			var url = "${pageContext.request.contextPath}/notice";
+			var url = "${pageContext.request.contextPath}/qna";
 			url = url + "?pg=" + page;
 			url = url + "&range=" + range;
 			url = url + "&searchType=" + $('#searchType').val();
@@ -151,7 +151,7 @@
 		
 		// 맨끝 버튼 이벤트
 		function fn_last(pageCnt, rangeSize, searchType, keyword) {
-			var url = "${pageContext.request.contextPath}/notice";
+			var url = "${pageContext.request.contextPath}/qna";
 			var range = Math.ceil(pageCnt/rangeSize);
 			url = url + "?pg=" + pageCnt;
 			url = url + "&range=" + range;
@@ -165,7 +165,7 @@
 
 			e.preventDefault();
 	
-			var url = "${notice}";
+			var url = "${qna}";
 	
 			url = url + "?searchType=" + $('#searchType').val();
 	
@@ -179,7 +179,7 @@
 
 		// 글생성 버튼
 		$(document).on('click', '#boardWriteBtn', function(){
-			location.href = "/notice/noticeWriteForm";
+			location.href = "/qna/qnaWriteForm";
 		});
 
 		// 현재 페이지 음영처리

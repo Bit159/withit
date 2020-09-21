@@ -27,7 +27,7 @@
                             <div class="view_nickname">${bBoardDTO.nickname }&emsp;</div>
                             <div class="view_boarddate"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${bBoardDTO.boarddate }"/></div>
                             <%--내가 작성한 글인지 검증한 뒤에 수정, 삭제 버튼을 노출시키는 부분 --%>
-                            <c:if test="${isAuthor eq true }">
+                            <c:if test="${isAuthor eq true}">
 	                            <button type="button" id="modifyBoardBtn" style="width: 70px" data-bno="${bBoardDTO.bno }" data-page="${paging.page }" data-range="${paging.range }" onclick="location.href='/notice/noticeModifyForm?bno=${bBoardDTO.bno }'">수정</button>
                             	<button type="button" id="deleteBoardBtn" style="width: 70px" data-bno="${bBoardDTO.bno }" data-page="${paging.page }" data-range="${paging.range }">삭제</button>
                             </c:if>
@@ -63,7 +63,7 @@
 					                                    <div class="reply_button">
 					                                    	<sec:authorize access="isAuthenticated()">
 					                                    	<sec:authentication property="principal.username" var="username"/>
-				                                    		<c:if test="${replydto.username eq username }">
+				                                    		<c:if test="${replydto.username eq username || username eq 'admin'}">
 							                                	<button type="button" class="modifyBtn" data-rno="${ replydto.rno }">수정</button>
 							                                	<button type="button" class="deleteBtn" data-rno="${ replydto.rno }">삭제</button>
 						                                	</c:if>
@@ -117,7 +117,7 @@
     <c:url var="boardListURL" value="/synergy/board/boardList"></c:url>
     
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="/resources/bj/js/noticeView.js" defer></script>
+	<script src="/resources/bj/js/qnaView.js" defer></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
 	
 </body>

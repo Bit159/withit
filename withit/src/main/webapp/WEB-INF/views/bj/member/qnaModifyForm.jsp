@@ -33,7 +33,7 @@
             </div>
             <div id="boardModifyButton">
                 <button type="button" id="boardModifyBtn">글 수정</button>
-                <button type="button" id="boardListBtn" onclick="location.href='/notice'">글 목록</button>
+                <button type="button" id="boardListBtn" onclick="location.href='/qna'">글 목록</button>
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
 		if(title != "" & content != ""){
 			$.ajax({
 				type : "post",
-				url : "/notice/noticeModify",
+				url : "/qna/qnaModify",
 				beforeSend: function(xhr){
 		    		xhr.setRequestHeader(csrfHeader, csrfToken);
 		    		
@@ -71,7 +71,7 @@
 							  '게시글이 수정 되었습니다.',
 							  'success'
 							).then((res)=>{
-								location.href='/notice/'+bno;
+								location.href='/qna/'+bno;
 				    		});;
 		    	},
 		    	error: function(err){

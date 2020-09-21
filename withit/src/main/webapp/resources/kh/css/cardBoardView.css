@@ -84,9 +84,11 @@ li[id="reply_group_top"]{
 	border-left-style:none;
 	border-right-style:none;
 	border-bottom: solid 3px #0060a5;
+	border-top-style:none;
 	font-weight: bold;
 	font-size: 20px;
 	cursor:default;
+	
 }
 div[class="view-reply"] {
 
@@ -138,6 +140,7 @@ div[class="reply_write"] {
 	border-left-style:none;
 	border-right-style:none;
 	border-bottom-style: none;
+	margin-top: 40px;
 }
 textarea[id="reply"] {
 	width:92%;

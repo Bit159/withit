@@ -9,7 +9,7 @@
 		<div class="footer">
 			<h1>서비스</h1>
 			<p onclick="location='/notice'" style="cursor:pointer;">공지사항</p>
-			<p>자주 묻는 질문</p>
+			<p onclick="location='/qna'" style="cursor:pointer;">Q n A</p>
 		</div>
 		<div class="footer">
 			<h1>프로젝트</h1>

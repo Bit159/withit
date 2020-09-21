@@ -39,6 +39,7 @@ h1{
 div[class="boardcontainer"]{
     display: flex;
     flex-direction: column;    
+    border:solid 2px lightgray;
     border-left: 3px solid #32be78;
     font-size: 20px;
     margin-bottom: 50px;
@@ -75,6 +76,7 @@ div[class="downside_right"]{
 div[class="board_body"]{
     min-height: 300px;
     border: 1px solid #ddd;
+    border-top:solid 3px #0065a5;
     border-bottom: none;
     padding: 10px;
     font-size: 20px;
@@ -83,7 +85,6 @@ div[class="board_body"]{
 div[class="board_footer"]{
     min-height: 300px;
     border: 1px solid #ddd;
-    padding: 10px;
 }
 
 div[class="view_bno"]{
@@ -91,15 +92,18 @@ div[class="view_bno"]{
 }
 div[class="view_title"]{
 	font-size: 110%;
+	font-weight: bold;
 }
 div[class="view_nickname"]{
     margin-right: 5px;
     line-height: 31px;
+    font-size: 20px;
 }
 
 div[class="view_boarddate"]{
    margin-right: 5px;
    line-height: 31px;
+   font-size: 18px;
 }
 button[id="modifyBoardBtn"]{
 	margin-left: 5px;
@@ -117,19 +121,21 @@ div[class="replywrapper"]{
 }
 
 div[class="reply_header"]{
-    width: 100px;
+	margin-top:40px;
 }
 button[class="origin"]{
 	width: 70px;
 	height: 30px;
 	margin-left: 10px;
 }
-
 li[class="replywrapper"]{
 	
 }
 div[class="reply_header"]{
-	margin-bottom: 20px;
+	padding:10px 15px 10px 15px;
+	width:100%;
+	font-weight: bold;
+	border-bottom: solid 3px #0065a5;
 }
 li[class="reply_group_item"]{
     display: flex;
@@ -156,13 +162,13 @@ div[class="reply_button"]{
 	
 }
 button[class="modifyBtn"]{
-	width:70px;
-    height: 30px;
+	width:60px;
+    height: 20px;
 	
 }
 button[class="deleteBtn"]{
-	width:70px;
-    height: 30px;
+	width:60px;
+    height: 20px;
 }
 
 
@@ -189,35 +195,34 @@ div[class="reply_writer_wrapper"]{
 	border: 1px solid #ddd;
 }
 div[class="reply_writer"]{
-    margin-top: 0px;
-    padding-top: 10px;
-}
-label[class="reply_writer_label"]{
-	padding-bottom: 10px;
-	padding-left: 20px;
-	font-weight: bold;
+    padding:10px 0 10px 10px;
+    border-left-style: none;
 }
 div[class="reply_writer_div"]{
 	display: flex;
-	 justify-content: space-between;
-	 padding: 10px;
+}
+div[class="reply_writer_button"] {
+	width:10%;
+	display:flex;
+	padding:17px 15px 15px 15px;
+	text-align:center;
 }
 textarea[id="reply_writer_text"]{
-	width: 1000px;
-	height: 100px;
-	padding: 4px 8px;
-	border: 1px solid #ddd;
-	margin-bottom: 10px;
-	resize: vertical;
-	font-size: 20px;
+	width:90%;
+	margin-top:10px;
+	padding:10px;
+	font-size: 12pt;
+	font-weight: 550;
+	margin:0;
+	height:90px;
+	resize : vertical;
 }
 button[id="reply_writer_btn"]{
-    width: 120px;
-    height: 50px;
-	border-radius: 3px;
+	width:100%;
+	height:50px;
+	display:flex;
 	text-align: center;
-	line-height: 50px;
-	vertical-align: bottom;
+	padding:15px 32px;
 }
 
 div[class="reply_modify_wrapper"]{
@@ -288,22 +293,24 @@ li.reply_group_item2{
 }
 div.itemwrapper{
     border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 20px;
+    padding: 10px 15px; 
+    border-left-style: none;
 }
 div.reply_nickname2{
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-weight: bold;
+    font-size: 19px;
 }
 div.replydate2{
-    margin-bottom: 10px;
     color: #ddd;
+    font-size: 17.3px;
 }
 div[class="reply_reply"]{
 	color: black;
-	margin-bottom: 20px;
+	padding:8px 0 10px 0;
 	height: auto;
 	white-space: pre-line;
+	font-size: 18px;
 }
 textarea[class="reply_modify_text1"]{
     width: 100%;

@@ -190,5 +190,105 @@
 		WHERE bno = #{bno}
 	</update>
 	
+	<!-- ============================ Q n A ============================ -->
+	
+	<!-- QNA 리스트 숫자 -->
+	<select id="getQnaListCnt" parameterType="pagination" resultType="int">
+		SELECT count(*) as listCnt 
+		FROM db.qna
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="keyword != null and keyword != '' ">
+	
+				<if test="searchType=='title'">
+	
+					AND TITLE like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	
+				<if test="searchType=='nickname'">
+	
+					AND nickname like CONCAT('%', #{keyword}, '%')
+	
+				</if>
+	      </if>
+		</trim>	
+	</select>
+	
+	<!-- qna 리스트 -->
+	
+	<select id="getQnaList" parameterType="pagination" resultType="bBoardDTO">
+		SELECT * 
+		FROM db.qna 
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+
+			<if test="searchType=='title' and keyword != null and keyword != '' ">
+
+				AND title like CONCAT('%', #{keyword}, '%')
+
+			</if>
+
+			<if test="searchType=='nickname' and keyword != null and keyword != '' ">
+
+				AND nickname like CONCAT('%', #{keyword}, '%')
+
+			</if>	
+
+		</trim>
+		ORDER BY bno desc
+		LIMIT #{startList},#{listSize};	
+	</select>
+	
+	<!-- QNA 클릭 시 정보 가져오기 -->	
+	<select id="getQna" parameterType="int" resultType="bBoardDTO">
+		select * from qna where bno=#{bno};
+	</select>
+	
+	<!-- QNA 조회수 증가 -->
+	<update id="qnaHitUpdate" parameterType="int">
+		update qna set hit=hit+1 where bno=#{bno}
+	</update>
+	
+	<!-- QNA 댓글 가져오기 -->
+	<select id="getQnaReplyList" parameterType="int" resultType="bBoardReplyDTO">
+		select * from db.qnaReply where bno=#{bno} order by bno desc
+	</select>
+	
+	<!-- QNA 댓글 추가 -->
+	<insert id="qnaReply" parameterType="java.util.Map">
+		insert into db.qnaReply (bno, reply, username, nickname, replydate, updatedate) values(#{bno}, #{reply}, #{username}, #{nickname}, #{now}, #{now});
+		update db.qna set replys=replys+1 where bno=#{bno};
+	</insert>
+	
+	<!-- QNA 댓글 삭제 -->
+	<delete id="qnaReplyDelete" parameterType="java.util.Map">
+		delete from db.qnaReply where rno=#{rno};
+		update db.qna set replys=replys-1 where bno=#{bno}
+	</delete>
+	
+	<!-- QNA 댓글 수정 -->
+	<update id="qnaReplyModify" parameterType="java.util.Map">
+		update db.qnaReply set reply = #{reply} where rno = #{rno}
+	</update>
+	
+	<!-- QNA 삭제 -->
+	<delete id="qnaDelete" parameterType="int">
+		delete from db.qna where bno=#{bno}
+	</delete>
+	
+	<!-- QnA 글 작성 -->
+	<insert id="qnaWrite" parameterType="java.util.Map">
+		INSERT 
+		INTO db.qna (title, content, username, nickname, boarddate, updatedate) 
+		values(#{title}, #{content}, #{username}, #{nickname}, #{now}, #{now})
+	</insert>
+	
+	<!-- QnA 글 수정 -->
+	<update id="qnaModify" parameterType="java.util.Map">
+		UPDATE db.qna
+		SET title = #{title}, content = #{content}, updatedate = #{now}
+		WHERE bno = #{bno}
+	</update>
+	
 </mapper>
  
