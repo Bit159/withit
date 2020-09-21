@@ -12,7 +12,7 @@
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 	<div id="boardModifyWrapper">
         <div id="boardModifyContainer">
-        	<h1>게시글 수정</h1>
+        	<h1 id="board_header">게시글 수정</h1>
             <!--
             <div id="boardWriteTopic">
                 <label for="" id="boardWriteTopicLabel"></label>
