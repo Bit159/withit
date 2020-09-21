@@ -265,11 +265,8 @@ input[id="menuicon"]:checked + label + div {
 
 /*main 내용*/
 
-
-
-h1{
-    text-align: center;
-    margin-bottom: 50px;
+div[id="boardWriteContainer"]{
+	margin-top:100px;
 }
 
 
