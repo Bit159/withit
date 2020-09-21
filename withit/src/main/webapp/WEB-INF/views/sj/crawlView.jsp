@@ -39,11 +39,11 @@
                 </div>
                 <div class="board_footer">
                     <div class="replywrapper">
-                        <div class="reply_header">댓글수 : ${cBoardDTO.replys }</div>
+                        <div class="reply_header">댓글 ${cBoardDTO.replys }개</div>
 	                        <ul class="reply_group">
 	                            <c:forEach var="replydto" items="${replyList }" varStatus="status">
 		                            	<c:if test="${not empty replydto }">
-		                            		<div calss="reply_group_div">
+		                            		<div class="reply_group_div">
 			                            		<li class="reply_group_item2">
 					                                <div class="itemwrapper">
 					                                    <div class="reply_nickname2">${replydto.nickname }</div>
@@ -88,12 +88,10 @@
 	                    <br><br>                        
 						<div class="reply_writer_wrapper">
 							<div class="reply_writer">
-								<label class="reply_writer_label">
-									댓글 쓰기
-								</label>
 								<div class="reply_writer_div">
 									<textarea id="reply_writer_text"></textarea>
-									<button type="button" id="reply_writer_btn" data-page="${paging.page }" data-range="${paging.range }">등록</button>
+									<div class="reply_writer_button"><button type="button" id="reply_writer_btn" data-page="${paging.page }" data-range="${paging.range }">등록</button>
+									</div>
 								</div>
 								<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
 							</div>

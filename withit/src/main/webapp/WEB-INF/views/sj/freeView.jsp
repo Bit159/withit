@@ -43,13 +43,11 @@
                 </div>
                 <div class="board_footer">
                     <div class="replywrapper">
-                        <div class="reply_header">댓글수 : ${bBoardDTO.replys }</div>
-	                        
+                        <div class="reply_header">댓글 ${bBoardDTO.replys }개</div>
 	                        <ul class="reply_group">
-	                            
 	                            <c:forEach var="replydto" items="${replyList }" varStatus="status">
 		                            	<c:if test="${not empty replydto }">
-		                            		<div calss="reply_group_div">
+		                            		<div class="reply_group_div">
 			                            		<li class="reply_group_item2">
 					                                <div class="itemwrapper">
 					                                    <div class="reply_nickname2">${replydto.nickname }</div>
@@ -57,9 +55,7 @@
 					                                    	<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${replydto.replydate }"/>
 					                                    </div>
 					                                    <%-- <textarea name="reply_modify_text1" class="reply_modify_text1" readonly="readonly">${replydto.reply }</textarea> --%>
-					                                    <div class="reply_reply">
-					                                    	${replydto.reply }
-					                                    </div>
+					                                    <div class="reply_reply">${replydto.reply }</div>
 					                                    <div class="reply_button">
 					                                    	<sec:authorize access="isAuthenticated()">
 					                                    	<sec:authentication property="principal.username" var="username"/>
@@ -92,15 +88,12 @@
 	                        
 	                    
 	                    <sec:authorize access="isAuthenticated()">
-	                    <br><br>
 						<div class="reply_writer_wrapper">
 							<div class="reply_writer">
-								<label class="reply_writer_label">
-									댓글 쓰기
-								</label>
 								<div class="reply_writer_div">
-									<textarea id="reply_writer_text"></textarea>
-									<button type="submit" id="reply_writer_btn" data-page="${paging.page }" data-range="${paging.range }">등록</button>
+									<textarea id="reply_writer_text" rows="3"></textarea>
+									<div class="reply_writer_button"><button type="submit" id="reply_writer_btn" data-page="${paging.page }" data-range="${paging.range }">등록</button>
+									</div>
 								</div>
 								<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
 							</div>
