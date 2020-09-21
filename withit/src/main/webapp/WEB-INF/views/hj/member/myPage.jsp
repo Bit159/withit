@@ -20,22 +20,7 @@
 			<header class="content_header">
                 <div class="header_label" id="header_label">개인 정보 관리</div>
             </header>
-			<aside class="content_aside" id="content_aside">
-				<div class="aside_menu" id="aside_menu">
-				<div class="study_wrap">
-					<div class="study_name" onclick="getMyInfo()">개인 정보 관리</div>
-				</div>
-
-				<div class="study_wrap">
-					<div class="study_name" onclick="showMenu(this)">JAVA Study</div>
-                    
-					<div class="study_content" id="study_content" style="padding:0;">
-                    	<div class="study" onclick="getStudyInfo()">&emsp; - 스터디 정보</div>
-                    	<div class="study">&emsp; - 일정 관리</div>
-                    </div>
-                </div>
-            	</div>
-			</aside>
+			
             <section class="content_section" id="content_section">
             	<div class="revise_wrap" id="revise_wrap">
 	                <form name="reviseForm" id="reviseForm" method="post" action="/synergy2/member/revise">
@@ -98,38 +83,7 @@
 	                    </div>
 	                </div>
                 </div>
-                <div id="study_info" align="center" style="display:none;">
-				<form name="infoForm" id="infoForm">
-					<table>
-						<tbody>
-							<tr>
-								<th class="table_left" style="width: 30%;">스터디 이름</th>
-								<td class="table_right" style="width: 500px;">&emsp; 자바 & 스프링 스터디 합시댜</td>
-							</tr>
-							<tr>
-								<th class="table_left">스터디 과목</th>
-								<td class="table_right">&emsp; 자바, 스프링</td>
-							</tr>
-						
-							<tr>
-								<th class="table_left">스터디 주제</th>
-								<td class="table_right">&emsp; MVC Spring Web 프로젝트</td>
-							</tr>
-							
-							<tr>
-								<th class="table_left">스터디 인원</th>
-								<td class="table_right">
-									&emsp; 뱅주(byungjoo104@gmail.com)<br>
-									&emsp; 근형(kkh@gmail.com) <br>
-									&emsp; 형중(jhj@gmail.com) <br>
-									&emsp; 세진(hsj@gmail.com) <br>
-									&emsp; 하진(jhj@gmail.com) <br>
-								</td>
-							</tr>        
-						</tbody>
-					</table>
-				</form>
-			</div>
+                
                 
             </section>
             <article class="content_article"></article>
@@ -145,9 +99,8 @@ var btn = document.getElementById("withdrawBtn");
 
 btn.onclick = async function(){
 
-
-	var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenValue = "${_csrf.token}";
 
 	await Swal.fire({
 		  title: '회원을 탈퇴 하시겠습니까?',
@@ -247,8 +200,8 @@ $('#reviseBtn').click(function(){
 	let username = document.getElementById('username').value;
 	let myCareer = document.getElementById('myCareer').value;
 	let newNickname = '0';
-	var csrfHeaderName = document.getElementById('_csrf_header').content;
-	var csrfTokenValue = document.getElementById('_csrf').content;	
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenValue = "${_csrf.token}";
 	
 	$('#pwdDiv').empty();	
 	$('#nicknameDiv').empty();
@@ -257,17 +210,11 @@ $('#reviseBtn').click(function(){
 		
 		$('#pwdDiv').text("비밀번호를 동일하게 입력해 주세요").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");	
 		
-	}else if(!passwordRules.test(password)){
-		$('#pwdDiv').text("숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
-		
-	else if(password.indexOf(" ") != -1){
-		$('#pwdDiv').text("비밀번호에 공백을 사용하실 수 없습니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
-
 	}else if(nickname == null || nickname == ""){
 	
 		$('#nicknameDiv').text("닉네임을 입력해 주세요").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
 	
-	}else{
+	}else if(password == ""){
 
 		if(nickname != '${nickname}'){
 			newNickname = '1';
@@ -295,8 +242,8 @@ $('#reviseBtn').click(function(){
 						  title: '변경 완료',
 						  text: '변경 되었습니다.',
 					}).then((result) => {
-						
-						location.href="/myPage";
+						logout();
+						//location.href="/myPage";
 					
 					})
 					
@@ -338,7 +285,13 @@ $('#reviseBtn').click(function(){
 					
 		});
 		
+	}else if(!passwordRules.test(password)){
+		$('#pwdDiv').text("숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
+		
+	}else if(password.indexOf(" ") != -1){
+		$('#pwdDiv').text("비밀번호에 공백을 사용하실 수 없습니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
 	}
+
 	
 });
 
@@ -352,30 +305,6 @@ function showPwdRules(){
 }
 
 
-function getStudyInfo(){
-	let header_label = document.getElementById('header_label');
-	let revise = document.getElementById('revise_wrap');
-	let info = document.getElementById('study_info');
-	
-	$('#header_label').empty();
-	header_label.innerHTML += '스터디 정보'
-		
-	revise.style.display = 'none';
-	info.style.display = 'block';
-	
-}
-
-function getMyInfo(){
-	let header_label = document.getElementById('header_label');
-	let revise = document.getElementById('revise_wrap');
-	let info = document.getElementById('study_info');
-	
-	$('#header_label').empty();
-	header_label.innerHTML += '개인 정보 관리';
-	revise.style.display = 'block';
-	info.style.display = 'none';
-	
-}
 
 function showMenu(obj){
     let content = document.getElementById('study_content');
@@ -386,6 +315,13 @@ function showMenu(obj){
         content.style.display="none";
     }
     obj.classList.toggle("1");
+}
+
+function logout(){
+	let form = document.reviseForm;
+	form.action="/logout";
+	form.method="post";
+	form.submit();
 }
 </script>
 </body>

@@ -12,7 +12,7 @@
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 	<div id="boardWriteWrapper">
         <div id="boardWriteContainer">
-			<h1>공지사항 작성</h1>
+			<h1 id="board_header">공지사항 작성</h1>
             <div id="boardWriteTitle">
                 <label for="" id="boardWriteTitleLabel"></label>
                 <div id="boardWriteTitleDiv">

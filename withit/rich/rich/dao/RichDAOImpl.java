@@ -189,6 +189,11 @@ public class RichDAOImpl implements RichDAO {
 	public List<MatchedDTO> getMyGroups(String username) {
 		return sqlSession.selectList("richSQL.getMyGroups", username);
 	}
+
+	@Override
+	public List<MatchedDTO> getGroupDetail(int gno) {
+		return sqlSession.selectList("richSQL.getGroupDetail", gno);
+	}
 	
 
 	// END OF SCHEDULES

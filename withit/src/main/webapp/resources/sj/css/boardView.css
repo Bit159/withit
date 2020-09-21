@@ -33,7 +33,7 @@ div[class="boardwrapper"]{
     position : relative;
     /* left: 15px; */
 }
-h1{
+h1[id="board_header"]{
     margin-bottom: 50px;
 }
 div[class="boardcontainer"]{
