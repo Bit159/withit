@@ -10,7 +10,7 @@
     <script	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41be22a5170d5fc6115853c77dc3d45e"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<link rel="stylesheet" href="/resources/rich/css/myGroupMap.css" />
-   	<script defer src="/resources/rich/js/myGroupMap.js" ></script>
+   	<script src="/resources/rich/js/myGroupMap.js" ></script>
     <script src="/resources/rich/js/rich.js"></script>
 	
 	<!-- schedule -->
@@ -37,7 +37,9 @@
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" flush="true" />
 	<jsp:include page="/WEB-INF/views/rich/member/sidebar.jsp" flush="true" />
-		
+		<script>
+			let myTest = '${json}';
+		</script>
 		<!-- 매칭 그룹이 존재하지 않을 경우 -->
 		<c:if test="${list.size() eq 0 }">
 			<div style="margin:0 auto;margin-top:80px;">
@@ -69,7 +71,7 @@
 			 		<div style="margin-top:20px;text-align:center;"><h3>그룹 정보</h3></div>
 			 		<hr>
 			 		<div id="mapWrapper" style="margin:0 auto; float:left; width:50%;left:20%;">
-		            	<div id="map" style="width: 100%; height: 400px; margin: 0 auto; border: 3px solid #32be78;left:5%;"></div>
+		            	<div id="map${group[0].gno }" style="width: 100%; height: 400px; margin: 0 auto; border: 3px solid #32be78;left:5%;"></div>
 					</div>
 					<table style="border: 2px solid black;position:relative;right:-15%;font-size:25px;">
 						<tr>
@@ -108,6 +110,23 @@
 		<!-- 아래에 혼자 있는 </div>는 위에 인클루드 한 녀석 닫는거니까 냅둬야함 -->
 	</div>
     <jsp:include page="/WEB-INF/views/kh/template/footer.jsp" flush="true" />
+    
+    
+   	<script>
+   		//지도 그리기
+   		let myJSON = JSON.parse('${json}');
+   		
+    	myJSON.forEach((e)=>{
+    		let id = 'map'+e[0].gno;
+    		console.log(id);
+    		console.log(document.getElementById(id));
+    		myGroupMap(e, document.getElementById(id));
+    	});
+   	</script>
+    
+    
+    
+    
 	<script>
 	
 	//윈도우 사이즈 변경시 content 영역을 sidebar의 x좌표에 따라 옮겨주기 
@@ -115,13 +134,15 @@
 	let mapdivs = document.getElementsByClassName('mapdiv');
 	let scheduledivs = document.getElementsByClassName('schedulediv');
 	
-	document.addEventListener('DOMContentLoaded', function(){		console.log('loading');
-	let sideX = document.querySelector('nav[id="sidebar"]').getBoundingClientRect().x+200;
-	document.getElementById('startDiv').style.left=sideX+"px";
-	for(let i = 0; i<mapdivs.length; i++) {
-		mapdivs[i].style.left=sideX+"px";
-		scheduledivs[i].style.left=sideX+"px";
-	}});
+	document.addEventListener('DOMContentLoaded', function(){		
+		
+		let sideX = document.querySelector('nav[id="sidebar"]').getBoundingClientRect().x+200;
+		document.getElementById('startDiv').style.left=sideX+"px";
+		for(let i = 0; i<mapdivs.length; i++) {
+			mapdivs[i].style.left=sideX+"px";
+			scheduledivs[i].style.left=sideX+"px";
+		}
+	});
 
 	window.addEventListener('resize',()=>{
 		let sideX = document.querySelector('nav[id="sidebar"]').getBoundingClientRect().x+200;
@@ -152,11 +173,12 @@
 			document.getElementById('startDiv').setAttribute('style', 'display:none !important');
 			
 			for(let i = 0; i<mapdivs.length; i++) {
-				mapdivs[i].setAttribute('style', 'opacity:0;');
-				scheduledivs[i].setAttribute('style', 'opacity:0;');
+				mapdivs[i].setAttribute('style', 'opacity:0;z-index=-9;');
+				scheduledivs[i].setAttribute('style', 'opacity:0;z-index=-9;');
 			}
 			
-			show.setAttribute('style', 'opacity:1;');
+			show.setAttribute('style', 'opacity:1;z-index=99;');
+			
 			
 			for(let i = 0; i<mapdivs.length; i++) {
 				mapdivs[i].style.left=sideX+"px";

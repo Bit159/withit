@@ -82,6 +82,18 @@ public class RichController {
 			groups.add(richDAO.getGroupDetail(dto.getGno()));
 		}
 		mav.addObject("groups", groups);
+
+		JSONArray jsonWrapper = new JSONArray();
+		for (int i = 0; i < list.size(); i++) {
+			JSONArray json = new JSONArray();
+			//같은 gno를 가진 데이터들을 리스트에 담은 다음
+			List<MatchedDTO> _json = richDAO.getGroupDetail(list.get(i).getGno());
+			//리스트를 JSONArray로 변환하고
+			json.addAll(_json);
+			//gno로 구분된 JSONArray를 JSONArray에 담는다
+			jsonWrapper.add(_json);
+		}
+		mav.addObject("json", jsonWrapper);
 		
 		mav.addObject("nickname", memberService.getNickname(principal.getName()));
 		mav.setViewName("rich/member/myGroup");

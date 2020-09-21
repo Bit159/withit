@@ -13,7 +13,7 @@
 	</select>
 	
 	<select id="getGroupDetail" parameterType="int" resultType="hj.member.bean.MatchedDTO">
-		SELECT * FROM db.group WHERE `gno`=#{gno}	
+		SELECT * FROM db.group WHERE `gno`=#{gno} ORDER BY `range` DESC	
 	</select>
 	
 
