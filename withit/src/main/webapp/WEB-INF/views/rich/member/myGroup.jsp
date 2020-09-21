@@ -30,6 +30,16 @@
     		left:30%;
     		opacity: 0;
     	}
+    	
+    	tr[class="trInfo"] {
+    		box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+	    	}
+    	td[class="tdInfo"] {
+    		border : 1px solid gray;
+    		font-size:1rem;
+    		vertical-align: middle;
+    		left: 15px;
+    	}
     </style>
 </head>
 
@@ -72,27 +82,30 @@
 			 		<div id="mapWrapper" style="margin:0 auto; float:left; width:50%;left:20%;">
 		            	<div id="map${group[0].gno }" style="width: 100%; height: 400px; margin: 0 auto; left:5%;"></div>
 					</div>
-					<table style="border: 2px solid black;position:relative;right:-15%;font-size:25px;">
+					<table style="border: 1px solid gray;position:relative;right:-9%;font-size:25px;width:350px;height:400px;box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);">
+					
 						<tr>
-							<td>그룹번호</td>
-							<td>${group[0].gno }</td>
+							<td class="tdInfo" style="width:40%;">&emsp;그룹번호</td>
+							<td class="tdInfo">&emsp;${group[0].gno }</td>
 						</tr>
+						
 						<tr>
-							<td>주제</td>
-							<td>${iconTagList[status.index]}</td>
+							<td class="tdInfo">&emsp;주제</td>
+							<td class="tdInfo">&emsp;${iconTagList[status.index]}</td>
 						</tr>
-						<tr></tr>
-						<td>시간</td>
-						<td>${group[0].time }</td>
+						
+						<tr>
+							<td class="tdInfo">&emsp;시간</td>
+							<td class="tdInfo">&emsp;${group[0].time }</td>
 						</tr>
 						
 						<c:forEach var="member" items="${group }" >
 						<tr>
-							<td>그룹원</td>
-							<td>${member.nickname }</td>
+							<td class="tdInfo">&emsp;그룹원</td>
+							<td class="tdInfo">&emsp;${member.nickname }</td>
 						</tr>
 						</c:forEach>
-						</tr>
+						
 					</table>
 				</div>    
 				
@@ -104,6 +117,12 @@
 						<div id="calendar${group[0].gno }" class="cal" data-gno="${group[0].gno }" style="position:relative; margin:0 auto; width:100%; height:400px;left:16.5%;"></div>
 					</div>
 				</div>    
+				
+				
+				<!-- chats -->
+				<div id="chat${group[0].gno }" class="chatdiv" >
+					<jsp:include page="/WEB-INF/views/bj/member/chattingList.jsp"/>
+				</div>
 			</c:forEach>
 		</c:if>
 		<!-- 아래에 혼자 있는 </div>는 위에 인클루드 한 녀석 닫는거니까 냅둬야함 -->
@@ -168,18 +187,18 @@
 			switch(menu) {
 				case 'Info': target = 'mapdiv'+gno; break;
 				case 'Schedule': target = 'schedulediv'+gno; break;
-				default : target = 'Chat'+gno; break;
+				default : target = 'chat'+gno; break;
 			}
 			show = document.getElementById(target);
 			
 			document.getElementById('startDiv').setAttribute('style', 'display:none !important');
 			
 			for(let i = 0; i<mapdivs.length; i++) {
-				mapdivs[i].setAttribute('style', 'opacity:0;z-index=-9;');
-				scheduledivs[i].setAttribute('style', 'opacity:0;z-index=-9;');
+				mapdivs[i].setAttribute('style', 'opacity:0;z-index=-9 !important;');
+				scheduledivs[i].setAttribute('style', 'opacity:0;z-index=-9 !important;');
 			}
 			
-			show.setAttribute('style', 'opacity:1;z-index=99;');
+			show.setAttribute('style', 'opacity:1;z-index=99 !important;');
 			
 			
 			for(let i = 0; i<mapdivs.length; i++) {

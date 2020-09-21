@@ -10,8 +10,6 @@ let mytarget = undefined;
 
 
 function calendarForEachGroup(arr, calendardiv) {
-	console.log(arr);
-	console.log('-------------------------');
 	
 	let calendar = calendardiv;
 	let schedules = new Array();
@@ -33,8 +31,6 @@ function calendarForEachGroup(arr, calendardiv) {
 	      event.content = e.content;
 	      event.allDay = false;
 	      schedules.push(event);
-		console.log(`calendar :`, calendar);
-		console.log(`schedules :`, schedules);
 	    });
 	}
 	
@@ -50,46 +46,9 @@ function calendarForEachGroup(arr, calendardiv) {
 
 
 
-/*Read : 페이지 로드했을 때 db에서 값 가져와서 달력그리기 */
-document.addEventListener("DOMContentLoaded", function () {
-  //fetch로 notify 테이블의 모든 값 가져와서 myData에 저장 및 schedules 배열 준비
-  let url = "/getMySchedules";
-  let options = myOptions();
-
-  //notify 테이블에서 값들을 가져와서 FullCalendar에서 사용할 수 있는 schedules 배열로 변환하는 함수입니다.
-  fetch(url, options)
-    .then((res) =>
-      res.json().then((json) => {
-        myData = json;
-
-        myData.forEach((e) => {
-          let event = new Object();
-          let _start = new Date(e.start.time); 
-          let _end = new Date(e.end.time);
-          event.start = `${dateFormatter(_start)}T${timeFormatter(_start)}`;
-          event.end = `${dateFormatter(_end)}T${timeFormatter(_end)}`;
-          event.no = e.no;
-          event.group = e.group;
-          event.username = e.username;
-          event.myStart = e.start;
-          event.myEnd = e.end;
-          event.title = e.title;
-          event.place = e.place;
-          event.content = e.content;
-          event.allDay = false;
-          schedules.push(event);
-        });
-      })
-    )
-    //준비된 schedules 배열을 이용해 FullCalendar를 render하는 코드입니다.
-    .then(() => renderCalendar());
-});
 
 //달력을 렌더링하는 함수입니다.
 function renderCalendar(schedules, calendardiv) {
-	console.log('렌더캘린더 안에서');
-	console.log(schedules);
-	console.log(calendardiv);
   var calendarEl = calendardiv;
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -120,19 +79,9 @@ function renderCalendar(schedules, calendardiv) {
 
 
 
-
-
-
-
-
-
-
-
-
 // 달력 내 이벤트를 클릭 했을 때 호출될 함수입니다.
 // FullCalendar 의 eventClick 속성에 부여됩니다.
 function removeSchedule(arg) {
-  console.log(arg);
   Swal.fire({
     title: `일정 삭제`,
     text: `${arg.event._def.title} 일정을 삭제하시겠습니까?`,
@@ -216,7 +165,6 @@ function dateTimeFormatter(date) {
 
 //달력의 일정을 클릭했을 때  일정의 상세 내용과 삭제 메뉴를 보여주는 함수입니다.
 function showSchedule(arg) {
-  console.log(arg);
   let start = undefined;
   let end = undefined;
   if (arg.event._def.extendedProps.myStart.time === undefined) {
@@ -278,7 +226,6 @@ function setTimeFunction() {
 
 //달력의 빈 곳을 클릭했을 때 호출되어 새로운 일정을 생성해주는 함수입니다.
 function createSchedule(arg, calendar) {
-  console.log(arg.end);
   let startDate = dateFormatter(arg.start);
   let endDate = arg.end;
   endDate.setDate(endDate.getDate() - 1);
@@ -352,7 +299,6 @@ function createSchedule(arg, calendar) {
     confirmButtonText: "등록",
     cancelButtonText: "취소",
     preConfirm: () => {
-      console.log(calendar);
       let time1 = document.getElementById("timeSelect").value;
       let minute1 = document.getElementById("minuteSelect").value;
       let time2 = document.getElementById("timeSelect2").value;
@@ -415,7 +361,6 @@ function createSchedule(arg, calendar) {
         let no = undefined;
         fetch(url, options).then((res) =>
           res.json().then((json) => {
-            console.log(json);
             no = json.no;
           })
         );
@@ -427,7 +372,6 @@ function createSchedule(arg, calendar) {
         ).then(() => {
           let start = `${startDate}T${time1}:${minute1}:00`;
           let end = `${endDate}T${time2}:${minute2}:00`;
-          console.log(`start: ${start}, end : ${end}`);
           calendar.addEvent({
             no: no,
             title: title,

@@ -88,7 +88,7 @@ function join(){
 		return;
 	}
 	
-	document.addInfoForm.submit();
+	document.forms[0].submit();
 }
 
 </script>

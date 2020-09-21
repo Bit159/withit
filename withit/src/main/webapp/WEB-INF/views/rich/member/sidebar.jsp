@@ -62,7 +62,7 @@ div[class="page-wrapper.chiller-theme.toggled"], nav[id="sidebar"] {
 							<c:if test="${list ne null}">
 								<c:forEach var="dto" items="${list}">
 									<li class="sidebar-dropdown">
-									<a href="#"> <i class="fab fa-java"></i> <span>${dto.topic }</span>
+									<a> <i class="fab fa-java"></i> <span>${dto.topic }</span>
 									</a>
 										<div class="sidebar-submenu">
 											<ul>
@@ -76,8 +76,7 @@ div[class="page-wrapper.chiller-theme.toggled"], nav[id="sidebar"] {
 												<li><a onclick="myGroupNav('Schedule',${dto.gno})"> <i class="far fa-calendar-alt"></i>
 														<span>Schedules</span>
 												</a></li>
-												<li><a onclick="myGroupNav('Chat',${dto.gno})"> <i class="fas fa-comment"></i> <span>Chat</span>
-												</a></li>
+												
 											</ul>
 										</div></li>
 								</c:forEach>
