@@ -89,6 +89,7 @@ function insertMatch() {
           SQL: "SQL",
           iOS: "iOS",
           Android: "Android",
+		  Swift: "Swift",
           FrontEnd: "FrontEnd",
           BackEnd: "BackEnd",
           "Toy Project": "Toy Project",

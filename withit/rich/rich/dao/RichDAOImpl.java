@@ -194,6 +194,16 @@ public class RichDAOImpl implements RichDAO {
 	public List<MatchedDTO> getGroupDetail(int gno) {
 		return sqlSession.selectList("richSQL.getGroupDetail", gno);
 	}
+
+	@Override
+	public String getIconTagByTopic(String topic) {
+		return sqlSession.selectOne("richSQL.getIconTagByTopic", topic);
+	}
+
+	@Override
+	public List<NotDTO> getGroupSchedules(int gno) {
+		return sqlSession.selectList("richSQL.getGroupSchedules", gno);
+	}
 	
 
 	// END OF SCHEDULES

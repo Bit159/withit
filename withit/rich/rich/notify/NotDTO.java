@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class NotDTO {
 	private int no;
+	private int gno;
 	private int group;
 	private String username;
 	private Date start;

@@ -1,8 +1,6 @@
 function myGroupMap(group, mapdiv) {
 
 	let arr = group;
-	console.log(`arr : ${arr}`);
-	console.log(arr);
 	
 	var mapContainer = mapdiv, // 지도를 표시할 div
 		mapOption = {
@@ -16,7 +14,6 @@ function myGroupMap(group, mapdiv) {
 		drawCircle(arr[i].x, arr[i].y, arr[i].range);
 	}
 	drawInfo();
-	console.log(document.querySelectorAll('ellipse'));
 
 	function drawInfo() {
 		let circles = document.querySelectorAll(`#map${arr[0].gno} ellipse`);
@@ -40,9 +37,6 @@ function myGroupMap(group, mapdiv) {
 	}
 
 	function getInfo(ellipse, index) {
-		console.log(arr[index]);
-		console.log(arr);
-		console.log(arr[index].created);
 		let aa = new Date(arr[index].created.time);
 		let month = '0';
 		if((aa.getMonth()+1) < 10) month = '0'+(aa.getMonth()+1);

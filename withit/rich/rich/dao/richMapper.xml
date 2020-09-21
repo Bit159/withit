@@ -7,7 +7,17 @@
 
 <!-- 매칭 발생시 사용되는 SQL들 -->
 
+
+
 	<!-- /myGroup -->
+	<select id="getGroupSchedules" parameterType="int" resultType="rich.notify.NotDTO">
+		SELECT * FROM db.notify WHERE `gno`=#{gno}
+	</select>
+	
+	<select id="getIconTagByTopic" parameterType="String" resultType="String">
+		SELECT `icontag` FROM db.icon WHERE `topic` = #{topic}
+	</select>
+	
 	<select id="getMyGroups" parameterType="String" resultType="hj.member.bean.MatchedDTO">
 		SELECT * FROM db.group WHERE `username` = #{username} ORDER BY `created` DESC
 	</select>
@@ -97,8 +107,8 @@
 	</select>
 	
 	<insert id="createSchedule" parameterType="rich.notify.NotDTO">
-		INSERT db.notify(`username`, `group`, `start`, `end`, `title`, `place`, `content`, `created`)
-		VALUES(#{username}, #{group}, #{start}, #{end}, #{title}, #{place}, #{content}, now())
+		INSERT db.notify(`username`, `gno`, `start`, `end`, `title`, `place`, `content`, `created`)
+		VALUES(#{username}, #{gno}, #{start}, #{end}, #{title}, #{place}, #{content}, now())
 	</insert>
 	
 	<select id="getMySchedules" parameterType="String" resultType="rich.notify.NotDTO">

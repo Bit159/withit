@@ -1,7 +1,5 @@
 package rich.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,6 +80,14 @@ public class RichController {
 			groups.add(richDAO.getGroupDetail(dto.getGno()));
 		}
 		mav.addObject("groups", groups);
+		
+		//아이콘 처리
+		List<String> iconTagList = new ArrayList<>();
+		for(List<MatchedDTO> l : groups) {
+			iconTagList.add(richDAO.getIconTagByTopic(l.get(0).getTopic()));
+		}
+		mav.addObject("iconTagList", iconTagList);
+		
 
 		JSONArray jsonWrapper = new JSONArray();
 		for (int i = 0; i < list.size(); i++) {
@@ -95,6 +101,15 @@ public class RichController {
 		}
 		mav.addObject("json", jsonWrapper);
 		
+		//로그인한 유저가 매칭되어있는 그룹들의 그룹번호별로 일정들을 리스트로 묶어서 보내줌
+		JSONArray scheduleArray = new JSONArray();
+		for (int i = 0; i < list.size(); i++) {
+			List<NotDTO> _arr = richDAO.getGroupSchedules(list.get(i).getGno());
+			scheduleArray.add(_arr);
+		}
+		mav.addObject("scheduleArray", scheduleArray);
+		
+		
 		mav.addObject("nickname", memberService.getNickname(principal.getName()));
 		mav.setViewName("rich/member/myGroup");
 		return mav;
@@ -105,7 +120,7 @@ public class RichController {
 	@PostMapping(path="/createSchedule", produces="application/json;charset=UTF-8")
 	public JSONObject createSchedule(@RequestBody JSONObject json, @Autowired NotDTO dto, Principal principal) {
 		dto.setUsername(principal.getName());
-		dto.setGroup(json.getInt("group"));
+		dto.setGno(json.getInt("gno"));
 		dto.setStart(new Date(json.getLong("start")));
 		dto.setEnd(new Date(json.getLong("end")));
 		dto.setPlace(json.getString("place"));

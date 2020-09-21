@@ -36,6 +36,7 @@ public interface RichDAO {
 	public abstract List<NotDTO> getMySchedules(String username);
 	public abstract int updateSchedule(NotDTO dto);
 	public abstract int removeSchedule(int no);
+	public abstract List<NotDTO> getGroupSchedules(int gno);
 	
 	//그룹 생성
 	public abstract int createGroup(List<MatchDTO> rangeValidatedList);
@@ -48,4 +49,7 @@ public interface RichDAO {
 	public abstract List<MatchDTO> getMatchingResultMap(String gno);
 	public abstract List<MatchedDTO> getMyGroups(String username);
 	public abstract List<MatchedDTO> getGroupDetail(int gno);
+	
+	//아이콘
+	public abstract String getIconTagByTopic(String topic); 
 }

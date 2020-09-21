@@ -4,6 +4,51 @@ let myData = new Array();
 let schedules = new Array();
 //FullCalendar 함수 재사용을 위한 필드 선언
 let calendar = undefined;
+let mytarget = undefined;
+
+
+
+
+function calendarForEachGroup(arr, calendardiv) {
+	console.log(arr);
+	console.log('-------------------------');
+	
+	let calendar = calendardiv;
+	let schedules = new Array();
+	
+	if(arr.length !== 0) {
+	    arr.forEach(e => {
+	      let event = new Object();
+	      let _start = new Date(e.start.time); 
+	      let _end = new Date(e.end.time);
+	      event.start = `${dateFormatter(_start)}T${timeFormatter(_start)}`;
+	      event.end = `${dateFormatter(_end)}T${timeFormatter(_end)}`;
+	      event.no = e.no;
+	      event.group = e.group;
+	      event.username = e.username;
+	      event.myStart = e.start;
+	      event.myEnd = e.end;
+	      event.title = e.title;
+	      event.place = e.place;
+	      event.content = e.content;
+	      event.allDay = false;
+	      schedules.push(event);
+		console.log(`calendar :`, calendar);
+		console.log(`schedules :`, schedules);
+	    });
+	}
+	
+	renderCalendar(schedules, calendar);
+	
+}
+
+
+
+
+
+
+
+
 
 /*Read : 페이지 로드했을 때 db에서 값 가져와서 달력그리기 */
 document.addEventListener("DOMContentLoaded", function () {
@@ -19,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         myData.forEach((e) => {
           let event = new Object();
-          let _start = new Date(e.start.time);
+          let _start = new Date(e.start.time); 
           let _end = new Date(e.end.time);
           event.start = `${dateFormatter(_start)}T${timeFormatter(_start)}`;
           event.end = `${dateFormatter(_end)}T${timeFormatter(_end)}`;
@@ -41,8 +86,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //달력을 렌더링하는 함수입니다.
-function renderCalendar() {
-  var calendarEl = document.getElementById("calendar");
+function renderCalendar(schedules, calendardiv) {
+	console.log('렌더캘린더 안에서');
+	console.log(schedules);
+	console.log(calendardiv);
+  var calendarEl = calendardiv;
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {
@@ -69,6 +117,17 @@ function renderCalendar() {
   });
   calendar.render();
 }
+
+
+
+
+
+
+
+
+
+
+
 
 // 달력 내 이벤트를 클릭 했을 때 호출될 함수입니다.
 // FullCalendar 의 eventClick 속성에 부여됩니다.
@@ -335,7 +394,7 @@ function createSchedule(arg, calendar) {
         });
       } else {
         let ob = new Object();
-        ob.group = `0`;
+        ob.gno = document.getElementById('gno').value;
         ob.username = `jpcnani@naver.com`;
         ob.start = s.getTime();
         ob.end = e.getTime();

@@ -24,7 +24,6 @@
     	div[class="mapdiv"], div[class="schedulediv"]{
     		width:930px;
     		height:700px; 
-    		border:5px solid black;
     		float:left;
     		position:absolute;
     		margin:0 auto;
@@ -38,7 +37,7 @@
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" flush="true" />
 	<jsp:include page="/WEB-INF/views/rich/member/sidebar.jsp" flush="true" />
 		<script>
-			let myTest = '${json}';
+			let myTest = '${scheduleArray}';
 		</script>
 		<!-- 매칭 그룹이 존재하지 않을 경우 -->
 		<c:if test="${list.size() eq 0 }">
@@ -71,7 +70,7 @@
 			 		<div style="margin-top:20px;text-align:center;"><h3>그룹 정보</h3></div>
 			 		<hr>
 			 		<div id="mapWrapper" style="margin:0 auto; float:left; width:50%;left:20%;">
-		            	<div id="map${group[0].gno }" style="width: 100%; height: 400px; margin: 0 auto; border: 3px solid #32be78;left:5%;"></div>
+		            	<div id="map${group[0].gno }" style="width: 100%; height: 400px; margin: 0 auto; left:5%;"></div>
 					</div>
 					<table style="border: 2px solid black;position:relative;right:-15%;font-size:25px;">
 						<tr>
@@ -80,7 +79,7 @@
 						</tr>
 						<tr>
 							<td>주제</td>
-							<td>${group[0].topic }</td>
+							<td>${iconTagList[status.index]}</td>
 						</tr>
 						<tr></tr>
 						<td>시간</td>
@@ -102,25 +101,33 @@
 			 		<div style="margin-top:20px;text-align:center;"><h3>그룹 일정 관리</h3></div>
 			 		<hr>
 			 		<div id="calendarWrapper" style="margin:0 auto; float:left; width:75%;">
-						<div id="calendar" style="position:relative; margin:0 auto; width:100%; height:400px;border:5px solid black;left:16.5%;"></div>
+						<div id="calendar${group[0].gno }" class="cal" data-gno="${group[0].gno }" style="position:relative; margin:0 auto; width:100%; height:400px;left:16.5%;"></div>
 					</div>
 				</div>    
 			</c:forEach>
 		</c:if>
 		<!-- 아래에 혼자 있는 </div>는 위에 인클루드 한 녀석 닫는거니까 냅둬야함 -->
+	
 	</div>
+	<input type="hidden" id="gno" />
     <jsp:include page="/WEB-INF/views/kh/template/footer.jsp" flush="true" />
     
     
    	<script>
+   	
+   	
    		//지도 그리기
    		let myJSON = JSON.parse('${json}');
    		
     	myJSON.forEach((e)=>{
     		let id = 'map'+e[0].gno;
-    		console.log(id);
-    		console.log(document.getElementById(id));
     		myGroupMap(e, document.getElementById(id));
+    	});
+    	
+    	let scheduleArray = JSON.parse('${scheduleArray}');
+    	let cals = document.getElementsByClassName('cal');
+    	scheduleArray.forEach((e,i)=>{
+    		calendarForEachGroup(e, cals[i]);
     	});
    	</script>
     
@@ -146,7 +153,6 @@
 
 	window.addEventListener('resize',()=>{
 		let sideX = document.querySelector('nav[id="sidebar"]').getBoundingClientRect().x+200;
-		console.log(sideX);
 		for(let i = 0; i<mapdivs.length; i++) {
 			mapdivs[i].style.left=sideX+"px";
 			scheduledivs[i].style.left=sideX+"px";
@@ -166,10 +172,6 @@
 			}
 			show = document.getElementById(target);
 			
-			console.log(menu, gno);
-			console.log(target);
-			console.log(show);
-			
 			document.getElementById('startDiv').setAttribute('style', 'display:none !important');
 			
 			for(let i = 0; i<mapdivs.length; i++) {
@@ -184,6 +186,8 @@
 				mapdivs[i].style.left=sideX+"px";
 				scheduledivs[i].style.left=sideX+"px";
 			}
+			
+			document.getElementById('gno').value=gno;
 			
 		}
 	</script>
