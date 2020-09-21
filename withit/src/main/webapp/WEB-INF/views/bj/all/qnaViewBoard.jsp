@@ -169,7 +169,7 @@
 
 		// 글생성 버튼
 		$(document).on('click', '#boardWriteBtn', function(){
-			location.href = "/qna/qnaWrite";
+			location.href = "/qna/qnaWriteForm";
 		});
 
 		// 현재 페이지 음영처리
