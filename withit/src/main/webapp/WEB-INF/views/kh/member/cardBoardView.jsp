@@ -100,7 +100,7 @@
 				<c:if test="${dto.open ne 1 }">
 					<div class="reply_write">
 						<div class="reply_write_item">
-							<textarea name="reply" id="reply" rows="3"></textarea>
+							<textarea name="reply" id="reply" ></textarea>
 							<div class="reply_write_button">
 								<button type="button" id="reply_write_regist">등록</button>
 							</div>

@@ -74,4 +74,28 @@ public interface MemberDAO {
 
 	public void noticeModify(Map<String, Object> map);
 
+	public int getQnaListCnt(Search search);
+
+	public List<BBoardDTO> getQnaList(Search search);
+
+	public BBoardDTO getQnaList(int bno);
+
+	public List<BBoardReplyDTO> getQnaReplyList(int bno);
+
+	public void qnaHitUpdate(int bno);
+
+	public void qnaReply(Map<String, Object> map);
+
+	public void qnaReplyDelete(Map<String, Integer> map);
+
+	public void qnaReplyModify(Map<String, Object> map);
+
+	public void qnaDelete(int bno);
+
+	public void qnaWrite(Map<String, Object> map);
+
+	public void qnaModify(Map<String, Object> map);
+
+	public BBoardDTO getQna(int bno);
+
 }

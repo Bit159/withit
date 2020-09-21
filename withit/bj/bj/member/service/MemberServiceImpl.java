@@ -152,6 +152,61 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.noticeModify(map);
 	}
 
+	@Override
+	public int getQnaListCnt(Search search) {
+		return memberDAO.getQnaListCnt(search);
+	}
+
+	@Override
+	public List<BBoardDTO> getQnaList(Search search) {
+		return memberDAO.getQnaList(search);
+	}
+
+	@Override
+	public BBoardDTO getQna(int bno) {
+		return memberDAO.getQna(bno);
+	}
+
+	@Override
+	public List<BBoardReplyDTO> getQnaReplyList(int bno) {
+		return memberDAO.getQnaReplyList(bno);
+	}
+
+	@Override
+	public void qnaHipUpdate(int bno) {
+		memberDAO.qnaHitUpdate(bno);
+	}
+
+	@Override
+	public void qnaReply(Map<String, Object> map) {
+		memberDAO.qnaReply(map);
+	}
+
+	@Override
+	public void qnaReplyDelete(Map<String, Integer> map) {
+		memberDAO.qnaReplyDelete(map);
+	}
+
+	@Override
+	public void qnaReplyModify(Map<String, Object> map) {
+		memberDAO.qnaReplyModify(map);
+	}
+
+	@Override
+	public void qnaDelete(int bno) {
+		memberDAO.qnaDelete(bno);
+	}
+
+	@Override
+	public void qnaWrite(Map<String, Object> map) {
+		memberDAO.qnaWrite(map);
+	}
+
+	@Override
+	public void qnaModify(Map<String, Object> map) {
+		memberDAO.qnaModify(map);
+	}
+
 	
 	
 }
