@@ -18,10 +18,10 @@
 
 div[id="superWrapper"] {
 	width: 1280px;
-	height: 1000px;
-	margin-top: 30px;
+	height: 700px;
 	display: flex;
 	margin: 0 auto;
+	margin-top: 35px;
 }
 
 div[id="navWrapper"] {

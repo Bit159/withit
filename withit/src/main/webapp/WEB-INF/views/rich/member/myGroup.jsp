@@ -23,7 +23,7 @@
     <style>
     	div[class="mapdiv"], div[class="schedulediv"]{
     		width:930px;
-    		height:1000px; 
+    		height:700px; 
     		border:5px solid black;
     		float:left;
     		position:absolute;
@@ -57,35 +57,50 @@
 				<div style="margin: 0 auto;width:344px;"><img src="/resources/kh/image/logo.png" style="width:344px;height:114px;background-size: conatin;display:block !important;"/></div>
 				<div style="text-align:center;margin:0 auto;margin-top:50px;height:150px;">
 					<span style="font-size:25px;text-align:center;font-weight:550;">
-						왼쪽 메뉴에서 매칭된 그룹을 확인하세요!
+						좌측 메뉴에서 매칭된 그룹을 확인하세요!
 					</span>
 					<br>
 				</div>
 			</div>	
 			<c:forEach var="group" items="${groups }" varStatus="status">
 				<!-- group map -->
-				<script>
-					console.log('${status.index}');
-					console.log('${group[0].gno}');
-					let mapOb = new Object();
-					
-				
-				</script>
 				
 				<div id="mapdiv${group[0].gno }" class="mapdiv" style="position:absolute;">
-			 		<div style="margin-top:20px;text-align:center;"><h3>매칭 결과 보기</h3></div>
+			 		<div style="margin-top:20px;text-align:center;"><h3>그룹 정보</h3></div>
 			 		<hr>
 			 		<div id="mapWrapper" style="margin:0 auto; float:left; width:50%;left:20%;">
-		            	<div id="map" style="width: 100%; height: 600px; margin: 0 auto; border: 3px solid #32be78;"></div>
+		            	<div id="map" style="width: 100%; height: 400px; margin: 0 auto; border: 3px solid #32be78;left:5%;"></div>
 					</div>
+					<table style="border: 2px solid black;position:relative;right:-15%;font-size:25px;">
+						<tr>
+							<td>그룹번호</td>
+							<td>${group[0].gno }</td>
+						</tr>
+						<tr>
+							<td>주제</td>
+							<td>${group[0].topic }</td>
+						</tr>
+						<tr></tr>
+						<td>시간</td>
+						<td>${group[0].time }</td>
+						</tr>
+						
+						<c:forEach var="member" items="${group }" >
+						<tr>
+							<td>그룹원</td>
+							<td>${member.nickname }</td>
+						</tr>
+						</c:forEach>
+						</tr>
+					</table>
 				</div>    
 				
 				<!-- group schedules -->
 			 	<div id="schedulediv${group[0].gno }" class="schedulediv" style="position:absolute !important;" >
-			 		<div style="margin-top:20px;"><h3>그룹 일정 관리</h3></div>
+			 		<div style="margin-top:20px;text-align:center;"><h3>그룹 일정 관리</h3></div>
 			 		<hr>
-			 		<div id="calendarWrapper" style="margin:0 auto; float:left; width:80%;">
-						<div id="calendar" style="position:relative;margin:0 auto; width:100%; height:500px;border:5px solid black;"></div>
+			 		<div id="calendarWrapper" style="margin:0 auto; float:left; width:75%;">
+						<div id="calendar" style="position:relative; margin:0 auto; width:100%; height:400px;border:5px solid black;left:16.5%;"></div>
 					</div>
 				</div>    
 			</c:forEach>
