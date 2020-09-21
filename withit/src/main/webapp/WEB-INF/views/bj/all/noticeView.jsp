@@ -117,7 +117,7 @@
     <c:url var="boardListURL" value="/synergy/board/boardList"></c:url>
     
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="/resources/bj/js/qnaView.js" defer></script>
+	<script src="/resources/bj/js/noticeView.js" defer></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.all.min.js"></script>
 	
 </body>

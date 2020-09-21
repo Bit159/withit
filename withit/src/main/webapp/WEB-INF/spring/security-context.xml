@@ -19,7 +19,7 @@
 		<security:intercept-url pattern="/cardBoard" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/> <!-- ROLE_* -->
 		<security:intercept-url pattern="/myGroup" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/> <!-- ROLE_* -->
 		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
-		<security:intercept-url pattern="/notice/notice*" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/notice/noticeWriteForm" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/qna/qna*" access="hasRole('ROLE_MEMBER')"/>
 		
 		
