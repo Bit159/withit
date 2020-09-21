@@ -47,7 +47,13 @@ body{
 .content_section{
     float: left; width: 70%; height: 600px; 
     margin-top: 80px;
+    
 }
+
+.revise_wrap{
+	 margin-left:350px; 
+}
+
 
 .table_left{
     padding: 10px;
@@ -136,7 +142,7 @@ body{
 .buttonDiv{
     text-align: center;
     padding-top: 30px;   
-    width: 80%;
+    width: 100%;
 }
 
 #reviseBtn{
@@ -160,7 +166,7 @@ body{
 /* 회원 탈퇴 구간*/
 
 .withdrawDiv{
-    width: 85%;
+    width: 100%;
     height: 150px;
    
 }

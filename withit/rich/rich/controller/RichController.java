@@ -1,7 +1,10 @@
 package rich.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import bj.member.service.MemberService;
 import hj.member.bean.MatchDTO;
 import hj.member.bean.MatchedDTO;
 import net.sf.json.JSONArray;
@@ -29,6 +33,8 @@ public class RichController {
 	private static final Logger logger = LoggerFactory.getLogger(RichController.class);
 	@Autowired
 	private RichDAO richDAO;
+	@Autowired
+	private MemberService memberService;
 	
 	@GetMapping("/myGroupSchedule")
 	public ModelAndView myGroupSchedule(Principal principal) {
@@ -42,6 +48,8 @@ public class RichController {
 		ModelAndView mav = new ModelAndView();
 		System.out.println(menu);
 		System.out.println(gno);
+		List<MatchedDTO> list = richDAO.getMyGroups(principal.getName());
+		mav.addObject("list", list);
 		mav.setViewName("rich/member/myGroup"+menu);
 		System.out.println(mav.getViewName());
 		return mav;
@@ -63,8 +71,19 @@ public class RichController {
 	@GetMapping("/myGroup")
 	public ModelAndView myGroup(Principal principal) {
 		ModelAndView mav = new ModelAndView();
+		
+		//매칭된 그룹 목록정보 - sidebar
 		List<MatchedDTO> list = richDAO.getMyGroups(principal.getName());
 		mav.addObject("list", list);
+
+		//그룹별 그룹원 상세정보
+		List<List<MatchedDTO>> groups = new ArrayList<>();
+		for(MatchedDTO dto : list) {
+			groups.add(richDAO.getGroupDetail(dto.getGno()));
+		}
+		mav.addObject("groups", groups);
+		
+		mav.addObject("nickname", memberService.getNickname(principal.getName()));
 		mav.setViewName("rich/member/myGroup");
 		return mav;
 	}

@@ -47,4 +47,5 @@ public interface RichDAO {
 	public abstract int registerNewChattingRoom(List<MatchDTO> rangeValidatedList);
 	public abstract List<MatchDTO> getMatchingResultMap(String gno);
 	public abstract List<MatchedDTO> getMyGroups(String username);
+	public abstract List<MatchedDTO> getGroupDetail(int gno);
 }

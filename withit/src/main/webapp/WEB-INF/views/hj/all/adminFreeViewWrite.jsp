@@ -89,7 +89,7 @@
         	
         	<div id="boardWriteWrapper">
 		        <div id="boardWriteContainer">
-					<h1>게시글 생성</h1>
+					
 		            <div id="boardWriteTitle">
 		                <label for="" id="boardWriteTitleLabel"></label>
 		                <div id="boardWriteTitleDiv">

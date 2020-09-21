@@ -538,7 +538,7 @@ public class HjController {
 			map.put("title",title);
 			map.put("content",content);
 			map.put("username", username);
-			/* map.put("nickname",request.getSession().getAttribute("nickname")); */
+			
 			map.put("nickname", nickname);
 			map.put("now", now);
 			hjService.writeBBoard(map); 
@@ -566,7 +566,7 @@ public class HjController {
 		@RequestMapping(value = "/all/replyDelete", method = RequestMethod.POST)
 		public ModelAndView replyDelete2(@RequestParam int rno, int bno, HttpSession session) {
 			System.out.println("rno="+rno);
-			/* String nickname = (String) session.getAttribute("nickname"); */
+			
 			hjService.replyDelete2(rno);
 			System.out.println("bno="+bno);
 			hjService.replyDeleteUpdate2(bno);
