@@ -175,6 +175,27 @@ public class RichController {
 		return result;
 	}
 	
+	//에러 페이지 대응
+	@GetMapping("/Error_{code}")
+	public ModelAndView error(@PathVariable("code") String code) {
+		String msg = "";
+		switch(code) {
+			case "400": msg = "잘못된 요청입니다"; break;
+			case "401": msg = "허용되지 않은 접근입니다"; break;
+			case "403": msg = "접근 권한이 없는 요청입니다"; break;
+			case "404": msg = "존재하지 않는 페이지 입니다"; break;
+			case "405": msg = "허용되지 않은 메소드입니다"; break;
+			case "500": msg = "서버 내부 에러가 발생하였습니다"; break;
+			case "503": msg = "서버가 일시적으로 이용불가합니다"; break;
+			default : msg = "에러가 발생하였습니다"; break;
+		}
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("codeFront", code.substring(0,1));
+		mav.addObject("codeEnd", code.substring(2,3));
+		mav.addObject("msg", msg);
+		mav.setViewName("rich/all/error");
+		return mav;
+	}
 
 	
 }
