@@ -436,7 +436,7 @@ function connect(chattingRoom){
 	stompClient.connect({}, function(){
 		setTimeout(function(){
 			stompClient.subscribe('/topic/' + chattingRoom, onMessageReceived); 
-		}, 100);
+		}, 500);
 		/* 
 		첫번째 매개변수는 구독할 주소를 말하고
 		두번째 매개변수는 메시지를 받았을 때 수행할 메소드를 넣으면 된다.

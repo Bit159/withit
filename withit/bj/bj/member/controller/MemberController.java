@@ -24,21 +24,15 @@ import bj.member.bean.ChattingDTO;
 import bj.member.bean.ChattingRoomDTO;
 import bj.member.bean.MemberDTO;
 import bj.member.service.MemberService;
-import rich.notify.Email;
 import sj.board.bean.BBoardDTO;
 import sj.board.bean.BBoardReplyDTO;
 import sj.board.paging.Pagination;
 import sj.board.paging.Search;
-import sj.board.service.BoardService;
 
 @Controller
 public class MemberController{
 	@Autowired
 	private MemberService memberService;
-	@Autowired
-	private Email email;
-	@Autowired
-	private BoardService boardService;
 	
 	//=========================================== 로그인
 	
