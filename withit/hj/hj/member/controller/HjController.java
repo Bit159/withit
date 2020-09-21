@@ -506,7 +506,36 @@ public class HjController {
 		}
 		
 		
+		// 자유게시판 작성 폼	
+		@GetMapping("/adminFreeViewWrite")
+		public ModelAndView adminFreeViewWrite() {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/hj/all/adminFreeViewWrite");
+			return mav;
+		}
 		
+		
+		// 자유게시판 글 작성
+		@ResponseBody
+		@RequestMapping(value = "/all/adminBoardWrite", method = RequestMethod.POST)
+		public String adminBoardWrite(@RequestParam String title, String content, Principal principal, HttpServletRequest request) {
+			Date now = new Date();
+			
+			String username = principal.getName();
+			System.out.println("username="+username);
+			String nickname = memberService.getNickname(username);
+			System.out.println("nickname="+nickname);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("title",title);
+			map.put("content",content);
+			map.put("username", username);
+			/* map.put("nickname",request.getSession().getAttribute("nickname")); */
+			map.put("nickname", nickname);
+			map.put("now", now);
+			hjService.writeBBoard(map); 
+			return "success";
+		}
 		
 		// 자유게시판 보드 삭제
 		@ResponseBody
@@ -539,7 +568,34 @@ public class HjController {
 			return mav;
 		}
 		
-
+		
+		
+		//자유게시판 댓글 생성
+		@ResponseBody
+		@RequestMapping(value = "/all/boardReply", method = RequestMethod.POST)
+		public ModelAndView bboardReply(@RequestParam String reply, int bno, Principal principal) {
+			System.out.println("reply:"+reply+" bno:"+bno);
+			String username = principal.getName();
+			//System.out.println("username="+username);
+			String nickname = memberService.getNickname(username);
+			//System.out.println("nickname="+nickname);
+			List<BBoardReplyDTO> replyList = hjService.getBBoardReplyList(bno);
+			//System.out.println("replyList:"+replyList);
+			Date now = new Date();
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("bno",bno);
+			map.put("reply", reply);
+			map.put("username", username);
+			map.put("nickname", nickname);
+			map.put("now", now);
+			hjService.boardReply2(map);
+			hjService.replyUpdate2(bno);
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("replyList", replyList);
+			mav.setViewName("jsonView");
+			return mav;
+		}
 		
 		
 		

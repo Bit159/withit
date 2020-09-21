@@ -6,6 +6,16 @@
 <mapper namespace="richSQL">
 
 <!-- 매칭 발생시 사용되는 SQL들 -->
+
+	<!-- /myGroup -->
+	<select id="getMyGroups" parameterType="String" resultType="hj.member.bean.MatchedDTO">
+		SELECT * FROM db.group WHERE `username` = #{username} ORDER BY `created` DESC
+	</select>
+
+	<!-- 그룹의 매칭 결과를 보여주는데 사용되는 SQL -->
+	<select id="getMatchingResultMap" parameterType="String" resultType="hj.member.bean.MatchedDTO">
+		SELECT * FROM db.group WHERE `gno`=#{gno} ORDER BY `range` DESC
+	</select>
 	
 	<!-- 매칭 값들 db.match에서 제거할 때 사용되는 SQL -->
 	<delete id="deleteMatched" parameterType="java.util.List">

@@ -97,7 +97,7 @@
                         <div class="downside_left">                                                   
                             <div class="view_nickname">${bBoardDTO.nickname }&emsp;</div>
                             <div class="view_boarddate"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${bBoardDTO.boarddate }"/></div>
-                            <%--내가 작성한 글인지 검증한 뒤에 수정, 삭제 버튼을 노출시키는 부분 --%>
+                           
                             
                             	<button type="button" id="deleteBoardBtn" style="width: 70px" data-bno="${bBoardDTO.bno }" data-page="${paging.page }" data-range="${paging.range }">삭제</button>
                            
@@ -145,7 +145,23 @@
 		                            	</c:if>
 	                            </c:forEach>
 	                            
-	                        </ul>  
+	                        </ul> 
+	                        
+	                        <sec:authorize access="isAuthenticated()">
+			                    <br><br>
+								<div class="reply_writer_wrapper">
+									<div class="reply_writer">
+										<label class="reply_writer_label">
+											댓글 쓰기
+										</label>
+										<div class="reply_writer_div">
+											<textarea id="reply_writer_text"></textarea>
+											<button type="submit" id="reply_writer_btn" data-page="${paging.page }" data-range="${paging.range }">등록</button>
+										</div>
+										<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}">
+									</div>
+								</div>
+							</sec:authorize> 
 						
                     </div>                    
                 </div>
@@ -295,6 +311,52 @@ $(document).ready(function(){
 	});
 	
 	
+	
+	
+	// 댓글 쓰기
+	$(document).on("click","#reply_writer_btn",function(){
+		var $btnObj = $(this);
+		var page = $(this).data('page');
+		var range = $(this).data('range');
+		var reply = $("#reply_writer_text").val();
+		var bno = document.querySelector('div.view_bno').innerText;
+		var param = "reply="+reply+"&bno="+bno;
+		
+		var csrfHeaderName = document.getElementById('csrf_header').content;
+		var csrfTokenValue = document.getElementById('csrf').content;	
+		
+		if(reply != ""){
+			$.ajax({
+				type: "post",
+				url: "/all/boardReply",
+				beforeSend: function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		    	},
+				data: param, 
+				dataType: 'json',
+				success: function(data){
+					console.log(data);
+					Swal.fire({
+						  title: '댓글 등록 완료',
+						  text: '댓글이 등록되었습니다.',
+						  icon: 'success',
+					}).then((res)=>{
+						location.href='/adminFreeView/'+bno+'?pg='+page+'&range='+range;									
+					});
+				},
+				error: function(err){
+					console.log(err);
+				}
+			});
+		}else{
+			Swal.fire({
+				  title: '댓글 내용이 없음',
+				  text: '댓글 내용을 입력하세요',
+				  icon: 'warning'
+			});
+		}
+		
+	});
 	
 	
 	

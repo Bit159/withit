@@ -5,37 +5,26 @@ html, body{
     border: 0;
 }
 
-
 #wrap{
     margin: 0;
     width: 1280px;
     padding: 0;
 }
 
-button {
-   border: solid 1px #525965;
-   color:white;
-   background:#525965;
-   cursor:pointer;
-}
 
-
-
-/* aside bar 왼쪽메뉴*/
+/* aside bar 왼쪽 메뉴*/
 
 .aside{
    float: left; 
    width: 20%;
-   height: 1500px;
+   height: 900px;
    margin: 0;
-   
 }
 
 .aside_menu{
     width: 98%;
     height: 100%;
     background-color: #525965;
-	overflow: hidden;
 }
 
 .aside_menu_list{
@@ -47,6 +36,7 @@ button {
     padding: 20px;
     margin: 0;
 }
+
 .aside_menu_top{
     font-size: 30px;
     margin-bottom: 20px;
@@ -57,18 +47,17 @@ button {
    
     height: 50px;
     line-height: 50px;
-    
+    cursor: pointer;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgb(255, 255, 255);
-    padding-top: 10px;
+   	padding-top: 10px;
 }
 
 .aside_menu_list_1_a{
 	text-decoration: none;
 	border: none;
 	color:white;
-	cursor: pointer;
 }
 
 .aside_menu_list_1:hover{
@@ -77,9 +66,8 @@ button {
 
 
 
-
 .aside_menu_list_3{
-    
+    cursor: pointer;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgb(255, 255, 255);
@@ -92,7 +80,6 @@ button {
 	text-decoration: none;
 	border: none;
 	color:white;
-	cursor: pointer;
 }
 
 .aside_menu_list_3:hover{
@@ -100,7 +87,7 @@ button {
 }
 
 .aside_menu_list_4{
-    
+    cursor: pointer;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: rgb(255, 255, 255);
@@ -113,7 +100,6 @@ button {
 	text-decoration: none;
 	border: none;
 	color:white;
-	cursor: pointer;
 }
 
 .aside_menu_list_4:hover{
@@ -171,6 +157,7 @@ button {
     margin: 0;
    
 }
+
 
 /* 햄버거 바 */
 
@@ -244,7 +231,10 @@ input[id="menuicon"]:checked + label + div {
     left: 0;
 }
 
-/*header*/
+
+
+
+/* header */
 
 
 .header{
@@ -266,302 +256,29 @@ input[id="menuicon"]:checked + label + div {
    
 }
 
-/*main_section*/
+
+/* main 지도 */
 
 .section{
     float: left;
     width: 70%;
-    height: 800px;
+    height: 700px;
 }
 
-div[class="boardwrapper"]{
-    border-left: 3px solid rgb(200, 241, 221);
-    margin-left:30px;
+.section_main{
+    padding-top: 100px;  
+    padding-left: 50px;  
 }
 
 
-div[class="boardcontainer"]{
-    display: flex;
-    flex-direction: column;    
-    font-size: 20px;
-    margin-bottom: 10px;
-   	margin-top:80px;
-   	font-weight: bold;
-    
-}
-div[class="board_header"]{
-    display: flex;
-    flex-direction: column;
+/* footer */
+
+.footer{
+    float: left;
+    width: 70%;
     height: 100px;
-    border: 1px solid #ddd;
-    border-bottom: none;
-    padding: 10px;
-    
+   
 }
-div[class="header_upside"]{
-    display: flex;
-    flex-direction: column;
-    height: 60%;
-    
-    
-}
-div[class="header_downside"]{
-    display: flex;    
-    height: 40%;
-    margin-top: 7px;
-    justify-content: space-between;
-}
-div[class="downside_left"]{
-    display: flex;
-}
-div[class="downside_right"]{
-    display: flex;
-}
-div[class="board_body"]{
-    min-height: 300px;
-    border: 1px solid #ddd;
-    border-bottom: none;
-    padding: 10px;
-    font-size: 20px;
-}
-
-div[class="board_footer"]{
-    min-height: 200px;
-    border: 1px solid #ddd;
-    padding: 10px;
-}
-
-
-div[class="view_title"]{
-	font-size: 110%;
-}
-div[class="view_nickname"]{
-    margin-right: 5px;
-    line-height: 31px;
-}
-
-div[class="view_boarddate"]{
-   margin-right: 5px;
-   line-height: 31px;
-}
-button[id="modifyBoardBtn"]{
-	margin-left: 5px;
-	margin-right: 5px;
-}
-div[class="view_replys"]{
-	width: 100px;   
-}
-div[class="view_hit"]{
-    min-width: 100px;
-}
-
-div[class="replywrapper"]{
-    width: 100%;
-}
-
-div[class="reply_header"]{
-    width: 100px;
-}
-button[class="origin"]{
-	width: 70px;
-	height: 30px;
-	margin-left: 10px;
-}
-
-li[class="replywrapper"]{
-	
-}
-div[class="reply_header"]{
-	margin-bottom: 20px;
-}
-li[class="reply_group_item"]{
-    display: flex;
-    margin-bottom: 20px;
-}
-
-div[class="reply_nickname"]{
-    width: 10%;
-    border: 1px solid;
-    text-align: center;
-    line-height: 40px;
-}
-div[class="reply"]{
-    width: 80%;
-    border: 1px solid;
-    line-height: 40px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-	
-button[class="modifyBtn"]{
-	width:70px;
-    height: 30px;
-	
-}
-button[class="deleteBtn"]{
-	width:70px;
-    height: 30px;
-}
-
-
-
-
-
-/*   댓 글*/
-
-div[class="reply_writer_wrapper"]{
-	width: 100%;
-	min-height: 100px;
-	border: 1px solid #ddd;
-}
-div[class="reply_writer"]{
-    margin-top: 0px;
-    padding-top: 10px;
-}
-label[class="reply_writer_label"]{
-	padding-bottom: 10px;
-	padding-left: 20px;
-	font-weight: bold;
-}
-div[class="reply_writer_div"]{
-	display: flex;
-	 justify-content: space-between;
-	 padding: 10px;
-}
-textarea[id="reply_writer_text"]{
-	width: 1000px;
-	height: 100px;
-	padding: 4px 8px;
-	border: 1px solid #ddd;
-	margin-bottom: 10px;
-	resize: vertical;
-	font-size: 20px;
-}
-button[id="reply_writer_btn"]{
-    width: 120px;
-    height: 50px;
-	border-radius: 3px;
-	text-align: center;
-	line-height: 50px;
-	vertical-align: bottom;
-	margin-left: 10px;
-}
-
-div[class="reply_modify_wrapper"]{
-    width: 100%;
-	min-height: 100px;
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-    display: none;
-}
-div[class="reply_modify"]{
-    margin-top: 0px;
-    padding-top: 10px;
-}
-label[class="reply_modify_label"]{
-    padding-bottom: 10px;
-	padding-left: 20px;
-	font-weight: bold;
-}
-div[class="reply_modify_div"]{
-    display: flex;
-	 justify-content: space-between;
-	 padding: 10px;
-}
-textarea[class="reply_modify_text"]{
-    width: 1000px;
-	height: 100px;
-	padding: 4px 8px;
-	border: 1px solid #ddd;
-	margin-bottom: 10px;
-	resize: vertical;
-	font-size: 20px;
-	
-}
-div[class="reply_modify_button_div"]{
-    width: 120px;
-    margin-left: 10px;
-}
-button[class="reply_modify_button"]{
-    
-    width: 100%;
-    height: 50px;
-	border: 1px solid black;
-	border-radius: 3px;
-	text-align: center;
-    line-height: 50px;
-    vertical-align: bottom;
-    margin-bottom: 5px;
-}
-button[class="reply_modify_cancel"]{
-    
-    width: 100%;
-    height: 50px;
-	border: 1px solid black;
-	border-radius: 3px;
-	text-align: center;
-	line-height: 50px;
-}
-
-
-
-
-
-
-
-li.reply_group_item2{
-    display: flex;
-    flex-direction: column;
-}
-div.itemwrapper{
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-div.reply_nickname2{
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-div.replydate2{
-    margin-bottom: 10px;
-    color: #ddd;
-}
-div[class="reply_reply"]{
-	color: black;
-	margin-bottom: 20px;
-	height: auto;
-	white-space: pre-line;
-}
-textarea[class="reply_modify_text1"]{
-    width: 100%;
-    min-height:100px;
-	overflow: hidden;
-	padding: 0px;
-	border: 1px solid #ddd;
-	margin-bottom: 10px;
-	resize: none;
-	font-size: 20px;
-	readonly;
-	border: none
-}
-button.modify{
-    width:70px;
-    height: 30px;
-}
-button.delete{
-    width: 70px;
-    height: 30px;
-}
-
-
-
-
-
-
-
-
-
 
 
 /* 모바일 반응형 왭 */
@@ -586,13 +303,14 @@ button.delete{
         cursor: pointer;
         margin-left: 20px;
         margin-top: 35px;
+        z-index: 4;
     }
 
     div[class="sidebar"]{
         display: block;
         border-right: 1px solid grey;
         width: 40%;
-
+		z-index: 3;
     }
 
     div[class="sidebar"] ul{
@@ -616,10 +334,7 @@ button.delete{
         
     }
 
-	.sidebar_menu_button{
-		border: none;
-	}
-
+    
     /* header */
 
     .header{
@@ -633,10 +348,12 @@ button.delete{
         height: 70%;
     }
 
-    .section_chart{
+    .section_main{
         width: 100%;
         padding-left: 0px;
+        
     }
+    
 
     .footer{
         float: none;
@@ -646,3 +363,36 @@ button.delete{
   
 
 }
+
+
+
+/* admin_map 추가분*/
+.info {
+	position:fixed;
+	display:none;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+	border-bottom: 2px solid #ddd;
+	font-size: 12px;
+	padding: 5px;
+	background: #fff;
+	list-style: none;
+	margin: 0;
+	z-index:9999;
+}
+
+.info:nth-of-type(n) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.info .label {
+	display: inline-block;
+	width: 50px;
+}
+
+.number {
+	font-weight: bold;
+	color: #00a0e9;
+}
+/* End of admin_map 추가분*/

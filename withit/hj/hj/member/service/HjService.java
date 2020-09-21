@@ -76,6 +76,12 @@ public interface HjService {
 
 	public void replyDeleteUpdate2(int bno);
 
+	public void writeBBoard(Map<String, Object> map);
+
+	public void boardReply2(Map<String, Object> map);
+
+	public void replyUpdate2(int bno);
+
 	
 
 	
