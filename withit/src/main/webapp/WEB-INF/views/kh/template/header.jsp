@@ -204,6 +204,10 @@ div[class="sidebar fixed"] > ul > li > a {
     margin:10px;
 }
 input[id="menuicon"]:checked +label +div {right:0;}
+
+div[id="banner_wrapper"] {
+	opacity="0";
+}
 </style>
 <div id="loginBar_wrapper">
 	<div id="loginBar" class="container">

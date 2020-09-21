@@ -19,8 +19,19 @@
 		<div class="footer">
 			<h1>고객문의</h1>
 			<p>Tel: 1234-5678 (24시간 연중무휴)</p>
-			<p>Email: bit159.richard@gmail.com</p>
+			<p>Email: synergy.bit159@gmail.com</p>
 			<p>kakaoID: 020478</p>
 		</div>
 	</footer>
 </div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', ()=>{
+		var body = document.body, html = document.documentElement;
+ 			var height = Math.max( body.scrollHeight, body.offsetHeight, 
+	                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+		document.querySelector('div[id="footer_wrapper"]').style.position="absolute";
+		document.querySelector('div[id="footer_wrapper"]').style.top=(height-260)+"px";
+		document.querySelector('div[id="footer_wrapper"]').style.opacity="1";
+	});
+</script>

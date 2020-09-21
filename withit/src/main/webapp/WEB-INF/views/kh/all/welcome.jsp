@@ -62,5 +62,14 @@
 <!-- 		</div> -->
 		<!-- 푸터 -->
 	</div>
+	<script>
+	document.addEventListener('DOMContentLoaded', ()=>{
+		var body = document.body, html = document.documentElement;
+ 			var height = Math.max( body.scrollHeight, body.offsetHeight, 
+	                       html.clientHeight, html.scrollHeight, html.offsetHeight );
+		document.querySelector('div[id="footer_wrapper"]').style.position="absolute";
+		document.querySelector('div[id="footer_wrapper"]').style.top=(height-345)+"px";
+	});
+</script>
 </body>
 </html>
