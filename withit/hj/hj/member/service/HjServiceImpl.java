@@ -212,4 +212,16 @@ public class HjServiceImpl implements HjService {
 		
 	}
 
+	@Override
+	public void modifyBBoard(Map<String, Object> map) {
+		hjDAO.modifyBBoard(map);
+		
+	}
+
+	@Override
+	public void replyModify2(Map<String, Object> map) {
+		hjDAO.replyModify2(map);
+		
+	}
+
 }

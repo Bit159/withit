@@ -99,7 +99,11 @@
                             <div class="view_boarddate"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${bBoardDTO.boarddate }"/></div>
                            
                             
-                            	<button type="button" id="deleteBoardBtn" style="width: 70px" data-bno="${bBoardDTO.bno }" data-page="${paging.page }" data-range="${paging.range }">삭제</button>
+                            	<c:if test="${isAuthor eq true }">
+	                            <button type="button" id="modifyBoardBtn" style="width: 70px" data-bno="${bBoardDTO.bno }" data-page="${paging.page }" data-range="${paging.range }" onclick="location.href='/adminFreeViewModify?bno=${bBoardDTO.bno }'">수정</button>
+                            	
+                         		</c:if>
+                         		<button type="button" id="deleteBoardBtn" style="width: 70px" data-bno="${bBoardDTO.bno }" data-page="${paging.page }" data-range="${paging.range }">삭제</button>
                            
                         </div>
                         <div class="downside_right">
@@ -135,12 +139,30 @@
 					                                    </div>
 					                                    <div class="reply_button">
 					                                    
-							                               <button type="button" class="deleteBtn" data-rno="${ replydto.rno }">삭제</button>
-						                                
+							                               
+						                                   <sec:authorize access="isAuthenticated()">
+					                                    	<sec:authentication property="principal.username" var="username"/>
+				                                    		<c:if test="${replydto.username eq username }">
+							                                	<button type="button" class="modifyBtn" data-rno="${ replydto.rno }">수정</button>
+							                                	
+						                                	</c:if>
+						                                	</sec:authorize>
+						                                	<button type="button" class="deleteBtn" data-rno="${ replydto.rno }">삭제</button>
 						                                </div>
 					                                </div>
 					                            </li>
-					                            
+					                            <div class="reply_modify_wrapper">
+					                                <div class="reply_modify">
+					                                    <label class="reply_modify_label">댓글 수정</label>
+					                                    <div class="reply_modify_div">
+					                                        <textarea name="reply_modify_text" class="reply_modify_text">${replydto.reply }</textarea>
+					                                        <div class="reply_modify_button_div">
+					                                            <button class="reply_modify_button" data-rno="${ replydto.rno }" data-page="${paging.page }" data-range="${paging.range }">수정완료</button>
+					                                            <button class="reply_modify_cancel">취소</button>
+					                                        </div>
+					                                    </div>
+					                                </div>
+					                            </div>
 				                            </div>
 		                            	</c:if>
 	                            </c:forEach>
@@ -355,6 +377,82 @@ $(document).ready(function(){
 				  icon: 'warning'
 			});
 		}
+		
+	});
+	
+	
+	
+	
+	
+	// 댓글 수정
+	$(document).on("click",".modifyBtn", function(){
+		var $btnObj = $(this);
+		$btnObj.parent().parent().parent().css('display','none');
+		$btnObj.parent().parent().parent().parent().children('div.reply_modify_wrapper').css('display','block');
+	});
+	
+	$(document).on("click",".reply_modify_cancel", function(){
+		var $btnObj = $(this);
+		$btnObj.parent().parent().parent().parent().parent().children('li.reply_group_item2').css('display','flex');
+		$btnObj.parent().parent().parent().parent().css('display','none');
+	});
+	
+	$(document).on("click",".reply_modify_button",function(){
+		var bno = document.querySelector('div.view_bno').innerText;
+		console.log(bno);
+		var page = $(this).data('page');
+		var range = $(this).data('range');
+		let rno = $(this).data('rno') // data-rno
+		var reply = $(this).parent().parent().children('textarea.reply_modify_text').val();
+		console.log(reply);
+		var csrfHeaderName = document.getElementById('csrf_header').content;
+		var csrfTokenValue = document.getElementById('csrf').content;
+		
+		var param = "reply="+reply+"&rno="+rno;
+		console.log(param);
+		
+		Swal.fire({
+			title:`댓글 수정`,
+			text:`정말 수정하시겠습니까?`,
+			icon:`question`,
+			confirmButtonText:`확인`,
+			showCancelButton:true,
+			cancelButtonText:`취소`,
+		}).then((res)=>{
+			if(res.isConfirmed){
+				console.log('승인, 댓글수정처리가 들어올 곳')
+				updateReply();
+			}else {
+				console.log('비승인');
+				Swal.fire('취소', '댓글 수정이 취소되었습니다', 'error');
+			}
+		});
+		
+		function updateReply() {
+			$.ajax({
+				type: 'post',
+				url: '/all/replyModify',
+				beforeSend: function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		    	},
+		    	data: param,
+		    	success: function(data){
+		    		Swal.fire({
+							  title: '댓글 수정 완료',
+							  text: '댓글이 수정 되었습니다.',
+							  icon: 'success',
+							  confirmButtonText: `확인`,
+		    		}).then((res)=>{
+		    			location.href='/adminFreeView/'+bno+'?pg='+page+'&range='+range;
+		    		});
+		    	},
+		    	error: function(err){
+					console.log(err);
+				}
+				
+			});
+		}
+		
 		
 	});
 	

@@ -12,13 +12,6 @@ html, body{
     padding: 0;
 }
 
-button {
-   border: solid 1px #525965;
-   color:white;
-   background:#525965;
-   cursor:pointer;
-}
-
 
 
 /* aside bar 왼쪽메뉴*/
@@ -26,16 +19,15 @@ button {
 .aside{
    float: left; 
    width: 20%;
-   height: 1500px;
+   height: 900px;
    margin: 0;
-   
 }
 
 .aside_menu{
     width: 98%;
     height: 100%;
     background-color: #525965;
-	overflow: hidden;
+
 }
 
 .aside_menu_list{
@@ -140,9 +132,6 @@ button {
 .aside_menu_list_5:hover{
     color: rgba(200, 200, 200, 200);
 }
-
-
-
 
 .aside_menu_list_6{
     
@@ -271,298 +260,73 @@ input[id="menuicon"]:checked + label + div {
 .section{
     float: left;
     width: 70%;
-    height: 800px;
+    height: 700px;
 }
 
 
-
-div[class="boardwrapper"]{
-    border-left: 3px solid rgb(200, 241, 221);
-    margin-left:30px;
+#boardModifyContainer{
+	margin-top:80px;
 }
 
 
-div[class="boardcontainer"]{
-    display: flex;
-    flex-direction: column;    
-    font-size: 20px;
-    margin-bottom: 10px;
-   	margin-top:80px;
-   	font-weight: bold;
-    
+div[id="boardModifyTopic"]{
+    min-height: 100px;
 }
-div[class="board_header"]{
-    display: flex;
-    flex-direction: column;
-    height: 100px;
-    border: 1px solid #ddd;
-    border-bottom: none;
-    padding: 10px;
-    
+div[id="boardModifyTitle"]{
+    margin: 0 auto;
+    min-height: 100px;
+    padding: 5px 10px;
 }
-div[class="header_upside"]{
-    display: flex;
-    flex-direction: column;
-    height: 60%;
-    
-    
-}
-div[class="header_downside"]{
-    display: flex;    
-    height: 40%;
-    margin-top: 7px;
-    justify-content: space-between;
-}
-div[class="downside_left"]{
-    display: flex;
-}
-div[class="downside_right"]{
-    display: flex;
-}
-div[class="board_body"]{
-    min-height: 300px;
-    border: 1px solid #ddd;
-    border-bottom: none;
-    padding: 10px;
+input[id="boardModifyTitleText"]{
+    display : block;
+    margin: 0 auto;
+    height: 50px;
+    width: 500px;
+    border-color: #ddd;
+    border-left: 3px solid #32be78;
+    padding: 10px, 10px;
     font-size: 20px;
 }
-
-div[class="board_footer"]{
-    min-height: 200px;
-    border: 1px solid #ddd;
-    padding: 10px;
+div[id="boardModifyContent"]{
+    margin: 0 auto;
+    min-height: 100px;
+    padding: 5px 10px;
 }
-
-
-div[class="view_title"]{
-	font-size: 110%;
-}
-div[class="view_nickname"]{
-    margin-right: 5px;
-    line-height: 31px;
-}
-
-div[class="view_boarddate"]{
-   margin-right: 5px;
-   line-height: 31px;
-}
-button[id="modifyBoardBtn"]{
-	margin-left: 5px;
-	margin-right: 5px;
-}
-div[class="view_replys"]{
-	width: 100px;   
-}
-div[class="view_hit"]{
-    min-width: 100px;
-}
-
-div[class="replywrapper"]{
-    width: 100%;
-}
-
-div[class="reply_header"]{
-    width: 100px;
-}
-button[class="origin"]{
-	width: 70px;
-	height: 30px;
-	margin-left: 10px;
-}
-
-li[class="replywrapper"]{
-	
-}
-div[class="reply_header"]{
-	margin-bottom: 20px;
-}
-li[class="reply_group_item"]{
-    display: flex;
-    margin-bottom: 20px;
-}
-
-div[class="reply_nickname"]{
-    width: 10%;
-    border: 1px solid;
-    text-align: center;
-    line-height: 40px;
-}
-div[class="reply"]{
-    width: 80%;
-    border: 1px solid;
-    line-height: 40px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-	
-button[class="modifyBtn"]{
-	width:70px;
-    height: 30px;
-	
-}
-button[class="deleteBtn"]{
-	width:70px;
-    height: 30px;
-}
-
-
-
-
-
-/*   댓 글*/
-
-div[class="reply_writer_wrapper"]{
-	width: 100%;
-	min-height: 100px;
-	border: 1px solid #ddd;
-}
-div[class="reply_writer"]{
-    margin-top: 0px;
-    padding-top: 10px;
-}
-label[class="reply_writer_label"]{
-	padding-bottom: 10px;
-	padding-left: 20px;
-	font-weight: bold;
-}
-div[class="reply_writer_div"]{
-	display: flex;
-	 justify-content: space-between;
-	 padding: 10px;
-}
-textarea[id="reply_writer_text"]{
-	width: 1000px;
-	height: 100px;
-	padding: 4px 8px;
-	border: 1px solid #ddd;
-	margin-bottom: 10px;
-	resize: vertical;
+textarea[id="boardModifyContentText"]{
+    display : block;
+    margin: 0 auto;
+    height: 300px;
+    width: 500px;
+    border-color: #ddd;
+    border-left: 3px solid #32be78;
+    padding: 10px, 10px;
+    resize: vertical;
 	font-size: 20px;
 }
-button[id="reply_writer_btn"]{
-    width: 120px;
-    height: 50px;
-	border-radius: 3px;
-	text-align: center;
-	line-height: 50px;
-	vertical-align: bottom;
-	margin-left: 10px;
-}
-
-div[class="reply_modify_wrapper"]{
-    width: 100%;
-	min-height: 100px;
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-    display: none;
-}
-div[class="reply_modify"]{
-    margin-top: 0px;
-    padding-top: 10px;
-}
-label[class="reply_modify_label"]{
-    padding-bottom: 10px;
-	padding-left: 20px;
-	font-weight: bold;
-}
-div[class="reply_modify_div"]{
+div[id="boardModifyButton"]{
+    min-height: 100px;
     display: flex;
-	 justify-content: space-between;
-	 padding: 10px;
+    align-items: center;
+    justify-content: center;
 }
-textarea[class="reply_modify_text"]{
-    width: 1000px;
-	height: 100px;
-	padding: 4px 8px;
-	border: 1px solid #ddd;
-	margin-bottom: 10px;
-	resize: vertical;
-	font-size: 20px;
-	
-}
-div[class="reply_modify_button_div"]{
-    width: 120px;
-    margin-left: 10px;
-}
-button[class="reply_modify_button"]{
-    
-    width: 100%;
+button[id="boardModifyBtn"]{
+	    width: 100px;
     height: 50px;
-	border: 1px solid black;
-	border-radius: 3px;
-	text-align: center;
-    line-height: 50px;
-    vertical-align: bottom;
-    margin-bottom: 5px;
+    margin: 10px;
+   border: solid 1px #525965;
+    color: white;
+    background: #525965;
+    cursor: pointer;
 }
-button[class="reply_modify_cancel"]{
-    
-    width: 100%;
+button[id="boardListBtn"]{
+	    width: 100px;
     height: 50px;
-	border: 1px solid black;
-	border-radius: 3px;
-	text-align: center;
-	line-height: 50px;
+    margin: 10px;
+   border: solid 1px #525965;
+    color: white;
+    background: #525965;
+    cursor: pointer;
 }
-
-
-
-
-
-
-
-li.reply_group_item2{
-    display: flex;
-    flex-direction: column;
-}
-div.itemwrapper{
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-div.reply_nickname2{
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-div.replydate2{
-    margin-bottom: 10px;
-    color: #ddd;
-}
-div[class="reply_reply"]{
-	color: black;
-	margin-bottom: 20px;
-	height: auto;
-	white-space: pre-line;
-}
-textarea[class="reply_modify_text1"]{
-    width: 100%;
-    min-height:100px;
-	overflow: hidden;
-	padding: 0px;
-	border: 1px solid #ddd;
-	margin-bottom: 10px;
-	resize: none;
-	font-size: 20px;
-	readonly;
-	border: none
-}
-button.modify{
-    width:70px;
-    height: 30px;
-}
-button.delete{
-    width: 70px;
-    height: 30px;
-}
-
-
-
-
-
-
-
-
 
 
 

@@ -499,7 +499,15 @@ public class HjController {
 			mav.addObject("now", now);
 			mav.addObject("replyList", replyList);
 			
+			boolean isAuthor = false;
+			if(principal != null) {
+				if(bBoardDTO.getUsername().equals(principal.getName())) {
+					isAuthor = true;
+				}
+			}
 			
+			System.out.println(isAuthor);
+			mav.addObject("isAuthor", isAuthor);
 			
 			mav.setViewName("/hj/all/adminFreeViewForm");
 			return mav;
@@ -597,8 +605,45 @@ public class HjController {
 			return mav;
 		}
 		
+		// 자유게시판 수정 폼	
+		@GetMapping("/adminFreeViewModify")
+		public ModelAndView adminFreeViewModify(@RequestParam int bno) {
+			// 원글 불러오기
+			BBoardDTO bBoardDTO = hjService.getBBoard(bno);
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("bBoardDTO", bBoardDTO);
+			mav.setViewName("/hj/all/adminFreeViewModify");
+			return mav;
+		}
 		
+		// 자유게시판 보드 수정
+		@PostMapping("/all/boardModify")
+		@ResponseBody
+		public String boardModify(@RequestParam String title, String content, Principal principal, HttpServletRequest request, int bno) {
+			Date now = new Date();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("title",title);
+			map.put("content",content);
+			map.put("now", now);
+			map.put("bno", bno);
+			hjService.modifyBBoard(map);
+			return "success";
+		}
 		
+		// 자유게시판 댓글 수정
+		@PostMapping("/all/replyModify")
+		public ModelAndView replyModify2(@RequestParam String reply, int rno, HttpSession session) {
+			System.out.println(reply);
+			System.out.println(rno);
+			/* String nickname = (String) session.getAttribute("nickname"); */
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("rno",rno);
+			map.put("reply", reply);
+			hjService.replyModify2(map);
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/hj/all/adminFreeView");
+			return mav;
+		}
 		
 		
 

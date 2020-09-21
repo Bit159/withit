@@ -46,5 +46,7 @@ public interface HjDAO {
 	public abstract void writeBBoard(Map<String, Object> map);
 	public abstract void boardReply2(Map<String, Object> map);
 	public abstract void replyUpdate2(int bno);
+	public abstract void modifyBBoard(Map<String, Object> map);
+	public abstract void replyModify2(Map<String, Object> map);
 
 }

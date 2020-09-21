@@ -203,4 +203,16 @@ public class HjDAOMybatis implements HjDAO {
 		
 	}
 
+	@Override
+	public void modifyBBoard(Map<String, Object> map) {
+		sqlSession.update("hjSQL.modifyBBoard", map);
+		
+	}
+
+	@Override
+	public void replyModify2(Map<String, Object> map) {
+		sqlSession.update("hjSQL.replyModify2", map);
+		
+	}
+
 }

@@ -206,6 +206,18 @@
   	<update id="replyUpdate2" parameterType="int">
   		update db.board set replys=replys+1 where bno=#{bno}
   	</update>
+  	
+  	<!-- 자유게시판 보드 수정 -->
+	<update id="modifyBBoard" parameterType="java.util.Map">
+		UPDATE db.board 
+		SET title = #{title}, content = #{content}, updatedate = #{now}
+		WHERE bno = #{bno}
+	</update>
+	
+	<!-- 자유게시판 댓글 수정 -->
+  	<update id="replyModify2" parameterType="java.util.Map">
+  		update db.reply2 set reply = #{reply} where rno = #{rno}
+  	</update>
 	
 	
 	 

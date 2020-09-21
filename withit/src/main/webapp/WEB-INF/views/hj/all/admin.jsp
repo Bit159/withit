@@ -299,7 +299,6 @@ for(let i = 0; i<a.length; i++){
 				type: 'post',
 				url: '/all/memberDelete',
 				data: {'username' : username},
-				
 				beforeSend:function(xhr){
 					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 				},
