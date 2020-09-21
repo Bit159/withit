@@ -112,6 +112,36 @@
 	                       	<c:when test="${topic eq '모각코'}">
 	                        <i class="fas fa-laptop-code fa-2x" style="color:silver;"></i><span id="topicIcon" style="width:110px;font-size: 15pt">&nbsp;모각코</span>
 	                        </c:when>
+	                        <c:when test="${topic eq 'Spring'}">
+	                        <img src="resources/kh/image/Spring.png" width="30px" height="30px"><span id="topicIcon" style="width:100px;font-size: 15pt;text-align: left">&nbsp;${dto.topic }</span>
+	                        </c:when>
+	                        <c:when test="${topic eq 'SpringBoot'}">
+	                        <img src="resources/kh/image/Springboot.png" width="30px" height="30px"><span id="topicIcon" style="width:100px;font-size: 15pt;text-align: left">&nbsp;${dto.topic }</span>
+	                        </c:when>
+	                        <c:when test="${topic eq 'SQL'}">
+	                        <i class="fas fa-database fa-2x" style="color:gray"></i><span id="topicIcon" style="width:100px;font-size: 15pt;text-align: left">&nbsp;${dto.topic }</span>
+	                        </c:when>
+	                        <c:when test="${topic eq 'C#'}">
+	                        <img src="resources/kh/image/C#.png" width="30px" height="30px"><span id="topicIcon" style="width:100px;font-size: 15pt;text-align: left">&nbsp;${dto.topic }</span>
+	                        </c:when>
+	                        <c:when test="${topic eq 'C++'}">
+	                        <img src="resources/kh/image/C++.png" width="30px" height="30px"><span id="topicIcon" style="width:100px;font-size: 15pt;text-align: left">&nbsp;${dto.topic }</span>
+	                        </c:when>
+   	                        <c:when test="${topic eq 'C'}">
+	                        <img src="resources/kh/image/C.png" width="30px" height="30px"><span id="topicIcon" style="width:100px;font-size: 15pt;text-align: left">&nbsp;${dto.topic }</span>
+	                        </c:when>
+	                        <c:when test="${topic eq 'Algorithm'}">
+	                        <img src="resources/kh/image/Algorithm.png" width="30px" height="30px"><span id="topicIcon" style="width:100px;font-size: 15pt;text-align: left">&nbsp;${dto.topic }</span>
+	                        </c:when>
+	                        <c:when test="${topic eq 'Toy Project'}">
+	                        <i class="fas fa-cube fa-2x"></i><span id="topicIcon" style="width:180px;font-size: 15pt;text-align: left">&nbsp;${dto.topic }</span>
+	                        </c:when>
+	                        <c:when test="${topic eq 'BackEnd'}">
+	                        <i class="fas fa-cog fa-2x"></i><span id="topicIcon" style="width:180px;font-size: 15pt;text-align: left">&nbsp;${dto.topic }</span>
+	                        </c:when>
+	                        <c:when test="${topic eq 'FrontEnd'}">
+	                        <i class="fas fa-broom fa-2x"></i><span id="topicIcon" style="width:180px;font-size: 15pt;text-align: left">&nbsp;${dto.topic }</span>
+	                        </c:when>
 	                        </c:choose>
 	                        <input type="hidden" id="hidden-open" value="${dto.open }">
 	                        <c:if test="${dto.open eq 0}">
