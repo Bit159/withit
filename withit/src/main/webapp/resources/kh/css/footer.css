@@ -2,18 +2,24 @@
 div[id="footer_wrapper"] {
     width:100%;
     left:0;
-    margin:60px 0 0 0;
-    padding: 20px 0 0 0;
-    height: 200px;
+    margin:60px 0 0 0 !important;
+    padding: 20px 0 0 0 !important;
+    height: 200px !important; 
     background-color: rgb(243,243,243);
     border-top: solid 1px rgba(218, 214, 214, 0.774);
 }
 #footer{
     display: flex;
 }
-.footer {
+.footerDiv {
     width: calc(100%/3);
 }
+.footerDiv p {
+	margin:0;
+	font-size: 13pt;
+}
 #footer h1 {
-    font-size: 14pt;
+    font-size: 14pt !important;
+    font-weight:bold;
+    margin-bottom: 5px;
 }

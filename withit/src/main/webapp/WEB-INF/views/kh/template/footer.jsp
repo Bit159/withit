@@ -6,17 +6,17 @@
     <jsp:include page="/WEB-INF/views/bj/member/chattingList.jsp"/>
 </sec:authorize>
 	<footer id="footer" class="container">
-		<div class="footer">
+		<div class="footerDiv">
 			<h1>서비스</h1>
 			<p onclick="location='/notice'" style="cursor:pointer;">공지사항</p>
 			<p onclick="location='/qna'" style="cursor:pointer;">Q n A</p>
 		</div>
-		<div class="footer">
+		<div class="footerDiv">
 			<h1>프로젝트</h1>
 			<p>프로젝트 소개</p>
 			<p>개발진</p>
 		</div>
-		<div class="footer">
+		<div class="footerDiv">
 			<h1>고객문의</h1>
 			<p>Tel: 1234-5678 (24시간 연중무휴)</p>
 			<p>Email: bit159.richard@gmail.com</p>
