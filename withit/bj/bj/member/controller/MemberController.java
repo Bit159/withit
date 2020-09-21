@@ -2,6 +2,7 @@ package bj.member.controller;
 
 import java.security.Principal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -146,6 +147,22 @@ public class MemberController{
 	
 	//=========================================================== 공지사항
 	
+	@GetMapping("/notice/noticeWriteForm")
+	public String noticeForm() {
+		return "/bj/admin/noticeWrite";
+	}
+	
+	@GetMapping("/notice/noticeModifyForm")
+	public ModelAndView noticeModifyForm(@RequestParam int bno) {
+		BBoardDTO bBoardDTO = memberService.getNotice(bno);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("bBoardDTO", bBoardDTO);
+		
+		mav.setViewName("/bj/admin/noticeModify");
+		
+		return mav;
+	}
+	
 	@GetMapping("/notice")
 	public ModelAndView notice(@RequestParam(required=false, defaultValue = "1") int pg
 						   	 ,@RequestParam(required=false, defaultValue = "1") int range
@@ -162,7 +179,6 @@ public class MemberController{
 		System.out.println("페이지"+page+"범위"+range);
 		
 		// 검색, 페이징 적용된 전체 게시글 수
-		int listCnt = boardService.getBBoardListCnt(search); 
 		int listCntN = memberService.getNoticeListCnt(search);
 		
 		// 검색
@@ -191,5 +207,171 @@ public class MemberController{
 		return mav;
 
 	}
+	
+	//====================================================== 공지사항 보드뷰
+	
+	@GetMapping("/notice/{bno}")
+	public ModelAndView freeBoardView(@PathVariable("bno") int bno
+								  	  ,@RequestParam(required=false, defaultValue = "1") int pg
+								  	  ,@RequestParam(required=false, defaultValue = "1") int range
+								  	  ,@RequestParam(required = false, defaultValue = "title") String searchType
+								  	  ,@RequestParam(required = false) String keyword
+								  	  ,HttpServletRequest request
+								  	  ,Principal principal) throws Exception {
+		
+		// 검색
+		Search search = new Search();
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+		
+		// 페이지
+		int page =  pg;
+		System.out.println("페이지"+page+"범위"+range);
+		
+		// 검색, 페이징 적용된 전체 게시글 수
+		int listCnt = boardService.getBBoardListCnt(search); 
+		
+		// 검색
+		search.pageInfo(page, range, listCnt);
+		
+		// 페이지네이션
+		Pagination paging = new Pagination();
+		paging.pageInfo(page, range, listCnt); 
+		System.out.println("paging: "+paging);	
+		
+		// 원글 불러오기
+		BBoardDTO bBoardDTO = memberService.getNotice(bno);
+		
+		// 보드뷰 하단부 검색, 페이징 적용된 보드리스트
+		List<BBoardDTO> list = memberService.getNoticeList(search);
+		System.out.println(bBoardDTO.getTitle());
+		
+		// 보드뷰 해당 리플 리스트
+		List<BBoardReplyDTO> replyList = memberService.getNoticeReplyList(bno);
+		
+		// 조회수 1증가
+		memberService.noticeHipUpdate(bno);
+		
+		// 작성시간 표시 위한 현재 Date 객체
+		Date now = new Date();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("paging",search);
+		mav.addObject("bBoardDTO", bBoardDTO);
+		mav.addObject("list", list);
+		mav.addObject("now", now);
+		mav.addObject("replyList", replyList);
+		
+		//bj.member.controller.LoginSuccessHandler 에서 로그인 성공 시 session에 nickname 담아둠.
+		//세션에 담긴 nickname과 선택한 글의 nickname값을 검증하여 mav 객체에 boolean 결과값을 담아서 view로 보냄
+		boolean isAuthor = false;
+		if(principal != null) {
+			if(bBoardDTO.getUsername().equals(principal.getName())) {
+				isAuthor = true;
+			}
+		}
+		/*
+		 * if(bBoardDTO.getUsername().equals(request.getSession().getAttribute(
+		 * "nickname"))) { isAuthor = true; }
+		 */
+		System.out.println(isAuthor);
+		mav.addObject("isAuthor", isAuthor);
+		mav.setViewName("/bj/all/noticeView");
+		return mav;
+	}
+	
+	//================================================== 공지사항 댓글 추가
+	
+	@PostMapping("/notice/noticeReply")
+	public ModelAndView noticeReply(@RequestParam String reply, int bno, Principal principal) {
+		String username = principal.getName();
+		String nickname = memberService.getNickname(username);
+		List<BBoardReplyDTO> replyList = memberService.getNoticeReplyList(bno);
+		Date now = new Date();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno",bno);
+		map.put("reply", reply);
+		map.put("username", username);
+		map.put("nickname", nickname);
+		map.put("now", now);
+		memberService.noticeReply(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("replyList", replyList);
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
+	
+	//======================================================= 공지사항 댓글 삭제
+	
+	@PostMapping("/notice/replyDelete")
+	@ResponseBody
+	public void replyDelete(@RequestParam int rno, int bno) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("rno", rno);
+		map.put("bno", bno);
+		memberService.noticeReplyDelete(map);
+	}
+	
+	//======================================================= 공지사항 댓글 수정
+	
+	@PostMapping("/notice/replyModify")
+	@ResponseBody
+	public void noticeReply(@RequestParam String reply, int rno) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("rno",rno);
+		map.put("reply", reply);
+		
+		memberService.noticeReplyModify(map);
+	}
+	
+	//======================================================= 공지사항 삭제
+	
+	@PostMapping("/notice/noticeDelete")
+	@ResponseBody
+	public void noticeDelete(@RequestParam int bno) {
+		System.out.println(bno);
+		memberService.noticeDelete(bno);
+	}
+	
+	//======================================================= 공지사항 작성
+	
+	
+	@PostMapping("/notice/noticeWrite")
+	@ResponseBody
+	public String noticeWrite(@RequestParam String title, String content, Principal principal, HttpServletRequest request) {
+		Date now = new Date();
+		
+		String username = principal.getName();
+		String nickname = memberService.getNickname(username);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("title",title);
+		map.put("content",content);
+		map.put("username", username);
+		map.put("nickname", nickname);
+		map.put("now", now);
+		
+		memberService.noticeWrite(map); 
+		
+		return "success";
+	}
+	
+	@PostMapping("/notice/noticeModify")
+	@ResponseBody
+	public String noticeModify(@RequestParam String title, String content, Principal principal, HttpServletRequest request, int bno) {
+		Date now = new Date();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("title",title);
+		map.put("content",content);
+		map.put("now", now);
+		map.put("bno", bno);
+		memberService.noticeModify(map);
+		
+		return "success";
+	}
+	
 	
 }

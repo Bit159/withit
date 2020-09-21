@@ -94,7 +94,6 @@
 	<!-- ============================ 공 지 사 항 ============================ -->
 	
 	<!-- 게시글 총 개수 -->
-	
   	<select id="getNoticeListCnt" resultType="int">
 		SELECT count(*) as listCnt 
 		FROM db.notice
@@ -113,14 +112,9 @@
 					AND nickname like CONCAT('%', #{keyword}, '%')
 	
 				</if>
-	
 	      </if>
-	
-		</trim>
-		
-		
+		</trim>	
 	</select>
-	<!-- 게시글 총 개수 -->
 	
 	<!-- 자유게시판 페이징, 검색 처리한 리스트 -->
 	<select id="getNoticeList" parameterType="pagination" resultType="bBoardDTO">
@@ -144,7 +138,57 @@
 		ORDER BY bno desc
 		LIMIT #{startList},#{listSize};
 	</select>
-	<!-- 자유게시판 페이징, 검색 처리한 리스트 -->
+	
+	<!-- 공지사항 클릭 시 정보 가져오기 -->	
+	<select id="getNotice" parameterType="int" resultType="bBoardDTO">
+		select * from notice where bno=#{bno}
+	</select>
+	
+	<!-- 공지사항 조회수 증가 -->
+	<update id="noticeHitUpdate" parameterType="int">
+		update notice set hit=hit+1 where bno=#{bno}
+	</update>
+	
+	<!-- 공지사항 댓글 가져오기 -->
+	<select id="getNoticeReplyList" parameterType="int" resultType="bBoardReplyDTO">
+		select * from db.noticeReply where bno=#{bno} order by bno desc
+	</select>
+	
+	<!-- 공지사항 댓글 추가 -->
+	<insert id="noticeReply" parameterType="java.util.Map">
+		insert into db.noticeReply (bno, reply, username, nickname, replydate, updatedate) values(#{bno}, #{reply}, #{username}, #{nickname}, #{now}, #{now});
+		update db.notice set replys=replys+1 where bno=#{bno};
+	</insert>
+	
+	<!-- 공지사항 댓글 삭제 -->
+	<delete id="noticeReplyDelete" parameterType="java.util.Map">
+		delete from db.noticeReply where rno=#{rno};
+		update db.notice set replys=replys-1 where bno=#{bno}
+	</delete>
+	
+	<!-- 공지사항 댓글 수정 -->
+	<update id="noticeReplyModify" parameterType="java.util.Map">
+		update db.noticeReply set reply = #{reply} where rno = #{rno}
+	</update>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="noticeDelete" parameterType="int">
+		delete from db.notice where bno=#{bno}
+	</delete>
+	
+	<!-- 공지사항 글 작성 -->
+	<insert id="noticeWrite" parameterType="java.util.Map">
+		INSERT 
+		INTO db.notice (title, content, username, nickname, boarddate, updatedate) 
+		values(#{title}, #{content}, #{username}, #{nickname}, #{now}, #{now})
+	</insert>
+	
+	<!-- 공지사항 글 수정 -->
+	<update id="noticeModify" parameterType="java.util.Map">
+		UPDATE db.notice
+		SET title = #{title}, content = #{content}, updatedate = #{now}
+		WHERE bno = #{bno}
+	</update>
 	
 </mapper>
  
