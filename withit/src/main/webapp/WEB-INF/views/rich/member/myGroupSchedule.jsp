@@ -16,7 +16,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" flush="true" />
 	<jsp:include page="/WEB-INF/views/rich/member/sidebar.jsp" flush="true" />
-	 	<div id="testdiv" style="width:930px; height:969px; border:5px solid black;display:flex;text-align:center;flex-direction: column;">
+	 	<div class="testdiv" style="width:930px; height:969px; border:5px solid black;display:flex;text-align:center;flex-direction: column;">
 	 		<div style="margin-top:20px;"><h3>그룹 일정 관리</h3></div>
 	 		<hr>
 	 		<div id="calendarWrapper" style="margin:0 auto; float:left; width:80%;">
