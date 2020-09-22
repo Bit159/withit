@@ -50,9 +50,9 @@
 	
 	<!-- 매칭 값들 db.group에 삽입할 때 사용되는 SQL -->
 	<insert id="createGroup">
-		INSERT INTO db.group(`gno`, `username`, `created`) VALUES 
+		INSERT INTO db.group(`gno`, `username`, `nickname`, `created`, `x`, `y`, `range`, `time`, `topic`) VALUES 
 		<foreach collection="list" item="item" index="i" separator=",">
-			(#{item.gno}, #{item.username}, NOW())
+			(#{item.gno}, #{item.username}, #{item.nickname}, NOW(), #{item.x},#{item.y},#{item.range},#{item.time},#{item.topic})
 		</foreach>
 	</insert>	
 	

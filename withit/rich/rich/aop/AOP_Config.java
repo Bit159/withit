@@ -96,7 +96,7 @@ public class AOP_Config {
 
 	//매칭 검증
 	@Async
-	@AfterReturning("execution(public * com.bit159.withit.HomeController.home(..))")
+	@AfterReturning("execution(public * rich.controller.RichController.insertMatch(..))")
 	public void after() {
 		List<MatchDTO> listFromMatch = hjDAO.getListFromMatch();
 		List<MatchDTO> rangeValidatedList = rangeValidation(listFromMatch);
@@ -117,7 +117,10 @@ public class AOP_Config {
 			
 			//3. db.group 에 추가
 			int gno = richDAO.getGreatestGno();
-			for(MatchDTO dto : rangeValidatedList) dto.setGno(gno);
+			for(MatchDTO dto : rangeValidatedList) {
+				dto.setGno(gno);
+				dto.setNickname(memberService.getNickname(dto.getUsername()));
+			}
 			richDAO.createGroup(rangeValidatedList);
 			
 			//4. db.zChat{index} 테이블 추가하기

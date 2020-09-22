@@ -199,6 +199,7 @@ public class RichController {
 	public JSONObject insertMatch(@RequestBody JSONObject json, @Autowired MatchDTO matchDTO, Principal principal) {
 		matchDTO.setUsername(principal.getName());
 		matchDTO.setMycareer(richDAO.getMycareer(principal.getName()));
+		matchDTO.setNickname(memberService.getNickname(principal.getName()));
 		matchDTO.setX(json.getDouble("x"));
 		matchDTO.setY(json.getDouble("y"));
 		matchDTO.setRange(json.getDouble("range"));
