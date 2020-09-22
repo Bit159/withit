@@ -284,16 +284,95 @@ $('#reviseBtn').click(function(){
 			}
 					
 		});
+
+	} else if(password != ""){
 		
-	}else if(!passwordRules.test(password)){
-		$('#pwdDiv').text("숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
+		if(nickname != '${nickname}'){
+			newNickname = '1';
+		}
 		
-	}else if(password.indexOf(" ") != -1){
-		$('#pwdDiv').text("비밀번호에 공백을 사용하실 수 없습니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
+		if(!passwordRules.test(password)){
+			$('#pwdDiv').text("숫자와 영문자 조합으로 8~16자리를 사용해야 합니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
+			return;
+			
+		}else if(password.indexOf(" ") != -1){
+			$('#pwdDiv').text("비밀번호에 공백을 사용하실 수 없습니다.").css("color", "red").css("font-size", "8pt").css("font-weight", "bold");
+			return;
+		}
+		
+		$.ajax({
+			
+			type: 'post',
+			url: '/member/revise',
+			data: {'username':username,
+					'password':password,
+					'nickname':nickname,
+					'myCareer':myCareer,
+					'newNickname':newNickname
+			},
+			beforeSend:function(xhr){
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			success: function(data){
+
+				if(data =='success'){
+					
+					Swal.fire({
+						  icon: 'success',
+						  title: '변경 완료',
+						  text: '변경 되었습니다.',
+					}).then((result) => {
+						logout();
+						//location.href="/myPage";
+					
+					})
+					
+				}else if(data =='fail'){
+					
+					Swal.fire({
+						  icon: 'error',
+						  title: '닉네임 중복',
+						  text: '닉네임이 중복 됩니다.',
+					})
+					
+				}else if(data =='onlyPassword'){
+					Swal.fire({
+						  icon: 'success',
+						  title: '비밀번호 변경 완료',
+						  text: '닉네임 중복 : 변경을 원하시면 다시 확인해 주세요.',
+					}).then((result) => {
+						
+						location.href="/myPage";
+					
+					})
+					
+				}else if(data == 'dualSuccess'){
+					Swal.fire({
+						  icon: 'success',
+						  title: '비밀번호 닉네임 변경 완료',
+						  text: '비밀번호와 닉네임이 변경 되었습니다.',
+					}).then((result) => {
+						
+						location.href="/myPage";
+					
+					})
+				}
+				
+			},
+			error: function(err){
+				console.log(err);
+			}
+					
+		});
+		
 	}
 
 	
 });
+
+function update(){
+	
+}
 
 </script>
 <script type="text/javascript">
