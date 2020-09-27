@@ -34,14 +34,14 @@ public class MemberController{
 	@Autowired
 	private MemberService memberService;
 	
-	//=========================================== 로그인
+	//=========================================== 濡쒓렇�씤
 	
 	@GetMapping("/loginForm")
 	public String loginForm() {
 		return "/kh/all/loginForm";
 	}
 	
-	// =========================================== 소셜 로그인 관련
+	// =========================================== �냼�뀥 濡쒓렇�씤 愿��젴
 	
 	@PostMapping("/all/addInfoForm")
 	public String addInfoForm(@RequestParam String email, Model model) {
@@ -71,12 +71,12 @@ public class MemberController{
 
 	}
 	
-	//============================================================== 비밀번호 찾기
+	//============================================================== 鍮꾨�踰덊샇 李얘린
 	
 	@PostMapping("/findPwd")
 	@ResponseBody
 	public String findPwd(@RequestParam String username) {
-		String reUsername = username.substring(1, username.length() -1); //json은 앞뒤로 "가 붙어서 오므로 빼준당.
+		String reUsername = username.substring(1, username.length() -1); //json�� �븵�뮘濡� "媛� 遺숈뼱�꽌 �삤誘�濡� 鍮쇱��떦.
 		MemberDTO memberDTO = memberService.checkMember(reUsername);
 		
 		String result = "";
@@ -86,7 +86,7 @@ public class MemberController{
 		return result;
 	}
 	
-	//============================================================== 채팅방
+	//============================================================== 梨꾪똿諛�
 	
 	@PostMapping("/member/getChattingRoom")
 	@ResponseBody
@@ -139,7 +139,7 @@ public class MemberController{
 		memberService.createChat();
 	}
 	
-	//=========================================================== 공지사항
+	//=========================================================== 怨듭��궗�빆
 	
 	@GetMapping("/notice/noticeWriteForm")
 	public String noticeForm() {
@@ -168,32 +168,32 @@ public class MemberController{
 		search.setSearchType(searchType);
 		search.setKeyword(keyword);
 		
-		// 페이지
+		// �럹�씠吏�
 		int page =  pg;
-		System.out.println("페이지"+page+"범위"+range);
+		System.out.println("�럹�씠吏�"+page+"踰붿쐞"+range);
 		
-		// 검색, 페이징 적용된 전체 게시글 수
+		// 寃��깋, �럹�씠吏� �쟻�슜�맂 �쟾泥� 寃뚯떆湲� �닔
 		int listCntN = memberService.getNoticeListCnt(search);
 		
-		// 검색
+		// 寃��깋
 		search.pageInfo(page, range, listCntN);
 		
-		// 페이지네이션
+		// �럹�씠吏��꽕�씠�뀡
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCntN); 
 		System.out.println("paging: "+paging);
 		
-		// 검색, 페이징 적용된 보드리스트
+		// 寃��깋, �럹�씠吏� �쟻�슜�맂 蹂대뱶由ъ뒪�듃
 		//List<BBoardDTO> list = boardService.getBBoardList(search); 
 		List<BBoardDTO> list = memberService.getNoticeList(search);
 		
-		// 작성시간 표시 위한 현재 Date 객체
+		// �옉�꽦�떆媛� �몴�떆 �쐞�븳 �쁽�옱 Date 媛앹껜
 		Date now = new Date();
 		
 		ModelAndView mav = new ModelAndView();
-		// 검색
+		// 寃��깋
 		mav.addObject("search",search);
-		// 페이징(검색 적용)
+		// �럹�씠吏�(寃��깋 �쟻�슜)
 		mav.addObject("paging",search);
 		mav.addObject("list", list);
 		mav.addObject("now", now);
@@ -202,7 +202,7 @@ public class MemberController{
 
 	}
 	
-	//====================================================== 공지사항 보드뷰
+	//====================================================== 怨듭��궗�빆 蹂대뱶酉�
 	
 	@GetMapping("/notice/{bno}")
 	public ModelAndView freeBoardView(@PathVariable("bno") int bno
@@ -213,40 +213,40 @@ public class MemberController{
 								  	  ,HttpServletRequest request
 								  	  ,Principal principal) throws Exception {
 		
-		// 검색
+		// 寃��깋
 		Search search = new Search();
 		search.setSearchType(searchType);
 		search.setKeyword(keyword);
 		
-		// 페이지
+		// �럹�씠吏�
 		int page =  pg;
-		System.out.println("페이지"+page+"범위"+range);
+		System.out.println("�럹�씠吏�"+page+"踰붿쐞"+range);
 		
-		// 검색, 페이징 적용된 전체 게시글 수
+		// 寃��깋, �럹�씠吏� �쟻�슜�맂 �쟾泥� 寃뚯떆湲� �닔
 		int listCnt = memberService.getNoticeListCnt(search); 
 		
-		// 검색
+		// 寃��깋
 		search.pageInfo(page, range, listCnt);
 		
-		// 페이지네이션
+		// �럹�씠吏��꽕�씠�뀡
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCnt); 
 		System.out.println("paging: "+paging);	
 		
-		// 원글 불러오기
+		// �썝湲� 遺덈윭�삤湲�
 		BBoardDTO bBoardDTO = memberService.getNotice(bno);
 		
-		// 보드뷰 하단부 검색, 페이징 적용된 보드리스트
+		// 蹂대뱶酉� �븯�떒遺� 寃��깋, �럹�씠吏� �쟻�슜�맂 蹂대뱶由ъ뒪�듃
 		List<BBoardDTO> list = memberService.getNoticeList(search);
 		System.out.println(bBoardDTO.getTitle());
 		
-		// 보드뷰 해당 리플 리스트
+		// 蹂대뱶酉� �빐�떦 由ы뵆 由ъ뒪�듃
 		List<BBoardReplyDTO> replyList = memberService.getNoticeReplyList(bno);
 		
-		// 조회수 1증가
+		// 議고쉶�닔 1利앷�
 		memberService.noticeHipUpdate(bno);
 		
-		// 작성시간 표시 위한 현재 Date 객체
+		// �옉�꽦�떆媛� �몴�떆 �쐞�븳 �쁽�옱 Date 媛앹껜
 		Date now = new Date();
 		
 		ModelAndView mav = new ModelAndView();
@@ -256,8 +256,8 @@ public class MemberController{
 		mav.addObject("now", now);
 		mav.addObject("replyList", replyList);
 		
-		//bj.member.controller.LoginSuccessHandler 에서 로그인 성공 시 session에 nickname 담아둠.
-		//세션에 담긴 nickname과 선택한 글의 nickname값을 검증하여 mav 객체에 boolean 결과값을 담아서 view로 보냄
+		//bj.member.controller.LoginSuccessHandler �뿉�꽌 濡쒓렇�씤 �꽦怨� �떆 session�뿉 nickname �떞�븘�몺.
+		//�꽭�뀡�뿉 �떞湲� nickname怨� �꽑�깮�븳 湲��쓽 nickname媛믪쓣 寃�利앺븯�뿬 mav 媛앹껜�뿉 boolean 寃곌낵媛믪쓣 �떞�븘�꽌 view濡� 蹂대깂
 		boolean isAuthor = false;
 		if(principal != null) {
 			if(bBoardDTO.getUsername().equals(principal.getName())) {
@@ -274,7 +274,7 @@ public class MemberController{
 		return mav;
 	}
 	
-	//================================================== 공지사항 댓글 추가
+	//================================================== 怨듭��궗�빆 �뙎湲� 異붽�
 	
 	@PostMapping("/notice/noticeReply")
 	public ModelAndView noticeReply(@RequestParam String reply, int bno, Principal principal) {
@@ -298,7 +298,7 @@ public class MemberController{
 		return mav;
 	}
 	
-	//======================================================= 공지사항 댓글 삭제
+	//======================================================= 怨듭��궗�빆 �뙎湲� �궘�젣
 	
 	@PostMapping("/notice/replyDelete")
 	@ResponseBody
@@ -309,7 +309,7 @@ public class MemberController{
 		memberService.noticeReplyDelete(map);
 	}
 	
-	//======================================================= 공지사항 댓글 수정
+	//======================================================= 怨듭��궗�빆 �뙎湲� �닔�젙
 	
 	@PostMapping("/notice/replyModify")
 	@ResponseBody
@@ -321,7 +321,7 @@ public class MemberController{
 		memberService.noticeReplyModify(map);
 	}
 	
-	//======================================================= 공지사항 삭제
+	//======================================================= 怨듭��궗�빆 �궘�젣
 	
 	@PostMapping("/notice/noticeDelete")
 	@ResponseBody
@@ -330,7 +330,7 @@ public class MemberController{
 		memberService.noticeDelete(bno);
 	}
 	
-	//======================================================= 공지사항 작성
+	//======================================================= 怨듭��궗�빆 �옉�꽦
 	
 	
 	@PostMapping("/notice/noticeWrite")
@@ -380,32 +380,32 @@ public class MemberController{
 		search.setSearchType(searchType);
 		search.setKeyword(keyword);
 		
-		// 페이지
+		// �럹�씠吏�
 		int page =  pg;
-		System.out.println("페이지"+page+"범위"+range);
+		System.out.println("�럹�씠吏�"+page+"踰붿쐞"+range);
 		
-		// 검색, 페이징 적용된 전체 게시글 수
+		// 寃��깋, �럹�씠吏� �쟻�슜�맂 �쟾泥� 寃뚯떆湲� �닔
 		int listCnt = memberService.getQnaListCnt(search);
 		
-		// 검색
+		// 寃��깋
 		search.pageInfo(page, range, listCnt);
 		
-		// 페이지네이션
+		// �럹�씠吏��꽕�씠�뀡
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCnt); 
 		System.out.println("paging: "+paging);
 		
-		// 검색, 페이징 적용된 보드리스트
+		// 寃��깋, �럹�씠吏� �쟻�슜�맂 蹂대뱶由ъ뒪�듃
 		//List<BBoardDTO> list = boardService.getBBoardList(search); 
 		List<BBoardDTO> list = memberService.getQnaList(search);
 		
-		// 작성시간 표시 위한 현재 Date 객체
+		// �옉�꽦�떆媛� �몴�떆 �쐞�븳 �쁽�옱 Date 媛앹껜
 		Date now = new Date();
 		
 		ModelAndView mav = new ModelAndView();
-		// 검색
+		// 寃��깋
 		mav.addObject("search",search);
-		// 페이징(검색 적용)
+		// �럹�씠吏�(寃��깋 �쟻�슜)
 		mav.addObject("paging",search);
 		mav.addObject("list", list);
 		mav.addObject("now", now);
@@ -414,7 +414,7 @@ public class MemberController{
 		return mav;
 	}
 	
-	//================================================== QnA 뷰
+	//================================================== QnA 酉�
 	 
 	@GetMapping("/qna/{bno}")
 	public ModelAndView qnaView(@PathVariable("bno") int bno
@@ -425,37 +425,37 @@ public class MemberController{
 						  	  ,HttpServletRequest request
 						  	  ,Principal principal) throws Exception {
 		
-		// 검색
+		// 寃��깋
 		Search search = new Search();
 		search.setSearchType(searchType);
 		search.setKeyword(keyword);
 		
-		// 페이지
+		// �럹�씠吏�
 		int page =  pg;
 		
-		// 검색, 페이징 적용된 전체 게시글 수
+		// 寃��깋, �럹�씠吏� �쟻�슜�맂 �쟾泥� 寃뚯떆湲� �닔
 		int listCnt = memberService.getQnaListCnt(search); 
 		
-		// 검색
+		// 寃��깋
 		search.pageInfo(page, range, listCnt);
 		
-		// 페이지네이션
+		// �럹�씠吏��꽕�씠�뀡
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCnt); 
 		
-		// 원글 불러오기
+		// �썝湲� 遺덈윭�삤湲�
 		BBoardDTO bBoardDTO = memberService.getQna(bno);
 		
-		// 보드뷰 하단부 검색, 페이징 적용된 보드리스트
+		// 蹂대뱶酉� �븯�떒遺� 寃��깋, �럹�씠吏� �쟻�슜�맂 蹂대뱶由ъ뒪�듃
 		List<BBoardDTO> list = memberService.getQnaList(search);
 		
-		// 보드뷰 해당 리플 리스트
+		// 蹂대뱶酉� �빐�떦 由ы뵆 由ъ뒪�듃
 		List<BBoardReplyDTO> replyList = memberService.getQnaReplyList(bno);
 		
-		// 조회수 1증가
+		// 議고쉶�닔 1利앷�
 		memberService.qnaHipUpdate(bno);
 		
-		// 작성시간 표시 위한 현재 Date 객체
+		// �옉�꽦�떆媛� �몴�떆 �쐞�븳 �쁽�옱 Date 媛앹껜
 		Date now = new Date();
 		
 		ModelAndView mav = new ModelAndView();
@@ -465,8 +465,8 @@ public class MemberController{
 		mav.addObject("now", now);
 		mav.addObject("replyList", replyList);
 		
-		//bj.member.controller.LoginSuccessHandler 에서 로그인 성공 시 session에 nickname 담아둠.
-		//세션에 담긴 nickname과 선택한 글의 nickname값을 검증하여 mav 객체에 boolean 결과값을 담아서 view로 보냄
+		//bj.member.controller.LoginSuccessHandler �뿉�꽌 濡쒓렇�씤 �꽦怨� �떆 session�뿉 nickname �떞�븘�몺.
+		//�꽭�뀡�뿉 �떞湲� nickname怨� �꽑�깮�븳 湲��쓽 nickname媛믪쓣 寃�利앺븯�뿬 mav 媛앹껜�뿉 boolean 寃곌낵媛믪쓣 �떞�븘�꽌 view濡� 蹂대깂
 		boolean isAuthor = false;
 		if(principal != null) {
 			if(bBoardDTO.getUsername().equals(principal.getName())) {
@@ -482,7 +482,7 @@ public class MemberController{
 		return mav;
 	}
 	
-	//================================================== QnA 댓글 추가
+	//================================================== QnA �뙎湲� 異붽�
 	
 		@PostMapping("/qna/qnaReply")
 		public ModelAndView qnaReply(@RequestParam String reply, int bno, Principal principal) {
@@ -506,7 +506,7 @@ public class MemberController{
 			return mav;
 		}
 		
-		//======================================================= QnA 댓글 삭제
+		//======================================================= QnA �뙎湲� �궘�젣
 		
 		@PostMapping("/qna/replyDelete")
 		@ResponseBody
@@ -517,7 +517,7 @@ public class MemberController{
 			memberService.qnaReplyDelete(map);
 		}
 		
-		//======================================================= QnA 댓글 수정
+		//======================================================= QnA �뙎湲� �닔�젙
 		
 		@PostMapping("/qna/replyModify")
 		@ResponseBody
@@ -529,7 +529,7 @@ public class MemberController{
 			memberService.qnaReplyModify(map);
 		}
 		
-		//======================================================= QnA 삭제
+		//======================================================= QnA �궘�젣
 		
 		@PostMapping("/qna/qnaDelete")
 		@ResponseBody
@@ -538,7 +538,7 @@ public class MemberController{
 			memberService.qnaDelete(bno);
 		}
 		
-		//======================================================= QnA 글쓰기, 수정 폼
+		//======================================================= QnA 湲��벐湲�, �닔�젙 �뤌
 		
 		@GetMapping("/qna/qnaWriteForm")
 		public String qnaWriteForm() {
@@ -556,7 +556,7 @@ public class MemberController{
 			return mav;
 		}
 		
-		//======================================================= QnA 글쓰기, 수정 폼
+		//======================================================= QnA 湲��벐湲�, �닔�젙 �뤌
 		
 		@PostMapping("/qna/qnaWrite")
 		@ResponseBody

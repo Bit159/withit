@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<%@ include file="/WEB-INF/views/kh/template/head.jsp" %>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
 	<meta charset="UTF-8">
 	<meta name="google-signin-scope" content="profile email" />
