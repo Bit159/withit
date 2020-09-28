@@ -46,5 +46,6 @@ public interface MemberService {
 	public void qnaDelete(int bno);
 	public void qnaWrite(Map<String, Object> map);
 	public void qnaModify(Map<String, Object> map);
+	public String loginCheck(Map<String, String> map);
 
 }

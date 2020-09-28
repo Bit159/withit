@@ -5,6 +5,7 @@ import java.util.Date;
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
+import sj.board.bean.BBoardReplyDTO;
 
 @Alias("bBoardDTO")
 @Data

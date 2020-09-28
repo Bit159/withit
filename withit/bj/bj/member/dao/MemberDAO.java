@@ -98,4 +98,6 @@ public interface MemberDAO {
 
 	public BBoardDTO getQna(int bno);
 
+	public MemberDTO loginCheck(Map<String, String> map);
+
 }

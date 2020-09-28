@@ -32,7 +32,7 @@
 			</div>
 			<div style="margin-top:15px;"><input type="checkbox" name="remember-me">자동로그인</div>
 			<div class="btn-area">
-				<button id="loginBtn">LOGIN</button>
+				<button id="loginBtn" type="button" onclick="loginCheck()">LOGIN</button>
 				<button type="button" onclick="location='/'">BACK</button>
 			</div>
 			
@@ -109,7 +109,7 @@ let csrfHeaderName2 = "${_csrf.headerName}";
 let csrfTokenValue2 = "${_csrf.token}";
 function enterKey(){
 	if(window.event.keyCode == 13){
-		document.getElementById('loginForm').submit();
+		loginCheck();
 	}
 }
 function page_move(username){
@@ -118,6 +118,36 @@ function page_move(username){
 	form.action="/all/addInfoForm";
 	form.method="post";
 	form.submit();
+}
+
+function loginCheck(){
+	$.ajax({
+		type : 'post',
+		beforeSend : function(xhr){
+			xhr.setRequestHeader(csrfHeaderName2, csrfTokenValue2);
+		},
+		url  : 'loginCheck',
+		data : {
+			'username' : $('#username').val(),
+			'password' : $('#password').val()
+		},
+		dataType : 'text',
+		success : function(data){
+			if(data == "noId"){
+				Swal.fire({
+					text : '해당 이메일은 없는 이메일 입니다.',
+				});
+			
+			} else if(data == 'noPwd'){
+				Swal.fire({
+					text : '비밀번호가 일치하지 않습니다.'
+				});
+				
+			} else if(data == 'ok'){
+				document.loginForm.submit();
+			}
+		}
+	});
 }
 
 function findPwd(){

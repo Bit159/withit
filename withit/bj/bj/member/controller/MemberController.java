@@ -34,14 +34,22 @@ public class MemberController{
 	@Autowired
 	private MemberService memberService;
 	
-	//=========================================== 濡쒓렇�씤
+	//=========================================== 로그인
 	
 	@GetMapping("/loginForm")
 	public String loginForm() {
 		return "/kh/all/loginForm";
 	}
 	
-	// =========================================== �냼�뀥 濡쒓렇�씤 愿��젴
+	@PostMapping("/loginCheck")
+	@ResponseBody
+	public String loginCheck(@RequestParam Map<String, String> map) {
+		System.out.println(map.get("username"));
+		String result = memberService.loginCheck(map);
+		return result;
+	}
+	
+	// =========================================== 소셜 로그인 관련
 	
 	@PostMapping("/all/addInfoForm")
 	public String addInfoForm(@RequestParam String email, Model model) {
@@ -71,12 +79,12 @@ public class MemberController{
 
 	}
 	
-	//============================================================== 鍮꾨�踰덊샇 李얘린
+	//============================================================== 비밀번호 찾기
 	
 	@PostMapping("/findPwd")
 	@ResponseBody
 	public String findPwd(@RequestParam String username) {
-		String reUsername = username.substring(1, username.length() -1); //json�� �븵�뮘濡� "媛� 遺숈뼱�꽌 �삤誘�濡� 鍮쇱��떦.
+		String reUsername = username.substring(1, username.length() -1); //json 으로 받기아서 쌍따옴표가 추가된 채로 받기때문에 처음과 끝을 빼준다.
 		MemberDTO memberDTO = memberService.checkMember(reUsername);
 		
 		String result = "";
@@ -86,7 +94,7 @@ public class MemberController{
 		return result;
 	}
 	
-	//============================================================== 梨꾪똿諛�
+	//============================================================== 채팅방
 	
 	@PostMapping("/member/getChattingRoom")
 	@ResponseBody
@@ -95,7 +103,6 @@ public class MemberController{
 		List<ChattingRoomDTO> list = memberService.getChattingRoom(username);
 		
 		session.setAttribute("chattingCheck", "create");	
-		System.out.println(session.getAttribute("SPRING_SECURITY_CONTEXT"));
 		
 		for(ChattingRoomDTO dto : list) {
 			ChattingDTO chattingDTO = memberService.getLastChatting(dto.getChattingRoom());
@@ -125,7 +132,6 @@ public class MemberController{
 	@ResponseBody
 	public ModelAndView getChatting(@RequestParam String chattingRoom) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(chattingRoom);
 		List<ChattingDTO> list = memberService.getChatting(chattingRoom);
 		mav.addObject("list", list);
 		mav.setViewName("jsonView");
@@ -139,7 +145,7 @@ public class MemberController{
 		memberService.createChat();
 	}
 	
-	//=========================================================== 怨듭��궗�빆
+	//=========================================================== 공지사항
 	
 	@GetMapping("/notice/noticeWriteForm")
 	public String noticeForm() {
@@ -164,36 +170,29 @@ public class MemberController{
 							 , @RequestParam(required = false) String keyword
 							 , @ModelAttribute("search") Search search) throws Exception {
 		
-		/* Search search = new Search(); */
 		search.setSearchType(searchType);
 		search.setKeyword(keyword);
 		
-		// �럹�씠吏�
 		int page =  pg;
-		System.out.println("�럹�씠吏�"+page+"踰붿쐞"+range);
 		
-		// 寃��깋, �럹�씠吏� �쟻�슜�맂 �쟾泥� 寃뚯떆湲� �닔
+		//검색, 페이징 적용된 전체 게시글 수
 		int listCntN = memberService.getNoticeListCnt(search);
 		
-		// 寃��깋
+		//검색
 		search.pageInfo(page, range, listCntN);
 		
-		// �럹�씠吏��꽕�씠�뀡
+		//페이지네이션
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCntN); 
 		System.out.println("paging: "+paging);
 		
-		// 寃��깋, �럹�씠吏� �쟻�슜�맂 蹂대뱶由ъ뒪�듃
-		//List<BBoardDTO> list = boardService.getBBoardList(search); 
+		//검색, 페이징 적용된 보드리스트
 		List<BBoardDTO> list = memberService.getNoticeList(search);
 		
-		// �옉�꽦�떆媛� �몴�떆 �쐞�븳 �쁽�옱 Date 媛앹껜
 		Date now = new Date();
 		
 		ModelAndView mav = new ModelAndView();
-		// 寃��깋
 		mav.addObject("search",search);
-		// �럹�씠吏�(寃��깋 �쟻�슜)
 		mav.addObject("paging",search);
 		mav.addObject("list", list);
 		mav.addObject("now", now);
@@ -202,7 +201,7 @@ public class MemberController{
 
 	}
 	
-	//====================================================== 怨듭��궗�빆 蹂대뱶酉�
+	//====================================================== 고지사항 보드뷰
 	
 	@GetMapping("/notice/{bno}")
 	public ModelAndView freeBoardView(@PathVariable("bno") int bno
@@ -213,40 +212,29 @@ public class MemberController{
 								  	  ,HttpServletRequest request
 								  	  ,Principal principal) throws Exception {
 		
-		// 寃��깋
 		Search search = new Search();
 		search.setSearchType(searchType);
 		search.setKeyword(keyword);
 		
-		// �럹�씠吏�
 		int page =  pg;
-		System.out.println("�럹�씠吏�"+page+"踰붿쐞"+range);
 		
-		// 寃��깋, �럹�씠吏� �쟻�슜�맂 �쟾泥� 寃뚯떆湲� �닔
 		int listCnt = memberService.getNoticeListCnt(search); 
 		
-		// 寃��깋
 		search.pageInfo(page, range, listCnt);
 		
-		// �럹�씠吏��꽕�씠�뀡
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCnt); 
 		System.out.println("paging: "+paging);	
 		
-		// �썝湲� 遺덈윭�삤湲�
 		BBoardDTO bBoardDTO = memberService.getNotice(bno);
 		
-		// 蹂대뱶酉� �븯�떒遺� 寃��깋, �럹�씠吏� �쟻�슜�맂 蹂대뱶由ъ뒪�듃
 		List<BBoardDTO> list = memberService.getNoticeList(search);
 		System.out.println(bBoardDTO.getTitle());
 		
-		// 蹂대뱶酉� �빐�떦 由ы뵆 由ъ뒪�듃
 		List<BBoardReplyDTO> replyList = memberService.getNoticeReplyList(bno);
 		
-		// 議고쉶�닔 1利앷�
 		memberService.noticeHipUpdate(bno);
 		
-		// �옉�꽦�떆媛� �몴�떆 �쐞�븳 �쁽�옱 Date 媛앹껜
 		Date now = new Date();
 		
 		ModelAndView mav = new ModelAndView();
@@ -256,25 +244,19 @@ public class MemberController{
 		mav.addObject("now", now);
 		mav.addObject("replyList", replyList);
 		
-		//bj.member.controller.LoginSuccessHandler �뿉�꽌 濡쒓렇�씤 �꽦怨� �떆 session�뿉 nickname �떞�븘�몺.
-		//�꽭�뀡�뿉 �떞湲� nickname怨� �꽑�깮�븳 湲��쓽 nickname媛믪쓣 寃�利앺븯�뿬 mav 媛앹껜�뿉 boolean 寃곌낵媛믪쓣 �떞�븘�꽌 view濡� 蹂대깂
 		boolean isAuthor = false;
 		if(principal != null) {
 			if(bBoardDTO.getUsername().equals(principal.getName())) {
 				isAuthor = true;
 			}
 		}
-		/*
-		 * if(bBoardDTO.getUsername().equals(request.getSession().getAttribute(
-		 * "nickname"))) { isAuthor = true; }
-		 */
 		System.out.println(isAuthor);
 		mav.addObject("isAuthor", isAuthor);
 		mav.setViewName("/bj/all/noticeView");
 		return mav;
 	}
 	
-	//================================================== 怨듭��궗�빆 �뙎湲� 異붽�
+	//================================================== 공지사항 댓글달기
 	
 	@PostMapping("/notice/noticeReply")
 	public ModelAndView noticeReply(@RequestParam String reply, int bno, Principal principal) {
@@ -298,7 +280,7 @@ public class MemberController{
 		return mav;
 	}
 	
-	//======================================================= 怨듭��궗�빆 �뙎湲� �궘�젣
+	//======================================================= 골지사항 댓글 삭제
 	
 	@PostMapping("/notice/replyDelete")
 	@ResponseBody
@@ -309,7 +291,7 @@ public class MemberController{
 		memberService.noticeReplyDelete(map);
 	}
 	
-	//======================================================= 怨듭��궗�빆 �뙎湲� �닔�젙
+	//======================================================= 공지사항 댓글 수정
 	
 	@PostMapping("/notice/replyModify")
 	@ResponseBody
@@ -321,7 +303,7 @@ public class MemberController{
 		memberService.noticeReplyModify(map);
 	}
 	
-	//======================================================= 怨듭��궗�빆 �궘�젣
+	//======================================================= 공지사항 삭제
 	
 	@PostMapping("/notice/noticeDelete")
 	@ResponseBody
@@ -330,7 +312,7 @@ public class MemberController{
 		memberService.noticeDelete(bno);
 	}
 	
-	//======================================================= 怨듭��궗�빆 �옉�꽦
+	//======================================================= 공지사항 작성
 	
 	
 	@PostMapping("/notice/noticeWrite")
@@ -376,36 +358,25 @@ public class MemberController{
 			 , @RequestParam(required = false) String keyword
 			 , @ModelAttribute("search") Search search) throws Exception {
 		
-		/* Search search = new Search(); */
 		search.setSearchType(searchType);
 		search.setKeyword(keyword);
 		
-		// �럹�씠吏�
 		int page =  pg;
-		System.out.println("�럹�씠吏�"+page+"踰붿쐞"+range);
 		
-		// 寃��깋, �럹�씠吏� �쟻�슜�맂 �쟾泥� 寃뚯떆湲� �닔
 		int listCnt = memberService.getQnaListCnt(search);
 		
-		// 寃��깋
 		search.pageInfo(page, range, listCnt);
 		
-		// �럹�씠吏��꽕�씠�뀡
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCnt); 
 		System.out.println("paging: "+paging);
 		
-		// 寃��깋, �럹�씠吏� �쟻�슜�맂 蹂대뱶由ъ뒪�듃
-		//List<BBoardDTO> list = boardService.getBBoardList(search); 
 		List<BBoardDTO> list = memberService.getQnaList(search);
 		
-		// �옉�꽦�떆媛� �몴�떆 �쐞�븳 �쁽�옱 Date 媛앹껜
 		Date now = new Date();
 		
 		ModelAndView mav = new ModelAndView();
-		// 寃��깋
 		mav.addObject("search",search);
-		// �럹�씠吏�(寃��깋 �쟻�슜)
 		mav.addObject("paging",search);
 		mav.addObject("list", list);
 		mav.addObject("now", now);
@@ -414,7 +385,7 @@ public class MemberController{
 		return mav;
 	}
 	
-	//================================================== QnA 酉�
+	//================================================== QnA 보드뷰
 	 
 	@GetMapping("/qna/{bno}")
 	public ModelAndView qnaView(@PathVariable("bno") int bno
@@ -425,37 +396,27 @@ public class MemberController{
 						  	  ,HttpServletRequest request
 						  	  ,Principal principal) throws Exception {
 		
-		// 寃��깋
 		Search search = new Search();
 		search.setSearchType(searchType);
 		search.setKeyword(keyword);
 		
-		// �럹�씠吏�
 		int page =  pg;
 		
-		// 寃��깋, �럹�씠吏� �쟻�슜�맂 �쟾泥� 寃뚯떆湲� �닔
 		int listCnt = memberService.getQnaListCnt(search); 
 		
-		// 寃��깋
 		search.pageInfo(page, range, listCnt);
 		
-		// �럹�씠吏��꽕�씠�뀡
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCnt); 
-		
-		// �썝湲� 遺덈윭�삤湲�
+
 		BBoardDTO bBoardDTO = memberService.getQna(bno);
 		
-		// 蹂대뱶酉� �븯�떒遺� 寃��깋, �럹�씠吏� �쟻�슜�맂 蹂대뱶由ъ뒪�듃
 		List<BBoardDTO> list = memberService.getQnaList(search);
 		
-		// 蹂대뱶酉� �빐�떦 由ы뵆 由ъ뒪�듃
 		List<BBoardReplyDTO> replyList = memberService.getQnaReplyList(bno);
 		
-		// 議고쉶�닔 1利앷�
 		memberService.qnaHipUpdate(bno);
 		
-		// �옉�꽦�떆媛� �몴�떆 �쐞�븳 �쁽�옱 Date 媛앹껜
 		Date now = new Date();
 		
 		ModelAndView mav = new ModelAndView();
@@ -465,24 +426,18 @@ public class MemberController{
 		mav.addObject("now", now);
 		mav.addObject("replyList", replyList);
 		
-		//bj.member.controller.LoginSuccessHandler �뿉�꽌 濡쒓렇�씤 �꽦怨� �떆 session�뿉 nickname �떞�븘�몺.
-		//�꽭�뀡�뿉 �떞湲� nickname怨� �꽑�깮�븳 湲��쓽 nickname媛믪쓣 寃�利앺븯�뿬 mav 媛앹껜�뿉 boolean 寃곌낵媛믪쓣 �떞�븘�꽌 view濡� 蹂대깂
 		boolean isAuthor = false;
 		if(principal != null) {
 			if(bBoardDTO.getUsername().equals(principal.getName())) {
 				isAuthor = true;
 			}
 		}
-		/*
-		 * if(bBoardDTO.getUsername().equals(request.getSession().getAttribute(
-		 * "nickname"))) { isAuthor = true; }
-		 */
 		mav.addObject("isAuthor", isAuthor);
 		mav.setViewName("/bj/all/qnaView");
 		return mav;
 	}
 	
-	//================================================== QnA �뙎湲� 異붽�
+	//================================================== QnA 댓글
 	
 		@PostMapping("/qna/qnaReply")
 		public ModelAndView qnaReply(@RequestParam String reply, int bno, Principal principal) {
@@ -506,7 +461,7 @@ public class MemberController{
 			return mav;
 		}
 		
-		//======================================================= QnA �뙎湲� �궘�젣
+		//======================================================= QnA 댓글 삭제
 		
 		@PostMapping("/qna/replyDelete")
 		@ResponseBody
@@ -517,7 +472,7 @@ public class MemberController{
 			memberService.qnaReplyDelete(map);
 		}
 		
-		//======================================================= QnA �뙎湲� �닔�젙
+		//======================================================= QnA 댓글 수정
 		
 		@PostMapping("/qna/replyModify")
 		@ResponseBody
@@ -529,7 +484,7 @@ public class MemberController{
 			memberService.qnaReplyModify(map);
 		}
 		
-		//======================================================= QnA �궘�젣
+		//======================================================= QnA 삭제
 		
 		@PostMapping("/qna/qnaDelete")
 		@ResponseBody
@@ -538,7 +493,7 @@ public class MemberController{
 			memberService.qnaDelete(bno);
 		}
 		
-		//======================================================= QnA 湲��벐湲�, �닔�젙 �뤌
+		//======================================================= QnA 폼
 		
 		@GetMapping("/qna/qnaWriteForm")
 		public String qnaWriteForm() {
@@ -556,7 +511,7 @@ public class MemberController{
 			return mav;
 		}
 		
-		//======================================================= QnA 湲��벐湲�, �닔�젙 �뤌
+		//======================================================= QnA 작성, 수정
 		
 		@PostMapping("/qna/qnaWrite")
 		@ResponseBody

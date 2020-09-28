@@ -23,7 +23,6 @@ public class StompSocketController {
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		chattingDTO.setChat_date(format.format(date));
-		System.out.println(format.format(date));
 		
 		memberService.sendMessage(chattingDTO);
 		simpMessagingTemplate.convertAndSend("/topic/" + chattingDTO.getChattingRoom(), chattingDTO);

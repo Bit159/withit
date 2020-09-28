@@ -31,6 +31,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne("memberSQL.login", map);
 	}
 
+	@Override
+	public MemberDTO loginCheck(Map<String, String> map) {
+		return sqlSession.selectOne("memberSQL.loginCheck", map);
+	}
+
 	//======================================================= 회원가입
 	
 	@Override
@@ -283,5 +288,6 @@ public class MemberDAOImpl implements MemberDAO {
 	public BBoardDTO getQna(int bno) {
 		return sqlSession.selectOne("memberSQL.getQna", bno);
 	}
+
 
 }

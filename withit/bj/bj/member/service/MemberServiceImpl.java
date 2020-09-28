@@ -207,6 +207,31 @@ public class MemberServiceImpl implements MemberService {
 		memberDAO.qnaModify(map);
 	}
 
+	@Override
+	public String loginCheck(Map<String, String> map) {
+		MemberDTO memberDTO = memberDAO.loginCheck(map);
+		String result = null;
+		
+		if(memberDTO == null) {
+			result = "noId";
+			
+			return result;
+		}
+		
+		boolean match = false;
+		match =  passwordEncoder.matches(map.get("password"), memberDTO.getPassword());
+		
+		if(match == false) {
+			result = "noPwd";
+		
+		}else {
+			result = "ok";
+			
+		}
+		
+		return result;
+	}
+
 	
 	
 }
