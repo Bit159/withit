@@ -7,15 +7,31 @@
 	<artifactId>withit</artifactId>
 	<name>withit</name>
 	<packaging>war</packaging>
+	
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+	
 	<properties>
 		<java-version>1.8</java-version>
 		<org.springframework-version>5.2.0.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
+	
 	<dependencies>
-		
+	
+		<!--  For FileUpload by Rich 2020.09.28 -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.4</version> <!-- Dec, 2018 -->
+		</dependency>
+         
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.8.0</version> <!-- Sep, 2020 -->
+		</dependency>
+
 		<!-- JSOUP FOR CRAWL -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -24,11 +40,14 @@
 		</dependency>
 
 		<!-- database -->
+		
+		<!-- Version Update by Rich 2020.09.29 potential security vulnerability -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.11</version>
+			<version>8.0.21</version> <!-- Jul, 2020 -->
 		</dependency>
+		
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
@@ -71,11 +90,14 @@
 		</dependency>
 
 		<!-- Spring Security -->
+		
+		<!-- Version Update by Rich 2020.09.29 potential security vulnerability -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>5.2.0.RELEASE</version>
+			<version>5.2.4.RELEASE</version> <!-- May, 2020 --> 
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -151,11 +173,14 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.11.0</version>
 		</dependency>
+		
+		<!-- Version Update by Rich 2020.09.29 potential security vulnerability -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.6.4</version>
+			<version>1.9.13</version> <!-- Jul, 2013 -->
 		</dependency>
+		
 
 		<!-- 채팅, 웹 소켓 -->
 		<dependency>

@@ -1,10 +1,5 @@
 package rich.notify;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.List;
 import java.util.Properties;
 
@@ -17,33 +12,24 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-
 @Service
 public class Email {
-
+	
 	private final String userName;
 	private final String password;
 	private final Properties prop;
 	private final Session session;
 	
 	// 생성자. bean 등록 될 때부터 발송을 위한 기본 설정을 완료하도록 설정.
-	public Email() {
+	public Email(@Value("#{property['email.account']}")	String userName, @Value("#{property['email.password']}") String password) {
+		this.userName = userName;
+		this.password = password;
 		
-		//프로퍼티 파일에서 이메일 계정 정보 가져오기
-		
-		InputStream is = getClass().getResourceAsStream("/db.properties");
-		Reader reader = new InputStreamReader(is);
-		Properties properties = new Properties();
-		try {
-			properties.load(reader);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		this.userName = properties.getProperty("email.account");
-		this.password = properties.getProperty("email.password");
-
 		// SMTP 서버 정보를 설정한다.
 		Properties prop = new Properties();
 		prop.put("mail.smtp.host", "smtp.gmail.com");

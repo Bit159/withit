@@ -1,10 +1,13 @@
 package rich.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +18,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import bj.member.service.MemberService;
@@ -33,6 +39,66 @@ public class RichController {
 	private RichDAO richDAO;
 	@Autowired
 	private MemberService memberService;
+	
+	public static void main(String[] args) {
+		
+		System.out.println(System.getProperty("os.name").toLowerCase().indexOf("windows"));
+		
+	}
+	
+	
+	//파일을 업로드하는 페이지
+	@GetMapping("/upload")
+	public String upload() {
+		return "rich/all/uploadTest";
+	}
+	
+	//파일 업로드 submit
+	@PostMapping(path="/uploadFile", produces="application/text;charset=UTF-8")
+	@ResponseBody
+	public String uploadFile(MultipartHttpServletRequest mtfRequest, Principal principal) {
+		System.out.println("업로드 진입");
+        List<MultipartFile> fileList = mtfRequest.getFiles("myFiles");
+        String src = mtfRequest.getParameter("myPath");
+        System.out.println(principal.getName());
+        System.out.println("fileList : " + fileList.size());
+        System.out.println("myPath value : " + src);
+        
+        //form 안에 input type hidden으로 csrf를 담아도 허용되지 않은 메소드 에러가 나와서 찾아봄
+        
+        //https://docs.spring.io/spring-security/site/docs/5.2.0.RELEASE/reference/html/protection-against-exploits.html#csrf-multipart
+        //시큐리티와 파일 업로드를 적용하는 두 가지 방법이 있음.
+        
+        //첫번쨰는 MultipartFilter를 Spring Security Filter 보다 앞에 두는것. 
+        //이렇게 하면 비로그인 유저도 임시적으로 파일을 올려둘 수 있음. 물론 submit은 불가.
+        //공식문서에서는 임시업로드는 무시할만한 정도의 영향만 미치기 때문에 이게 일반적으로 권장되는 옵션이라고 설명
+        
+        //두번째는 form의 action에 csrf를 같이 달아서 보내는 것.
+        
+        for (MultipartFile mf : fileList) { //파일들을 담은 리스트를 돌면서 transferTo 메소드로 파일을 저장한다
+            String target = mf.getOriginalFilename(); // 원본 파일 명
+            Double fileSize = (double) mf.getSize()/(1024.0*1024.0); // 파일 사이즈
+
+    		//확장자 앞의 .을 기준으로 잘라서 파일명과 확장자를 자른다.
+    		//경로 + 아이디 + 시간 + 파일명 + 확장자로 파일명을 재설정
+    		String safeFile = src + principal.getName() + "_" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + "_" + target.substring(0, target.lastIndexOf(".")) + target.substring(target.lastIndexOf("."));
+            
+    		System.out.println("originFileName : " + target);
+    		System.out.println("fileSize : " + String.format("%.2f" + "MB", fileSize));
+    		System.out.println("safeFile : " +safeFile);
+    		
+            try {
+                mf.transferTo(new File(safeFile));
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "통신완료";
+    }
+
+	
 	
 	@GetMapping("/myGroupSchedule")
 	public ModelAndView myGroupSchedule(Principal principal) {

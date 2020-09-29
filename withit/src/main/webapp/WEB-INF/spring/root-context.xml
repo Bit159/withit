@@ -5,25 +5,46 @@
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
-		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 		
 	<context:component-scan base-package="bj.member.dao" />
 	<context:component-scan base-package="bj.member.service" />
 		
 	<!-- Root Context: defines shared resources visible to all other web components -->
-    <context:property-placeholder location="classpath:/db.properties"/>
+	
+	<!-- Globals Properties -->
+	<!-- 프로퍼티 파일 선언 방식이 바뀌었습니다 2020.09.29 by Rich -->
+	<util:properties id="property" location="classpath:/db.properties" />
+
+	<!-- 이제 Java, XML, JSP 모든곳에서 프로퍼티파일의 값을 가져올 수 있습니다 -->
+	<!-- Java, XML : "#{property['key']}" -->
+	<!-- JSP :  <%@ taglib uri="http://www.springframework.org/tags"  prefix="spring"%>
+				<spring:eval expression="@property['key']" />							-->
+
+	<!-- 변경 이유 -->	
+	<!-- 기존방식  : Java, JSP에서 프로퍼티 값 불러오기 불가-->
+	<!--<context-property-placeholder location="classpath:config/jdbc.properties, classpath:config/monitor.properties"/>-->
+	
+	<!-- 또다른방식 : Deprecated 되어 사용하지 않았습니다--> 
+	<!--  
+    <beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <beans:property name="location" value="/WEB-INF/config/config.properties"/>
+        <beans:property name="fileEncoding" value="UTF-8" />
+    </beans:bean> 																				-->
 
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="${jdbc.driverClassName}"></property>
-		<property name="url" value="${jdbc.url}"></property>
-		<property name="username" value="${jdbc.username}"></property>
-		<property name="password" value="${jdbc.password}"></property>
-		<property name="maxTotal" value="${jdbc.maxTotal}"></property>
-		<property name="maxIdle" value="${jdbc.maxIdle}"></property>
+		<property name="driverClassName" value="#{property['jdbc.driverClassName']}"></property>
+		<property name="url" value="#{property['jdbc.url']}"></property>
+		<property name="username" value="#{property['jdbc.username']}"></property>
+		<property name="password" value="#{property['jdbc.password']}"></property>
+		<property name="maxTotal" value="#{property['jdbc.maxTotal']}"></property>
+		<property name="maxIdle" value="#{property['jdbc.maxIdle']}"></property>
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

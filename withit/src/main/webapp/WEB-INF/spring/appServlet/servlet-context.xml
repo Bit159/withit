@@ -4,10 +4,13 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
 	<context:component-scan base-package="hj.*.*"></context:component-scan>
 	<context:component-scan base-package="kh.*.*"></context:component-scan>
@@ -18,6 +21,14 @@
 	<task:annotation-driven />
 	<context:annotation-config></context:annotation-config>
 	
+	<!--  For FileUpload by Rich 2020.09.28 -->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- max upload size in bytes  Default(-1) -1 is unlimited -->
+        <beans:property name="maxUploadSize" value="5242880" /> <!-- 5MB -->
+        <!-- max size of file in memory (in bytes) -->
+        <beans:property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
+    </beans:bean>
+
 	<!-- json -->
 	<beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
 		<beans:property name="contentType" value="text/html;charset=UTF-8"/>
@@ -26,7 +37,6 @@
 	<beans:bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0"/>
 	</beans:bean>
-	
 	
 	<!-- 구글 로그인 -->
 	<beans:bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
@@ -38,13 +48,6 @@
 		<beans:property name="scope" value="https://www.googleapis.com/auth/plus.login"/>
 		<beans:property name="redirectUri" value="http://localhost:8080/googleLogin"/>
 	</beans:bean>
-
-
-
-
-
-
-
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
