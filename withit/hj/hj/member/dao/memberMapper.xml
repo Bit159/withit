@@ -40,7 +40,6 @@
 		delete from membertable where username=#{username}
 	</delete>
 	
-	
 	<!-- 월별 회원 가입자의 수 -->
 	
     <select id="getTotalStats" resultType="hj.member.bean.TotalDTO">
@@ -242,7 +241,7 @@
 	
 	<!-- 다 변경-->
   	<update id="revise" parameterType="java.util.Map">
-  		update membertable set nickname=#{nickname},myCareer=#{myCereer}, password=#{password} where username=#{username}
+  		update membertable set nickname=#{nickname},myCareer=#{myCareer}, password=#{password} where username=#{username}
   	</update>
   	
   	<!-- 닉네임, 커리어 변경 -->

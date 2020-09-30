@@ -179,19 +179,14 @@ btn.onclick = async function(){
 						Swal.fire('취소', '입력을 취소하셨습니다', 'error');
 					}
 				});
-			 
-				
 		  }
-		})
-	
-	
-	
+		  
+		});
 }
 
 
 </script>
 <script type="text/javascript">
-
 $('#reviseBtn').click(function(){
 	let passwordRules = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/;
 	let password = $('#password').val();
@@ -242,8 +237,8 @@ $('#reviseBtn').click(function(){
 						  title: '변경 완료',
 						  text: '변경 되었습니다.',
 					}).then((result) => {
-						logout();
-						//location.href="/myPage";
+						//logout();
+						location.href="/myPage";
 					
 					})
 					
@@ -255,27 +250,6 @@ $('#reviseBtn').click(function(){
 						  text: '닉네임이 중복 됩니다.',
 					})
 					
-				}else if(data =='onlyPassword'){
-					Swal.fire({
-						  icon: 'success',
-						  title: '비밀번호 변경 완료',
-						  text: '닉네임 중복 : 변경을 원하시면 다시 확인해 주세요.',
-					}).then((result) => {
-						
-						location.href="/myPage";
-					
-					})
-					
-				}else if(data == 'dualSuccess'){
-					Swal.fire({
-						  icon: 'success',
-						  title: '비밀번호 닉네임 변경 완료',
-						  text: '비밀번호와 닉네임이 변경 되었습니다.',
-					}).then((result) => {
-						
-						location.href="/myPage";
-					
-					})
 				}
 				
 			},
@@ -301,7 +275,6 @@ $('#reviseBtn').click(function(){
 		}
 		
 		$.ajax({
-			
 			type: 'post',
 			url: '/member/revise',
 			data: {'username':username,
@@ -322,8 +295,8 @@ $('#reviseBtn').click(function(){
 						  title: '변경 완료',
 						  text: '변경 되었습니다.',
 					}).then((result) => {
-						logout();
-						//location.href="/myPage";
+						//logout();
+						location.href="/myPage";
 					
 					})
 					
@@ -335,27 +308,6 @@ $('#reviseBtn').click(function(){
 						  text: '닉네임이 중복 됩니다.',
 					})
 					
-				}else if(data =='onlyPassword'){
-					Swal.fire({
-						  icon: 'success',
-						  title: '비밀번호 변경 완료',
-						  text: '닉네임 중복 : 변경을 원하시면 다시 확인해 주세요.',
-					}).then((result) => {
-						
-						location.href="/myPage";
-					
-					})
-					
-				}else if(data == 'dualSuccess'){
-					Swal.fire({
-						  icon: 'success',
-						  title: '비밀번호 닉네임 변경 완료',
-						  text: '비밀번호와 닉네임이 변경 되었습니다.',
-					}).then((result) => {
-						
-						location.href="/myPage";
-					
-					})
 				}
 				
 			},
@@ -369,11 +321,6 @@ $('#reviseBtn').click(function(){
 
 	
 });
-
-function update(){
-	
-}
-
 </script>
 <script type="text/javascript">
 function showPwdRules(){
