@@ -381,6 +381,9 @@ public class BoardController {
 		if(content.contains("<script>") || content.contains("</script>")) {
 			content = content.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
 		}
+		if(title.contains("<script>") || title.contains("</script>")) {
+			title = title.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
 		
 		Date now = new Date();
 		String username = principal.getName();
@@ -412,6 +415,9 @@ public class BoardController {
 		// XSS Protection by rich 2020.10.01
 		if(content.contains("<script>") || content.contains("</script>")) {
 			content = content.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		if(title.contains("<script>") || title.contains("</script>")) {
+			title = title.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
 		}
 		
 		Date now = new Date();

@@ -201,7 +201,7 @@ public class MemberController{
 
 	}
 	
-	//====================================================== 고지사항 보드뷰
+	//====================================================== 공지사항 보드뷰
 	
 	@GetMapping("/notice/{bno}")
 	public ModelAndView freeBoardView(@PathVariable("bno") int bno
@@ -325,8 +325,6 @@ public class MemberController{
 	}
 	
 	//======================================================= 공지사항 작성
-	
-	
 	@PostMapping("/notice/noticeWrite")
 	@ResponseBody
 	public String noticeWrite(@RequestParam String title, String content, Principal principal, HttpServletRequest request) {
@@ -334,6 +332,9 @@ public class MemberController{
 		// XSS Protection by rich 2020.10.01
 		if(content.contains("<script>") || content.contains("</script>")) {
 			content = content.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		if(title.contains("<script>") || title.contains("</script>")) {
+			title = title.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
 		}
 		
 		Date now = new Date();
@@ -353,9 +354,19 @@ public class MemberController{
 		return "success";
 	}
 	
+	//======================================================= 공지사항 수정
 	@PostMapping("/notice/noticeModify")
 	@ResponseBody
 	public String noticeModify(@RequestParam String title, String content, Principal principal, HttpServletRequest request, int bno) {
+
+		// XSS Protection by rich 2020.10.01		
+		if(content.contains("<script>") || content.contains("</script>")) {
+			content = content.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		if(title.contains("<script>") || title.contains("</script>")) {
+			title = title.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		
 		Date now = new Date();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title",title);
@@ -551,6 +562,9 @@ public class MemberController{
 			if(content.contains("<script>") || content.contains("</script>")) {
 				content = content.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
 			}
+			if(title.contains("<script>") || title.contains("</script>")) {
+				title = title.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+			}
 			
 			Date now = new Date();
 			
@@ -576,6 +590,9 @@ public class MemberController{
 			// XSS Protection by rich 2020.10.01
 			if(content.contains("<script>") || content.contains("</script>")) {
 				content = content.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+			}
+			if(title.contains("<script>") || title.contains("</script>")) {
+				title = title.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
 			}
 			
 			Date now = new Date();
