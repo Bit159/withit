@@ -46,11 +46,20 @@ public class RichController {
 		
 	}
 	
+	//타임라인
+	@GetMapping("/history")
+	public ModelAndView history() {
+		ModelAndView mav = new ModelAndView();
+
+		mav.setViewName("rich/all/history");
+		return mav;
+	}
+	
 	
 	//파일을 업로드하는 페이지
 	@GetMapping("/upload")
 	public String upload() {
-		return "rich/all/uploadTest";
+		return "rich/member/uploadTest";
 	}
 	
 	//파일 업로드 submit
@@ -78,7 +87,7 @@ public class RichController {
         for (MultipartFile mf : fileList) { //파일들을 담은 리스트를 돌면서 transferTo 메소드로 파일을 저장한다
             String target = mf.getOriginalFilename(); // 원본 파일 명
             Double fileSize = (double) mf.getSize()/(1024.0*1024.0); // 파일 사이즈
-
+            
     		//확장자 앞의 .을 기준으로 잘라서 파일명과 확장자를 자른다.
     		//경로 + 아이디 + 시간 + 파일명 + 확장자로 파일명을 재설정
     		String safeFile = src + principal.getName() + "_" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + "_" + target.substring(0, target.lastIndexOf(".")) + target.substring(target.lastIndexOf("."));

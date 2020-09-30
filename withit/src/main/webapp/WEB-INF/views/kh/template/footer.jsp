@@ -13,7 +13,7 @@
 		</div>
 		<div class="footerDiv">
 			<h1>프로젝트</h1>
-			<p>프로젝트 소개</p>
+			<p onclick="location='/history'" style="cursor:pointer;">프로젝트 소개</p>
 			<p>개발진</p>
 		</div>
 		<div class="footerDiv">

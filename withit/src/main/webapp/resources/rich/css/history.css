@@ -1,0 +1,213 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,600");
+
+div[class="timeline"] {
+  position: relative;
+  margin: 50px auto;
+  padding: 40px 0;
+  width: 1000px;
+  box-sizing: border-box;
+}
+
+div[class="timeline"]:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  background: #c5c5c5;
+}
+
+div[class="timeline"] ul {
+  margin: 0;
+  padding: 0;
+}
+
+div[class="timeline"] ul li {
+  list-style: none;
+  position: relative;
+  width: 50%;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  margin-bottom: 200px;
+}
+
+div[class="timeline"] ul li:nth-child(odd) {
+  float: left;
+  text-align: right;
+  clear: both;
+}
+
+div[class="timeline"] ul li:nth-child(even) {
+  float: right;
+  text-align: left;
+  clear: both;
+}
+div[class="content"] {
+  padding-bottom: 20px;
+}
+
+div[class="timeline"] ul li:nth-child(odd):before {
+  content: "";
+  position: absolute;
+  top: 29px;
+  right: -6px;
+  width: 10px;
+  height: 10px;
+  background: #32be78;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #e6e9e7;
+}
+
+div[class="timeline"] ul li:nth-child(even):before {
+  content: "";
+  position: absolute;
+  top: 29px;
+  left: -4px;
+  width: 10px;
+  height: 10px;
+  background: #32be78;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #beebcd;
+}
+
+div[class="timeline"] ul li h3 {
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+  color: rgb(57, 67, 100);
+}
+
+div[class="timeline"] ul li p {
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+div[class="timeline"] ul li:nth-child(odd) .time {
+  position: absolute;
+  top: 16px;
+  right: -165px;
+  margin: 0;
+  padding: 8px 16px;
+  background: #32be78;
+  color: #fff;
+  border-radius: 18px;
+  box-shadow: 0 0 0 3px #beebcd;
+}
+div[class="timeline"] ul li:nth-child(even) .time {
+  position: absolute;
+  top: 16px;
+  left: -165px;
+  margin: 0;
+  padding: 8px 16px;
+  background: #32be78;
+  color: #fff;
+  border-radius: 18px;
+  box-shadow: 0 0 0 3px #beebcd;
+}
+
+div[class="timeline"] ul li .time h4 {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+div[class="content"] {
+  border-bottom: 1px solid #c5c5c5;
+}
+
+h1[id="historyTitle"] {
+  color: #486456;
+  text-align: center;
+  font-size: 60px;
+}
+
+button[id="historyButton"] {
+  padding: 10px;
+  width: 100px;
+  border: 2px solid rgb(50, 190, 120);
+  border-radius: 10px;
+  background: white;
+  color: black;
+  cursor: pointer;
+  outline-style: none;
+  font-size: 15px;
+  font-weight: 550;
+  margin-bottom: -30px;
+  display: none;
+}
+
+div[id="info"] {
+  font-size: 15px;
+  margin: 0 auto;
+  float: right;
+}
+
+div[class="time"] {
+  display: flex;
+  flex-direction: row;
+}
+
+button[class="deleteHistory"] {
+  width: 80px;
+  height: 35px;
+  border: 2px solid rgb(50, 190, 120);
+  border-radius: 9px;
+  background: white;
+  color: black;
+  cursor: pointer;
+  outline-style: none;
+  font-size: 15px;
+  font-weight: 550;
+  display: none;
+  margin-top: 10px;
+}
+
+@media (max-width: 1000px) {
+  div[class="timeline"] {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  h1 {
+    font-size: 40px;
+  }
+  div[class="timeline"] {
+    width: 100%;
+  }
+  div[class="timeline"]:before {
+    left: 20px;
+  }
+  div[class="timeline"] li:nth-child(odd),
+  div[class="timeline"] li:nth-child(even) {
+    width: 100%;
+    text-align: left;
+    padding-left: 50px;
+    padding-bottom: 50px;
+  }
+
+  div[class="timeline"] ul li:nth-child(odd):before,
+  div[class="timeline"] ul li:nth-child(even):before {
+    top: -18px;
+    left: 16px;
+  }
+
+  .content {
+    text-align: left;
+  }
+
+  div[class="timeline"] ul li:nth-child(even) .time,
+  div[class="timeline"] ul li:nth-child(odd) .time {
+    top: -30px;
+    left: 50px;
+    right: inherit;
+  }
+
+  div[class="timeline"]:before {
+    top: -10px;
+  }
+
+  button[class="deleteHistory"] {
+    position: absolute;
+    left: 50px;
+  }
+}
