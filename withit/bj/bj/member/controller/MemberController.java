@@ -260,6 +260,12 @@ public class MemberController{
 	
 	@PostMapping("/notice/noticeReply")
 	public ModelAndView noticeReply(@RequestParam String reply, int bno, Principal principal) {
+		
+		// XSS Protection by rich 2020.10.01
+		if(reply.contains("<script>") || reply.contains("</script>")) {
+			reply = reply.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		
 		String username = principal.getName();
 		String nickname = memberService.getNickname(username);
 		List<BBoardReplyDTO> replyList = memberService.getNoticeReplyList(bno);
@@ -280,7 +286,7 @@ public class MemberController{
 		return mav;
 	}
 	
-	//======================================================= 골지사항 댓글 삭제
+	//======================================================= 공지사항 댓글 삭제
 	
 	@PostMapping("/notice/replyDelete")
 	@ResponseBody
@@ -296,6 +302,12 @@ public class MemberController{
 	@PostMapping("/notice/replyModify")
 	@ResponseBody
 	public void noticeReply(@RequestParam String reply, int rno) {
+		
+		// XSS Protection by rich 2020.10.01
+		if(reply.contains("<script>") || reply.contains("</script>")) {
+			reply = reply.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("rno",rno);
 		map.put("reply", reply);
@@ -318,6 +330,12 @@ public class MemberController{
 	@PostMapping("/notice/noticeWrite")
 	@ResponseBody
 	public String noticeWrite(@RequestParam String title, String content, Principal principal, HttpServletRequest request) {
+		
+		// XSS Protection by rich 2020.10.01
+		if(content.contains("<script>") || content.contains("</script>")) {
+			content = content.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		
 		Date now = new Date();
 		
 		String username = principal.getName();
@@ -441,6 +459,12 @@ public class MemberController{
 	
 		@PostMapping("/qna/qnaReply")
 		public ModelAndView qnaReply(@RequestParam String reply, int bno, Principal principal) {
+			
+			// XSS Protection by rich 2020.10.01
+			if(reply.contains("<script>") || reply.contains("</script>")) {
+				reply = reply.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+			}
+			
 			String username = principal.getName();
 			String nickname = memberService.getNickname(username);
 			List<BBoardReplyDTO> replyList = memberService.getQnaReplyList(bno);
@@ -477,6 +501,12 @@ public class MemberController{
 		@PostMapping("/qna/replyModify")
 		@ResponseBody
 		public void qnaReply(@RequestParam String reply, int rno) {
+			
+			// XSS Protection by rich 2020.10.01
+			if(reply.contains("<script>") || reply.contains("</script>")) {
+				reply = reply.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+			}
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("rno",rno);
 			map.put("reply", reply);
@@ -516,6 +546,12 @@ public class MemberController{
 		@PostMapping("/qna/qnaWrite")
 		@ResponseBody
 		public String qnaWrite(@RequestParam String title, String content, Principal principal, HttpServletRequest request) {
+			
+			// XSS Protection by rich 2020.10.01
+			if(content.contains("<script>") || content.contains("</script>")) {
+				content = content.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+			}
+			
 			Date now = new Date();
 			
 			String username = principal.getName();
@@ -536,6 +572,12 @@ public class MemberController{
 		@PostMapping("/qna/qnaModify")
 		@ResponseBody
 		public String qnaModify(@RequestParam String title, String content, Principal principal, HttpServletRequest request, int bno) {
+			
+			// XSS Protection by rich 2020.10.01
+			if(content.contains("<script>") || content.contains("</script>")) {
+				content = content.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+			}
+			
 			Date now = new Date();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("title",title);

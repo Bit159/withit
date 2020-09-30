@@ -53,7 +53,6 @@ public class BoardController {
 		
 		// 페이지
 		int page =  pg;
-		System.out.println("페이지"+page+"범위"+range);
 		
 		// 검색, 페이징 적용된 전체 게시글 수
 		int listCnt = boardService.getCBoardListCnt(search); 
@@ -64,10 +63,6 @@ public class BoardController {
 		// 페이지네이션
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCnt); 
-		System.out.println("paging: "+paging);
-		
-		System.out.println(search.getKeyword());
-		System.out.println(search.getSearchType());
 		
 		// 검색, 페이징 적용된 보드리스트
 		List<CBoardDTO> list = boardService.getCBoardList(search);
@@ -101,7 +96,6 @@ public class BoardController {
 		
 		// 페이지
 		int page =  pg;
-		System.out.println("페이지"+page+"범위"+range);
 		
 		// 검색, 페이징 적용된 전체 게시글 수
 		int listCnt = boardService.getBBoardListCnt(search); 
@@ -112,10 +106,9 @@ public class BoardController {
 		// 페이지네이션
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCnt); 
-		System.out.println("paging: "+paging);
 		
 		// 검색, 페이징 적용된 보드리스트
-		List<BBoardDTO> list = boardService.getBBoardList(search); 
+		List<BBoardDTO> list = boardService.getBBoardList(search);
 		
 		// 작성시간 표시 위한 현재 Date 객체
 		Date now = new Date();
@@ -147,7 +140,6 @@ public class BoardController {
 		
 		// 페이지
 		int page =  pg;
-		System.out.println("페이지"+page+"범위"+range);
 		
 		// 검색, 페이징 적용된 전체 게시글 수
 		int listCnt = boardService.getCBoardListCnt(search); 
@@ -158,18 +150,15 @@ public class BoardController {
 		// 페이지네이션
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCnt); 
-		System.out.println("paging: "+paging);	
 		
 		// 원글 불러오기
 		CBoardDTO cBoardDTO = boardService.getCBoard(bno);
 		
 		// 보드뷰 하단부 검색, 페이징 적용된 보드리스트
 		List<CBoardDTO> list = boardService.getCBoardList(search);
-		System.out.println(cBoardDTO.getTitle());
 		
 		// 보드뷰 해당 리플 리스트
 		List<CBoardReplyDTO> replyList = boardService.getCBoardReplyList(bno);
-		System.out.println(replyList);
 		
 		// 조회수 1증가
 		boardService.hitUpdate(bno);
@@ -204,7 +193,6 @@ public class BoardController {
 		
 		// 페이지
 		int page =  pg;
-		System.out.println("페이지"+page+"범위"+range);
 		
 		// 검색, 페이징 적용된 전체 게시글 수
 		int listCnt = boardService.getBBoardListCnt(search); 
@@ -215,18 +203,15 @@ public class BoardController {
 		// 페이지네이션
 		Pagination paging = new Pagination();
 		paging.pageInfo(page, range, listCnt); 
-		System.out.println("paging: "+paging);	
 		
 		// 원글 불러오기
 		BBoardDTO bBoardDTO = boardService.getBBoard(bno);
 		
 		// 보드뷰 하단부 검색, 페이징 적용된 보드리스트
 		List<BBoardDTO> list = boardService.getBBoardList(search);
-		System.out.println(bBoardDTO.getTitle());
 		
 		// 보드뷰 해당 리플 리스트
 		List<BBoardReplyDTO> replyList = boardService.getBBoardReplyList(bno);
-		System.out.println(replyList);
 		
 		// 조회수 1증가
 		boardService.boardHitUpdate(bno);
@@ -249,11 +234,6 @@ public class BoardController {
 				isAuthor = true;
 			}
 		}
-		/*
-		 * if(bBoardDTO.getUsername().equals(request.getSession().getAttribute(
-		 * "nickname"))) { isAuthor = true; }
-		 */
-		System.out.println(isAuthor);
 		mav.addObject("isAuthor", isAuthor);
 		mav.setViewName("/sj/freeView");
 		return mav;
@@ -279,20 +259,18 @@ public class BoardController {
 		return mav;
 	}
 	
-	
-	
-	
-	//크롤링 보드 댓글 생성
+	//크롤게시판 댓글 생성
 	@PostMapping(path="/crawlBoard/boardReply")
 	public ModelAndView boardReply(@RequestParam String reply, int bno, Principal principal) {
 		
-		System.out.println("reply:"+reply+" bno:"+bno);
+		// XSS Protection by rich 2020.10.01
+		if(reply.contains("<script>") || reply.contains("</script>")) {
+			reply = reply.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		
 		String username = principal.getName();
-		System.out.println("username="+username);
 		String nickname = memberService.getNickname(username);
-		System.out.println("nickname="+nickname);
 		List<CBoardReplyDTO> replyList = boardService.getCBoardReplyList(bno);
-		System.out.println("replyList:"+replyList);
 		Date now = new Date();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -310,38 +288,37 @@ public class BoardController {
 	}
 	
 	//자유게시판 댓글 생성
-		@PostMapping(path="/freeBoard/boardReply")
-		public ModelAndView bboardReply(@RequestParam String reply, int bno, Principal principal) {
-			System.out.println("reply:"+reply+" bno:"+bno);
-			String username = principal.getName();
-			System.out.println("username="+username);
-			String nickname = memberService.getNickname(username);
-			System.out.println("nickname="+nickname);
-			List<BBoardReplyDTO> replyList = boardService.getBBoardReplyList(bno);
-			System.out.println("replyList:"+replyList);
-			Date now = new Date();
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("bno",bno);
-			map.put("reply", reply);
-			map.put("username", username);
-			map.put("nickname", nickname);
-			map.put("now", now);
-			boardService.boardReply2(map);
-			boardService.replyUpdate2(bno);
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("replyList", replyList);
-			mav.setViewName("jsonView");
-			return mav;
+	@PostMapping(path="/freeBoard/boardReply")
+	public ModelAndView bboardReply(@RequestParam String reply, int bno, Principal principal) {
+		
+		// XSS Protection by rich 2020.10.01
+		if(reply.contains("<script>") || reply.contains("</script>")) {
+			reply = reply.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
 		}
+		
+		String username = principal.getName();
+		String nickname = memberService.getNickname(username);
+		List<BBoardReplyDTO> replyList = boardService.getBBoardReplyList(bno);
+		Date now = new Date();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bno",bno);
+		map.put("reply", reply);
+		map.put("username", username);
+		map.put("nickname", nickname);
+		map.put("now", now);
+		boardService.boardReply2(map);
+		boardService.replyUpdate2(bno);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("replyList", replyList);
+		mav.setViewName("jsonView");
+		return mav;
+	}
 	
 	//크롤링 보드 댓글 삭제
 	@PostMapping("/crawlBoard/replyDelete")
 	public ModelAndView replyDelete(@RequestParam int rno, int bno, HttpSession session) {
-		System.out.println("rno="+rno);
-		/* String nickname = (String) session.getAttribute("nickname"); */
 		boardService.replyDelete(rno);
-		System.out.println("bno="+bno);
 		boardService.replyDeleteUpdate(bno);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("sj/crawlView");
@@ -351,10 +328,7 @@ public class BoardController {
 	//자유게시판 댓글 삭제
 	@PostMapping("/freeBoard/replyDelete")
 	public ModelAndView replyDelete2(@RequestParam int rno, int bno, HttpSession session) {
-		System.out.println("rno="+rno);
-		/* String nickname = (String) session.getAttribute("nickname"); */
 		boardService.replyDelete2(rno);
-		System.out.println("bno="+bno);
 		boardService.replyDeleteUpdate2(bno);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("sj/freeBoard");
@@ -364,9 +338,12 @@ public class BoardController {
 	// 크롤링 보드 댓글 수정
 	@PostMapping("/crawlBoard/replyModify")
 	public ModelAndView replyModify(@RequestParam String reply, int rno, HttpSession session) {
-		System.out.println(reply);
-		System.out.println(rno);
-		/* String nickname = (String) ses sion.getAttribute("nickname"); */
+		
+		// XSS Protection by rich 2020.10.01
+		if(reply.contains("<script>") || reply.contains("</script>")) {
+			reply = reply.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("rno",rno);
 		map.put("reply", reply);
@@ -379,9 +356,12 @@ public class BoardController {
 	// 자유게시판 댓글 수정
 	@PostMapping("/freeBoard/replyModify")
 	public ModelAndView replyModify2(@RequestParam String reply, int rno, HttpSession session) {
-		System.out.println(reply);
-		System.out.println(rno);
-		/* String nickname = (String) session.getAttribute("nickname"); */
+		
+		// XSS Protection by rich 2020.10.01
+		if(reply.contains("<script>") || reply.contains("</script>")) {
+			reply = reply.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("rno",rno);
 		map.put("reply", reply);
@@ -396,18 +376,19 @@ public class BoardController {
 	@PostMapping("/freeBoard/boardWrite")
 	@ResponseBody
 	public String boardWrite(@RequestParam String title, String content, Principal principal, HttpServletRequest request) {
+		
+		// XSS Protection by rich 2020.10.01
+		if(content.contains("<script>") || content.contains("</script>")) {
+			content = content.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		
 		Date now = new Date();
-		
 		String username = principal.getName();
-		System.out.println("username="+username);
 		String nickname = memberService.getNickname(username);
-		System.out.println("nickname="+nickname);
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title",title);
 		map.put("content",content);
 		map.put("username", username);
-		/* map.put("nickname",request.getSession().getAttribute("nickname")); */
 		map.put("nickname", nickname);
 		map.put("now", now);
 		boardService.writeBBoard(map); 
@@ -417,10 +398,7 @@ public class BoardController {
 	// 자유게시판 보드 삭제
 	@PostMapping("/freeBoard/boardDelete")
 	public ModelAndView boardDelete(@RequestParam int bno) {
-		
-		
 		boardService.deleteBBoard(bno);
-		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/sj/freeBoard");
 		return mav;
@@ -430,6 +408,12 @@ public class BoardController {
 	@PostMapping("/freeBoard/boardModify")
 	@ResponseBody
 	public String boardModify(@RequestParam String title, String content, Principal principal, HttpServletRequest request, int bno) {
+		
+		// XSS Protection by rich 2020.10.01
+		if(content.contains("<script>") || content.contains("</script>")) {
+			content = content.replace("<script>", "&lt;script&gt;").replace("</script>", "&lt;/script&gt;");
+		}
+		
 		Date now = new Date();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("title",title);
