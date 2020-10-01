@@ -13,7 +13,7 @@
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" flush="true" />
+	<jsp:include page="/WEB-INF/views/rich/template/header.jsp" flush="true" />
 	<div class="matchDiv">
     <h2 id="matchTitle">
 		<button id="key" onclick="insertMatch(), drawMap(), addDrawFunction(), searchFunction(), getLocation()">추가하기</button>
