@@ -22,6 +22,6 @@ public class CBoardDTO {
 	
 	@Override
 	public String toString() {
-		return bno+" "+topic+" "+title+" "+content;
+		return bno+" "+topic+" "+title+" "+content + boarddate;
 	}
 }

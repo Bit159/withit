@@ -2,9 +2,7 @@ package rich.dao;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,6 +21,13 @@ public class RichDAOImpl implements RichDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	// 방문자 기록
+	@Override
+	public int logVisitor(VisitorDTO visitorDTO) {
+		return sqlSession.insert("richSQL.logVisitor", visitorDTO);
+	}
+	
 	
 	// FOR MAP
 	//나의 경력 불러오기
@@ -204,7 +209,5 @@ public class RichDAOImpl implements RichDAO {
 	public List<NotDTO> getGroupSchedules(int gno) {
 		return sqlSession.selectList("richSQL.getGroupSchedules", gno);
 	}
-	
-
 	// END OF SCHEDULES
 }

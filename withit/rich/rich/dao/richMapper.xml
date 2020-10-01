@@ -5,10 +5,12 @@
 
 <mapper namespace="richSQL">
 
+	<!-- 방문자 기록 -->
+	<insert id="logVisitor" parameterType="rich.dao.VisitorDTO" >
+		INSERT INTO db.visitors(`username`, `ip`, `time`, `locale`) VALUES(#{username}, #{ip}, #{time}, #{locale})
+	</insert>
+
 <!-- 매칭 발생시 사용되는 SQL들 -->
-
-
-
 	<!-- /myGroup -->
 	<select id="getGroupSchedules" parameterType="int" resultType="rich.notify.NotDTO">
 		SELECT * FROM db.notify WHERE `gno`=#{gno}

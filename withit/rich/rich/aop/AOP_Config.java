@@ -2,10 +2,11 @@ package rich.aop;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.aspectj.lang.annotation.After;
@@ -21,6 +22,7 @@ import bj.member.service.MemberService;
 import hj.member.bean.MatchDTO;
 import hj.member.dao.HjDAO;
 import rich.dao.RichDAO;
+import rich.dao.VisitorDTO;
 import rich.notify.Email;
 import sj.board.bean.CBoardDTO;
 
@@ -28,14 +30,10 @@ import sj.board.bean.CBoardDTO;
 @Aspect
 public class AOP_Config {
 
-	@Autowired
-	private HjDAO hjDAO;
-	@Autowired
-	private RichDAO richDAO;
-	@Autowired
-	private Email email;
-	@Autowired
-	private MemberService memberService;
+	@Autowired private HjDAO hjDAO;
+	@Autowired private RichDAO richDAO;
+	@Autowired private Email email;
+	@Autowired private MemberService memberService;
 	
 	//비밀번호 찾기 메일 발송
 	@Async

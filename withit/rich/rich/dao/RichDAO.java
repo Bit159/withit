@@ -2,9 +2,6 @@ package rich.dao;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
 
 import hj.member.bean.MatchDTO;
 import hj.member.bean.MatchedDTO;
@@ -51,5 +48,8 @@ public interface RichDAO {
 	public abstract List<MatchedDTO> getGroupDetail(int gno);
 	
 	//아이콘
-	public abstract String getIconTagByTopic(String topic); 
+	public abstract String getIconTagByTopic(String topic);
+
+	//방문자 기록
+	public abstract int logVisitor(VisitorDTO visitorDTO); 
 }

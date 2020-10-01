@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import rich.dao.RichDAO;
+import rich.dao.RichDAOImpl;
 import rich.notify.Email;
 import sj.board.bean.CBoardDTO;
 
@@ -30,7 +31,7 @@ public class Crawler {
 	private static final int HOUR = 1000 * 3600;
 	@Autowired
 	private Email email;
-
+	
 	@Async
 	@Scheduled(cron="0 0/10 * * * *") // (cron="0 0/N * * * *") N분마다
 	public void getList() {

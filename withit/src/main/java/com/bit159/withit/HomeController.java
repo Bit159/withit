@@ -1,33 +1,34 @@
 package com.bit159.withit;
 
-import java.text.DateFormat;
 import java.util.Date;
-import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import bj.member.service.MemberService;
+import rich.dao.RichDAO;
+import rich.dao.VisitorDTO;
+import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	@Autowired
-	private MemberService memberService;
+	@Autowired private VisitorDTO visitorDTO;
+	@Autowired private RichDAO richDAO;
 	
 	@GetMapping("/")
-	public String home(Locale locale, Model model) {
-		logger.info(memberService.toString());
-		logger.info("Welcome home! The client locale is {}.", locale);
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		String formattedDate = dateFormat.format(date);
-		model.addAttribute("serverTime", formattedDate );
+	public String home(HttpServletRequest httpServletRequest) {
+		System.out.println(httpServletRequest.getRequestedSessionId());
+		System.out.println(httpServletRequest.getRequestedSessionId()==null);
+		if(httpServletRequest.getRequestedSessionId() == null) {
+			visitorDTO.setUsername(httpServletRequest.getRemoteUser());
+			visitorDTO.setIp(httpServletRequest.getRemoteAddr());
+			visitorDTO.setLocale(httpServletRequest.getLocale().toString());
+			visitorDTO.setTime(new Date());
+			richDAO.logVisitor(visitorDTO);	
+		}
 		return "kh/all/welcome";
 	}
 	
