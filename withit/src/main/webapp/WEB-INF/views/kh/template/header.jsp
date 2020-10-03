@@ -115,6 +115,7 @@ div[id="mobile_menu"] {
 	transition: all 0.1s;
 	display:none;
 }
+
 div[id="mobile_menu"]  a {
 	text-decoration: none;
 }
@@ -134,8 +135,10 @@ li[class="mobile_li"] {
 
 li[class="mobile_li"]>div {
 	margin-left: 20px;
+	height: 70px;
 }
 
+/* 모바일 메뉴 좌측 아이콘 */
 li[class="mobile_li"] path {
 	width:24px;
 }
@@ -146,7 +149,6 @@ img[id="mobile_logo"] {
 
 /* 모바일 메뉴 좌측 아이콘 색상 */
 path {
-	/*color: #a2c7b4;*/
 	color: #32be78;
 }
 
@@ -210,40 +212,42 @@ svg[id="mobile_hamburger"]>path {
 	}
 }
 </style>
+
 <!-- 최상단 로그인바 -->
 <div id="loginBar_wrapper">
+
+	<!-- 로고 -->
 	<div id="mobile_header_logo_wrapper">
 		<a href="/"><img id="mobile_header_logo" src="/resources/kh/image/logo.png" /></a>
 	</div>
+	
+	<!-- 햄버거 -->
 	<i data-menu="0" id="mobile_hamburger" class="fas fa-bars fa-3x" onclick="open_close()"></i>
 	
 	<div id="loginBar">
-
+		<!-- 비로그인 : PC -->
 		<sec:authorize access="isAnonymous()">
 			<a class="loginBarLink" href="/loginForm">로그인</a>&emsp;
 			<a class="loginBarLink" href="/joinForm">회원가입</a>&emsp;
 		</sec:authorize>
 
+		<!-- 로그인 : PC -->
 		<sec:authorize access="isAuthenticated()">
+			<!-- 일반 -->
 			<sec:authorize access="hasRole('ROLE_MEMBER')">
 				<a class="loginBarLink" href="/myPage">마이페이지</a>
-				<form action="/logout" method="post" name="logout">&emsp;
-					<a class="loginBarLink" href="javascript:document.logout.submit();">로그아웃</a>&emsp; 
-					<input type="hidden" name="${_csrf.parameterName }"	value="${_csrf.token }">
-				</form>
 			</sec:authorize>
 
+			<!-- 관리자 -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<a class="loginBarLink" href="/admin">관리자페이지</a>
-				<form action="/logout" method="post" name="logout">&emsp;
-					<a class="loginBarLink" href="javascript:document.logout.submit();">로그아웃</a>&emsp; 
-					<input type="hidden" name="${_csrf.parameterName }"	value="${_csrf.token }">
-				</form>
 			</sec:authorize>
-
+			
+			<!-- 공통 -->
+			<a class="loginBarLink" href="javascript:document.logout.submit();">로그아웃</a>&emsp; 
 		</sec:authorize>
-
 	</div>
+	
 </div>
 
 <!-- 네브바 wrapper-->
@@ -279,40 +283,53 @@ svg[id="mobile_hamburger"]>path {
 		<a href="/crawlBoard"><li class="mobile_li"><div><i class="fas fa-wifi"></i>&nbsp;&nbsp;크롤게시판</div></li></a>
 		<a href="/history"><li class="mobile_li"><div><i class="fas fa-info-circle"></i>&nbsp;&nbsp;프로젝트 소개</div></li></a>
 
+		<!-- 비로그인일 경우 -->
 		<sec:authorize access="isAnonymous()">
 			<a href="/loginForm"><li class="mobile_li"><div><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;로그인</div></li></a>
 			<a href="/joinForm"><li class="mobile_li"><div><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</div></li></a>
 		</sec:authorize>
 
+		<!-- 로그인일 경우 -->
 		<sec:authorize access="isAuthenticated()">
+			<!-- 일반 -->
 			<sec:authorize access="hasRole('ROLE_MEMBER')">
 				<a href="/myPage"><li class="mobile_li"><div><i class="fas fa-user"></i>&nbsp;&nbsp;마이페이지</div></li></a>
 			</sec:authorize>
+			<!-- 관리자 -->
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<a href="/admin"><li class="mobile_li"><div><i class="fas fa-user-cog"></i>&nbsp;&nbsp;관리자 메뉴</div></li></a>
 			</sec:authorize>
+			<!-- 공통 -->
 			<a href="javascript:document.logout.submit()"><li class="mobile_li"><div><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;로그아웃</div></li></a>
 		</sec:authorize>
-
 	</ul>
 </div>
 
 <script>
-	let sw = "0";
+	let swForMobile = "0";
 
 	function open_close() {
-		if(sw === "0") open();
+		if(swForMobile === "0") open();
 		else close();
 	}
 	
 	function open() {
 		document.querySelector('div#mobile_menu').style.left="0px";
-		sw = "1";
+		swForMobile = "1";
 	}
 	
 	function close() {
 		document.querySelector('div#mobile_menu').style.left="-255px";
-		sw = "0";
+		swForMobile = "0";
 	}
+	
+	//클릭 대상이 햄버거 버튼이 아니고, 모바일 메뉴 안의 요소가 아닐 경우  => 모바일 메뉴 닫기
+	window.addEventListener('click', (e)=>{
+		if(!document.querySelector('svg[id="mobile_hamburger"]').contains(e.target)) {
+			if(!document.querySelector('div[id="mobile_menu"]').contains(e.target)) {
+				close();	
+			}
+		}
+	});
 	
 </script>
