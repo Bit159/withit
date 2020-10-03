@@ -197,7 +197,7 @@ div[class="sidebar"] {
 	}
 }
 /* =================모바일 대응=============== */
-@media (max-width:480px){
+@media (max-width:1000px){
 	nav {width: 100%;}
 	.info-area { 
 		width: 100%; 

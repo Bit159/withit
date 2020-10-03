@@ -244,7 +244,10 @@ svg[id="mobile_hamburger"]>path {
 			</sec:authorize>
 			
 			<!-- 공통 -->
-			<a class="loginBarLink" href="javascript:document.logout.submit();">로그아웃</a>&emsp; 
+			<form action="/logout" method="post" name="logout">&emsp;
+				<a class="loginBarLink" href="javascript:document.logout.submit();">로그아웃&emsp;</a> 
+				<input type="hidden" name="${_csrf.parameterName }"	value="${_csrf.token }">
+			</form> 
 		</sec:authorize>
 	</div>
 	
@@ -272,7 +275,6 @@ svg[id="mobile_hamburger"]>path {
 </div>
 
 <!-- 모바일 메뉴 -->
-
 <div id="mobile_menu">
 	<ul id="mobile_ul">
 		<a href="/"><li class="mobile_li"><div><i class="fas fa-home"></i>&nbsp;&nbsp;Welcome</div></li></a>
@@ -300,7 +302,7 @@ svg[id="mobile_hamburger"]>path {
 				<a href="/admin"><li class="mobile_li"><div><i class="fas fa-user-cog"></i>&nbsp;&nbsp;관리자 메뉴</div></li></a>
 			</sec:authorize>
 			<!-- 공통 -->
-			<a href="javascript:document.logout.submit()"><li class="mobile_li"><div><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;로그아웃</div></li></a>
+			<a href="javascript:document.logout.submit()"><li class="mobile_li"><div><i class="fas fa-sign-out-al"></i>&nbsp;&nbsp;로그아웃</div></li></a>
 		</sec:authorize>
 	</ul>
 </div>
