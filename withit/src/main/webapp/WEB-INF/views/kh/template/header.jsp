@@ -1,245 +1,318 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<script defer src="/resources/rich/js/fontawesome.js"></script>
+
+<!-- updated by rich 2020.10.03 -->
+
 <style>
-@charset "UTF-8";
-html,body,div,span,img,header,nav,a,ul,li,form, label,footer,tr,th,td,
-section,article,aside {
-    margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	vertical-align: baseline;   
-}
-.container {
-    margin: 0 auto;
-    width: 1280px;
-    max-width: 100%;
-}
-body{
-    font-size: 13pt;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-.box {
-    background: rgb(243, 243, 243);
-    border-radius: 8px;
-    box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.05);
-}
-/* ===================header=============== */
-div[id=loginBar_wrapper] {
-    background:rgb(50, 190, 120);
-    height: 30px;
-}
-div[id=loginBar] {
-    margin:0 auto;
-}
-div[id=loginBar] a {
-    text-decoration: none;
-    color: white;
-    font-size: 10pt;
-    padding-left: 10px;
-    line-height: 30px;
-    float: right;
-}
-#header_wrapper {
-    padding: 5px 0 5px;
-    z-index: 1;
-    background-color: white;
-    margin:0 auto;
-    width:100%;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
-}
-#header_wrapper.fixed{
-    position: fixed; 
-    left: 0; top: 0; width: 100%;
-    border-bottom: solid 1px rgb(218, 216, 216);
-}
-header {
-    position:relative;
-    display:flex;
-}
-#logo {
-    display:inline-block;
-}
-#nav {
-    display: block;
-    position:absolute;
-    right:0px;
-    top:0px;
-    height: 50px;
-}
-#nav ul li {
-    display: list-item;
-    list-style: none;
-    float:left;
-    padding-left:2em;
-    line-height: 59.8px;
-}
-#nav ul li a{
-    font-weight: bold;
-    text-decoration: none;
-    color:black;
-    padding: .5em;
-}
-#nav ul li a:hover {
-    border-bottom: solid 2px rgb(50, 190, 120); ;
-}
-#nav ul li[class="welcome"] a{
-    font-size: 16pt;
-    line-height: 40px;
-}
-/* 햄버거 메뉴 관련 css */
-input[id="menuicon"] {
-	display:none;
-}
-input[id="menuicon"] +label {
-	display:none;
-}
-input[id="menuicon"] +label span {
-	display:block;
-	position: absolute;
+/* 최상단 로그인 바*/
+div[id="loginBar_wrapper"] {
 	width: 100%;
-	height: 5px;
-	border-radius: 30px;
-	background:rgb(50, 190, 120);
-	transition: all .35s;
+	background-color: #32be78;
 }
-input[id="menuicon"] +label span:nth-child(1) {
-	top:0;
+
+div[id="loginBar"] {
+	width: 1280px;
+	height: 30px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: flex-end;
 }
-input[id="menuicon"] +label span:nth-child(2) {
-	top:50%;
-	transform: translateY(-50%);
+
+a[class="loginBarLink"] {
+	line-height: 28px;
+	font-size: 10pt;
+	color: white;
+	text-decoration: none;
 }
-input[id="menuicon"] +label span:nth-child(3) {
-	bottom: 0;
+
+/* 네브바 : div#header_wrapper [ div#header { div#logo_wrapper, ul#menu_wrapper } ] */
+div[id="header_wrapper"] {
+	width: 100%;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
 }
-input[id="menuicon"]:checked +label {
-	z-index: 3;
+
+div[id="header"] {
+	width: 1280px;
+	height: 70px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
 }
-input[id="menuicon"]:checked +label span {
-	background: rgb(50, 190, 120);
-    z-index: 3;
-    transition: all .35s;
+
+/* 네브바 안의 로고 */
+div[id="logo_wrapper"] {
+	height: 70px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
-input[id="menuicon"]:checked +label span:nth-child(1) {
-	top:50%;
-	transform: translateY(-50%) rotate(45deg);
+
+img[id="logo_img"] {
+	width: 170px;
 }
-input[id="menuicon"]:checked +label span:nth-child(2) {
-	opacity:0;
+
+/* 네브바 안의 메뉴 */
+ul[id="menu_wrapper"] {
+	width: 100%;
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	line-height: 70px;
 }
-input[id="menuicon"]:checked +label span:nth-child(3) {
-	bottom: 50%;
-	transform: translateY(50%) rotate(-45deg);
+
+li[class="nav_menu"] {
+	margin-right: 40px;
+	font-size: 1.05rem;
+	transition: all 0.5s;
 }
-@media (max-width:1920px){
-    .sidebar {
-        display:none;
-    }
+
+li[class="nav_menu"]:last-child {
+	margin-right: 5px;
 }
-@media (max-width:900px){
-    #nav {
-        display:none;
-    }
-    input[id="menuicon"] +label{
-		display: block;
-		margin:15px;
-		width:40px;
-		height:30px;
-		right:0;
-		position: fixed;
+
+li[class="nav_menu"]>a {
+	padding: 10px;
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+li[class="nav_menu"]>a:hover {
+	border-bottom: solid 2px #32be78;
+}
+
+/* 모바일 */
+
+/* 모바일 최상단 중앙 로고 래퍼 */
+div[id="mobile_header_logo_wrapper"] {
+	height: 30px;
+	margin-top: 5px;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 4px 0 rgba(0, 0, 0, 0.19);
+	display: none;
+}
+
+/* 모바일 최상단 중앙 로고 */
+img[id="mobile_header_logo"] {
+	width: 90px;
+	height: 30px;
+	cursor: pointer;
+}
+
+/* 햄버거 버튼 */
+svg[id="mobile_hamburger"] {
+	display: none;
+}
+
+/* 모바일 메뉴 래퍼*/
+div[id="mobile_menu"] {
+	position: fixed !important;
+	left: -255px;
+	width: 250px;
+	z-index:9999;
+	transition: all 0.1s;
+	display:none;
+}
+div[id="mobile_menu"]  a {
+	text-decoration: none;
+}
+
+/* 모바일 메뉴 */
+li[class="mobile_li"] {
+	height: 70px;
+	line-height: 75px;
+	font-size: 1.35rem;
+	list-style: none;
+	font-weight: bold;
+	color: black;
+	background-color: whitesmoke;
+	z-index: 999;
+	box-shadow: 2px 2px 2px 2px rgba(0.5, 0.5, 0.5, 0.5);
+}
+
+li[class="mobile_li"]>div {
+	margin-left: 20px;
+}
+
+li[class="mobile_li"] path {
+	width:24px;
+}
+
+img[id="mobile_logo"] {
+	width: 207px;
+}
+
+/* 모바일 메뉴 좌측 아이콘 색상 */
+path {
+	/*color: #a2c7b4;*/
+	color: #32be78;
+}
+
+/* 햄버거 버튼 아이콘 색상 */
+svg[id="mobile_hamburger"]>path {
+	color: white;
+	z-index : -999;
+}
+
+
+/* 1000px 이상은 PC 기본형 */
+@media ( max-width : 1280px) {
+	div[id="loginBar"], div[id="header"] {
+		width: 100%;
+	}
+}
+
+/* 1000px 이하는 navbar 메뉴 사이즈, 간격 줄이기 */
+@media ( max-width : 1000px) {
+	li[class="nav_menu"] {
+		font-size: 0.93rem;
+		margin-right: 0.5%;
+	}
+}
+
+/* 768px 이하는 모바일 대응 */
+@media ( max-width : 767px) {
+	
+	/* PC용 navbar 안 보이게 처리 */
+	div[id="header_wrapper"], div[id="loginBar"] {
+		display: none;
+	}
+	
+	/* 최상단 로그인 바 height 10px 늘리고 내부 요소 중앙정렬 */
+	div[id="loginBar_wrapper"] {
+		position:sticky;
+		top:0;
+		z-index:998;
+		height: 40px;
+		display: flex;
+		justify-content: center;
+	}
+	
+	/* 모바일 로고 래퍼 나타내기 */
+	div[id="mobile_header_logo_wrapper"] {
+		display: initial;
+	}
+	
+	/* 햄버거 버튼 나타내기 */
+	svg[id="mobile_hamburger"] {
+		display: initial;
+		position: absolute;
+		font-size: 40px;
+		color: white;
+		left: 10px;
 		cursor: pointer;
 	}
-	#menuButtons {display:none;}
-	div[class="sidebar"] {
-		display:block;
-		top:30px;
-		width:300px;
-		right:-300px;
-		height:100%;
-		background: rgb(230, 228, 228);
-		position: fixed;
-		z-index:2;
-		transition: all .35s;
+	
+	div[id="mobile_menu"]{
+		display:initial;
 	}
 }
-.sidebar.fixed {
-    display:block;
-    top:0px;
-    width:300px;
-    right:-300px;
-    height:100%;
-    background: rgb(230, 228, 228);
-    position: fixed;
-    z-index:2;
-}
-div[class="sidebar"] ul {
-    list-style: none;
-    margin-top:70px;
-    background: whitesmoke;
-}
-div[class="sidebar"] > ul > li {
-    border-bottom: 1px solid #ccc;
-    margin:10;
-}
-div[class="sidebar"] > ul > li > a {
-    display:inline-block;
-    width:auto;
-    padding: 20px;
-    margin:10px;
-}
-div[class="sidebar fixed"] ul {
-    list-style: none;
-    margin-top:70px;
-    background: whitesmoke;
-}
-div[class="sidebar fixed"] > ul > li {
-    border-bottom: 1px solid #ccc;
-    margin:10;
-}
-div[class="sidebar fixed"] > ul > li > a {
-    display:inline-block;
-    width:auto;
-    padding: 20px;
-    margin:10px;
-}
-input[id="menuicon"]:checked +label +div {right:0;}
-
-div[id="banner_wrapper"] {
-	opacity="0";
-}
 </style>
+<!-- 최상단 로그인바 -->
 <div id="loginBar_wrapper">
-	<div id="loginBar" class="container">
+	<div id="mobile_header_logo_wrapper">
+		<a href="/"><img id="mobile_header_logo" src="/resources/kh/image/logo.png" /></a>
+	</div>
+	<i data-menu="0" id="mobile_hamburger" class="fas fa-bars fa-3x" onclick="open_close()"></i>
+	
+	<div id="loginBar">
+
 		<sec:authorize access="isAnonymous()">
-			<a href="/joinForm">회원가입</a> <a href="/loginForm">로그인</a>
+			<a class="loginBarLink" href="/loginForm">로그인</a>&emsp;
+			<a class="loginBarLink" href="/joinForm">회원가입</a>&emsp;
 		</sec:authorize>
+
 		<sec:authorize access="isAuthenticated()">
-			<form action="/logout" method="post" name="logout">
-   				<a href="javascript:document.logout.submit();">로그아웃</a>
-   				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-   			</form>
-			<sec:authorize access="hasRole('ROLE_MEMBER')"><a href="/myPage">마이페이지</a></sec:authorize>
-			<sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/admin">관리자페이지</a></sec:authorize>
+			<sec:authorize access="hasRole('ROLE_MEMBER')">
+				<a class="loginBarLink" href="/myPage">마이페이지</a>
+				<form action="/logout" method="post" name="logout">&emsp;
+					<a class="loginBarLink" href="javascript:document.logout.submit();">로그아웃</a>&emsp; 
+					<input type="hidden" name="${_csrf.parameterName }"	value="${_csrf.token }">
+				</form>
+			</sec:authorize>
+
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<a class="loginBarLink" href="/admin">관리자페이지</a>
+				<form action="/logout" method="post" name="logout">&emsp;
+					<a class="loginBarLink" href="javascript:document.logout.submit();">로그아웃</a>&emsp; 
+					<input type="hidden" name="${_csrf.parameterName }"	value="${_csrf.token }">
+				</form>
+			</sec:authorize>
+
 		</sec:authorize>
+
 	</div>
 </div>
-<div id=header_wrapper>
-	<header id="header" class="container">
-		<!-- 로고 -->
-		<div id="logo">
-			<a href="/"><img alt="홈으로" style="width: 170px; height: 55px;" src="/resources/kh/image/logo.png" /></a>
+
+<!-- 네브바 wrapper-->
+<div id="header_wrapper">
+	<!-- 네브바-->
+	<div id="header">
+		<!-- 네브바 안의 로고 -->
+		<div id="logo_wrapper">
+			<a href="/"><img id="logo_img" src="/resources/kh/image/logo.png" /></a>
 		</div>
-		<!-- nav -->
-		<nav id="nav">
-			<ul>
-				<li class="welcome" style="white-space: nowrap;"><a	href="/">Welcome</a></li>
-				<li class="matching" style="white-space: nowrap;"><a href="/match">스터디 매칭</a></li>
-				<li class="createGroup" style="white-space: nowrap;"><a href="/cardBoard">스터디 모집</a></li>
-				<li class="groupManage" style="white-space: nowrap;"><a href="/myGroup">그룹관리</a></li>
-				<li class="freeBoard" style="white-space: nowrap;"><a href="/freeBoard">자유게시판</a></li>
-				<li class="menu3" style="white-space: nowrap;"><a href="/crawlBoard">크롤게시판</a></li>
-			</ul>
-		</nav>
-	</header>
+
+		<!-- 네브바 안의 메뉴 -->
+		<ul id="menu_wrapper">
+			<li class="nav_menu"><a href="/">Welcome</a></li>
+			<li class="nav_menu"><a href="/match">스터디 매칭</a></li>
+			<li class="nav_menu"><a href="/cardBoard">스터디 모집</a></li>
+			<li class="nav_menu"><a href="/myGroup">그룹관리</a></li>
+			<li class="nav_menu"><a href="/freeBoard">자유게시판</a></li>
+			<li class="nav_menu"><a href="/crawlBoard">크롤게시판</a></li>
+		</ul>
+	</div>
 </div>
+
+<!-- 모바일 메뉴 -->
+
+<div id="mobile_menu">
+	<ul id="mobile_ul">
+		<a href="/"><li class="mobile_li"><div><i class="fas fa-home"></i>&nbsp;&nbsp;Welcome</div></li></a>
+		<a href="/match"><li class="mobile_li"><div><i class="fas fa-people-arrows"></i>&nbsp;&nbsp;스터디 매칭</div></li></a>
+		<a href="/cardBoard"><li class="mobile_li"><div><i class="far fa-id-card"></i>&nbsp;&nbsp;스터디 모집</div></li></a>
+		<a href="/myGroup"><li class="mobile_li"><div><i class="fas fa-users"></i>&nbsp;&nbsp;그룹관리</div></li></a>
+		<a href="/freeBoard"><li class="mobile_li"><div><i class="fas fa-keyboard"></i>&nbsp;&nbsp;자유게시판</div></li></a>
+		<a href="/crawlBoard"><li class="mobile_li"><div><i class="fas fa-wifi"></i>&nbsp;&nbsp;크롤게시판</div></li></a>
+		<a href="/history"><li class="mobile_li"><div><i class="fas fa-info-circle"></i>&nbsp;&nbsp;프로젝트 소개</div></li></a>
+
+		<sec:authorize access="isAnonymous()">
+			<a href="/loginForm"><li class="mobile_li"><div><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;로그인</div></li></a>
+			<a href="/joinForm"><li class="mobile_li"><div><i class="fas fa-user-plus"></i>&nbsp;&nbsp;회원가입</div></li></a>
+		</sec:authorize>
+
+		<sec:authorize access="isAuthenticated()">
+			<sec:authorize access="hasRole('ROLE_MEMBER')">
+				<a href="/myPage"><li class="mobile_li"><div><i class="fas fa-user"></i>&nbsp;&nbsp;마이페이지</div></li></a>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<a href="/admin"><li class="mobile_li"><div><i class="fas fa-user-cog"></i>&nbsp;&nbsp;관리자 메뉴</div></li></a>
+			</sec:authorize>
+			<a href="javascript:document.logout.submit()"><li class="mobile_li"><div><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;로그아웃</div></li></a>
+		</sec:authorize>
+
+	</ul>
+</div>
+
+<script>
+	let sw = "0";
+
+	function open_close() {
+		if(sw === "0") open();
+		else close();
+	}
+	
+	function open() {
+		document.querySelector('div#mobile_menu').style.left="0px";
+		sw = "1";
+	}
+	
+	function close() {
+		document.querySelector('div#mobile_menu').style.left="-255px";
+		sw = "0";
+	}
+	
+</script>

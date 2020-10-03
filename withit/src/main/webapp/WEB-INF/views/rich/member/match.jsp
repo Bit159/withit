@@ -13,7 +13,7 @@
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/rich/template/header.jsp" flush="true" />
+	<jsp:include page="/WEB-INF/views/kh/template/header.jsp"/>
 	<div class="matchDiv">
     <h2 id="matchTitle">
 		<button id="key" onclick="insertMatch(), drawMap(), addDrawFunction(), searchFunction(), getLocation()">추가하기</button>
@@ -42,6 +42,6 @@
 		<h3 id="emptyAlert">추가하기를 눌러 지금 매칭을 시작해보세요!</h3>
 	</c:if>
 	</div>
-	<jsp:include page="/WEB-INF/views/kh/template/footer.jsp" flush="true" />
+	<jsp:include page="/WEB-INF/views/kh/template/footer.jsp"/>
 </body>
 </html>
