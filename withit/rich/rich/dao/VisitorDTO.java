@@ -15,12 +15,16 @@ public class VisitorDTO {
 	private String ip;
 	private Date time;
 	private String locale;
-	private Date dbtime;
 	private String browser;
-	private String referer;
 	private String os;
+	private String referer;
 	private int width;
 	private int height;
-	private String useragnet;
+	private String useragent;
+	
+	@Override
+	public String toString() {
+		return username + ip + time + locale + browser + os + referer + width + height + useragent;
+	}
 
 }
