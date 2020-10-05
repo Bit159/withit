@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -13,104 +14,39 @@
 
 <body>
 	<jsp:include page="/WEB-INF/views/kh/template/header.jsp" />
+	
 	<div id="historyWrapper">
+
 		<h1 id="historyTitle">withIT Development Timeline</h1>
-		<div style="display: flex; justify-content: center">
-			<button id="historyButton" type="button">등록</button>
-		</div>
+
+				
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<!-- 관리자일 경우에만 등록 버튼 노출 -->
+			<div style="display: flex; justify-content: center">
+				<button id="historyButton" type="button">등록</button>
+			</div>
+		</sec:authorize>
+		
 		<div class="timeline">
 			<ul>
-				<li>
-					<div class="content">
-						<h3>Lorem ipsum1111</h3>
-						<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-							Aliquid fugiat consequatur quia, quam est laboriosam ab, ipsum
-							molestiae esse, voluptatibus dolore fuga asperiores? Inventore
-							voluptas debitis, voluptatibus rerum consequatur libero!</p>
-					</div>
-					<div class="time">
-						<h4 data-time="">2020. 09. 30 (월)</h4>
-					</div>
-					<button class="deleteHistory" type="button">삭제</button>
-				</li>
-				<li>
-					<div class="content">
-						<h3>Lorem ipsu2222m</h3>
-						<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-							Aliquid fugiat consequatur quia, quam est laboriosam ab, ipsum
-							molestiae esse, voluptatibus dolore fuga asperiores? Inventore
-							voluptas debitis, voluptatibus rerum consequatur libero!</p>
-					</div>
-					<div class="time">
-						<h4>2020. 09. 30 (월)</h4>
-					</div>
-					<button class="deleteHistory" type="button">삭제</button>
-				</li>
-				<li>
-					<div class="content">
-						<h3>Lorem ipsum3333</h3>
-						<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-							Aliquid fugiat consequatur quia, quam est laboriosam ab, ipsum
-							molestiae esse, voluptatibus dolore fuga asperiores? Inventore
-							voluptas debitis, voluptatibus rerum consequatur libero!</p>
-					</div>
-					<div class="time">
-						<h4>2020. 09. 30 (월)</h4>
-					</div>
-					<button class="deleteHistory" type="button">삭제</button>
-				</li>
-				<li>
-					<div class="content">
-						<h3>Lorem ipsum4444</h3>
-						<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-							Aliquid fugiat consequatur quia, quam est laboriosam ab, ipsum
-							molestiae esse, voluptatibus dolore fuga asperiores? Inventore
-							voluptas debitis, voluptatibus rerum consequatur libero!</p>
-					</div>
-					<div class="time">
-						<h4>2020. 09. 30 (월)</h4>
-					</div>
-					<button class="deleteHistory" type="button">삭제</button>
-				</li>
-				<li>
-					<div class="content">
-						<h3>Lorem ipsum5555</h3>
-						<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-							Aliquid fugiat consequatur quia, quam est laboriosam ab, ipsum
-							molestiae esse, voluptatibus dolore fuga asperiores? Inventore
-							voluptas debitis, voluptatibus rerum consequatur libero!</p>
-					</div>
-					<div class="time">
-						<h4>2020. 09. 30 (월)</h4>
-					</div>
-					<button class="deleteHistory" type="button">삭제</button>
-				</li>
-				<li>
-					<div class="content">
-						<h3>Lorem ipsum6666</h3>
-						<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-							Aliquid fugiat consequatur quia, quam est laboriosam ab, ipsum
-							molestiae esse, voluptatibus dolore fuga asperiores? Inventore
-							voluptas debitis, voluptatibus rerum consequatur libero!</p>
-					</div>
-					<div class="time">
-						<h4>2020. 09. 30 (월)</h4>
-					</div>
-					<button class="deleteHistory" type="button">삭제</button>
-				</li>
-				<li>
-					<div class="content">
-						<h3>Lorem ipsu7777m</h3>
-						<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-							Aliquid fugiat consequatur quia, quam est laboriosam ab, ipsum
-							molestiae esse, voluptatibus dolore fuga asperiores? Inventore
-							voluptas debitis, voluptatibus rerum consequatur libero!</p>
-					</div>
-					<div class="time">
-						<h4>2020. 09. 30 (월)</h4>
-					</div>
-					<button class="deleteHistory" type="button">삭제</button>
-				</li>
+				<c:if test="${list ne null}">
+					<c:forEach var="dto" items="${list}">
+						<li>
+							<div class="content">
+								<h3 data-no="${dto.no }">${dto.title }</h3>
+								<p data-no="${dto.no }"> ${dto.content }</p>
+							</div>
+							<div class="time">
+								<h4 data-no="${dto.no }" data-time="${dto.time }">${dto.stringTime }</h4>
+							</div>
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<!-- 관리자일 경우에만 삭제 버튼 노출 -->
+								<button data-no="${dto.no }" class="updateHistory" type="button">수정</button>
+								<button data-no="${dto.no }" class="deleteHistory" type="button">삭제</button>
+							</sec:authorize>
+						</li>
+					</c:forEach>
+				</c:if>
 				<div style="clear: both"></div>
 			</ul>
 		</div>
@@ -120,7 +56,9 @@
 		이 페이지는<a href="https://www.youtube.com/watch?v=X6aMWDDJlJg">강의</a>를
 		참고하였습니다<br />
 	</div>
+	
 	<jsp:include page="/WEB-INF/views/kh/template/footer.jsp" />
+	
 </body>
 
 </html>

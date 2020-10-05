@@ -22,6 +22,28 @@ public class RichDAOImpl implements RichDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	// 프로젝트 소개
+	@Override
+	public int createHistory(HistoryDTO historyDTO) {
+		return sqlSession.insert("richSQL.createHistory", historyDTO);
+	}
+	
+	@Override
+	public List<HistoryDTO> getHistories() {
+		return sqlSession.selectList("richSQL.getHistories");
+	}
+
+	@Override
+	public int updateHistory(HistoryDTO historyDTO) {
+		return sqlSession.update("richSQL.updateHistory", historyDTO);
+	}
+
+	@Override
+	public int deleteHistory(HistoryDTO historyDTO) {
+		return sqlSession.delete("richSQL.deleteHistory", historyDTO);
+	}
+	
+	
 	// 방문자 기록
 	@Override
 	public int logVisitor(VisitorDTO visitorDTO) {
@@ -209,5 +231,6 @@ public class RichDAOImpl implements RichDAO {
 	public List<NotDTO> getGroupSchedules(int gno) {
 		return sqlSession.selectList("richSQL.getGroupSchedules", gno);
 	}
+
 	// END OF SCHEDULES
 }

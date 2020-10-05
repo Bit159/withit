@@ -222,7 +222,7 @@ svg[id="mobile_hamburger"]>path {
 	</div>
 	
 	<!-- 햄버거 -->
-	<i data-menu="0" id="mobile_hamburger" class="fas fa-bars fa-3x" onclick="open_close()"></i>
+	<i data-menu="0" id="mobile_hamburger" class="fas fa-bars fa-3x" onclick="mobile_open_close()"></i>
 	
 	<div id="loginBar">
 		<!-- 비로그인 : PC -->
@@ -302,7 +302,7 @@ svg[id="mobile_hamburger"]>path {
 				<a href="/admin"><li class="mobile_li"><div><i class="fas fa-user-cog"></i>&nbsp;&nbsp;관리자 메뉴</div></li></a>
 			</sec:authorize>
 			<!-- 공통 -->
-			<a href="javascript:document.logout.submit()"><li class="mobile_li"><div><i class="fas fa-sign-out-al"></i>&nbsp;&nbsp;로그아웃</div></li></a>
+			<a href="javascript:document.logout.submit()"><li class="mobile_li"><div><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;로그아웃</div></li></a>
 		</sec:authorize>
 	</ul>
 </div>
@@ -310,26 +310,32 @@ svg[id="mobile_hamburger"]>path {
 <script>
 	let swForMobile = "0";
 
-	function open_close() {
-		if(swForMobile === "0") open();
-		else close();
+	function mobile_open_close() {
+		if(swForMobile === "0") mobile_open();
+		else mobile_close();
 	}
 	
-	function open() {
+	function mobile_open() {
 		document.querySelector('div#mobile_menu').style.left="0px";
 		swForMobile = "1";
 	}
 	
-	function close() {
+	function mobile_close() {
 		document.querySelector('div#mobile_menu').style.left="-255px";
 		swForMobile = "0";
 	}
 	
 	//클릭 대상이 햄버거 버튼이 아니고, 모바일 메뉴 안의 요소가 아닐 경우  => 모바일 메뉴 닫기
 	window.addEventListener('click', (e)=>{
+		//햄버거 버튼을 누른 게 아니고
 		if(!document.querySelector('svg[id="mobile_hamburger"]').contains(e.target)) {
+			//모바일 메뉴 버튼중 하나를 누른게 아니고
 			if(!document.querySelector('div[id="mobile_menu"]').contains(e.target)) {
-				close();	
+				//모바일 메뉴가 열려있는 상태라면
+				if(document.querySelector('div[id="mobile_menu"]').style.left==="0px"){
+					//모바일 메뉴를 닫아라
+					mobile_close();	
+				}
 			}
 		}
 	});

@@ -1,10 +1,5 @@
 let times = document.querySelectorAll(".time>h4");
-  times.forEach((e) => {
-    e.innerText = `${new Date().toLocaleDateString()} (${getDayInKorean(
-      new Date().getDay()
-    )})`;
-    e.dataset.created = new Date();
-  });
+
 
   //관리자 로그인했을 때 커서를 포인터로 변경하고 클릭해서 수정할 수 있게 해주는 함수
   function setCursor() {

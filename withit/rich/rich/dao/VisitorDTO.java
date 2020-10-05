@@ -16,5 +16,11 @@ public class VisitorDTO {
 	private Date time;
 	private String locale;
 	private Date dbtime;
+	private String browser;
+	private String referer;
+	private String os;
+	private int width;
+	private int height;
+	private String useragnet;
 
 }

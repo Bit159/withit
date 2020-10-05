@@ -5,6 +5,26 @@
 
 <mapper namespace="richSQL">
 
+	<!-- 프로젝트 소개 -->
+	<insert id="createHistory" parameterType="rich.dao.HistoryDTO">
+		INSERT INTO db.history(`time`, `title`, `content`, `username`)
+		VALUES(#{time}, #{title}, #{content}, #{username})
+	</insert>
+	
+	<select id="getHistories" resultType="rich.dao.HistoryDTO">
+		SELECT * FROM db.history ORDER BY `time` ASC
+	</select>
+	
+	<update id="updateHistory" parameterType="rich.dao.HistoryDTO">
+		UPDATE db.history SET `time`=#{time}, `title`=#{title}, `content`=#{content}, `updated`=NOW(), `username`=#{username}
+		WHERE `no`=#{no}
+	</update>
+	
+	<delete id="deleteHistory" parameterType="rich.dao.HistoryDTO">
+		DELETE db.history WHERE `no`=#{no}
+	</delete>
+	
+
 	<!-- 방문자 기록 -->
 	<insert id="logVisitor" parameterType="rich.dao.VisitorDTO" >
 		INSERT INTO db.visitors(`username`, `ip`, `time`, `locale`) VALUES(#{username}, #{ip}, #{time}, #{locale})

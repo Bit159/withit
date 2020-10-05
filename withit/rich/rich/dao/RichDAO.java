@@ -51,5 +51,11 @@ public interface RichDAO {
 	public abstract String getIconTagByTopic(String topic);
 
 	//방문자 기록
-	public abstract int logVisitor(VisitorDTO visitorDTO); 
+	public abstract int logVisitor(VisitorDTO visitorDTO);
+	
+	//프로젝트 소개
+	public abstract List<HistoryDTO> getHistories();
+	public abstract int createHistory(HistoryDTO historyDTO);
+	public abstract int updateHistory(HistoryDTO historyDTO);
+	public abstract int deleteHistory(HistoryDTO historyDTO);
 }

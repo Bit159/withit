@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -29,8 +31,10 @@ import hj.member.bean.MatchDTO;
 import hj.member.bean.MatchedDTO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import rich.dao.HistoryDTO;
 import rich.dao.RichDAO;
 import rich.notify.NotDTO;
+import sun.util.resources.cldr.ko.CalendarData_ko_KR;
 
 @Controller
 public class RichController {
@@ -40,21 +44,27 @@ public class RichController {
 	@Autowired
 	private MemberService memberService;
 	
-	public static void main(String[] args) {
-		
-		System.out.println(System.getProperty("os.name").toLowerCase().indexOf("windows"));
-		
-	}
-	
-	//타임라인
+	// 프로젝트소개
 	@GetMapping("/history")
-	public ModelAndView history() {
+	public ModelAndView history(Locale locale) {
 		ModelAndView mav = new ModelAndView();
-
+		List<HistoryDTO> list = richDAO.getHistories();
+		for(HistoryDTO dto : list) {
+			System.out.println(dto.getTime());
+			String result = "";
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy. MM. dd");
+			result = sdf.format(dto.getTime());
+			result += " (";
+			Calendar c = Calendar.getInstance();
+			c.setTime(dto.getTime());
+			result += c.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, locale); 
+			result += ")";
+			dto.setStringTime(result);
+		}
+		mav.addObject("list", list);
 		mav.setViewName("rich/all/history");
 		return mav;
 	}
-	
 	
 	//파일을 업로드하는 페이지
 	@GetMapping("/upload")
