@@ -24,6 +24,7 @@
 		<security:intercept-url pattern="/qna/qna*" access="hasRole('ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/myPage" access="hasRole('ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/upload" access="hasRole('ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/freeBoard/writeForm" access="hasRole('ROLE_MEMBER')"/>
 		
 		
 		<security:form-login login-page="/loginForm" authentication-success-handler-ref="loginHandler"/>
