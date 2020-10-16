@@ -1,8 +1,8 @@
-let csrfHeaderName = "${_csrf.headerName}";
-let csrfTokenValue = "${_csrf.token}";
+let csrfHeaderName = document.getElementById("_csrf.headerName").value;
+let csrfTokenValue = document.getElementById("_csrf.token").value;
 let messages = document.getElementById("messages");
 let chattingRoomNum = chattingRoom.id;
-let username = '${username}'
+let username = document.querySelector("input[name=username]").value;
 let stompClient = null;
 let list_wrap = document.getElementById('chat_list_wrap');
 let contentCover = document.getElementById('contentCover');
@@ -10,22 +10,23 @@ let contentCover = document.getElementById('contentCover');
 //======================================================== 채팅방 리스트 가져오기
 
 $(document).ready(function(){
-	connect(chattingRoomNum);
-	
 	$.ajax({
 		type : 'post',
 		beforeSend: function(xhr){
     		xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
     	},
 		url  : '/member/getChattingRoom',
-		data : 'username=' + '${username}',
+		data : 'username=' + username,
 		dataType : 'json',
 		success : function(data){
+			connect(chattingRoomNum);
 			$.each(data.list, function(index, items){
-				document.getElementById("chattingRoomList").innerHTML += "<li id='" + items.chattingRoom + "' onclick='getChatting(" + items.chattingRoom + ")'><table><tr><td class='profile_td'><img src='/resources/image/chatting.png'/></td>"
-																		+ "<td class='chat_td'><div class='chat_name'>" + items.chattingRoom + "</div><div class='email'>" + items.nickname + "</div><div class='chat_preview'>" + items.chat + "</div></td>"
-																		+ "<td class='time_td'><div class='time'>" + items.chat_date + "</div><div id='" + items.chattingRoom + "_check'></div></td></tr></table></li>";
+				document.getElementById("chattingRoomList").innerHTML += "<li id='" + items.chattingRoom + "' onclick='getChatting(" + items.chattingRoom + ")'><table><tr><td class='profile_td'><img src='/resources/bj/image/chatting.png'/></td>"
+																		+ "<td class='chat_td'><div class='chat_name'>" + items.chattingRoom + "</div><div id='" + items.chattingRoom + "_email' class='email'>" + items.nickname + "</div><div id='" + items.chattingRoom + "_chat_preview' class='chat_preview'>" + items.chat + "</div></td>"
+																		+ "<td class='time_td'><div id='" + items.chattingRoom + "_time' class='time'>" + items.chat_date + "</div><div id='" + items.chattingRoom + "_check'></div></td></tr></table></li>";
+
 				connect(items.chattingRoom);														
+
 			});
 			
 		},
@@ -39,9 +40,9 @@ $(document).ready(function(){
     	url : '/member/getAllChatting',
     	dataType : 'json',
     	success : function(data){
-    		document.getElementById("email").innerHTML += data.chattingRoomDTO.nickname;
-    		document.getElementById("time").innerHTML += data.chattingRoomDTO.chat_date;
-    		document.getElementById("chat_preview").innerHTML += data.chattingRoomDTO.chat;
+    		document.getElementById("chattingRoom_email").innerHTML += data.chattingRoomDTO.nickname;
+    		document.getElementById("chattingRoom_time").innerHTML += data.chattingRoomDTO.chat_date;
+    		document.getElementById("chattingRoom_chat_preview").innerHTML += data.chattingRoomDTO.chat;
     	}
 	});
 });
@@ -113,7 +114,9 @@ function connect(chattingRoom){
 	let socket = new SockJS('/chat');
 	stompClient = Stomp.over(socket);
 	stompClient.connect({}, function(){
-		stompClient.subscribe('/topic/' + chattingRoom, onMessageReceived); 
+		setTimeout(function(){
+			stompClient.subscribe('/topic/' + chattingRoom, onMessageReceived); 
+		}, 500);
 		/* 
 		첫번째 매개변수는 구독할 주소를 말하고
 		두번째 매개변수는 메시지를 받았을 때 수행할 메소드를 넣으면 된다.
@@ -121,11 +124,16 @@ function connect(chattingRoom){
 	});
 }
 
+//======================================================= 메시지 보내기
+
 function send(data){
 	let chat = document.getElementById('messageInput').value;
 	
-	stompClient.send("/app/message", {}, JSON.stringify({'nickname' : '${nickname}', 'chat' : chat, 'chattingRoom' : data.id, 'username' : username }))
+	if(chat == null || chat == ""){
+		return;
+	}
 	
+	stompClient.send("/app/message", {}, JSON.stringify({'nickname' : '${nickname}', 'chat' : chat, 'chattingRoom' : data.id, 'username' : username }))
 	document.getElementById("messageInput").value="";
 	
 	/*
@@ -135,6 +143,8 @@ function send(data){
 	*/
 }
 
+//============================================================ 웹소켓 연결 끊기
+
 function disconnect() {
     if (stompClient != null) {
         stompClient.disconnect();
@@ -143,17 +153,17 @@ function disconnect() {
     console.log("Disconnected");
 }
 
+//============================================================= 메시지 받았을 때 수행하는 메서드
+
 function onMessageReceived(payload){
-	let chat_preview = document.getElementById('chat_preview');
-	let email = document.getElementById('email');
-	let time = document.getElementById('time');
-	
-	$('#chat_preview').empty();
-	$('#email').empty();
-	$('#time').empty();
-	
-	console.log(payload.chat);
 	let message = JSON.parse(payload.body);
+	let chat_preview = document.getElementById(message.chattingRoom + "_chat_preview");
+	let email = document.getElementById(message.chattingRoom + "_email");
+	let time = document.getElementById(message.chattingRoom + "_time");
+	
+	$('#' + message.chattingRoom + '_chat_preview').empty();
+	$('#' + message.chattingRoom + '_email').empty();
+	$('#' + message.chattingRoom + '_time').empty();
 	
 	if(username == message.username){
 		messages.innerHTML += "<div class='myMessage'><span class='message'>" + message.chat + "</span>"
@@ -177,8 +187,23 @@ function onMessageReceived(payload){
 		document.getElementById(message.chattingRoom + '_check').innerHTML += "<p id='check'></p>";
 	}
 	
+	if(document.getElementById('modal').style.display == 'none'){
+		console.log(message.chattingRoom);
+		toastr.options = {
+				closeButton : true,
+				onclick: function(){
+					$('#modal').fadeIn();
+					$('#chatting').fadeOut();
+				},
+				timeOut : 5000
+		}
+		toastr.success(message.chat, message.nickname);
+	}
+	
 	document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
 }
+
+//========================================================= 엔터키 설정
 
 function enterKey(data){
 	if(window.event.keyCode == 13){
@@ -199,17 +224,20 @@ let span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal 
 chatting.onclick = function() {
-	modal.style.display = "block";
+	$('#modal').fadeIn();
+	$('#chatting').fadeOut();
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-    modal.style.display = "none";
+	$('#modal').fadeOut();
+	$('#chatting').fadeIn();
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+    	$('#modal').fadeOut();
+    	$('#chatting').fadeIn();
     }
 }

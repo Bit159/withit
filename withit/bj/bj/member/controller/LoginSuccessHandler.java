@@ -23,7 +23,6 @@ import bj.member.service.MemberService;
 public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	@Autowired
 	private MemberService memberService;
-
 	
 	// 로그인 성공시 redirect 처리 by rich 2020.10.07
 	// 참고 출처 : https://to-dy.tistory.com/94

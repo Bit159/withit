@@ -44,7 +44,6 @@ public class MemberController{
 	@PostMapping("/loginCheck")
 	@ResponseBody
 	public String loginCheck(@RequestParam Map<String, String> map) {
-		System.out.println(map.get("username"));
 		String result = memberService.loginCheck(map);
 		return result;
 	}
@@ -98,11 +97,9 @@ public class MemberController{
 	
 	@PostMapping("/member/getChattingRoom")
 	@ResponseBody
-	public ModelAndView getChattingRoom(@RequestParam String username, HttpSession session) {
+	public ModelAndView getChattingRoom(@RequestParam String username) {
 		ModelAndView mav = new ModelAndView();
-		List<ChattingRoomDTO> list = memberService.getChattingRoom(username);
-		
-		session.setAttribute("chattingCheck", "create");	
+		List<ChattingRoomDTO> list = memberService.getChattingRoom(username);	
 		
 		for(ChattingRoomDTO dto : list) {
 			ChattingDTO chattingDTO = memberService.getLastChatting(dto.getChattingRoom());

@@ -1,7 +1,7 @@
 package bj.member.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -19,10 +19,11 @@ public class StompSocketController {
 	private MemberService memberService;
 	
 	@MessageMapping("/message")
-	public void send(ChattingDTO chattingDTO) {
-		Date date = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-		chattingDTO.setChat_date(format.format(date));
+	public void send(ChattingDTO chattingDTO) {	
+		LocalDateTime date = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+		
+		chattingDTO.setChat_date(formatter.format(date));
 		
 		memberService.sendMessage(chattingDTO);
 		simpMessagingTemplate.convertAndSend("/topic/" + chattingDTO.getChattingRoom(), chattingDTO);
