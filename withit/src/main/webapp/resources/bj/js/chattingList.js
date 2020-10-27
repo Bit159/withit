@@ -3,6 +3,7 @@ let csrfTokenValue = document.getElementById("_csrf.token").value;
 let messages = document.getElementById("messages");
 let chattingRoomNum = chattingRoom.id;
 let username = document.querySelector("input[name=username]").value;
+let nickname = document.querySelector("input[name=nickname]").value;
 let stompClient = null;
 let list_wrap = document.getElementById('chat_list_wrap');
 let contentCover = document.getElementById('contentCover');
@@ -133,7 +134,7 @@ function send(data){
 		return;
 	}
 	
-	stompClient.send("/app/message", {}, JSON.stringify({'nickname' : '${nickname}', 'chat' : chat, 'chattingRoom' : data.id, 'username' : username }))
+	stompClient.send("/app/message", {}, JSON.stringify({'nickname' : nickname, 'chat' : chat, 'chattingRoom' : data.id, 'username' : username }))
 	document.getElementById("messageInput").value="";
 	
 	/*

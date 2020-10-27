@@ -9,6 +9,7 @@
 <script defer type="text/javascript" src="/resources/bj/js/toastr.min.js"></script>
 <sec:authentication property="principal.username" var="username"/>
 <input type="hidden" name="username" value="${username}"/>
+<input type="hidden" name="nickname" value="${nickname }"/>
 <input type="hidden" id="_csrf.token" value="${_csrf.token}"/>
 <input type="hidden" id="_csrf.headerName" value="${_csrf.headerName}"/>
 <div class="modal" id="modal" style="display:none;">
