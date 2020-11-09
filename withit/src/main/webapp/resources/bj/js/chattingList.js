@@ -79,7 +79,7 @@ function getChatting(chattingRoom){
 		data : 'chattingRoom=' + chattingRoom.id,
 		dataType : 'json',
 		success : function(data){
-			document.getElementById('chatHeader').innerHTML += chattingRoom.id + "<span id='close' onclick='roomList()' style='cursor: pointer;'>&times;</span>";
+			document.getElementById('chatHeader_ul').innerHTML += chattingRoom.id + "<span id='close' onclick='roomList()' style='cursor: pointer;'>&times;</span>";
 			
 			$.each(data.list, function(index, items){
 				if(username == items.username) {
@@ -101,7 +101,7 @@ function getChatting(chattingRoom){
 }
 
 function roomList(){
-	$('#chatHeader').empty();
+	$('#chatHeader_ul').empty();
 	$('#messages').empty();
 	$('p#check').remove();
 	

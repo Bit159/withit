@@ -61,7 +61,9 @@
 		<div id="contentCover" align="center" style="display:none;">
 		    <div id="chatWrap">
 		        <div id="chatHeader">
-					
+					<ul id="chatHeader_ul" style="cursor:pointer;">
+						<li id="li" class="hide">채팅방 나가기</li>
+					</ul>
 		        </div>
 		        <div id="messages">
 		            
@@ -74,8 +76,47 @@
 		</div>
 	</div>
 </div>
+<div id="contextMenu" style="display:none;">
+	<ul>
+		<li>메뉴1</li>
+		<li>메뉴2</li>
+	</ul>
+</div>
 <img id="chatting" src="/resources/bj/image/chatting_floating.png" width="70" height="70" style="position:fixed; top: 85%; right : 4%; cursor:pointer;">
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script> -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="/resources/bj/js/chattingList.js"></script>
+<script>
+$(document).ready(function(){
+    $("#chatHeader_ul").click(function(){
+        //$(this).next("ul").toggleClass("hide");
+        $("#li").toggleClass("hide");
+    });
+});
+
+function handleCreateContextMenu(event){
+	event.preventDefault();
+	
+	const contextMenu = document.getElementById("contextMenu");
+	
+	contextMenu.style.display = 'block';
+	
+	contextMenu.style.top = event.pageY + "px";
+	contextMenu.style.left = event.pageX + "px";
+	
+}
+
+function handleClearContextMenu(event){
+	const contextMenu = document.getElementById("contextMenu");
+	
+	contextMenu.style.display = 'none';
+	contextMenu.style.top = null;
+	contextMenu.style.left = null;
+	
+}
+
+document.addEventListener('contextmenu', handleCreateContextMenu, false);
+document.addEventListener('click', handleClearContextMenu, false);
+
+</script>
