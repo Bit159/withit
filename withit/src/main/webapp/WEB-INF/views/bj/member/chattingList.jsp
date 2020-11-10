@@ -95,7 +95,7 @@ $(document).ready(function(){
     });
 });
 
-function handleCreateContextMenu(event){
+/*function handleCreateContextMenu(event){
 	event.preventDefault();
 	
 	const contextMenu = document.getElementById("contextMenu");
@@ -118,5 +118,6 @@ function handleClearContextMenu(event){
 
 document.addEventListener('contextmenu', handleCreateContextMenu, false);
 document.addEventListener('click', handleClearContextMenu, false);
+*/
 
 </script>
